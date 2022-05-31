@@ -1,0 +1,8 @@
+.custom_button {
+  color: #ffffff;
+  background-color: #436062;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 4px 6px 10px #d1cbc6;
+  cursor: pointer;
+}

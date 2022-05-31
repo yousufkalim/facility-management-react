@@ -18,8 +18,8 @@ export function UpdateStore() {
 export function StoreProvider({ children }) {
   // Initializing State
   let [store, setStore] = useState({
-    loggedIn: false,
-    user: {},
+    isSideBar: true,
+    sideBarSelectIndex: 0,
   });
 
   const updateStore = (data) => {
@@ -34,9 +34,7 @@ export function StoreProvider({ children }) {
   // Render
   return (
     <storeContext.Provider value={store}>
-      <storeUpdateContext.Provider value={updateStore}>
-        {children}
-      </storeUpdateContext.Provider>
+      <storeUpdateContext.Provider value={updateStore}>{children}</storeUpdateContext.Provider>
     </storeContext.Provider>
   );
 }

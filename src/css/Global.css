@@ -1,0 +1,64 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  /* overflow: hidden !important; */
+}
+
+.container-page {
+  overflow: hidden !important;
+}
+
+.container-page-vertical {
+  width: 100vw;
+  overflow-y: auto !important;
+}
+
+.container-page-horizontal {
+  height: 100vh;
+  overflow-x: auto !important;
+}
+
+/* Hide scrollbars */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide number input arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Defaults */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Poppins !important;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* MUI Default Border */
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+/* Primary Variables */
+:root {
+  --primary: "#CC8E9C";
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}

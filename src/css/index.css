@@ -1,14 +1,7 @@
 /* Importing all CSS files */
-@import url("./Header.css");
-
-/* Defaults */
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-/* Primary Variables */
-:root {
-  --primary: "green";
-}
+@import url("./components/index.css");
+@import url("./containers/index.css");
+@import url("./Global.css");
+@import url("./Random.css");
+@import url("./Reset.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");

@@ -1,0 +1,29 @@
+.custom_input_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.custom_input_label {
+  color: #436062;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.custom_input_input {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border-color: #436062;
+  border-style: solid;
+  border-width: 1.5px;
+  border-radius: 10px;
+}
+
+.custom_input_eye_img {
+  position: absolute;
+  top: 13px;
+  right: 1%;
+}

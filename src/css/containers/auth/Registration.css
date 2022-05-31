@@ -1,0 +1,7 @@
+.registration_screen_row2_row1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
