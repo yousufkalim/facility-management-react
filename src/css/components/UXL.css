@@ -1,0 +1,11 @@
+.uxl_top {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.uxl_children_container {
+  height: 100%;
+  width: 100%;
+}

@@ -18,6 +18,20 @@
   overflow-x: auto !important;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 /* Hide scrollbars */
 ::-webkit-scrollbar {
   display: none;

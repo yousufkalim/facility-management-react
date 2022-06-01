@@ -13,6 +13,8 @@ import SBEventsUnselectedSVG from "../assets/SBEventsUnselected.svg";
 
 import { Store, UpdateStore } from "../StoreContext";
 
+import { useSpring, animated } from "react-spring";
+
 const svgArr = [
   {
     selected: SBDashboardSelectedSVG,
@@ -40,13 +42,16 @@ function SideBar({ color, sticky = true, divStyle }) {
   const store = Store();
   const updateStore = UpdateStore();
 
+  const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
+
   return (
-    <div
+    <animated.div
       className="sidebar_container"
       style={{
         backgroundColor: color ?? "#2F696D",
         position: sticky ? "fixed" : "inherit",
         ...divStyle,
+        ...animationProps,
       }}
     >
       <div className="sidebar_top">
@@ -64,7 +69,7 @@ function SideBar({ color, sticky = true, divStyle }) {
           ))}
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
 

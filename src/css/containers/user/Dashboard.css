@@ -1,6 +1,46 @@
-.dasboard_screen_top {
-  display: flex;
-  flex-direction: row;
+/* Screen Components */
+
+/* Dashboard Screen - Main List */
+.ds_ml_container {
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 300pt;
   height: 100%;
+  overflow-y: scroll;
+  background-color: #ffffff;
+}
+
+/* Dashboard Screen - Side List */
+.ds_sl_container {
+  width: 300pt;
+  height: 100%;
+  background-color: #f4f4f4;
+}
+
+.ds_sl_header_container {
+  justify-content: center;
+  align-items: center;
+  height: 40pt;
   width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.ds_sl_header_text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Dashboard Screen - Ticket List Tile */
+.ds_tlt_container {
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 140pt !important;
+  height: auto;
+  width: 100%;
+  padding: 5% 5%;
+  background-color: #f4f4f4;
+  border-radius: 20px;
+  margin-bottom: 4%;
 }
