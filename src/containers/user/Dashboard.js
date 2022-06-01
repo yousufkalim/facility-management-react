@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import { Modal } from "@mui/material";
+
 import TagBuildingSVG from "../../assets/TagBuilding.svg";
 
 import TicketTextSVG from "../../assets/TicketText.svg";
@@ -13,6 +15,7 @@ import User1AvatarSVG from "../../assets/User1Avatar.png";
 import User2AvatarSVG from "../../assets/User2Avatar.png";
 
 import UXL from "../../components/UXL";
+import TicketDetailModal from "../../components/modals/TicketDetail";
 
 const tags = [
   {
@@ -224,8 +227,18 @@ function DashboardScreen() {
 }
 
 function TicketListTile(props) {
+  const [isTicketDetailModal, setIsTicketDetailModal] = useState(false);
+  const handleIsTicketDetailModalClose = () => {
+    setIsTicketDetailModal(false);
+  };
+  const handleIsTicketDetailModalOpen = () => {
+    if (!isTicketDetailModal) {
+      setIsTicketDetailModal(true);
+    }
+  };
+
   return (
-    <div className="column ds_tlt_container">
+    <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
       <div
         className="row"
         style={{
@@ -342,6 +355,9 @@ function TicketListTile(props) {
           <img src={TicketCommentSVG} style={{ height: "20px", width: "20px" }} />
         </div>
       </div>
+      <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
+        <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
+      </Modal>
     </div>
   );
 }
