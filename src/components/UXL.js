@@ -10,7 +10,7 @@ import { Store, UpdateStore } from "../StoreContext";
 /**
  * User Experience Layout
  */
-function UXL({ disableAppBar = false, disableSideBar = false, children }) {
+function UXL({ appBarText, disableAppBar = false, disableSideBar = false, children }) {
   const { t } = useTranslation();
 
   const store = Store();
@@ -18,7 +18,7 @@ function UXL({ disableAppBar = false, disableSideBar = false, children }) {
 
   return (
     <div className="container-page-horizontal">
-      {!disableAppBar ? <AppBar text="Dashboard" /> : <></>}
+      {!disableAppBar ? <AppBar text={appBarText} /> : <></>}
       <div className="container">
         <div className="uxl_top">
           {store.isSideBar && !disableSideBar ? <SideBar /> : <></>}

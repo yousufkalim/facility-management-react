@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import SBDashboardSelectedSVG from "../assets/SBDashboardSelected.svg";
 import SBDashboardUnselectedSVG from "../assets/SBDashboardUnselected.svg";
 import SBStatisticsSelectedSVG from "../assets/SBStatisticsSelected.svg";
@@ -38,7 +40,22 @@ const svgArr = [
   },
 ];
 
+const handleNavigation = (navigate, index) => {
+  switch (index) {
+    case 0:
+      navigate("/dashboard");
+      break;
+    case 1:
+      navigate("/statistics");
+      break;
+    default:
+      break;
+  }
+};
+
 function SideBar({ color, sticky = true, divStyle }) {
+  const navigate = useNavigate();
+
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -64,6 +81,7 @@ function SideBar({ color, sticky = true, divStyle }) {
                 updateStore({
                   sideBarSelectIndex: __,
                 });
+                handleNavigation(navigate, __);
               }}
             />
           ))}
@@ -76,11 +94,11 @@ function SideBar({ color, sticky = true, divStyle }) {
 function SideBarMenuItem({ imgObj, isSelected, cb }) {
   return (
     <div
+      className="jcc"
       style={{
         height: "8vh",
         width: "100%",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
         backgroundColor: isSelected ? "#F4F4F4" : "transparent",
       }}
