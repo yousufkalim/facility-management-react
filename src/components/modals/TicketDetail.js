@@ -313,14 +313,7 @@ function CustomStepper() {
                 color: "#2F696D",
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ligula nunc, suscipit id vestibulum vel, gravida
-              tincid Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Vestibulum ligula nunc, suscipit id vestibulum vel, gravida tincid Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ligula nunc, suscipit id
-              vestibulum vel, gravida tincid Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Vestibulum ligula nunc, suscipit id vestibulum vel, gravida tincid Lorem ipsum dolor
-              sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ligula
-              nunc, suscipit id vestibulum vel, gravida tincid Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Lorem ipsum dolor sit amet, con
             </p>
           </div>
         </div>
