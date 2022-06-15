@@ -86,7 +86,7 @@ const tickets = [
 function DashboardScreen() {
   const { t } = useTranslation();
   return (
-    <UXL>
+    <UXL appBarText="Dashboard">
       <div
         className="row uxl_children_container"
         style={{
@@ -337,10 +337,9 @@ function TicketListTile(props) {
         </div>
 
         <div
-          className="row"
+          className="row jcc"
           style={{
             alignItems: "center",
-            justifyContent: "center",
           }}
         >
           <p
