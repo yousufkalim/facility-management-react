@@ -23,7 +23,7 @@ function UXL({ appBarText, disableAppBar = false, disableSideBar = false, childr
         <div className="uxl_top">
           {store.isSideBar && !disableSideBar ? <SideBar /> : <></>}
           <div
-            className="uxl_children_container"
+            className="wh100"
             style={{
               marginTop: !disableAppBar ? "7vh" : "0",
               marginLeft: store.isSideBar && !disableSideBar ? "4vw" : "0",

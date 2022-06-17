@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Tag from "../Tag";
+
 import ModalCrossSVG from "../../assets/ModalCross.svg";
 import CommentAttachmentSVG from "../../assets/CommentAttachment.svg";
 import CommentSendSVG from "../../assets/CommentSend.svg";
@@ -239,30 +241,6 @@ function TicketDetailModal(props) {
           <CustomStepper />
         </div>
       </div>
-    </div>
-  );
-}
-
-function Tag({ text, color, divStyle, pStyle }) {
-  return (
-    <div
-      className="row"
-      style={{
-        borderRadius: "20px",
-        backgroundColor: color,
-        ...divStyle,
-      }}
-    >
-      <p
-        style={{
-          fontSize: "12px",
-          whiteSpace: "nowrap",
-          padding: "5px",
-          ...pStyle,
-        }}
-      >
-        {text}
-      </p>
     </div>
   );
 }

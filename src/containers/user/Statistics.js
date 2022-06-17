@@ -34,6 +34,24 @@ const headArr = [
   },
 ];
 
+const footArr = [
+  {
+    title: "Bâtiment Rough",
+    color: "#9E2600",
+    value: 78,
+  },
+  {
+    title: "Bâtiment Bleu",
+    color: "#00109E",
+    value: 54,
+  },
+  {
+    title: "Bâtiment Jaune",
+    color: "#A8A91B",
+    value: 23,
+  },
+];
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const options = {
@@ -77,7 +95,7 @@ function StatisticsScreen() {
   return (
     <UXL appBarText="Statistics">
       <div
-        className="column uxl_children_container"
+        className="column wh100"
         style={{
           backgroundColor: "#F4F4F4",
           padding: "3% 2%",
@@ -106,13 +124,36 @@ function StatisticsScreen() {
           <Bar options={options} data={data} />
         </div>
         <div
-          className="w100"
+          className="column w100 jcc"
           style={{
             backgroundColor: "#FFFFFF",
             height: "30vh",
             borderRadius: "20px",
+            padding: "2%, 3%",
           }}
-        ></div>
+        >
+          <p style={{ marginLeft: "3%", marginBottom: "3%", color: "#4F4F4F", fontWeight: "600" }}>
+            Emplacement avec la plupart des tickets
+          </p>
+          <div className="column jcc w100">
+            {footArr.map((_) => (
+              <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
+                <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _.color, fontWeight: "600" }}>{_.title}</p>
+                <div
+                  style={{
+                    height: "10pt",
+                    width: `${5 * _.value}pt`,
+                    maxWidth: "50%",
+                    backgroundColor: _.color,
+                    borderRadius: "20px",
+                    paddingLeft: "6%",
+                  }}
+                />
+                <p style={{ paddingLeft: "3%", fontSize: "16px", color: _.color }}>{_.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </UXL>
   );

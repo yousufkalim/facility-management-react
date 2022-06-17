@@ -8,14 +8,18 @@ import TagBuildingSVG from "../../assets/TagBuilding.svg";
 
 import TicketTextSVG from "../../assets/TicketText.svg";
 import TicketSettingsSVG from "../../assets/TicketSettings.svg";
-
 import TicketCommentSVG from "../../assets/TicketComment.svg";
+import ModalCrossSVG from "../../assets/ModalCross.svg";
 
 import User1AvatarSVG from "../../assets/User1Avatar.png";
 import User2AvatarSVG from "../../assets/User2Avatar.png";
 
 import UXL from "../../components/UXL";
 import TicketDetailModal from "../../components/modals/TicketDetail";
+import CustomButton from "../../components/CustomButton";
+import Tag from "../../components/Tag";
+import SelectableTag from "../../components/SelectableTag";
+import CustomInput from "../../components/CustomInput";
 
 const tags = [
   {
@@ -85,144 +89,302 @@ const tickets = [
 
 function DashboardScreen() {
   const { t } = useTranslation();
+  const [renderAddTicket, setRenderAddTicket] = useState(false);
+  const handleRenderAddTicket = () => {
+    setRenderAddTicket(!renderAddTicket);
+  };
+
+  // Add Ticker State
+  const [section1, setSection1] = useState({
+    buildingIndex: "",
+    venueIndex: "",
+    categoryIndex: "",
+  });
+  const _setSection1 = (key, value) => {
+    const obj = {};
+    obj[key] = value;
+    setSection1({
+      ...section1,
+      ...obj,
+    });
+  };
   return (
-    <UXL appBarText="Dashboard">
+    <>
+      {console.log(section1)}
+      <UXL appBarText="Dashboard">
+        <TicketsScreen show={!renderAddTicket} />
+        <AddTicketScreen
+          show={renderAddTicket}
+          handleClose={handleRenderAddTicket}
+          section1={section1}
+          mutateSection1={_setSection1}
+        />
+        <CustomButton
+          text={`${!renderAddTicket ? "ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+          onClick={handleRenderAddTicket}
+          style={{
+            position: "absolute",
+            right: "20pt",
+            bottom: "20pt",
+          }}
+        />
+      </UXL>
+    </>
+  );
+}
+
+function TicketsScreen({ show }) {
+  return (
+    <div
+      className="row wh100"
+      style={{
+        display: show ? "flex" : "none",
+        backgroundColor: "#F4F4F4",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      {/* Nouveaux Billets */}
       <div
-        className="row uxl_children_container"
+        className="column ds_ml_container"
         style={{
-          justifyContent: "flex-start",
-          backgroundColor: "#F4F4F4",
-          overflow: "hidden",
+          padding: "2%",
         }}
       >
-        {/* Nouveaux Billets */}
-        <div
-          className="column ds_ml_container"
+        <p
           style={{
-            padding: "2%",
+            padding: "4% 0",
+            fontSize: "20px",
+            fontWeight: "600",
+            color: "#A9A9A9",
+          }}
+        >
+          Nouveaux Billets 5
+        </p>
+        {[1, 2, 3, 4, 5].map((_) => (
+          <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+        ))}
+      </div>
+
+      {/* En attente */}
+      <div
+        className="ds_sl_container"
+        style={{
+          padding: "3% 2%",
+        }}
+      >
+        <div
+          className="column ds_sl_header_container"
+          style={{
+            backgroundColor: "#5bd89c",
           }}
         >
           <p
+            className="ds_sl_header_text"
             style={{
               padding: "4% 0",
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "#A9A9A9",
             }}
           >
-            Nouveaux Billets 5
+            En attente 2
           </p>
+        </div>
+        <div
+          className="column ds_ml_container"
+          style={{
+            width: "100%",
+            padding: "2% 4%",
+          }}
+        >
           {[1, 2, 3, 4, 5].map((_) => (
             <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
           ))}
         </div>
+      </div>
 
-        {/* En attente */}
+      {/* En intervention */}
+      <div
+        className="ds_sl_container"
+        style={{
+          padding: "3% 2%",
+        }}
+      >
         <div
-          className="ds_sl_container"
+          className="column ds_sl_header_container"
           style={{
-            padding: "3% 2%",
+            backgroundColor: "#FF8C39",
           }}
         >
-          <div
-            className="column ds_sl_header_container"
+          <p
+            className="ds_sl_header_text"
             style={{
-              backgroundColor: "#5bd89c",
+              padding: "4% 0",
             }}
           >
-            <p
-              className="ds_sl_header_text"
-              style={{
-                padding: "4% 0",
-              }}
-            >
-              En attente 2
-            </p>
-          </div>
-          <div
-            className="column ds_ml_container"
-            style={{
-              width: "100%",
-              padding: "2% 4%",
-            }}
-          >
-            {[1, 2, 3, 4, 5].map((_) => (
-              <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-            ))}
-          </div>
+            En intervention 1
+          </p>
         </div>
-
-        {/* En intervention */}
         <div
-          className="ds_sl_container"
+          className="column ds_ml_container"
           style={{
-            padding: "3% 2%",
+            width: "100%",
+            padding: "2% 4%",
           }}
         >
-          <div
-            className="column ds_sl_header_container"
-            style={{
-              backgroundColor: "#FF8C39",
-            }}
-          >
-            <p
-              className="ds_sl_header_text"
-              style={{
-                padding: "4% 0",
-              }}
-            >
-              En intervention 1
-            </p>
-          </div>
-          <div
-            className="column ds_ml_container"
-            style={{
-              width: "100%",
-              padding: "2% 4%",
-            }}
-          >
-            {[1, 2, 3, 4, 5].map((_) => (
-              <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-            ))}
-          </div>
+          {[1, 2, 3, 4, 5].map((_) => (
+            <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+          ))}
         </div>
+      </div>
 
-        {/* Terminé */}
+      {/* Terminé */}
+      <div
+        className="ds_sl_container"
+        style={{
+          padding: "3% 2%",
+        }}
+      >
         <div
-          className="ds_sl_container"
+          className="column ds_sl_header_container"
           style={{
-            padding: "3% 2%",
+            backgroundColor: "#436062",
           }}
         >
-          <div
-            className="column ds_sl_header_container"
+          <p
+            className="ds_sl_header_text"
             style={{
-              backgroundColor: "#436062",
+              padding: "4% 0",
             }}
           >
-            <p
-              className="ds_sl_header_text"
-              style={{
-                padding: "4% 0",
-              }}
-            >
-              Terminé 10
-            </p>
+            Terminé 10
+          </p>
+        </div>
+        <div
+          className="column ds_ml_container"
+          style={{
+            width: "100%",
+            padding: "2% 4%",
+          }}
+        >
+          {[1, 2, 3, 4, 5].map((_) => (
+            <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
+  return (
+    <div
+      className="column wh100"
+      style={{
+        display: show ? "flex" : "none",
+        backgroundColor: "#FFFFFF",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      <div
+        className="row w100"
+        style={{
+          margin: "2% 0",
+        }}
+      >
+        <div style={{ flex: 1 }}></div>
+        <div className="row ajc" style={{ flex: 2 }}>
+          <p style={{ fontSize: "22px", fontWeight: "600", color: "#2F696D" }}>Ajouter un nouveau ticket</p>
+        </div>
+        <div className="row aic" style={{ flex: 1, justifyContent: "flex-end" }}>
+          <img
+            src={ModalCrossSVG}
+            style={{ height: "24px", width: "24px", marginRight: "8%", cursor: "pointer" }}
+            onClick={handleClose}
+          />
+        </div>
+      </div>
+      <div className="row wh100">
+        <div></div>
+        <div className="column wh100 aic">
+          <div className="column" style={{ marginBottom: "2%" }}>
+            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
+            <div className="row">
+              {[tags[3], tags[4], tags[5]].map((_, __) => (
+                <SelectableTag
+                  {..._}
+                  text={_.title}
+                  isSelected={section1.buildingIndex == __}
+                  onClick={() => mutateSection1("buildingIndex", __)}
+                  pStyle={{
+                    padding: "6pt",
+                  }}
+                />
+              ))}
+            </div>
           </div>
-          <div
-            className="column ds_ml_container"
-            style={{
-              width: "100%",
-              padding: "2% 4%",
-            }}
-          >
-            {[1, 2, 3, 4, 5].map((_) => (
-              <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-            ))}
+          <div className="row ajc w100">
+            <div className="column" style={{ marginBottom: "2%" }}>
+              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
+              <div className="row ajc">
+                {["Level A", "Level B", "Level C"].map((_, __) => (
+                  <SelectableTag
+                    text={_}
+                    isSelected={section1.venueIndex == __}
+                    onClick={() => mutateSection1("venueIndex", __)}
+                    pStyle={{
+                      padding: "6pt",
+                    }}
+                  />
+                ))}
+                <p
+                  style={{
+                    whiteSpace: "nowrap",
+                    cursor: "pointer",
+                    fontSize: "13px",
+                    color: "#B7B7B7",
+                    textDecoration: "underline",
+                    marginLeft: "10%",
+                  }}
+                >
+                  Show more
+                </p>
+              </div>
+            </div>
+            <div className="column" style={{ marginBottom: "2%", marginLeft: "3%" }}>
+              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
+              <CustomInput
+                labelStyle={{
+                  display: "none",
+                }}
+                enableYoursStyle={{
+                  display: "none",
+                }}
+                inputStyle={{
+                  padding: "5px",
+                }}
+              />
+            </div>
+          </div>
+          <div className="column" style={{ marginBottom: "2%" }}>
+            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie *</p>
+            <div className="row">
+              {["Plombière", "Électricité", "La gestion", "Personnelle", "Climatiseur", "Stationnement", "Bureau"].map(
+                (_, __) => (
+                  <SelectableTag
+                    text={_}
+                    isSelected={section1.categoryIndex == __}
+                    onClick={() => mutateSection1("categoryIndex", __)}
+                    pStyle={{
+                      padding: "6pt",
+                    }}
+                  />
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </UXL>
+    </div>
   );
 }
 
@@ -243,37 +405,17 @@ function TicketListTile(props) {
         className="row"
         style={{
           width: "100%",
-          justifyContent: "flex-start",
           marginBottom: "2%",
         }}
       >
         {props.tags.map((_) => (
-          <div
-            className="row"
-            style={{
-              borderRadius: "20px",
-              backgroundColor: _.color,
-              marginRight: "2%",
-              padding: "2%",
-            }}
-          >
-            {_.icon ? <img style={{ height: "14px", width: "14px", marginRight: "5%" }} src={_.icon} /> : <></>}
-            <p
-              style={{
-                fontSize: "12px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {_.title}
-            </p>
-          </div>
+          <Tag {..._} text={_.title} />
         ))}
       </div>
       <div
         className="row"
         style={{
           alignItems: "center",
-          justifyContent: "flex-start",
           width: "100%",
           marginBottom: "12%",
         }}
