@@ -5,7 +5,17 @@
   width: 100%;
 }
 
-.uxl_children_container {
+.uxl_children_container{
   height: 100%;
-  width: 100%;
+  /* width: 98%; */
+  position: fixed;
 }
+
+@media only screen and (max-width: 992px) {
+  .uxl_children_container{
+    position: relative;
+    width:100%;
+  }
+}
+
+

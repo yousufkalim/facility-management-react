@@ -13,6 +13,8 @@ import StatisticsHeadBlackSVG from "../../assets/StatisticsHeadBlack.png";
 import StatisticsHeadGreenSVG from "../../assets/StatisticsHeadGreen.png";
 import StatisticsHeadYellowSVG from "../../assets/StatisticsHeadYellow.png";
 
+import { Store, UpdateStore } from "../../StoreContext";
+
 const headArr = [
   {
     title: "tickets créés",
@@ -74,6 +76,7 @@ for (let i = 0; i < headArr.length; i++) {
 
 function StatisticsScreen() {
   const { t } = useTranslation();
+  const store = Store();
   return (
     <UXL appBarText="Statistics">
       <div
@@ -81,6 +84,7 @@ function StatisticsScreen() {
         style={{
           backgroundColor: "#F4F4F4",
           padding: "3% 2%",
+          width:store?.isSideBar?"97%":"100%"
         }}
       >
         <div

@@ -9,13 +9,17 @@ import TagBuildingSVG from "../../assets/TagBuilding.svg";
 import TicketTextSVG from "../../assets/TicketText.svg";
 import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 
-import TicketCommentSVG from "../../assets/TicketComment.svg";
+import TicketComment from "../../assets/Comment.svg";
 
 import User1AvatarSVG from "../../assets/User1Avatar.png";
 import User2AvatarSVG from "../../assets/User2Avatar.png";
 
 import UXL from "../../components/UXL";
 import TicketDetailModal from "../../components/modals/TicketDetail";
+
+import { Store, UpdateStore } from "../../StoreContext";
+
+import moment from 'moment'
 
 const tags = [
   {
@@ -85,6 +89,7 @@ const tickets = [
 
 function DashboardScreen() {
   const { t } = useTranslation();
+  const store = Store();
   return (
     <UXL appBarText="Dashboard">
       <div
@@ -93,6 +98,7 @@ function DashboardScreen() {
           justifyContent: "flex-start",
           backgroundColor: "#F4F4F4",
           overflow: "hidden",
+          width:store?.isSideBar?"97%":"100%"
         }}
       >
         {/* Nouveaux Billets */}
@@ -103,18 +109,14 @@ function DashboardScreen() {
           }}
         >
           <p
-            style={{
-              padding: "4% 0",
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "#A9A9A9",
-            }}
+          className="ds_ml_container_heading"
           >
             Nouveaux Billets 5
           </p>
           {[1, 2, 3, 4, 5].map((_) => (
             <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
           ))}
+            <div style={{marginTop:"30px"}}></div>
         </div>
 
         {/* En attente */}
@@ -139,19 +141,23 @@ function DashboardScreen() {
               En attente 2
             </p>
           </div>
+        
           <div
             className="column ds_ml_container"
             style={{
               width: "100%",
-              padding: "2% 4%",
+              padding: "8% 4%",
             }}
           >
             {[1, 2, 3, 4, 5].map((_) => (
               <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
             ))}
-          </div>
+            <div style={{marginTop:"45px"}}>
         </div>
-
+          </div>
+          
+        </div>
+        
         {/* En intervention */}
         <div
           className="ds_sl_container"
@@ -178,15 +184,17 @@ function DashboardScreen() {
             className="column ds_ml_container"
             style={{
               width: "100%",
-              padding: "2% 4%",
+              padding: "8% 4%",
             }}
           >
             {[1, 2, 3, 4, 5].map((_) => (
               <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
             ))}
+            <div style={{marginTop:"45px"}}>
+             </div>
           </div>
+          
         </div>
-
         {/* Terminé */}
         <div
           className="ds_sl_container"
@@ -213,15 +221,19 @@ function DashboardScreen() {
             className="column ds_ml_container"
             style={{
               width: "100%",
-              padding: "2% 4%",
+              padding: "8% 4%",
             }}
           >
             {[1, 2, 3, 4, 5].map((_) => (
               <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
             ))}
+              <div style={{marginTop:"45px"}}>
           </div>
         </div>
+      
+        </div>
       </div>
+      
     </UXL>
   );
 }
@@ -238,6 +250,7 @@ function TicketListTile(props) {
   };
 
   return (
+    <>
     <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
       <div
         className="row"
@@ -270,13 +283,7 @@ function TicketListTile(props) {
         ))}
       </div>
       <div
-        className="row"
-        style={{
-          alignItems: "center",
-          justifyContent: "flex-start",
-          width: "100%",
-          marginBottom: "12%",
-        }}
+        className="row ds_tlt_icon_text_container"
       >
         <img
           src={props.icon}
@@ -301,18 +308,15 @@ function TicketListTile(props) {
           fontSize: "13px",
           fontWeight: "600",
           color: "#8C8C8C",
+          paddingBottom:"2%"
         }}
       >
-        {new Date(props.createdAt).toLocaleDateString("en-US")}
+        {moment(props.createdAt).format('LT dddd D,MMM YYYY')}
+        {/* {moment(new Date(props.createdAt).format("D,MMM,YYYY"))} */}
+        {/* {new Date(props.createdAt).toLocaleDateString("en-US")} */}
       </p>
       <div
-        style={{
-          height: "1px",
-          width: "100%",
-          marginTop: "3%",
-          marginBottom: "3%",
-          backgroundColor: "#D5D5D5",
-        }}
+      className="divider"
       />
       <div
         className="row"
@@ -347,17 +351,21 @@ function TicketListTile(props) {
               color: "#8C8C8C",
               fontSize: "14px",
               marginRight: "20%",
+              paddingTop:"40%"
             }}
           >
             {props.comments_count}
           </p>
-          <img src={TicketCommentSVG} style={{ height: "20px", width: "20px" }} />
+          <img src={TicketComment} style={{ height: "28px", width: "20px", paddingTop:"40%" }} />
         </div>
       </div>
       <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
         <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
       </Modal>
     </div>
+    
+    </>
+    
   );
 }
 
