@@ -1,3 +1,4 @@
 /* Importing all CSS files */
 @import url("./auth/index.css");
 @import url("./user/index.css");
+@import url("./statistics/Statistics.css");

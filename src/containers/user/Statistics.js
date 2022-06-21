@@ -88,11 +88,7 @@ function StatisticsScreen() {
         }}
       >
         <div
-          className="row w100"
-          style={{
-            justifyContent: "space-between",
-            marginBottom: "2%",
-          }}
+          className="row w100 header_list_container"
         >
           {headArr.map((_) => (
             <HeaderListTile {..._} />
@@ -125,13 +121,8 @@ function StatisticsScreen() {
 function HeaderListTile(props) {
   return (
     <div
-      className="row aic"
-      style={{
-        backgroundColor: "#FEFEFE",
-        borderRadius: "20px",
-        width: "auto",
-        justifyContent: "space-between",
-      }}
+      className="row aic header_list_tile_container"
+      
     >
       <div
         className="column"

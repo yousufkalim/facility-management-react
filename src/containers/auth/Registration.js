@@ -72,16 +72,9 @@ function RegistrationScreen() {
         backgroundSize: "cover",
       }}
     >
-      <div className="login_screen_top">
+      <div className="reg_screen_top">
         <div
-          className="login_screen_row1"
-          style={{
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            marginLeft: "10%",
-            marginTop: "10%",
-            width: "30%",
-          }}
+          className="reg_screen_row1"
         >
           <p
             style={{
@@ -100,29 +93,25 @@ function RegistrationScreen() {
             Management
           </p>
           <p
-            style={{
-              paddingTop: "2%",
-              fontSize: "14px",
-              color: "%999999",
-            }}
+          className="welcome_note_fm"
           >
             Welcome to Facility Management, Please fill out this form to fresh start!
           </p>
         </div>
         <div
-          className="login_screen_row2"
-          style={{
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            width: "70%",
-          }}
+          className="reg_screen_row2"
+          // style={{
+          //   justifyContent: "flex-end",
+          //   alignItems: "flex-end",
+          //   width: "70%",
+          // }}
         >
           <div
-            className="login_screen_row2_container"
-            style={{
-              marginBottom: "10%",
-              width: "70%",
-            }}
+            className="reg_screen_row2_container"
+            // style={{
+            //   marginBottom: "10%",
+            //   width: "70%",
+            // }}
           >
             <CustomInput
               labelText={t("Name of Company")}

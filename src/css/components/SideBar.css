@@ -23,3 +23,10 @@
   justify-content: center;
   color: aquamarine;
 }
+
+
+@media only screen and (max-width: 667px) {
+  .sidebar_container {
+    width: 6vw;
+  }
+}
