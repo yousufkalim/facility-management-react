@@ -7,15 +7,20 @@ const api = async (method = "get", uri, body) => {
   const url = process.env.REACT_APP_SERVER_URL + uri;
   return new Promise((resolve, reject) => {
     axios[method](url, body)
-      .then((res) => resolve(res))
-      .catch((err) => {
-        if (err?.response?.status === 403) {
-          window.location = "/login";
+      .then((res) => {
+        if (res.data.success) {
+          resolve(res);
         } else {
-          console.log("API Error --------> ", err?.response?.status);
-          toast.error(err?.response?.data ? err.response.data : err?.message);
-          reject(err);
+          console.log("API Error --------> ", res);
+          const errors = Object.values(res?.data?.errors ?? {});
+          toast.error(errors?.[0]?.[0] ?? "Something bad happened");
+          reject(res);
         }
+      })
+      .catch((err) => {
+        console.log("API Error CATCH ->", err);
+        toast.error("Something went wrong.");
+        reject(err);
       });
   });
 };

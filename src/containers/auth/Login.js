@@ -8,8 +8,10 @@ import LoginBackgroundSVG from "../../assets/LoginBackground.png";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { toast } from "react-toastify";
 import * as FormValidations from "../../utils/Validations";
+import Api from "../../api/index";
+import { handleLogin } from "../../utils/Auth";
+import { toast } from "react-toastify";
 
 function LoginScreen() {
   const { t } = useTranslation();
@@ -45,13 +47,26 @@ function LoginScreen() {
     let response;
 
     try {
-      // setIsProcessing(true);
+      setIsProcessing(true);
+
+      const body = {
+        email: state.email,
+        password: state.password,
+      };
+
+      response = await Api("post", "/Login", body);
+      if (response?.data?.success) {
+        toast.success("Logged In");
+        handleLogin(response.data.token);
+        navToDashboard();
+      }
+
       console.log(state);
     } catch (e) {
       console.trace(e);
     }
 
-    // setIsProcessing(false);
+    setIsProcessing(false);
   };
 
   const navToDashboard = () => {

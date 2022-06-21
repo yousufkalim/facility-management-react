@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-
 import { useTranslation } from "react-i18next";
-
 import { Modal } from "@mui/material";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import TagBuildingSVG from "../../assets/TagBuilding.svg";
 
@@ -10,6 +9,7 @@ import TicketTextSVG from "../../assets/TicketText.svg";
 import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 import TicketCommentSVG from "../../assets/TicketComment.svg";
 import ModalCrossSVG from "../../assets/ModalCross.svg";
+import AttachmentSVG from "../../assets/Attachment.svg";
 
 import User1AvatarSVG from "../../assets/User1Avatar.png";
 import User2AvatarSVG from "../../assets/User2Avatar.png";
@@ -20,6 +20,9 @@ import CustomButton from "../../components/CustomButton";
 import Tag from "../../components/Tag";
 import SelectableTag from "../../components/SelectableTag";
 import CustomInput from "../../components/CustomInput";
+
+import { toast } from "react-toastify";
+import * as FormValidations from "../../utils/Validations";
 
 const tags = [
   {
@@ -89,39 +92,64 @@ const tickets = [
 
 function DashboardScreen() {
   const { t } = useTranslation();
+
   const [renderAddTicket, setRenderAddTicket] = useState(false);
   const handleRenderAddTicket = () => {
     setRenderAddTicket(!renderAddTicket);
   };
 
-  // Add Ticker State
-  const [section1, setSection1] = useState({
-    buildingIndex: "",
-    venueIndex: "",
-    categoryIndex: "",
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // Add Ticket State
+  const [state, setState] = useState({
+    // section 1
+    building_index: "",
+    venue_Index: "",
+    location_details: "",
+    // section 2
+    category_index: "",
+    title: "",
+    details: "",
+    // section 3
+    priority_index: "",
+    assignee_index: "",
   });
-  const _setSection1 = (key, value) => {
-    const obj = {};
-    obj[key] = value;
-    setSection1({
-      ...section1,
-      ...obj,
-    });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (isProcessing) {
+      return;
+    }
+
+    const isValidated = FormValidations.addTicket(state);
+
+    if (!isValidated) {
+      return;
+    }
+
+    let response;
+
+    try {
+      // setIsProcessing(true);
+      console.log(state);
+      handleRenderAddTicket();
+    } catch (e) {
+      console.trace(e);
+    }
+
+    // setIsProcessing(false);
   };
+
   return (
     <>
-      {console.log(section1)}
+      {console.log(state, "state")}
       <UXL appBarText="Dashboard">
         <TicketsScreen show={!renderAddTicket} />
-        <AddTicketScreen
-          show={renderAddTicket}
-          handleClose={handleRenderAddTicket}
-          section1={section1}
-          mutateSection1={_setSection1}
-        />
+        <AddTicketScreen show={renderAddTicket} handleClose={handleRenderAddTicket} state={state} setState={setState} />
         <CustomButton
-          text={`${!renderAddTicket ? "ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
-          onClick={handleRenderAddTicket}
+          text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+          onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
           style={{
             position: "absolute",
             right: "20pt",
@@ -144,137 +172,201 @@ function TicketsScreen({ show }) {
         position: "relative",
       }}
     >
-      {/* Nouveaux Billets */}
-      <div
-        className="column ds_ml_container"
-        style={{
-          padding: "2%",
+      {/* DragDrop Global Context */}
+      <DragDropContext
+        onDragEnd={(_) => {
+          console.log(_);
         }}
       >
-        <p
-          style={{
-            padding: "4% 0",
-            fontSize: "20px",
-            fontWeight: "600",
-            color: "#A9A9A9",
-          }}
-        >
-          Nouveaux Billets 5
-        </p>
-        {[1, 2, 3, 4, 5].map((_) => (
-          <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-        ))}
-      </div>
-
-      {/* En attente */}
-      <div
-        className="ds_sl_container"
-        style={{
-          padding: "3% 2%",
-        }}
-      >
-        <div
-          className="column ds_sl_header_container"
-          style={{
-            backgroundColor: "#5bd89c",
-          }}
-        >
-          <p
-            className="ds_sl_header_text"
-            style={{
-              padding: "4% 0",
-            }}
-          >
-            En attente 2
-          </p>
-        </div>
+        {/* Nouveaux Billets */}
         <div
           className="column ds_ml_container"
           style={{
-            width: "100%",
-            padding: "2% 4%",
-          }}
-        >
-          {[1, 2, 3, 4, 5].map((_) => (
-            <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-          ))}
-        </div>
-      </div>
-
-      {/* En intervention */}
-      <div
-        className="ds_sl_container"
-        style={{
-          padding: "3% 2%",
-        }}
-      >
-        <div
-          className="column ds_sl_header_container"
-          style={{
-            backgroundColor: "#FF8C39",
+            padding: "2%",
           }}
         >
           <p
-            className="ds_sl_header_text"
             style={{
               padding: "4% 0",
+              fontSize: "20px",
+              fontWeight: "600",
+              color: "#A9A9A9",
             }}
           >
-            En intervention 1
+            Nouveaux Billets 5
           </p>
+          <Droppable droppableId="droppable-0">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                {[1, 2, 3, 4, 5].map((_, __) => (
+                  <Draggable key={__} draggableId={`item-0-${__}`} index={__}>
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                        <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+              </div>
+            )}
+          </Droppable>
         </div>
-        <div
-          className="column ds_ml_container"
-          style={{
-            width: "100%",
-            padding: "2% 4%",
-          }}
-        >
-          {[1, 2, 3, 4, 5].map((_) => (
-            <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-          ))}
-        </div>
-      </div>
 
-      {/* Terminé */}
-      <div
-        className="ds_sl_container"
-        style={{
-          padding: "3% 2%",
-        }}
-      >
+        {/* En attente */}
         <div
-          className="column ds_sl_header_container"
+          className="ds_sl_container"
           style={{
-            backgroundColor: "#436062",
+            padding: "3% 2%",
           }}
         >
-          <p
-            className="ds_sl_header_text"
+          <div
+            className="column ds_sl_header_container"
             style={{
-              padding: "4% 0",
+              backgroundColor: "#5bd89c",
             }}
           >
-            Terminé 10
-          </p>
+            <p
+              className="ds_sl_header_text"
+              style={{
+                padding: "4% 0",
+              }}
+            >
+              En attente 2
+            </p>
+          </div>
+          <div
+            className="column ds_ml_container"
+            style={{
+              width: "100%",
+              padding: "2% 4%",
+            }}
+          >
+            <Droppable droppableId="droppable-1">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                  {[1, 2, 3, 4, 5].map((_, __) => (
+                    <Draggable key={__} draggableId={`item-1-${__}`} index={__}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                </div>
+              )}
+            </Droppable>
+          </div>
         </div>
+
+        {/* En intervention */}
         <div
-          className="column ds_ml_container"
+          className="ds_sl_container"
           style={{
-            width: "100%",
-            padding: "2% 4%",
+            padding: "3% 2%",
           }}
         >
-          {[1, 2, 3, 4, 5].map((_) => (
-            <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-          ))}
+          <div
+            className="column ds_sl_header_container"
+            style={{
+              backgroundColor: "#FF8C39",
+            }}
+          >
+            <p
+              className="ds_sl_header_text"
+              style={{
+                padding: "4% 0",
+              }}
+            >
+              En intervention 1
+            </p>
+          </div>
+          <div
+            className="column ds_ml_container"
+            style={{
+              width: "100%",
+              padding: "2% 4%",
+            }}
+          >
+            <Droppable droppableId="droppable-2">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                  {[1, 2, 3, 4, 5].map((_, __) => (
+                    <Draggable key={__} draggableId={`item-2-${__}`} index={__}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                </div>
+              )}
+            </Droppable>
+          </div>
         </div>
-      </div>
+
+        {/* Terminé */}
+        <div
+          className="ds_sl_container"
+          style={{
+            padding: "3% 2%",
+          }}
+        >
+          <div
+            className="column ds_sl_header_container"
+            style={{
+              backgroundColor: "#436062",
+            }}
+          >
+            <p
+              className="ds_sl_header_text"
+              style={{
+                padding: "4% 0",
+              }}
+            >
+              Terminé 10
+            </p>
+          </div>
+          <div
+            className="column ds_ml_container"
+            style={{
+              width: "100%",
+              padding: "2% 4%",
+            }}
+          >
+            <Droppable droppableId="droppable-3">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                  {[1, 2, 3, 4, 5].map((_, __) => (
+                    <Draggable key={__} draggableId={`item-3-${__}`} index={__}>
+                      {(provided) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                </div>
+              )}
+            </Droppable>
+          </div>
+        </div>
+      </DragDropContext>
     </div>
   );
 }
 
-function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
+function AddTicketScreen({ show, handleClose, state, setState }) {
+  const _setState = (key, value) => {
+    const obj = {};
+    obj[key] = value;
+    setState({
+      ...state,
+      ...obj,
+    });
+  };
+
   return (
     <div
       className="column wh100"
@@ -304,8 +396,25 @@ function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
         </div>
       </div>
       <div className="row wh100">
-        <div></div>
-        <div className="column wh100 aic">
+        <div
+          className="column aic h100"
+          style={{
+            margin: "0 8%",
+          }}
+        >
+          <div className="column ajc" style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}>
+            <p style={{ fontSize: "30", color: "#FFFFFF" }}>1</p>
+          </div>
+          <div style={{ height: "15%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
+          <div className="column ajc" style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}>
+            <p style={{ fontSize: "30", color: "#FFFFFF" }}>2</p>
+          </div>
+          <div style={{ height: "35%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
+          <div className="column ajc" style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}>
+            <p style={{ fontSize: "30", color: "#FFFFFF" }}>3</p>
+          </div>
+        </div>
+        <div className="column wh100">
           <div className="column" style={{ marginBottom: "2%" }}>
             <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
             <div className="row">
@@ -313,8 +422,8 @@ function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
                 <SelectableTag
                   {..._}
                   text={_.title}
-                  isSelected={section1.buildingIndex == __}
-                  onClick={() => mutateSection1("buildingIndex", __)}
+                  isSelected={state.building_index == __}
+                  onClick={() => _setState("building_index", __)}
                   pStyle={{
                     padding: "6pt",
                   }}
@@ -322,15 +431,15 @@ function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
               ))}
             </div>
           </div>
-          <div className="row ajc w100">
+          <div className="row w100">
             <div className="column" style={{ marginBottom: "2%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
-              <div className="row ajc">
+              <div className="row aic">
                 {["Level A", "Level B", "Level C"].map((_, __) => (
                   <SelectableTag
                     text={_}
-                    isSelected={section1.venueIndex == __}
-                    onClick={() => mutateSection1("venueIndex", __)}
+                    isSelected={state.venue_Index == __}
+                    onClick={() => _setState("venue_Index", __)}
                     pStyle={{
                       padding: "6pt",
                     }}
@@ -350,9 +459,14 @@ function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
                 </p>
               </div>
             </div>
-            <div className="column" style={{ marginBottom: "2%", marginLeft: "3%" }}>
+            <div className="column w100" style={{ marginBottom: "2%", marginLeft: "5%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
               <CustomInput
+                inputValue={state.location_details}
+                onChange={(e) => _setState("location_details", e.target.value)}
+                divStyle={{
+                  width: "40%",
+                }}
                 labelStyle={{
                   display: "none",
                 }}
@@ -360,7 +474,8 @@ function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
                   display: "none",
                 }}
                 inputStyle={{
-                  padding: "5px",
+                  fontSize: "12px",
+                  padding: "8px",
                 }}
               />
             </div>
@@ -372,14 +487,104 @@ function AddTicketScreen({ show, handleClose, section1, mutateSection1 }) {
                 (_, __) => (
                   <SelectableTag
                     text={_}
-                    isSelected={section1.categoryIndex == __}
-                    onClick={() => mutateSection1("categoryIndex", __)}
+                    isSelected={state.category_index == __}
+                    onClick={() => _setState("category_index", __)}
                     pStyle={{
                       padding: "6pt",
                     }}
                   />
                 )
               )}
+            </div>
+          </div>
+          <div className="column w100" style={{ marginBottom: "2%" }}>
+            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Titre *</p>
+            <input
+              value={state.title}
+              onChange={(e) => _setState("title", e.target.value)}
+              style={{
+                fontSize: "12px",
+                width: "25%",
+                padding: "10px",
+                background: "transparent",
+                border: "none",
+                borderBottomColor: "#2F696D",
+                borderBottomStyle: "solid",
+                borderBottomWidth: "1.5px",
+              }}
+            />
+          </div>
+          <div className="row w100" style={{ marginBottom: "2%" }}>
+            <div className="column" style={{ marginRight: "2%", width: "20%" }}>
+              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails</p>
+              <textarea
+                value={state.details}
+                onChange={(e) => _setState("details", e.target.value)}
+                style={{
+                  fontSize: "12px",
+                  height: "60pt",
+                  width: "100%",
+                  padding: "10px",
+                  background: "transparent",
+                  borderRadius: "10pt",
+                  borderColor: "#000000",
+                  borderStyle: "solid",
+                  borderWidth: "1.5px",
+                }}
+              />
+            </div>
+            <div className="column w100">
+              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Attachement *</p>
+              <div
+                className="row ajc"
+                style={{
+                  backgroundColor: "#F4F4F4",
+                  borderRadius: "20pt",
+                  padding: "7pt",
+                  cursor: "pointer",
+                }}
+              >
+                <img src={AttachmentSVG} style={{ height: "16pt", width: "16pt", marginRight: "15pt" }} />
+                <p style={{ fontSize: "11px", fontWeight: "bold" }}>Ajouter pièce jointe</p>
+              </div>
+            </div>
+          </div>
+          <div className="column" style={{ marginBottom: "2%" }}>
+            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité *</p>
+            <div className="row">
+              {[tags[0], tags[1], tags[2]].map((_, __) => (
+                <SelectableTag
+                  {..._}
+                  text={_.title}
+                  isSelected={state.priority_index == __}
+                  onClick={() => _setState("priority_index", __)}
+                  divStyle={{
+                    marginRight: "10pt",
+                  }}
+                  pStyle={{
+                    padding: "6pt",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="column" style={{ marginBottom: "2%" }}>
+            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Assignés</p>
+            <div className="row">
+              {[tags[0], tags[1], tags[2]].map((_, __) => (
+                <SelectableTag
+                  {..._}
+                  text={_.title}
+                  isSelected={state.assignee_index == __}
+                  onClick={() => _setState("assignee_index", __)}
+                  divStyle={{
+                    marginRight: "10pt",
+                  }}
+                  pStyle={{
+                    padding: "6pt",
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>

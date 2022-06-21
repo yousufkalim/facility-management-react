@@ -8,8 +8,10 @@ import LoginBackgroundSVG from "../../assets/LoginBackground.png";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { toast } from "react-toastify";
 import * as FormValidations from "../../utils/Validations";
+import Api from "../../api/index";
+import { handleLogin } from "../../utils/Auth";
+import { toast } from "react-toastify";
 
 function RegistrationScreen() {
   const { t } = useTranslation();
@@ -50,13 +52,27 @@ function RegistrationScreen() {
     let response;
 
     try {
-      // setIsProcessing(true);
-      console.log(state);
+      setIsProcessing(true);
+
+      const body = {
+        companyName: state.name_of_company,
+        firstName: state.first_name,
+        lastName: state.last_name,
+        phoneNo: state.phone,
+        email: state.email,
+        password: state.password,
+      };
+
+      response = await Api("post", "/register", body);
+      if (response?.data?.success) {
+        toast.success("Registered Successfully.");
+        navToLogin();
+      }
     } catch (e) {
       console.trace(e);
     }
 
-    // setIsProcessing(false);
+    setIsProcessing(false);
   };
 
   const navToLogin = () => {

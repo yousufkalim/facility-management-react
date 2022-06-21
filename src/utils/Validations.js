@@ -27,4 +27,21 @@ function registration(data) {
   return validated;
 }
 
-export { login, registration };
+function addTicket(data) {
+  const valFuncArr = [
+    () => Validators.selectValidator("Building", data["building_index"]),
+    () => Validators.selectValidator("Venue", data["venue_Index"]),
+    () => Validators.nullValidator("Location Details", data["location_details"]),
+    () => Validators.selectValidator("Category", data["category_index"]),
+    () => Validators.nullValidator("Title", data["title"]),
+    () => Validators.nullValidator("Details", data["details"]),
+    () => Validators.selectValidator("Priority", data["priority_index"]),
+    () => Validators.selectValidator("Assignee", data["assignee_index"]),
+  ];
+
+  const validated = formValidator(valFuncArr);
+
+  return validated;
+}
+
+export { login, registration, addTicket };
