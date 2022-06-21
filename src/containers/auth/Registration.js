@@ -17,13 +17,13 @@ function RegistrationScreen() {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [state, setState] = useState({
-    name_of_company: "",
-    first_name: "",
-    last_name: "",
+    companyName: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    phone: "",
+    phoneNo: "",
     password: "",
-    confirm_password: "",
+    // confirm_password: "",
   });
   const _setState = (key, value) => {
     const obj = {};
@@ -121,7 +121,7 @@ function RegistrationScreen() {
               divStyle={{
                 marginBottom: "6%",
               }}
-              onChange={(e) => _setState("name_of_company", e.target.value)}
+              onChange={(e) => _setState("companyName", e.target.value)}
             />
             <div
               className="registration_screen_row2_row1"
@@ -137,7 +137,7 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
-                onChange={(e) => _setState("first_name", e.target.value)}
+                onChange={(e) => _setState("firstName", e.target.value)}
               />
               <CustomInput
                 labelText={t("Last Name")}
@@ -147,7 +147,7 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
-                onChange={(e) => _setState("last_name", e.target.value)}
+                onChange={(e) => _setState("lastName", e.target.value)}
               />
             </div>
             <div
@@ -174,7 +174,7 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
-                onChange={(e) => _setState("phone", e.target.value)}
+                onChange={(e) => _setState("phoneNo", e.target.value)}
               />
             </div>
             <div

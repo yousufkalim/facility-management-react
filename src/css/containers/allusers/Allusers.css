@@ -1,0 +1,72 @@
+.tab_container{
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+.tab_container p{
+font-weight: 500;
+font-size: 18px;
+line-height: 27px;
+color: #8C8C8C;
+}
+
+.tab_container>*{
+    width: 50%;
+     border-bottom: 2px solid #8C8C8C;
+    padding: 5% 0%;
+}
+
+.active_tab{
+    border-bottom: 2px solid #2F696D;
+}
+
+
+
+/* userCard */
+.user_name{
+font-weight: 500;
+font-size: 18px;
+line-height: 27px;
+color: #494949;
+}
+.user_designation{
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+color: #494949;
+}
+.badge_container{
+    position: relative;
+}
+.badge_container>img{
+    position: absolute;
+    left: 41px;
+    top: 23px
+}
+.user_detail_conatiner{
+    background: #F4F4F4;
+    width: 90%;
+    margin: 2% auto 0% auto;
+    border-radius: 20px;
+}
+.user_detail_img_detail_container{
+    display: flex;
+    padding: 2% 6%;
+    border-radius: 20px;
+}
+.user_detail_name_designation{
+    display: flex;
+    flex-direction: column;
+   
+}
+.user_detail_name_designation>*{
+    padding-bottom: 6%;
+}
+.user_detail_img_detail_container> img{
+    width:45px;
+    height:45px;
+    border-radius: 50%;
+ }
+ .user_detail_img_detail_container>*{
+    margin-right: 4%;
+ }

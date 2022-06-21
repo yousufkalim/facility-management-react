@@ -17,7 +17,7 @@ import User2AvatarSVG from "../../assets/User2Avatar.png";
 import UXL from "../../components/UXL";
 import TicketDetailModal from "../../components/modals/TicketDetail";
 
-import { Store, UpdateStore } from "../../StoreContext";
+import { Store } from "../../StoreContext";
 
 import moment from 'moment'
 
