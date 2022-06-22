@@ -117,7 +117,7 @@ function LoginScreen() {
             Management
           </p>
           <p
-          className="welcome_note_fm_login"
+            className="welcome_note_fm_login"
             // style={{
             //   paddingTop: "2%",
             //   fontSize: "14px",

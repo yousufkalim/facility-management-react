@@ -388,6 +388,11 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
     const _categories = await getCategories();
     const _priorities = await getPriorities();
 
+    console.log(_buildings, "_buildings");
+    console.log(_buildingLevels, "_buildingLevels");
+    console.log(_categories, "_categories");
+    console.log(_priorities, "_priorities");
+
     setBuildings(_buildings);
     setBuildingLevels(_buildingLevels);
     setCategories(_categories);
@@ -395,10 +400,10 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
 
     setState({
       ...state,
-      building: _buildings[0],
-      building_level: _buildingLevels[0],
-      category: _categories[0],
-      priority: _priorities[0],
+      building: _buildings[0].value,
+      building_level: _buildingLevels[0].value,
+      category: _categories[0].value,
+      priority: _priorities[0].value,
     });
 
     setIsLoading(false);
@@ -408,8 +413,7 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
     let response;
     try {
       response = await Api("get", `/buildings/dropdown`);
-      const _buildings = response.data;
-      console.log(_buildings);
+      const _buildings = response.data.data;
       return _buildings;
     } catch (e) {
       console.trace(e);
@@ -419,8 +423,8 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
   const getBuildingLevels = async (building) => {
     let response;
     try {
-      response = await Api("get", `/levels/dropdown/1`);
-      const _buildingLevels = response.data;
+      response = await Api("get", `/levels/dropdown/${building.value}`);
+      const _buildingLevels = response.data.data;
       return _buildingLevels;
     } catch (e) {
       console.trace(e);
@@ -431,7 +435,7 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
     let response;
     try {
       response = await Api("get", `/category/dropdown`);
-      const _categories = response.data;
+      const _categories = response.data.data;
       return _categories;
     } catch (e) {
       console.trace(e);
@@ -442,18 +446,35 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
     let response;
     try {
       response = await Api("get", `/priority/dropdown`);
-      const _priorities = response.data;
+      const _priorities = response.data.data;
       return _priorities;
     } catch (e) {
       console.trace(e);
     }
   };
 
+  const selectBuilding = async (_) => {
+    const _buildingLevels = await getBuildingLevels(_);
+    setBuildingLevels(_buildingLevels);
+    setState({
+      ...state,
+      building: _.value,
+      building_level: _buildingLevels[0].value,
+    });
+  };
+
   return (
     <>
-      {/* {console.log(buildings)} */}
+      {console.log(state)}
       {isLoading ? (
-        <Loader />
+        <div
+          className="wh100 column ajc"
+          style={{
+            display: show ? "flex" : "none",
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
         <div
           className="column wh100"
@@ -464,6 +485,7 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
             position: "relative",
           }}
         >
+          {/* Section 1 */}
           <div
             className="row w100"
             style={{
@@ -514,12 +536,12 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
                 <div className="row">
-                  {[tags[3], tags[4], tags[5]].map((_, __) => (
+                  {buildings.map((_) => (
                     <SelectableTag
                       {..._}
-                      text={_.title}
-                      isSelected={state.building_index == __}
-                      onClick={() => _setState("building_index", __)}
+                      text={_.text}
+                      isSelected={state.building == _.value}
+                      onClick={() => selectBuilding(_)}
                       pStyle={{
                         padding: "6pt",
                       }}
@@ -531,11 +553,11 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
                 <div className="column" style={{ marginBottom: "2%" }}>
                   <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
                   <div className="row aic">
-                    {["Level A", "Level B", "Level C"].map((_, __) => (
+                    {buildingLevels.map((_) => (
                       <SelectableTag
-                        text={_}
-                        isSelected={state.venue_Index == __}
-                        onClick={() => _setState("venue_Index", __)}
+                        text={_.text}
+                        isSelected={state.building_level == _.value}
+                        onClick={() => _setState("building_level", _.value)}
                         pStyle={{
                           padding: "6pt",
                         }}
@@ -576,21 +598,20 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
                   />
                 </div>
               </div>
+              {/* Section 2 */}
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie *</p>
                 <div className="row">
-                  {["Plombière", "Électricité", "La gestion", "Personnelle", "Climatiseur", "Stationnement", "Bureau"].map(
-                    (_, __) => (
-                      <SelectableTag
-                        text={_}
-                        isSelected={state.category_index == __}
-                        onClick={() => _setState("category_index", __)}
-                        pStyle={{
-                          padding: "6pt",
-                        }}
-                      />
-                    )
-                  )}
+                  {categories.map((_) => (
+                    <SelectableTag
+                      text={_.text}
+                      isSelected={state.category == _.value}
+                      onClick={() => _setState("category", _.value)}
+                      pStyle={{
+                        padding: "6pt",
+                      }}
+                    />
+                  ))}
                 </div>
               </div>
               <div className="column w100" style={{ marginBottom: "2%" }}>
@@ -645,15 +666,16 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
                   </div>
                 </div>
               </div>
+              {/* Section 3 */}
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité *</p>
                 <div className="row">
-                  {[tags[0], tags[1], tags[2]].map((_, __) => (
+                  {priorities.map((_) => (
                     <SelectableTag
                       {..._}
-                      text={_.title}
-                      isSelected={state.priority_index == __}
-                      onClick={() => _setState("priority_index", __)}
+                      text={_.text}
+                      isSelected={state.priority == _.value}
+                      onClick={() => _setState("priority", _.value)}
                       divStyle={{
                         marginRight: "10pt",
                       }}
@@ -671,8 +693,8 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
                     <SelectableTag
                       {..._}
                       text={_.title}
-                      isSelected={state.assignee_index == __}
-                      onClick={() => _setState("assignee_index", __)}
+                      isSelected={state.assignee == __}
+                      onClick={() => _setState("assignee", __)}
                       divStyle={{
                         marginRight: "10pt",
                       }}

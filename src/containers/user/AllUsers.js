@@ -144,56 +144,53 @@ const tickets = [
     comments_count: 4,
   },
 ];
-const IOSSwitch = styled((props) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
-  width: 32,
-  height: 14,
-  padding: 0,
-  "& .MuiSwitch-switchBase": {
+const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(
+  ({ theme }) => ({
+    width: 32,
+    height: 14,
     padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
-    "&.Mui-checked": {
-      transform: "translateX(16px)",
-      color: "#fff",
-      "& + .MuiSwitch-track": {
-        backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#2F696D",
-        opacity: 1,
-        border: 0,
+    "& .MuiSwitch-switchBase": {
+      padding: 0,
+      margin: 2,
+      transitionDuration: "300ms",
+      "&.Mui-checked": {
+        transform: "translateX(16px)",
+        color: "#fff",
+        "& + .MuiSwitch-track": {
+          backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#2F696D",
+          opacity: 1,
+          border: 0,
+        },
+        "&.Mui-disabled + .MuiSwitch-track": {
+          opacity: 0.5,
+        },
+      },
+      "&.Mui-focusVisible .MuiSwitch-thumb": {
+        color: "#33cf4d",
+        border: "6px solid #fff",
+      },
+      "&.Mui-disabled .MuiSwitch-thumb": {
+        color: theme.palette.mode === "light" ? theme.palette.grey[100] : theme.palette.grey[600],
       },
       "&.Mui-disabled + .MuiSwitch-track": {
-        opacity: 0.5,
+        opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
       },
     },
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: "#33cf4d",
-      border: "6px solid #fff",
+    "& .MuiSwitch-thumb": {
+      boxSizing: "border-box",
+      width: 10,
+      height: 10,
     },
-    "&.Mui-disabled .MuiSwitch-thumb": {
-      color:
-        theme.palette.mode === "light"
-          ? theme.palette.grey[100]
-          : theme.palette.grey[600],
+    "& .MuiSwitch-track": {
+      borderRadius: 26 / 2,
+      backgroundColor: theme.palette.mode === "light" ? "#494949" : "#39393D",
+      opacity: 1,
+      transition: theme.transitions.create(["background-color"], {
+        duration: 500,
+      }),
     },
-    "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    boxSizing: "border-box",
-    width: 10,
-    height: 10,
-  },
-  "& .MuiSwitch-track": {
-    borderRadius: 26 / 2,
-    backgroundColor: theme.palette.mode === "light" ? "#494949" : "#39393D",
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-  },
-}));
+  })
+);
 const AllUsers = () => {
   const [activeTabId, setActiveTabId] = useState("");
   const store = Store();
@@ -215,19 +212,12 @@ const AllUsers = () => {
         >
           <div className="column ds_ml_container">
             <div className="search-msg-cont">
-              <input
-                className="search-msg-input"
-                placeholder="Search by name"
-              />
+              <input className="search-msg-input" placeholder="Search by name" />
               <img className="srch-icon" src={searchicon} />
             </div>
             <div className="tab_container">
               {items?.map((val) => (
-                <p
-                  className={` ${val?.id == activeTabId ? "active_tab" : ""}`}
-                  id={val?.id}
-                  onClick={() => ActiveTab(val?.id)}
-                >
+                <p className={` ${val?.id == activeTabId ? "active_tab" : ""}`} id={val?.id} onClick={() => ActiveTab(val?.id)}>
                   {val?.text}
                 </p>
               ))}
@@ -248,11 +238,7 @@ const AllUsers = () => {
               <div className="user_profile_info">
                 <div className="form_container">
                   <div className="input_image_container">
-                    <img
-                      className="input_image"
-                      style={{ borderRadius: "50%" }}
-                      src={dummy}
-                    />
+                    <img className="input_image" style={{ borderRadius: "50%" }} src={dummy} />
                   </div>
                   <div className="input_container">
                     <div className="input_row">
@@ -289,9 +275,8 @@ const AllUsers = () => {
                   <div>
                     <span style={{ color: "#2F696D" }}>Configuration</span>
                     <p>
-                      Attention, la modification d'un des champs ci-dessous peut
-                      provoquer la désassignaiton automatique de l'utilisateur
-                      sur des tickets
+                      Attention, la modification d'un des champs ci-dessous peut provoquer la désassignaiton automatique de
+                      l'utilisateur sur des tickets
                     </p>
                   </div>
                   <div
@@ -316,9 +301,7 @@ const AllUsers = () => {
                       </p>
                       <p> Bâtiment accessibles</p>
                       {[1].map((_) => (
-                        <TicketListTile
-                          {...(_ % 2 == 0 ? tickets[0] : tickets[1])}
-                        />
+                        <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
                       ))}
                       <p>Alertes par mail</p>
                       <div style={{ display: "flex", flexDirection: "column" }}>
@@ -326,18 +309,11 @@ const AllUsers = () => {
                           <>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: "50%" }}>
-                                <img
-                                  className="tickets_icon_btn"
-                                  src={val?.image}
-                                />
-                                <span className="tickets_icon_btn_span">
-                                  {val?.text}
-                                </span>
+                                <img className="tickets_icon_btn" src={val?.image} />
+                                <span className="tickets_icon_btn_span">{val?.text}</span>
                               </div>
                               <div>
-                                <FormControlLabel
-                                  control={<IOSSwitch sx={{ m: 1 }} />}
-                                />
+                                <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
                               </div>
                             </div>
                           </>
@@ -389,10 +365,7 @@ function TicketListTile(props) {
 
   return (
     <>
-      <div
-        className="column ds_tlt_container_all_users"
-        onClick={handleIsTicketDetailModalOpen}
-      >
+      <div className="column ds_tlt_container_all_users" onClick={handleIsTicketDetailModalOpen}>
         <div
           className="row"
           style={{
@@ -410,14 +383,7 @@ function TicketListTile(props) {
                 padding: "2%",
               }}
             >
-              {_.icon ? (
-                <img
-                  style={{ height: "14px", width: "14px", marginRight: "5%" }}
-                  src={_.icon}
-                />
-              ) : (
-                <></>
-              )}
+              {_.icon ? <img style={{ height: "14px", width: "14px", marginRight: "5%" }} src={_.icon} /> : <></>}
               <p
                 style={{
                   fontSize: "12px",

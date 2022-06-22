@@ -88,9 +88,7 @@ function RegistrationScreen() {
       }}
     >
       <div className="reg_screen_top">
-        <div
-          className="reg_screen_row1"
-        >
+        <div className="reg_screen_row1">
           <p
             style={{
               fontSize: "34px",
@@ -107,11 +105,7 @@ function RegistrationScreen() {
           >
             Management
           </p>
-          <p
-          className="welcome_note_fm"
-          >
-            Welcome to Facility Management, Please fill out this form to fresh start!
-          </p>
+          <p className="welcome_note_fm">Welcome to Facility Management, Please fill out this form to fresh start!</p>
         </div>
         <div
           className="reg_screen_row2"

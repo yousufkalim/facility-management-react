@@ -1,4 +1,4 @@
-.welcome_note_fm_login{
+.welcome_note_fm_login {
   padding-top: 2%;
   font-size: 14px;
   color: #999999;
@@ -15,9 +15,9 @@
   width: 40%;
   flex-direction: column;
   align-items: flex-start;
-    justify-content: flex-start;
-    margin-left: 10%;
-    margin-top: 10%;
+  justify-content: flex-start;
+  margin-left: 10%;
+  margin-top: 10%;
 }
 
 .login_screen_row2 {
@@ -25,7 +25,7 @@
   width: 60%;
   flex-direction: column;
   justify-content: flex-end;
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 .login_screen_row2_container {
@@ -42,35 +42,33 @@
   box-shadow: 2px 2px 10px #d1cbc6;
 }
 
-
 @media only screen and (max-width: 992px) {
-  .login_screen_top{
+  .login_screen_top {
     flex-direction: column;
   }
-  .login_screen_row1{
-width: 100%;
-justify-content: center;
-align-items: center;
-margin-left: 0%;
-padding-bottom: 2%;
+  .login_screen_row1 {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0%;
+    padding-bottom: 2%;
   }
-  .login_screen_row2{
+  .login_screen_row2 {
     width: 100%;
     justify-content: center;
     align-items: center;
   }
-  .login_screen_row2_container{
+  .login_screen_row2_container {
     margin-right: 0%;
     width: 75%;
-    }
-    .welcome_note_fm_login{
-      font-size: 10px;
-    }
+  }
+  .welcome_note_fm_login {
+    font-size: 10px;
+  }
 }
 
 @media only screen and (max-width: 667px) {
-  .welcome_note_fm_login{
+  .welcome_note_fm_login {
     font-size: 8px;
   }
-  
 }
