@@ -10,9 +10,12 @@ import SignOutIcon from "../assets/SignOut.svg";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { Store, UpdateStore } from "../StoreContext";
+
+import { handleLogout } from "../utils/Auth";
 
 const StyledMenu = styled((MenuProps) => (
   <Menu
@@ -47,6 +50,7 @@ const StyledMenu = styled((MenuProps) => (
 
 function AppBar({ color, sticky = true, text, disableSearch = false, divStyle }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const store = Store();
   const updateStore = UpdateStore();
@@ -126,7 +130,7 @@ function AppBar({ color, sticky = true, text, disableSearch = false, divStyle })
             open={openProfile}
             onClose={handleCloseProfile}
           >
-            <MenuItem className="menu-item sign-out-padding">
+            <MenuItem className="menu-item sign-out-padding" onClick={() => handleLogout(navigate)}>
               <img style={{ width: "16px" }} src={SignOutIcon} /> <p> {t("Sign out")} </p>
             </MenuItem>
           </StyledMenu>

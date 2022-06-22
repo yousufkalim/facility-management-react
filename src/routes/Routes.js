@@ -26,6 +26,16 @@ const AuthRoutes = [
     icon: <LoginIcon />,
     element: RegistrationScreen,
   },
+];
+
+// Routes for User
+const UserRoutes = [
+  {
+    path: "*",
+    name: "Dashboard",
+    icon: <LoginIcon />,
+    element: DashboardScreen,
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -43,6 +53,7 @@ const AuthRoutes = [
 // Getting all routes
 const RoutesObj = {
   AuthRoutes,
+  UserRoutes,
 };
 
 export default RoutesObj;

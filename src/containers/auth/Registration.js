@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 
 import * as FormValidations from "../../utils/Validations";
 import Api from "../../api/index";
-import { handleLogin } from "../../utils/Auth";
 import { toast } from "react-toastify";
 
 function RegistrationScreen() {

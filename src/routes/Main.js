@@ -32,12 +32,7 @@ const Main = () => {
     <>
       <div className="main-container">
         <Routes>
-          {/* {token && isMyTokenExpired == false ? (
-            <>{user.role == "client" ? <>{getRoutes(RoutesObj.ClientRoutes)}</> : <>{getRoutes(RoutesObj.TailorRoutes)}</>}</>
-          ) : (
-            <>{getRoutes(RoutesObj.AuthRoutes)}</>
-          )} */}
-          {<>{getRoutes(RoutesObj.AuthRoutes)}</>}
+          {token && isMyTokenExpired == false ? <>{getRoutes(RoutesObj.UserRoutes)}</> : <>{getRoutes(RoutesObj.AuthRoutes)}</>}
         </Routes>
       </div>
     </>

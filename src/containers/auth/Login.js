@@ -57,7 +57,11 @@ function LoginScreen() {
       response = await Api("post", "/Login", body);
       if (response?.data?.success) {
         toast.success("Logged In");
-        handleLogin(response.data.token);
+        const token = response.data.token;
+        const user = {
+          id: response.data.userId,
+        };
+        handleLogin(token, user);
         navToDashboard();
       }
 
@@ -171,8 +175,7 @@ function LoginScreen() {
               style={{
                 marginBottom: "10%",
               }}
-              // onClick={handleSubmit}
-              onClick={navToDashboard}
+              onClick={handleSubmit}
             />
           </div>
           <div

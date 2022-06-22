@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "@mui/material";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -20,9 +20,13 @@ import CustomButton from "../../components/CustomButton";
 import Tag from "../../components/Tag";
 import SelectableTag from "../../components/SelectableTag";
 import CustomInput from "../../components/CustomInput";
+import Loader from "../../components/Loader";
 
-import { toast } from "react-toastify";
 import * as FormValidations from "../../utils/Validations";
+import { getUser } from "../../utils/Auth";
+import Api from "../../api";
+import { toast } from "react-toastify";
+import assetsURL from "../../utils/Assets";
 
 const tags = [
   {
@@ -103,16 +107,16 @@ function DashboardScreen() {
   // Add Ticket State
   const [state, setState] = useState({
     // section 1
-    building_index: "",
-    venue_Index: "",
+    building: "",
+    building_level: "",
     location_details: "",
     // section 2
-    category_index: "",
+    category: "",
     title: "",
     details: "",
     // section 3
-    priority_index: "",
-    assignee_index: "",
+    priority: "",
+    assignee: "",
   });
 
   const handleSubmit = async (event) => {
@@ -358,6 +362,12 @@ function TicketsScreen({ show }) {
 }
 
 function AddTicketScreen({ show, handleClose, state, setState }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [buildings, setBuildings] = useState([]);
+  const [buildingLevels, setBuildingLevels] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [priorities, setPriorities] = useState([]);
+
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;
@@ -367,229 +377,317 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
     });
   };
 
+  useEffect(() => {
+    console.log("WE WILL LOAD - XYZ");
+    _load();
+  }, []);
+
+  const _load = async () => {
+    const _buildings = await getBuildings();
+    const _buildingLevels = await getBuildingLevels(_buildings[0]);
+    const _categories = await getCategories();
+    const _priorities = await getPriorities();
+
+    setBuildings(_buildings);
+    setBuildingLevels(_buildingLevels);
+    setCategories(_categories);
+    setPriorities(_priorities);
+
+    setState({
+      ...state,
+      building: _buildings[0],
+      building_level: _buildingLevels[0],
+      category: _categories[0],
+      priority: _priorities[0],
+    });
+
+    setIsLoading(false);
+  };
+
+  const getBuildings = async () => {
+    let response;
+    try {
+      response = await Api("get", `/buildings/dropdown`);
+      const _buildings = response.data;
+      console.log(_buildings);
+      return _buildings;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const getBuildingLevels = async (building) => {
+    let response;
+    try {
+      response = await Api("get", `/levels/dropdown/1`);
+      const _buildingLevels = response.data;
+      return _buildingLevels;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const getCategories = async () => {
+    let response;
+    try {
+      response = await Api("get", `/category/dropdown`);
+      const _categories = response.data;
+      return _categories;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const getPriorities = async () => {
+    let response;
+    try {
+      response = await Api("get", `/priority/dropdown`);
+      const _priorities = response.data;
+      return _priorities;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
   return (
-    <div
-      className="column wh100"
-      style={{
-        display: show ? "flex" : "none",
-        backgroundColor: "#FFFFFF",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
-      <div
-        className="row w100"
-        style={{
-          margin: "2% 0",
-        }}
-      >
-        <div style={{ flex: 1 }}></div>
-        <div className="row ajc" style={{ flex: 2 }}>
-          <p style={{ fontSize: "22px", fontWeight: "600", color: "#2F696D" }}>Ajouter un nouveau ticket</p>
-        </div>
-        <div className="row aic" style={{ flex: 1, justifyContent: "flex-end" }}>
-          <img
-            src={ModalCrossSVG}
-            style={{ height: "24px", width: "24px", marginRight: "8%", cursor: "pointer" }}
-            onClick={handleClose}
-          />
-        </div>
-      </div>
-      <div className="row wh100">
+    <>
+      {/* {console.log(buildings)} */}
+      {isLoading ? (
+        <Loader />
+      ) : (
         <div
-          className="column aic h100"
+          className="column wh100"
           style={{
-            margin: "0 8%",
+            display: show ? "flex" : "none",
+            backgroundColor: "#FFFFFF",
+            overflow: "hidden",
+            position: "relative",
           }}
         >
-          <div className="column ajc" style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}>
-            <p style={{ fontSize: "30", color: "#FFFFFF" }}>1</p>
-          </div>
-          <div style={{ height: "15%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
-          <div className="column ajc" style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}>
-            <p style={{ fontSize: "30", color: "#FFFFFF" }}>2</p>
-          </div>
-          <div style={{ height: "35%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
-          <div className="column ajc" style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}>
-            <p style={{ fontSize: "30", color: "#FFFFFF" }}>3</p>
-          </div>
-        </div>
-        <div className="column wh100">
-          <div className="column" style={{ marginBottom: "2%" }}>
-            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
-            <div className="row">
-              {[tags[3], tags[4], tags[5]].map((_, __) => (
-                <SelectableTag
-                  {..._}
-                  text={_.title}
-                  isSelected={state.building_index == __}
-                  onClick={() => _setState("building_index", __)}
-                  pStyle={{
-                    padding: "6pt",
-                  }}
-                />
-              ))}
+          <div
+            className="row w100"
+            style={{
+              margin: "2% 0",
+            }}
+          >
+            <div style={{ flex: 1 }}></div>
+            <div className="row ajc" style={{ flex: 2 }}>
+              <p style={{ fontSize: "22px", fontWeight: "600", color: "#2F696D" }}>Ajouter un nouveau ticket</p>
             </div>
-          </div>
-          <div className="row w100">
-            <div className="column" style={{ marginBottom: "2%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
-              <div className="row aic">
-                {["Level A", "Level B", "Level C"].map((_, __) => (
-                  <SelectableTag
-                    text={_}
-                    isSelected={state.venue_Index == __}
-                    onClick={() => _setState("venue_Index", __)}
-                    pStyle={{
-                      padding: "6pt",
-                    }}
-                  />
-                ))}
-                <p
-                  style={{
-                    whiteSpace: "nowrap",
-                    cursor: "pointer",
-                    fontSize: "13px",
-                    color: "#B7B7B7",
-                    textDecoration: "underline",
-                    marginLeft: "10%",
-                  }}
-                >
-                  Show more
-                </p>
-              </div>
-            </div>
-            <div className="column w100" style={{ marginBottom: "2%", marginLeft: "5%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
-              <CustomInput
-                inputValue={state.location_details}
-                onChange={(e) => _setState("location_details", e.target.value)}
-                divStyle={{
-                  width: "40%",
-                }}
-                labelStyle={{
-                  display: "none",
-                }}
-                enableYoursStyle={{
-                  display: "none",
-                }}
-                inputStyle={{
-                  fontSize: "12px",
-                  padding: "8px",
-                }}
+            <div className="row aic" style={{ flex: 1, justifyContent: "flex-end" }}>
+              <img
+                src={ModalCrossSVG}
+                style={{ height: "24px", width: "24px", marginRight: "8%", cursor: "pointer" }}
+                onClick={handleClose}
               />
             </div>
           </div>
-          <div className="column" style={{ marginBottom: "2%" }}>
-            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie *</p>
-            <div className="row">
-              {["Plombière", "Électricité", "La gestion", "Personnelle", "Climatiseur", "Stationnement", "Bureau"].map(
-                (_, __) => (
-                  <SelectableTag
-                    text={_}
-                    isSelected={state.category_index == __}
-                    onClick={() => _setState("category_index", __)}
-                    pStyle={{
-                      padding: "6pt",
-                    }}
-                  />
-                )
-              )}
-            </div>
-          </div>
-          <div className="column w100" style={{ marginBottom: "2%" }}>
-            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Titre *</p>
-            <input
-              value={state.title}
-              onChange={(e) => _setState("title", e.target.value)}
+          <div className="row wh100">
+            <div
+              className="column aic h100"
               style={{
-                fontSize: "12px",
-                width: "25%",
-                padding: "10px",
-                background: "transparent",
-                border: "none",
-                borderBottomColor: "#2F696D",
-                borderBottomStyle: "solid",
-                borderBottomWidth: "1.5px",
+                margin: "0 8%",
               }}
-            />
-          </div>
-          <div className="row w100" style={{ marginBottom: "2%" }}>
-            <div className="column" style={{ marginRight: "2%", width: "20%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails</p>
-              <textarea
-                value={state.details}
-                onChange={(e) => _setState("details", e.target.value)}
-                style={{
-                  fontSize: "12px",
-                  height: "60pt",
-                  width: "100%",
-                  padding: "10px",
-                  background: "transparent",
-                  borderRadius: "10pt",
-                  borderColor: "#000000",
-                  borderStyle: "solid",
-                  borderWidth: "1.5px",
-                }}
-              />
-            </div>
-            <div className="column w100">
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Attachement *</p>
+            >
               <div
-                className="row ajc"
-                style={{
-                  backgroundColor: "#F4F4F4",
-                  borderRadius: "20pt",
-                  padding: "7pt",
-                  cursor: "pointer",
-                }}
+                className="column ajc"
+                style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}
               >
-                <img src={AttachmentSVG} style={{ height: "16pt", width: "16pt", marginRight: "15pt" }} />
-                <p style={{ fontSize: "11px", fontWeight: "bold" }}>Ajouter pièce jointe</p>
+                <p style={{ fontSize: "30", color: "#FFFFFF" }}>1</p>
+              </div>
+              <div style={{ height: "15%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
+              <div
+                className="column ajc"
+                style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}
+              >
+                <p style={{ fontSize: "30", color: "#FFFFFF" }}>2</p>
+              </div>
+              <div style={{ height: "35%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
+              <div
+                className="column ajc"
+                style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}
+              >
+                <p style={{ fontSize: "30", color: "#FFFFFF" }}>3</p>
+              </div>
+            </div>
+            <div className="column wh100">
+              <div className="column" style={{ marginBottom: "2%" }}>
+                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
+                <div className="row">
+                  {[tags[3], tags[4], tags[5]].map((_, __) => (
+                    <SelectableTag
+                      {..._}
+                      text={_.title}
+                      isSelected={state.building_index == __}
+                      onClick={() => _setState("building_index", __)}
+                      pStyle={{
+                        padding: "6pt",
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="row w100">
+                <div className="column" style={{ marginBottom: "2%" }}>
+                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
+                  <div className="row aic">
+                    {["Level A", "Level B", "Level C"].map((_, __) => (
+                      <SelectableTag
+                        text={_}
+                        isSelected={state.venue_Index == __}
+                        onClick={() => _setState("venue_Index", __)}
+                        pStyle={{
+                          padding: "6pt",
+                        }}
+                      />
+                    ))}
+                    <p
+                      style={{
+                        whiteSpace: "nowrap",
+                        cursor: "pointer",
+                        fontSize: "13px",
+                        color: "#B7B7B7",
+                        textDecoration: "underline",
+                        marginLeft: "10%",
+                      }}
+                    >
+                      Show more
+                    </p>
+                  </div>
+                </div>
+                <div className="column w100" style={{ marginBottom: "2%", marginLeft: "5%" }}>
+                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
+                  <CustomInput
+                    inputValue={state.location_details}
+                    onChange={(e) => _setState("location_details", e.target.value)}
+                    divStyle={{
+                      width: "40%",
+                    }}
+                    labelStyle={{
+                      display: "none",
+                    }}
+                    enableYoursStyle={{
+                      display: "none",
+                    }}
+                    inputStyle={{
+                      fontSize: "12px",
+                      padding: "8px",
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="column" style={{ marginBottom: "2%" }}>
+                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie *</p>
+                <div className="row">
+                  {["Plombière", "Électricité", "La gestion", "Personnelle", "Climatiseur", "Stationnement", "Bureau"].map(
+                    (_, __) => (
+                      <SelectableTag
+                        text={_}
+                        isSelected={state.category_index == __}
+                        onClick={() => _setState("category_index", __)}
+                        pStyle={{
+                          padding: "6pt",
+                        }}
+                      />
+                    )
+                  )}
+                </div>
+              </div>
+              <div className="column w100" style={{ marginBottom: "2%" }}>
+                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Titre *</p>
+                <input
+                  value={state.title}
+                  onChange={(e) => _setState("title", e.target.value)}
+                  style={{
+                    fontSize: "12px",
+                    width: "25%",
+                    padding: "10px",
+                    background: "transparent",
+                    border: "none",
+                    borderBottomColor: "#2F696D",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: "1.5px",
+                  }}
+                />
+              </div>
+              <div className="row w100" style={{ marginBottom: "2%" }}>
+                <div className="column" style={{ marginRight: "2%", width: "20%" }}>
+                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails</p>
+                  <textarea
+                    value={state.details}
+                    onChange={(e) => _setState("details", e.target.value)}
+                    style={{
+                      fontSize: "12px",
+                      height: "60pt",
+                      width: "100%",
+                      padding: "10px",
+                      background: "transparent",
+                      borderRadius: "10pt",
+                      borderColor: "#000000",
+                      borderStyle: "solid",
+                      borderWidth: "1.5px",
+                    }}
+                  />
+                </div>
+                <div className="column w100">
+                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Attachement *</p>
+                  <div
+                    className="row ajc"
+                    style={{
+                      backgroundColor: "#F4F4F4",
+                      borderRadius: "20pt",
+                      padding: "7pt",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <img src={AttachmentSVG} style={{ height: "16pt", width: "16pt", marginRight: "15pt" }} />
+                    <p style={{ fontSize: "11px", fontWeight: "bold" }}>Ajouter pièce jointe</p>
+                  </div>
+                </div>
+              </div>
+              <div className="column" style={{ marginBottom: "2%" }}>
+                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité *</p>
+                <div className="row">
+                  {[tags[0], tags[1], tags[2]].map((_, __) => (
+                    <SelectableTag
+                      {..._}
+                      text={_.title}
+                      isSelected={state.priority_index == __}
+                      onClick={() => _setState("priority_index", __)}
+                      divStyle={{
+                        marginRight: "10pt",
+                      }}
+                      pStyle={{
+                        padding: "6pt",
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="column" style={{ marginBottom: "2%" }}>
+                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Assignés</p>
+                <div className="row">
+                  {[tags[0], tags[1], tags[2]].map((_, __) => (
+                    <SelectableTag
+                      {..._}
+                      text={_.title}
+                      isSelected={state.assignee_index == __}
+                      onClick={() => _setState("assignee_index", __)}
+                      divStyle={{
+                        marginRight: "10pt",
+                      }}
+                      pStyle={{
+                        padding: "6pt",
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-          <div className="column" style={{ marginBottom: "2%" }}>
-            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité *</p>
-            <div className="row">
-              {[tags[0], tags[1], tags[2]].map((_, __) => (
-                <SelectableTag
-                  {..._}
-                  text={_.title}
-                  isSelected={state.priority_index == __}
-                  onClick={() => _setState("priority_index", __)}
-                  divStyle={{
-                    marginRight: "10pt",
-                  }}
-                  pStyle={{
-                    padding: "6pt",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="column" style={{ marginBottom: "2%" }}>
-            <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Assignés</p>
-            <div className="row">
-              {[tags[0], tags[1], tags[2]].map((_, __) => (
-                <SelectableTag
-                  {..._}
-                  text={_.title}
-                  isSelected={state.assignee_index == __}
-                  onClick={() => _setState("assignee_index", __)}
-                  divStyle={{
-                    marginRight: "10pt",
-                  }}
-                  pStyle={{
-                    padding: "6pt",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
