@@ -2,7 +2,15 @@ import React, { useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
@@ -36,7 +44,14 @@ const headArr = [
   },
 ];
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const options = {
   responsive: true,
@@ -84,12 +99,10 @@ function StatisticsScreen() {
         style={{
           backgroundColor: "#F4F4F4",
           padding: "3% 2%",
-          width:store?.isSideBar?"97%":"100%"
+          width: store?.isSideBar ? "97%" : "100%",
         }}
       >
-        <div
-          className="row w100 header_list_container"
-        >
+        <div className="row w100 header_list_container">
           {headArr.map((_) => (
             <HeaderListTile {..._} />
           ))}
@@ -120,10 +133,7 @@ function StatisticsScreen() {
 
 function HeaderListTile(props) {
   return (
-    <div
-      className="row aic header_list_tile_container"
-      
-    >
+    <div className="row aic header_list_tile_container">
       <div
         className="column"
         style={{
@@ -153,7 +163,13 @@ function HeaderListTile(props) {
       <div style={{ position: "relative" }}>
         <img
           src={props.background}
-          style={{ position: "absolute", height: "60pt", width: "100pt", left: "-100pt", bottom: "-30pt" }}
+          style={{
+            position: "absolute",
+            height: "60pt",
+            width: "100pt",
+            left: "-100pt",
+            bottom: "-30pt",
+          }}
         />
         <p
           style={{

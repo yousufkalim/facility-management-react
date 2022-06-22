@@ -19,7 +19,7 @@ import TicketDetailModal from "../../components/modals/TicketDetail";
 
 import { Store } from "../../StoreContext";
 
-import moment from 'moment'
+import moment from "moment";
 
 const tags = [
   {
@@ -98,7 +98,7 @@ function DashboardScreen() {
           justifyContent: "flex-start",
           backgroundColor: "#F4F4F4",
           overflow: "hidden",
-          width:store?.isSideBar?"97%":"100%"
+          width: store?.isSideBar ? "97%" : "100%",
         }}
       >
         {/* Nouveaux Billets */}
@@ -108,15 +108,11 @@ function DashboardScreen() {
             padding: "2%",
           }}
         >
-          <p
-          className="ds_ml_container_heading"
-          >
-            Nouveaux Billets 5
-          </p>
+          <p className="ds_ml_container_heading">Nouveaux Billets 5</p>
           {[1, 2, 3, 4, 5].map((_) => (
             <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
           ))}
-            <div style={{marginTop:"30px"}}></div>
+          <div style={{ marginTop: "30px" }}></div>
         </div>
 
         {/* En attente */}
@@ -141,7 +137,7 @@ function DashboardScreen() {
               En attente 2
             </p>
           </div>
-        
+
           <div
             className="column ds_ml_container"
             style={{
@@ -152,12 +148,10 @@ function DashboardScreen() {
             {[1, 2, 3, 4, 5].map((_) => (
               <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
             ))}
-            <div style={{marginTop:"45px"}}>
-        </div>
+            <div style={{ marginTop: "45px" }}></div>
           </div>
-          
         </div>
-        
+
         {/* En intervention */}
         <div
           className="ds_sl_container"
@@ -190,10 +184,8 @@ function DashboardScreen() {
             {[1, 2, 3, 4, 5].map((_) => (
               <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
             ))}
-            <div style={{marginTop:"45px"}}>
-             </div>
+            <div style={{ marginTop: "45px" }}></div>
           </div>
-          
         </div>
         {/* Terminé */}
         <div
@@ -227,13 +219,10 @@ function DashboardScreen() {
             {[1, 2, 3, 4, 5].map((_) => (
               <TicketListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
             ))}
-              <div style={{marginTop:"45px"}}>
+            <div style={{ marginTop: "45px" }}></div>
           </div>
         </div>
-      
-        </div>
       </div>
-      
     </UXL>
   );
 }
@@ -251,121 +240,141 @@ function TicketListTile(props) {
 
   return (
     <>
-    <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
       <div
-        className="row"
-        style={{
-          width: "100%",
-          justifyContent: "flex-start",
-          marginBottom: "2%",
-        }}
+        className="column ds_tlt_container"
+        onClick={handleIsTicketDetailModalOpen}
       >
-        {props.tags.map((_) => (
-          <div
-            className="row"
-            style={{
-              borderRadius: "20px",
-              backgroundColor: _.color,
-              marginRight: "2%",
-              padding: "2%",
-            }}
-          >
-            {_.icon ? <img style={{ height: "14px", width: "14px", marginRight: "5%" }} src={_.icon} /> : <></>}
-            <p
+        <div
+          className="row"
+          style={{
+            width: "100%",
+            justifyContent: "flex-start",
+            marginBottom: "2%",
+          }}
+        >
+          {props.tags.map((_) => (
+            <div
+              className="row"
               style={{
-                fontSize: "12px",
-                whiteSpace: "nowrap",
+                borderRadius: "20px",
+                backgroundColor: _.color,
+                marginRight: "2%",
+                padding: "2%",
               }}
             >
-              {_.title}
-            </p>
-          </div>
-        ))}
-      </div>
-      <div
-        className="row ds_tlt_icon_text_container"
-      >
-        <img
-          src={props.icon}
-          style={{
-            height: "24px",
-            width: "24px",
-            marginRight: "4%",
-          }}
-        />
-        <p
-          style={{
-            fontSize: "14px",
-            fontWeight: "600",
-            color: "#2F696D",
-          }}
-        >
-          {props.title}
-        </p>
-      </div>
-      <p
-        style={{
-          fontSize: "13px",
-          fontWeight: "600",
-          color: "#8C8C8C",
-          paddingBottom:"2%"
-        }}
-      >
-        {moment(props.createdAt).format('LT dddd D,MMM YYYY')}
-        {/* {moment(new Date(props.createdAt).format("D,MMM,YYYY"))} */}
-        {/* {new Date(props.createdAt).toLocaleDateString("en-US")} */}
-      </p>
-      <div
-      className="divider"
-      />
-      <div
-        className="row"
-        style={{
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          {props.users.map((_, __) => (
-            <img
-              className="ip_container"
-              src={_.avatar}
-              style={{ height: "40px", width: "40px", position: "absolute", left: `${20 * __}pt`, top: "-10pt" }}
-            />
+              {_.icon ? (
+                <img
+                  style={{ height: "14px", width: "14px", marginRight: "5%" }}
+                  src={_.icon}
+                />
+              ) : (
+                <></>
+              )}
+              <p
+                style={{
+                  fontSize: "12px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {_.title}
+              </p>
+            </div>
           ))}
         </div>
-
-        <div
-          className="row jcc"
-          style={{
-            alignItems: "center",
-          }}
-        >
+        <div className="row ds_tlt_icon_text_container">
+          <img
+            src={props.icon}
+            style={{
+              height: "24px",
+              width: "24px",
+              marginRight: "4%",
+            }}
+          />
           <p
             style={{
-              color: "#8C8C8C",
               fontSize: "14px",
-              marginRight: "20%",
-              paddingTop:"40%"
+              fontWeight: "600",
+              color: "#2F696D",
             }}
           >
-            {props.comments_count}
+            {props.title}
           </p>
-          <img src={TicketComment} style={{ height: "28px", width: "20px", paddingTop:"40%" }} />
         </div>
+        <p
+          style={{
+            fontSize: "13px",
+            fontWeight: "600",
+            color: "#8C8C8C",
+            paddingBottom: "2%",
+          }}
+        >
+          {moment(props.createdAt).format("LT dddd D,MMM YYYY")}
+          {/* {moment(new Date(props.createdAt).format("D,MMM,YYYY"))} */}
+          {/* {new Date(props.createdAt).toLocaleDateString("en-US")} */}
+        </p>
+        <div className="divider" />
+        <div
+          className="row"
+          style={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              position: "relative",
+            }}
+          >
+            {props.users.map((_, __) => (
+              <img
+                className="ip_container"
+                src={_.avatar}
+                style={{
+                  height: "40px",
+                  width: "40px",
+                  position: "absolute",
+                  left: `${20 * __}pt`,
+                  top: "-10pt",
+                }}
+              />
+            ))}
+          </div>
+
+          <div
+            className="row jcc"
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <p
+              style={{
+                color: "#8C8C8C",
+                fontSize: "14px",
+                marginRight: "20%",
+                paddingTop: "40%",
+              }}
+            >
+              {props.comments_count}
+            </p>
+            <img
+              src={TicketComment}
+              style={{ height: "28px", width: "20px", paddingTop: "40%" }}
+            />
+          </div>
+        </div>
+        <Modal
+          open={isTicketDetailModal}
+          onClose={handleIsTicketDetailModalClose}
+          aria-labelledby="Ticket Detail"
+        >
+          <TicketDetailModal
+            {...props}
+            handleClose={handleIsTicketDetailModalClose}
+          />
+        </Modal>
       </div>
-      <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
-        <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
-      </Modal>
-    </div>
-    
     </>
-    
   );
 }
 
