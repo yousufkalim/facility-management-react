@@ -12,7 +12,7 @@ import { getRoutes } from "../utils/Auth";
 
 const Main = () => {
   const token = getToken();
-  const user = getUser();
+  //const user = getUser();
   const location = useLocation();
   const isMyTokenExpired = isExpired(token);
 

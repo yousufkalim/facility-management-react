@@ -11,11 +11,11 @@ function TicketDetailModal(props) {
   return (
     <div
       className="modal_container"
-      style={{
-        height: "80vh",
-        width: "50vw",
-        overflowY: "scroll",
-      }}
+      // style={{
+      //   height: "80vh",
+      //   width: "50vw",
+      //   overflowY: "scroll",
+      // }}
     >
       <div
         className="row w100 aic"
@@ -213,11 +213,6 @@ function TicketDetailModal(props) {
             />
             <div
               className="column ajc appbar_row3_search_img tdm_comment_images_img"
-              style={{
-                right: "8%",
-                backgroundColor: "#FFFFFF",
-                boxShadow: "2px 2px 2px #d1cbc6",
-              }}
             >
               <img src={CommentAttachmentSVG} />
             </div>

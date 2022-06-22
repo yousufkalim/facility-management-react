@@ -10,6 +10,7 @@ import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 import TicketCommentSVG from "../../assets/TicketComment.svg";
 import ModalCrossSVG from "../../assets/ModalCross.svg";
 import AttachmentSVG from "../../assets/Attachment.svg";
+import TicketComment from "../../assets/Comment.svg";
 
 import User1AvatarSVG from "../../assets/User1Avatar.png";
 import User2AvatarSVG from "../../assets/User2Avatar.png";
@@ -27,6 +28,10 @@ import { getUser } from "../../utils/Auth";
 import Api from "../../api";
 import { toast } from "react-toastify";
 import assetsURL from "../../utils/Assets";
+
+import { Store } from "../../StoreContext";
+
+import moment from "moment";
 
 const tags = [
   {
@@ -149,6 +154,7 @@ function DashboardScreen() {
     <>
       {console.log(state, "state")}
       <UXL appBarText="Dashboard">
+        {/* Needs to have UXL conatiner */}
         <TicketsScreen show={!renderAddTicket} />
         <AddTicketScreen show={renderAddTicket} handleClose={handleRenderAddTicket} state={state} setState={setState} />
         <CustomButton
@@ -166,14 +172,17 @@ function DashboardScreen() {
 }
 
 function TicketsScreen({ show }) {
+  const store = Store();
   return (
     <div
       className="row wh100"
       style={{
         display: show ? "flex" : "none",
-        backgroundColor: "#F4F4F4",
         overflow: "hidden",
         position: "relative",
+        justifyContent: "flex-start",
+        backgroundColor: "#F4F4F4",
+        width: store?.isSideBar ? "97%" : "100%",
       }}
     >
       {/* DragDrop Global Context */}
@@ -189,16 +198,7 @@ function TicketsScreen({ show }) {
             padding: "2%",
           }}
         >
-          <p
-            style={{
-              padding: "4% 0",
-              fontSize: "20px",
-              fontWeight: "600",
-              color: "#A9A9A9",
-            }}
-          >
-            Nouveaux Billets 5
-          </p>
+          <p className="ds_ml_container_heading">Nouveaux Billets 5</p>
           <Droppable droppableId="droppable-0">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
@@ -238,11 +238,12 @@ function TicketsScreen({ show }) {
               En attente 2
             </p>
           </div>
+
           <div
             className="column ds_ml_container"
             style={{
               width: "100%",
-              padding: "2% 4%",
+              padding: "8% 4%",
             }}
           >
             <Droppable droppableId="droppable-1">
@@ -289,7 +290,7 @@ function TicketsScreen({ show }) {
             className="column ds_ml_container"
             style={{
               width: "100%",
-              padding: "2% 4%",
+              padding: "8% 4%",
             }}
           >
             <Droppable droppableId="droppable-2">
@@ -309,7 +310,6 @@ function TicketsScreen({ show }) {
             </Droppable>
           </div>
         </div>
-
         {/* Terminé */}
         <div
           className="ds_sl_container"
@@ -336,7 +336,7 @@ function TicketsScreen({ show }) {
             className="column ds_ml_container"
             style={{
               width: "100%",
-              padding: "2% 4%",
+              padding: "8% 4%",
             }}
           >
             <Droppable droppableId="droppable-3">
@@ -703,106 +703,122 @@ function TicketListTile(props) {
   };
 
   return (
-    <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
-      <div
-        className="row"
-        style={{
-          width: "100%",
-          marginBottom: "2%",
-        }}
-      >
-        {props.tags.map((_) => (
-          <Tag {..._} text={_.title} />
-        ))}
-      </div>
-      <div
-        className="row"
-        style={{
-          alignItems: "center",
-          width: "100%",
-          marginBottom: "12%",
-        }}
-      >
-        <img
-          src={props.icon}
-          style={{
-            height: "24px",
-            width: "24px",
-            marginRight: "4%",
-          }}
-        />
-        <p
-          style={{
-            fontSize: "14px",
-            fontWeight: "600",
-            color: "#2F696D",
-          }}
-        >
-          {props.title}
-        </p>
-      </div>
-      <p
-        style={{
-          fontSize: "13px",
-          fontWeight: "600",
-          color: "#8C8C8C",
-        }}
-      >
-        {new Date(props.createdAt).toLocaleDateString("en-US")}
-      </p>
-      <div
-        style={{
-          height: "1px",
-          width: "100%",
-          marginTop: "3%",
-          marginBottom: "3%",
-          backgroundColor: "#D5D5D5",
-        }}
-      />
-      <div
-        className="row"
-        style={{
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
+    <>
+      <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
         <div
+          className="row"
           style={{
-            position: "relative",
+            width: "100%",
+            justifyContent: "flex-start",
+            marginBottom: "2%",
           }}
         >
-          {props.users.map((_, __) => (
-            <img
-              className="ip_container"
-              src={_.avatar}
-              style={{ height: "40px", width: "40px", position: "absolute", left: `${20 * __}pt`, top: "-10pt" }}
-            />
+          {props.tags.map((_) => (
+            <div
+              className="row"
+              style={{
+                borderRadius: "20px",
+                backgroundColor: _.color,
+                marginRight: "2%",
+                padding: "2%",
+              }}
+            >
+              {_.icon ? <img style={{ height: "14px", width: "14px", marginRight: "5%" }} src={_.icon} /> : <></>}
+              <p
+                style={{
+                  fontSize: "12px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {_.title}
+              </p>
+            </div>
           ))}
         </div>
-
-        <div
-          className="row jcc"
-          style={{
-            alignItems: "center",
-          }}
-        >
+        <div className="row ds_tlt_icon_text_container">
+          <img
+            src={props.icon}
+            style={{
+              height: "24px",
+              width: "24px",
+              marginRight: "4%",
+            }}
+          />
           <p
             style={{
-              color: "#8C8C8C",
               fontSize: "14px",
-              marginRight: "20%",
+              fontWeight: "600",
+              color: "#2F696D",
             }}
           >
-            {props.comments_count}
+            {props.title}
           </p>
-          <img src={TicketCommentSVG} style={{ height: "20px", width: "20px" }} />
         </div>
+        <p
+          style={{
+            fontSize: "13px",
+            fontWeight: "600",
+            color: "#8C8C8C",
+            paddingBottom: "2%",
+          }}
+        >
+          {moment(props.createdAt).format("LT dddd D,MMM YYYY")}
+          {/* {moment(new Date(props.createdAt).format("D,MMM,YYYY"))} */}
+          {/* {new Date(props.createdAt).toLocaleDateString("en-US")} */}
+        </p>
+        <div className="divider" />
+        <div
+          className="row"
+          style={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              position: "relative",
+            }}
+          >
+            {props.users.map((_, __) => (
+              <img
+                className="ip_container"
+                src={_.avatar}
+                style={{
+                  height: "40px",
+                  width: "40px",
+                  position: "absolute",
+                  left: `${20 * __}pt`,
+                  top: "-10pt",
+                }}
+              />
+            ))}
+          </div>
+
+          <div
+            className="row jcc"
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <p
+              style={{
+                color: "#8C8C8C",
+                fontSize: "14px",
+                marginRight: "20%",
+                paddingTop: "40%",
+              }}
+            >
+              {props.comments_count}
+            </p>
+            <img src={TicketComment} style={{ height: "28px", width: "20px", paddingTop: "40%" }} />
+          </div>
+        </div>
+        <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
+          <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
+        </Modal>
       </div>
-      <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
-        <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
-      </Modal>
-    </div>
+    </>
   );
 }
 

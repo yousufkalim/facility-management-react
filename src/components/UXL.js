@@ -27,6 +27,7 @@ function UXL({ appBarText, disableAppBar = false, disableSideBar = false, childr
             style={{
               marginTop: !disableAppBar ? "7vh" : "0",
               marginLeft: store.isSideBar && !disableSideBar ? "4vw" : "0",
+              // width:  store.isSideBar && !disableSideBar ? "100%" :"98%"
             }}
           >
             {children}
