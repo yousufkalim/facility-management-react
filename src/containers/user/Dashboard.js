@@ -175,13 +175,10 @@ function TicketsScreen({ show }) {
   const store = Store();
   return (
     <div
-      className="row wh100"
+
+      className="row ticket_container"
       style={{
         display: show ? "flex" : "none",
-        overflow: "hidden",
-        position: "relative",
-        justifyContent: "flex-start",
-        backgroundColor: "#F4F4F4",
         width: store?.isSideBar ? "97%" : "100%",
       }}
     >
@@ -201,7 +198,7 @@ function TicketsScreen({ show }) {
           <p className="ds_ml_container_heading">Nouveaux Billets 5</p>
           <Droppable droppableId="droppable-0">
             {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+              <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
                 {[1, 2, 3, 4, 5].map((_, __) => (
                   <Draggable key={__} draggableId={`item-0-${__}`} index={__}>
                     {(provided) => (
@@ -214,6 +211,7 @@ function TicketsScreen({ show }) {
               </div>
             )}
           </Droppable>
+         
         </div>
 
         {/* En attente */}
@@ -248,7 +246,7 @@ function TicketsScreen({ show }) {
           >
             <Droppable droppableId="droppable-1">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                   {[1, 2, 3, 4, 5].map((_, __) => (
                     <Draggable key={__} draggableId={`item-1-${__}`} index={__}>
                       {(provided) => (
@@ -261,6 +259,7 @@ function TicketsScreen({ show }) {
                 </div>
               )}
             </Droppable>
+          
           </div>
         </div>
 
@@ -295,7 +294,7 @@ function TicketsScreen({ show }) {
           >
             <Droppable droppableId="droppable-2">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                   {[1, 2, 3, 4, 5].map((_, __) => (
                     <Draggable key={__} draggableId={`item-2-${__}`} index={__}>
                       {(provided) => (
@@ -308,6 +307,7 @@ function TicketsScreen({ show }) {
                 </div>
               )}
             </Droppable>
+            {/* <div style={{marginBottom:"50%"}}> </div> */}
           </div>
         </div>
         {/* Terminé */}
@@ -341,7 +341,7 @@ function TicketsScreen({ show }) {
           >
             <Droppable droppableId="droppable-3">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                   {[1, 2, 3, 4, 5].map((_, __) => (
                     <Draggable key={__} draggableId={`item-3-${__}`} index={__}>
                       {(provided) => (
@@ -351,6 +351,7 @@ function TicketsScreen({ show }) {
                       )}
                     </Draggable>
                   ))}
+                    {/* <div style={{marginBottom:"50%"}}> </div> */}
                 </div>
               )}
             </Droppable>
@@ -362,7 +363,7 @@ function TicketsScreen({ show }) {
 }
 
 function AddTicketScreen({ show, handleClose, state, setState }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [buildings, setBuildings] = useState([]);
   const [buildingLevels, setBuildingLevels] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -379,7 +380,7 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
 
   useEffect(() => {
     console.log("WE WILL LOAD - XYZ");
-    _load();
+    // _load();
   }, []);
 
   const _load = async () => {
@@ -451,9 +452,12 @@ function AddTicketScreen({ show, handleClose, state, setState }) {
 
   return (
     <>
-      {/* {console.log(buildings)} */}
       {isLoading ? (
-        <Loader />
+        <div className="wh100 column ajc" style={{
+          display: show ? "flex" : "none",
+        }}>
+          <Loader />
+        </div>
       ) : (
         <div
           className="column wh100"
