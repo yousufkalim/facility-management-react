@@ -1,7 +1,7 @@
-.welcome_note_fm{
-    padding-top: 2%;
-    font-size: 14px;
-    color: #999999;
+.welcome_note_fm {
+  padding-top: 2%;
+  font-size: 14px;
+  color: #999999;
 }
 .registration_screen_row2_row1 {
   display: flex;
@@ -16,7 +16,7 @@
   height: 100%;
   width: 100%;
 }
-.reg_screen_row1{
+.reg_screen_row1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -25,7 +25,7 @@
   margin-top: 10%;
   width: 30%;
 }
-.reg_screen_row2{
+.reg_screen_row2 {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -48,44 +48,42 @@
 }
 
 @media only screen and (max-width: 992px) {
-  .reg_screen_top{
-      flex-direction: column;
+  .reg_screen_top {
+    flex-direction: column;
   }
-  .reg_screen_row1{
+  .reg_screen_row1 {
     width: 100%;
     padding-bottom: 2%;
   }
-  .reg_screen_row2{
-width: 100%;
+  .reg_screen_row2 {
+    width: 100%;
   }
-  .reg_screen_row2_container{
+  .reg_screen_row2_container {
     margin-bottom: 2%;
   }
 }
 
 @media only screen and (max-width: 992px) {
-  .reg_screen_row2_container{
-width: 80%;
-margin-right:7%;
-
+  .reg_screen_row2_container {
+    width: 80%;
+    margin-right: 7%;
   }
-  .reg_screen_row1{
+  .reg_screen_row1 {
     margin-left: 0%;
     justify-content: center;
     align-items: center;
   }
-  .welcome_note_fm{
-   font-size: 10px;
+  .welcome_note_fm {
+    font-size: 10px;
   }
 }
 
 @media only screen and (max-width: 667px) {
-  .reg_screen_row2_container{
-width: 90%;
-margin-right: 5%;
+  .reg_screen_row2_container {
+    width: 90%;
+    margin-right: 5%;
   }
-  .welcome_note_fm{
+  .welcome_note_fm {
     padding: 3% 0%;
   }
-  
 }

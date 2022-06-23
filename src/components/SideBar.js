@@ -48,7 +48,7 @@ const handleNavigation = (navigate, index) => {
     case 1:
       navigate("/statistics");
       break;
-      case 2:
+    case 2:
       navigate("/allusers");
       break;
     default:

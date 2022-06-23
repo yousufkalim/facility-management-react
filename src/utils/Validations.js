@@ -29,14 +29,12 @@ function registration(data) {
 
 function addTicket(data) {
   const valFuncArr = [
-    () => Validators.selectValidator("Building", data["building_index"]),
-    () => Validators.selectValidator("Venue", data["venue_Index"]),
-    () => Validators.nullValidator("Location Details", data["location_details"]),
-    () => Validators.selectValidator("Category", data["category_index"]),
+    () => Validators.selectValidator("Building", data["building"]),
+    () => Validators.selectValidator("Building Level", data["building_level"]),
+    () => Validators.selectValidator("Category", data["category"]),
     () => Validators.nullValidator("Title", data["title"]),
-    () => Validators.nullValidator("Details", data["details"]),
-    () => Validators.selectValidator("Priority", data["priority_index"]),
-    () => Validators.selectValidator("Assignee", data["assignee_index"]),
+    () => Validators.selectValidator("Priority", data["priority"]),
+    // () => Validators.selectValidator("Assignee", data["assignee"]),
   ];
 
   const validated = formValidator(valFuncArr);
