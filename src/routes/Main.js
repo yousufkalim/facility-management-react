@@ -12,7 +12,7 @@ import { getRoutes } from "../utils/Auth";
 
 const Main = () => {
   const token = getToken();
-  const user = getUser();
+  //const user = getUser();
   const location = useLocation();
   const isMyTokenExpired = isExpired(token);
 
@@ -32,12 +32,7 @@ const Main = () => {
     <>
       <div className="main-container">
         <Routes>
-          {/* {token && isMyTokenExpired == false ? (
-            <>{user.role == "client" ? <>{getRoutes(RoutesObj.ClientRoutes)}</> : <>{getRoutes(RoutesObj.TailorRoutes)}</>}</>
-          ) : (
-            <>{getRoutes(RoutesObj.AuthRoutes)}</>
-          )} */}
-          {<>{getRoutes(RoutesObj.AuthRoutes)}</>}
+          {token && isMyTokenExpired == false ? <>{getRoutes(RoutesObj.UserRoutes)}</> : <>{getRoutes(RoutesObj.AuthRoutes)}</>}
         </Routes>
       </div>
     </>

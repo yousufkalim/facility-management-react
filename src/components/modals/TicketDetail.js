@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Tag from "../Tag";
 
+import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 import ModalCrossSVG from "../../assets/ModalCross.svg";
 import CommentAttachmentSVG from "../../assets/CommentAttachment.svg";
 import CommentSendSVG from "../../assets/CommentSend.svg";
@@ -9,14 +10,7 @@ import CommentUserSVG from "../../assets/CommentUser.png";
 
 function TicketDetailModal(props) {
   return (
-    <div
-      className="modal_container"
-      style={{
-        height: "80vh",
-        width: "50vw",
-        overflowY: "scroll",
-      }}
-    >
+    <div className="modal_container">
       <div
         className="row w100 aic"
         style={{
@@ -32,7 +26,7 @@ function TicketDetailModal(props) {
             }}
           >
             <img
-              src={props.icon}
+              src={TicketSettingsSVG}
               style={{
                 height: "40px",
                 width: "40px",
@@ -48,16 +42,17 @@ function TicketDetailModal(props) {
                 marginBottom: "1%",
               }}
             >
-              {props.title}
+              {props.taskTitle}
             </p>
             <p
               style={{
                 fontSize: "12px",
                 fontWeight: "600",
                 color: "#8C8C8C",
+                whiteSpace: "nowrap",
               }}
             >
-              Ticket n°1528
+              {`Ticket n°${props.taskTicketId}`}
             </p>
           </div>
         </div>
@@ -86,27 +81,24 @@ function TicketDetailModal(props) {
             marginBottom: "5%",
           }}
         >
-          {props.tags.map((_) => (
-            <div
-              className="row"
+          <div
+            className="row"
+            style={{
+              borderRadius: "20px",
+              backgroundColor: "#D8ECFF",
+              marginRight: "4%",
+              padding: "4%",
+            }}
+          >
+            <p
               style={{
-                borderRadius: "20px",
-                backgroundColor: _.color,
-                marginRight: "4%",
-                padding: "4%",
+                fontSize: "12px",
+                whiteSpace: "nowrap",
               }}
             >
-              {_.icon ? <img style={{ height: "14px", width: "14px", marginRight: "5%" }} src={_.icon} /> : <></>}
-              <p
-                style={{
-                  fontSize: "12px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {_.title}
-              </p>
-            </div>
-          ))}
+              {props.building}
+            </p>
+          </div>
         </div>
         <div className="row w100">
           <div
@@ -117,15 +109,15 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>R+5</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.Details}</p>
             </div>
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>Plomberie</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.categoryName}</p>
             </div>
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Assignés</p>
-              <Tag color="#F4F4F4" text="Anaïs Moriceau" />
+              {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
             </div>
           </div>
           <div
@@ -136,11 +128,11 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>WC HOMME</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.LocationDetails}</p>
             </div>
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
-              <Tag color="#D8ECFF" text="Normale" />
+              <Tag color="#D8ECFF" text={props.taskPriority} />
             </div>
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Abonnés</p>
@@ -211,14 +203,7 @@ function TicketDetailModal(props) {
                 borderRadius: "20px",
               }}
             />
-            <div
-              className="column ajc appbar_row3_search_img tdm_comment_images_img"
-              style={{
-                right: "8%",
-                backgroundColor: "#FFFFFF",
-                boxShadow: "2px 2px 2px #d1cbc6",
-              }}
-            >
+            <div className="column ajc appbar_row3_search_img tdm_comment_images_img">
               <img src={CommentAttachmentSVG} />
             </div>
             <div

@@ -8,8 +8,9 @@ import LoginBackgroundSVG from "../../assets/LoginBackground.png";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { toast } from "react-toastify";
 import * as FormValidations from "../../utils/Validations";
+import Api from "../../api/index";
+import { toast } from "react-toastify";
 
 function RegistrationScreen() {
   const { t } = useTranslation();
@@ -17,13 +18,13 @@ function RegistrationScreen() {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [state, setState] = useState({
-    name_of_company: "",
-    first_name: "",
-    last_name: "",
+    companyName: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    phone: "",
+    phoneNo: "",
     password: "",
-    confirm_password: "",
+    // confirm_password: "",
   });
   const _setState = (key, value) => {
     const obj = {};
@@ -50,13 +51,27 @@ function RegistrationScreen() {
     let response;
 
     try {
-      // setIsProcessing(true);
-      console.log(state);
+      setIsProcessing(true);
+
+      const body = {
+        companyName: state.name_of_company,
+        firstName: state.first_name,
+        lastName: state.last_name,
+        phoneNo: state.phone,
+        email: state.email,
+        password: state.password,
+      };
+
+      response = await Api("post", "/register", body);
+      if (response?.data?.success) {
+        toast.success("Registered Successfully.");
+        navToLogin();
+      }
     } catch (e) {
       console.trace(e);
     }
 
-    // setIsProcessing(false);
+    setIsProcessing(false);
   };
 
   const navToLogin = () => {
@@ -72,17 +87,8 @@ function RegistrationScreen() {
         backgroundSize: "cover",
       }}
     >
-      <div className="login_screen_top">
-        <div
-          className="login_screen_row1"
-          style={{
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            marginLeft: "10%",
-            marginTop: "10%",
-            width: "30%",
-          }}
-        >
+      <div className="reg_screen_top">
+        <div className="reg_screen_row1">
           <p
             style={{
               fontSize: "34px",
@@ -99,30 +105,22 @@ function RegistrationScreen() {
           >
             Management
           </p>
-          <p
-            style={{
-              paddingTop: "2%",
-              fontSize: "14px",
-              color: "%999999",
-            }}
-          >
-            Welcome to Facility Management, Please fill out this form to fresh start!
-          </p>
+          <p className="welcome_note_fm">Welcome to Facility Management, Please fill out this form to fresh start!</p>
         </div>
         <div
-          className="login_screen_row2"
-          style={{
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-            width: "70%",
-          }}
+          className="reg_screen_row2"
+          // style={{
+          //   justifyContent: "flex-end",
+          //   alignItems: "flex-end",
+          //   width: "70%",
+          // }}
         >
           <div
-            className="login_screen_row2_container"
-            style={{
-              marginBottom: "10%",
-              width: "70%",
-            }}
+            className="reg_screen_row2_container"
+            // style={{
+            //   marginBottom: "10%",
+            //   width: "70%",
+            // }}
           >
             <CustomInput
               labelText={t("Name of Company")}
@@ -132,7 +130,7 @@ function RegistrationScreen() {
               divStyle={{
                 marginBottom: "6%",
               }}
-              onChange={(e) => _setState("name_of_company", e.target.value)}
+              onChange={(e) => _setState("companyName", e.target.value)}
             />
             <div
               className="registration_screen_row2_row1"
@@ -148,7 +146,7 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
-                onChange={(e) => _setState("first_name", e.target.value)}
+                onChange={(e) => _setState("firstName", e.target.value)}
               />
               <CustomInput
                 labelText={t("Last Name")}
@@ -158,7 +156,7 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
-                onChange={(e) => _setState("last_name", e.target.value)}
+                onChange={(e) => _setState("lastName", e.target.value)}
               />
             </div>
             <div
@@ -185,7 +183,7 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
-                onChange={(e) => _setState("phone", e.target.value)}
+                onChange={(e) => _setState("phoneNo", e.target.value)}
               />
             </div>
             <div

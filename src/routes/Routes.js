@@ -3,6 +3,7 @@ import LoginScreen from "../containers/auth/Login";
 import RegistrationScreen from "../containers/auth/Registration";
 import DashboardScreen from "../containers/user/Dashboard";
 import StatisticsScreen from "../containers/user/Statistics";
+import AllUsersScreen from "../containers/user/AllUsers";
 
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -26,11 +27,27 @@ const AuthRoutes = [
     icon: <LoginIcon />,
     element: RegistrationScreen,
   },
+];
+
+// Routes for User
+const UserRoutes = [
+  {
+    path: "*",
+    name: "Dashboard",
+    icon: <LoginIcon />,
+    element: DashboardScreen,
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: <LoginIcon />,
     element: DashboardScreen,
+  },
+  {
+    path: "/allusers",
+    name: "AllUsers",
+    icon: <LoginIcon />,
+    element: AllUsersScreen,
   },
   {
     path: "/statistics",
@@ -43,6 +60,7 @@ const AuthRoutes = [
 // Getting all routes
 const RoutesObj = {
   AuthRoutes,
+  UserRoutes,
 };
 
 export default RoutesObj;

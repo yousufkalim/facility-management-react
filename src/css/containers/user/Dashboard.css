@@ -19,11 +19,12 @@
 
 .ds_sl_header_container {
   justify-content: center;
-  align-items: center;
+  align-items: start;
   height: 40pt;
   width: 100%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  padding: 0% 7%;
 }
 
 .ds_sl_header_text {
@@ -36,11 +37,57 @@
 .ds_tlt_container {
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: 140pt !important;
+  min-height: 158pt !important;
   height: auto;
   width: 100%;
-  padding: 5% 5%;
+  padding: 8% 6%;
   background-color: #f4f4f4;
   border-radius: 20px;
   margin-bottom: 4%;
+}
+.ds_ml_container_heading {
+  padding: 12% 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #a9a9a9;
+}
+
+.ds_tlt_icon_text_container {
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 5% 0% 8% 0%;
+}
+.divider {
+  height: 1px;
+  width: 100%;
+  margin-top: 3%;
+  margin-bottom: 7%;
+  background-color: #d5d5d5;
+}
+
+/* media queries */
+@media only screen and (max-width: 992px) {
+  .uxl_children_container {
+    height: auto;
+    flex-direction: column;
+  }
+  .ds_ml_container {
+    width: 100%;
+  }
+  .ds_ml_container_heading {
+    padding: 4% 0%;
+  }
+  .ds_tlt_icon_text_container {
+    padding: 1% 0% 3% 0%;
+  }
+  .ds_sl_container {
+    width: 100%;
+  }
+  .ds_tlt_container {
+    padding: 4% 4%;
+  }
+  .divider {
+    margin: 1% 0% 3% 0%;
+  }
 }

@@ -13,6 +13,8 @@ import StatisticsHeadBlackSVG from "../../assets/StatisticsHeadBlack.png";
 import StatisticsHeadGreenSVG from "../../assets/StatisticsHeadGreen.png";
 import StatisticsHeadYellowSVG from "../../assets/StatisticsHeadYellow.png";
 
+import { Store, UpdateStore } from "../../StoreContext";
+
 const headArr = [
   {
     title: "tickets créés",
@@ -92,6 +94,7 @@ for (let i = 0; i < headArr.length; i++) {
 
 function StatisticsScreen() {
   const { t } = useTranslation();
+  const store = Store();
   return (
     <UXL appBarText="Statistics">
       <div
@@ -99,15 +102,10 @@ function StatisticsScreen() {
         style={{
           backgroundColor: "#F4F4F4",
           padding: "3% 2%",
+          width: store?.isSideBar ? "97%" : "100%",
         }}
       >
-        <div
-          className="row w100"
-          style={{
-            justifyContent: "space-between",
-            marginBottom: "2%",
-          }}
-        >
+        <div className="row w100 header_list_container">
           {headArr.map((_) => (
             <HeaderListTile {..._} />
           ))}
@@ -161,15 +159,7 @@ function StatisticsScreen() {
 
 function HeaderListTile(props) {
   return (
-    <div
-      className="row aic"
-      style={{
-        backgroundColor: "#FEFEFE",
-        borderRadius: "20px",
-        width: "auto",
-        justifyContent: "space-between",
-      }}
-    >
+    <div className="row aic header_list_tile_container">
       <div
         className="column"
         style={{
@@ -199,7 +189,13 @@ function HeaderListTile(props) {
       <div style={{ position: "relative" }}>
         <img
           src={props.background}
-          style={{ position: "absolute", height: "60pt", width: "100pt", left: "-100pt", bottom: "-30pt" }}
+          style={{
+            position: "absolute",
+            height: "60pt",
+            width: "100pt",
+            left: "-100pt",
+            bottom: "-30pt",
+          }}
         />
         <p
           style={{

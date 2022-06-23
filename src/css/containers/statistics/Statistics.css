@@ -1,0 +1,26 @@
+.header_list_container {
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+.header_list_tile_container {
+  background-color: #fefefe;
+  border-radius: 20px;
+  width: auto;
+  justify-content: space-between;
+}
+/* media queries */
+@media only screen and (max-width: 992px) {
+  .header_list_container {
+    flex-direction: column;
+  }
+  .header_list_tile_container {
+    width: 100%;
+    margin-bottom: 2%;
+  }
+}
+
+@media only screen and (max-width: 667px) {
+  .header_list_container {
+    padding-left: 5%;
+  }
+}

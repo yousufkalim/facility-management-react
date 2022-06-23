@@ -8,8 +8,10 @@ import LoginBackgroundSVG from "../../assets/LoginBackground.png";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { toast } from "react-toastify";
 import * as FormValidations from "../../utils/Validations";
+import Api from "../../api/index";
+import { handleLogin } from "../../utils/Auth";
+import { toast } from "react-toastify";
 
 function LoginScreen() {
   const { t } = useTranslation();
@@ -45,13 +47,30 @@ function LoginScreen() {
     let response;
 
     try {
-      // setIsProcessing(true);
+      setIsProcessing(true);
+
+      const body = {
+        email: state.email,
+        password: state.password,
+      };
+
+      response = await Api("post", "/Login", body);
+      if (response?.data?.success) {
+        toast.success("Logged In");
+        const token = response.data.token;
+        const user = {
+          id: response.data.userId,
+        };
+        handleLogin(token, user);
+        navToDashboard();
+      }
+
       console.log(state);
     } catch (e) {
       console.trace(e);
     }
 
-    // setIsProcessing(false);
+    setIsProcessing(false);
   };
 
   const navToDashboard = () => {
@@ -74,12 +93,12 @@ function LoginScreen() {
       <div className="login_screen_top">
         <div
           className="login_screen_row1"
-          style={{
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            marginLeft: "10%",
-            marginTop: "10%",
-          }}
+          // style={{
+          //   alignItems: "flex-start",
+          //   justifyContent: "flex-start",
+          //   marginLeft: "10%",
+          //   marginTop: "10%",
+          // }}
         >
           <p
             style={{
@@ -98,21 +117,22 @@ function LoginScreen() {
             Management
           </p>
           <p
-            style={{
-              paddingTop: "2%",
-              fontSize: "14px",
-              color: "%999999",
-            }}
+            className="welcome_note_fm_login"
+            // style={{
+            //   paddingTop: "2%",
+            //   fontSize: "14px",
+            //   color: "%999999",
+            // }}
           >
             Welcome to Facility Management, Please put your login credentials to start!
           </p>
         </div>
         <div
           className="login_screen_row2"
-          style={{
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-          }}
+          // style={{
+          //   justifyContent: "flex-end",
+          //   alignItems: "flex-end",
+          // }}
         >
           <div
             className="login_screen_row2_container"
@@ -156,8 +176,7 @@ function LoginScreen() {
               style={{
                 marginBottom: "10%",
               }}
-              // onClick={handleSubmit}
-              onClick={navToDashboard}
+              onClick={handleSubmit}
             />
           </div>
           <div
