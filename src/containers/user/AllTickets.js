@@ -19,8 +19,6 @@ import { Store, UpdateStore } from "../../StoreContext";
 
 import moment from "moment";
 
-import { tickets } from "../../utils/Constants";
-
 function AllTickets({ show }) {
   const store = Store();
   const updateStore = UpdateStore();
@@ -79,6 +77,100 @@ function AllTickets({ show }) {
     }
   };
 
+  const findDraggedTicket = (_) => {
+    if (_.droppableId == "0") {
+      return store.allTickets.recentTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else if (_.droppableId == "1") {
+      return store.allTickets.pendingTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else if (_.droppableId == "2") {
+      return store.allTickets.inProgressTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else if (_.droppableId == "3") {
+      return store.allTickets.completedTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else {
+      throw "Little Boy BOMB 💣";
+    }
+  };
+
+  const findDraggedTicketsList = (start, end, droppableId) => {
+    let startIndex;
+    let endIndex;
+    let sorterArr;
+
+    let tempArr;
+    let arr;
+
+    if (droppableId == "0") {
+      startIndex = store.allTickets.recentTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
+      endIndex = store.allTickets.recentTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+    } else if (droppableId == "1") {
+      startIndex = store.allTickets.pendingTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
+      endIndex = store.allTickets.pendingTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+    } else if (droppableId == "2") {
+      startIndex = store.allTickets.inProgressTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
+      endIndex = store.allTickets.inProgressTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+    } else if (droppableId == "3") {
+      startIndex = store.allTickets.completedTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
+      endIndex = store.allTickets.completedTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+    } else {
+      throw "Fat Man BOMB1 💣";
+    }
+
+    sorterArr = [startIndex, endIndex].sort((a, b) => a - b);
+
+    startIndex = sorterArr[0];
+    endIndex = sorterArr[1];
+
+    if (droppableId == "0") {
+      tempArr = [...store.allTickets.recentTickets];
+    } else if (droppableId == "1") {
+      tempArr = [...store.allTickets.pendingTickets];
+    } else if (droppableId == "2") {
+      tempArr = [...store.allTickets.inProgressTickets];
+    } else if (droppableId == "3") {
+      tempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Fat Man BOMB2 💣";
+    }
+
+    arr = tempArr.splice(startIndex, endIndex + 1);
+
+    return arr;
+  };
+
+  const onDragEnd = async (_) => {
+    // Handle reoder
+    if (_.source.droppableId == _.destination.droppableId) {
+      let sourceTicket = findDraggedTicket(_.source);
+      let destinationTicket = findDraggedTicket(_.destination);
+      const subArr = findDraggedTicketsList(sourceTicket, destinationTicket, _.source.droppableId);
+      console.log(subArr);
+      const reqArr = [];
+      reqArr.push({
+        ticketId: sourceTicket.taskTicketId,
+        orderNum: destinationTicket.orderNumber,
+      });
+      reqArr.push({
+        ticketId: destinationTicket.taskTicketId,
+        orderNum: sourceTicket.orderNumber,
+      });
+      await reorderTickets(reqArr);
+      await _load();
+    } else {
+      // Handle move
+    }
+  };
+
+  const reorderTickets = async (_) => {
+    let response;
+    try {
+      response = await Api("post", `/tickets/update_ticket_order`, _);
+      // const _message = response.data.message;
+      // toast.success(_message);
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
   return (
     <>
       {store.allTickets.isLoading ? (
@@ -99,11 +191,7 @@ function AllTickets({ show }) {
           }}
         >
           {/* DragDrop Global Context */}
-          <DragDropContext
-            onDragEnd={(_) => {
-              console.log(_);
-            }}
-          >
+          <DragDropContext onDragEnd={onDragEnd}>
             {/* Nouveaux Billets */}
             <div
               className="column ds_ml_container"
@@ -112,11 +200,11 @@ function AllTickets({ show }) {
               }}
             >
               <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
-              <Droppable droppableId="droppable-0">
+              <Droppable droppableId="0">
                 {(provided) => (
                   <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
                     {store.allTickets.recentTickets.map((_) => (
-                      <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                      <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                         {(provided) => (
                           <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <TicketListTile {..._} />
@@ -159,11 +247,11 @@ function AllTickets({ show }) {
                   padding: "8% 4%",
                 }}
               >
-                <Droppable droppableId="droppable-1">
+                <Droppable droppableId="1">
                   {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                       {store.allTickets.pendingTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
@@ -206,11 +294,11 @@ function AllTickets({ show }) {
                   padding: "8% 4%",
                 }}
               >
-                <Droppable droppableId="droppable-2">
+                <Droppable droppableId="2">
                   {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                       {store.allTickets.inProgressTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
@@ -252,11 +340,11 @@ function AllTickets({ show }) {
                   padding: "8% 4%",
                 }}
               >
-                <Droppable droppableId="droppable-3">
+                <Droppable droppableId="3">
                   {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                       {store.allTickets.completedTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
