@@ -4,4 +4,76 @@ const kRegExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d
 const kRegExpPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 const kRegExpUserName = /^[a-zA-Z0-9_\.]+$/;
 
-export { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName };
+import TagBuildingSVG from "../assets/TagBuilding.svg";
+import TicketTextSVG from "../assets/TicketText.svg";
+import TicketSettingsSVG from "../assets/TicketSettings.svg";
+import User1AvatarSVG from "../assets/User1Avatar.png";
+import User2AvatarSVG from "../assets/User2Avatar.png";
+
+const tags = [
+  {
+    title: "Normale",
+    color: "#D8ECFF",
+    icon: null,
+  },
+  {
+    title: "Élevée",
+    color: "#FFF0BC",
+    icon: null,
+  },
+  {
+    title: "Urgente",
+    color: "#FFD8D8",
+    icon: null,
+  },
+  {
+    title: "Bâtiment Bleu",
+    color: "#D8ECFF",
+    icon: TagBuildingSVG,
+  },
+  {
+    title: "Bâtiment Jaune",
+    color: "#FFF0BC",
+    icon: TagBuildingSVG,
+  },
+  {
+    title: "Bâtiment Rouge",
+    color: "#FFD8D8",
+    icon: TagBuildingSVG,
+  },
+];
+
+const tickets = [
+  {
+    tags: [tags[0], tags[3]],
+    title: "Fuite d'eau lavabo",
+    icon: TicketTextSVG,
+    createdAt: Date.now(),
+    users: [
+      {
+        avatar: User1AvatarSVG,
+      },
+      {
+        avatar: User2AvatarSVG,
+      },
+    ],
+    comments_count: 6,
+  },
+  {
+    tags: [tags[2], tags[3]],
+    title: "Alerte sur Pointage entrée/sortie",
+    icon: TicketSettingsSVG,
+    createdAt: Date.now(),
+    users: [
+      {
+        avatar: User1AvatarSVG,
+      },
+      {
+        avatar: User2AvatarSVG,
+      },
+    ],
+    comments_count: 4,
+  },
+];
+
+export { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName, tags, tickets };

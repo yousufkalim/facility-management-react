@@ -34,7 +34,7 @@ function addTicket(data) {
     () => Validators.selectValidator("Category", data["category"]),
     () => Validators.nullValidator("Title", data["title"]),
     () => Validators.selectValidator("Priority", data["priority"]),
-    () => Validators.selectValidator("Assignee", data["assignee"]),
+    // () => Validators.selectValidator("Assignee", data["assignee"]),
   ];
 
   const validated = formValidator(valFuncArr);
