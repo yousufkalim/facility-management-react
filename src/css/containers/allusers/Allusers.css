@@ -150,14 +150,14 @@
 }
 
 .edit_icon_image {
-    position: absolute;
-    left: 129px;
-    top: 125px;
-    border: 2px solid #f4f4f4;
-    border-radius: 50%;
-    background: #F4F4F4;
-    width: 25px;
-    padding: 5px;
+  position: absolute;
+  left: 129px;
+  top: 125px;
+  border: 2px solid #f4f4f4;
+  border-radius: 50%;
+  background: #f4f4f4;
+  width: 25px;
+  padding: 5px;
 }
 .badge_container > img {
   position: absolute;
@@ -219,6 +219,53 @@
   line-height: 21px;
   color: #494949;
 }
+.select_input_container label {
+  font-weight: 400;
+  line-height: 10px;
+  color: rgb(140, 140, 140);
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.select_input_container select {
+  margin-top: 5%;
+}
+.allusers_modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  background-color: #ffffff;
+  box-shadow: 24;
+  border-radius: 20px;
+  padding: 4%;
+}
+.modal_parent_container {
+  display: flex;
+}
+.modal_parent_container > img {
+  width: 150px;
+  border-radius: 50%;
+  margin-top: 33%;
+}
+.form_heading_box{
+  width: 70%;
+}
+.form_heading_text {
+  display: flex;
+  flex-direction: column;
+  padding: 2% 0%;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+.Modal_form_screen_row2_row1{
+  display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 @media only screen and (max-width: 992px) {
   .footer_image_container {
     width: 100%;
@@ -242,11 +289,29 @@
     right: 281px;
     top: 119px;
     left: unset;
-}
-  /* .badge_container_edit_form>img {
+  }
+  .badge_container_edit_form > img {
     left: 375px;
     top: 115px;
-} */
+  }
+}
+@media only screen and (max-width: 850px) {
+  .allusers_modal {
+    width: 600px;
+    max-height: 95vh;
+    overflow: scroll;
+  }
+  .modal_parent_container > img {
+    margin: 2%;
+  }
+  .modal_parent_container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .form_heading_box{
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 667px) {
@@ -268,10 +333,30 @@
   .edit_icon_image {
     right: 281px;
     top: 119px;
+  }
+  .allusers_modal {
+    width: 450px;
+  }
+  .form_heading_text{
+width: 100%;
+padding: 6% 0%;
+  }
+  .Modal_form_screen_row2_row1{
+    flex-direction: column;
+     }
+     .custom_input_container{
+      width: 100% !important;
+     }
+     .select_input_container{
+      width: 100%;
+     }
 }
-
+@media only screen and (max-width: 500px) {
+  .allusers_modal {
+    width: 400px;
 }
-@media only screen and (max-width: 375px) {
+}
+@media only screen and (max-width: 400px) {
   .tab_container p {
     font-size: 10px;
   }
@@ -296,4 +381,7 @@
   .tickets_icon_btn_span {
     font-size: 10px !important;
   }
+  .allusers_modal {
+    width: 350px;
+} 
 }
