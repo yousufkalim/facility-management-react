@@ -28,4 +28,7 @@
  .modal_container{
   width: 90vw;
  }
+ .container{
+  height: auto;
+ }
 }

@@ -155,12 +155,7 @@ function HeaderListTile(props) {
   return (
     <div className="row aic header_list_tile_container">
       <div
-        className="column"
-        style={{
-          padding: "10% 0",
-          paddingLeft: "20pt",
-          paddingRight: "180pt",
-        }}
+        className="column tickets_percentage"
       >
         <p
           style={{

@@ -20,6 +20,7 @@ import TicketTracking from "../../assets/TicketTracking.svg";
 import AsignTicket from "../../assets/AsignTicket.svg";
 import NewRoundTicket from "../../assets/NewRoundTicket.svg";
 import RoundTrackingTicket from "../../assets/RoundTrackingTicket.svg";
+import EditProfileIcon from "../../assets/EditProfileIcon.svg";
 import CustomButton from "../../components/CustomButton";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -256,15 +257,22 @@ const AllUsers = () => {
           </div>
           
           <div className="footer_image_container">
+         
             <img className="footer_image" src={footerimage} />
             <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
               <div className="user_profile_info">
                 <div className="form_container">
+                {/* <div className="badge_container_edit_form">
+            <img src={EditProfileIcon} />
+            </div> */}
                   <div className="input_image_container">
+                 
+                   <img className="edit_icon_image" src={EditProfileIcon} />
+      
                     <img
                       className="input_image"
                       style={{ borderRadius: "50%" }}
-                      src={dummy}
+                      src={profile}
                     />
                   </div>
                   <div className="input_container">
@@ -314,17 +322,14 @@ const AllUsers = () => {
                     }}
                     className="tickets_container"
                   >
-                    <div style={{ width: "50%" }}>
+                    <div className="tickets-status_container">
                       <p> Rôle</p>
                       <p
+                      className="responsable-span"
                         style={{
-                          color: "#494949",
-                          fontWeight: "600",
-                          fontSize: "20px",
-                          lineHeight: "30px",
+                        
                         }}
                       >
-                        {" "}
                         Responsable
                       </p>
                       <p> Bâtiment accessibles</p>

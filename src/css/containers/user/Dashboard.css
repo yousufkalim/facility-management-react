@@ -5,6 +5,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 300pt;
+  min-height: 100vh;
   max-height: 100vh;
   overflow-y: scroll;
   background-color: #ffffff;
@@ -90,7 +91,7 @@ margin-bottom: 50%;
     width: 100%;
     overflow: unset;
     max-height: unset;
-    padding: 8% 13% !important;
+    padding: 2% 13% !important;
   }
   .ds_ml_container_heading{
     padding:10% 0%;
@@ -127,4 +128,11 @@ margin-bottom: 0%;
   .ds_sl_container {
     margin: 0% 5%;
   }
+  .ds_tlt_container{
+    padding: 10% 6%;
+    min-height: 139pt !important;
+  }
+  /* .ds_ml_container {
+    padding: 2% 13% !important;
+  } */
 }

@@ -24,7 +24,11 @@
   color: aquamarine;
 }
 
-
+@media only screen and (max-width: 992px) {
+  .sidebar_container {
+    width: 7vw;
+  }
+}
 @media only screen and (max-width: 667px) {
   .sidebar_container {
     width: 10vw;
