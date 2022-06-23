@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import UXL from "../../components/UXL";
 
+import AllUsersModal from '../../components/modals/AllUsersModal'
+
+import profile from '../../assets/Profile.svg'
 import dummy from "../../assets/DummyUser.jpeg";
 import badge from "../../assets/Badge.svg";
 import searchicon from "../../assets/Search.svg";
@@ -17,14 +20,18 @@ import TicketTracking from "../../assets/TicketTracking.svg";
 import AsignTicket from "../../assets/AsignTicket.svg";
 import NewRoundTicket from "../../assets/NewRoundTicket.svg";
 import RoundTrackingTicket from "../../assets/RoundTrackingTicket.svg";
+import CustomButton from "../../components/CustomButton";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
-import moment from "moment";
+
+import CustomAlert from '../../components/customalert/CustomAlert'
 
 import { Store } from "../../StoreContext";
+
+
 
 const items = [
   {
@@ -193,13 +200,18 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
 );
 const AllUsers = () => {
   const [activeTabId, setActiveTabId] = useState("");
+  const [open, setOpen] = useState(false);
   const store = Store();
 
   const ActiveTab = (activetabid) => {
     setActiveTabId(activetabid);
   };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <>
+    
       <UXL appBarText="Allusers">
         <div
           className="row uxl_children_container"
@@ -210,6 +222,7 @@ const AllUsers = () => {
             width: store?.isSideBar ? "97%" : "100%",
           }}
         >
+         
           <div className="column ds_ml_container">
             <div className="search-msg-cont">
               <input className="search-msg-input" placeholder="Search by name" />
@@ -231,7 +244,7 @@ const AllUsers = () => {
 
             <div style={{ marginTop: "30px" }}></div>
           </div>
-
+          
           <div className="footer_image_container">
             <img className="footer_image" src={footerimage} />
             <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
@@ -318,6 +331,27 @@ const AllUsers = () => {
                             </div>
                           </>
                         ))}
+                       <CustomButton
+          // text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+          // onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
+             onClick={handleOpen}
+          text="Ajouter un utilisateur ➕"
+          style={{
+            position: "absolute",
+            right: "20pt",
+            bottom: "20pt",
+          }}
+        />
+        {/* can be used after ticket confirmation */}
+        {/* <CustomAlert
+        text="some text"
+        /> */}
+
+        <AllUsersModal
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        />
                       </div>
                     </div>
                   </div>
@@ -340,7 +374,7 @@ function UserCard() {
             <div className="badge_container">
               <img src={badge} />
             </div>
-            <img src={dummy} />
+            <img src={profile} />
             <div className="user_detail_name_designation">
               <span className="user_name">{val?.name}</span>
               <span className="user_designation">{val?.designation}</span>

@@ -8,6 +8,17 @@
   width: auto;
   justify-content: space-between;
 }
+.bar_conatiner {
+  background-color: #ffffff;
+  height: 45vh;
+  margin-bottom: 2%;
+  border-radius: 20px;
+}
+.percentage_container {
+  background-color: #ffffff;
+  height: 30vh;
+  border-radius: 20px;
+}
 /* media queries */
 @media only screen and (max-width: 992px) {
   .header_list_container {
@@ -21,6 +32,16 @@
 
 @media only screen and (max-width: 667px) {
   .header_list_container {
-    padding-left: 5%;
+    width: 80% !important;
+    margin: auto;
+  }
+  .bar_conatiner {
+    width: 80% !important;
+    margin: auto;
+  }
+  .percentage_container {
+    padding: 2%;
+    width: 80% !important;
+    margin: 4% auto;
   }
 }

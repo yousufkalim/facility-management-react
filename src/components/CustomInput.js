@@ -18,6 +18,7 @@ function CustomInput({
   enableYoursStyle,
   labelStyle,
   inputStyle,
+  
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

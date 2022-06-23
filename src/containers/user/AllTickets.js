@@ -80,13 +80,9 @@ function AllTickets({ show }) {
 
   return (
     <div
-      className="row wh100"
+      className="row ticket_container"
       style={{
         display: show ? "flex" : "none",
-        overflow: "hidden",
-        position: "relative",
-        justifyContent: "flex-start",
-        backgroundColor: "#F4F4F4",
         width: store?.isSideBar ? "97%" : "100%",
       }}
     >
@@ -106,7 +102,7 @@ function AllTickets({ show }) {
           <p className="ds_ml_container_heading">{`Nouveaux Billets ${recentTickets.length}`}</p>
           <Droppable droppableId="droppable-0">
             {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+              <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
                 {recentTickets.map((_) => (
                   <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
                     {(provided) => (
@@ -153,7 +149,7 @@ function AllTickets({ show }) {
           >
             <Droppable droppableId="droppable-1">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                   {pendingTickets.map((_) => (
                     <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
                       {(provided) => (
@@ -200,7 +196,7 @@ function AllTickets({ show }) {
           >
             <Droppable droppableId="droppable-2">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                   {inProgressTickets.map((_) => (
                     <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
                       {(provided) => (
@@ -246,7 +242,7 @@ function AllTickets({ show }) {
           >
             <Droppable droppableId="droppable-3">
               {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps} className="w100">
+                <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                   {completedTickets.map((_) => (
                     <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
                       {(provided) => (

@@ -5,7 +5,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   width: 300pt;
-  height: 100%;
+  max-height: 100vh;
   overflow-y: scroll;
   background-color: #ffffff;
 }
@@ -65,29 +65,65 @@
   margin-bottom: 7%;
   background-color: #d5d5d5;
 }
-
+.dropable_box_one {
+  margin-bottom: 20%;
+}
+.dropable_box {
+  margin-bottom: 50%;
+}
+.ticket_container {
+  overflow: hidden;
+  position: relative;
+  justify-content: flex-start;
+  background-color: #f4f4f4;
+  position: fixed;
+}
 /* media queries */
 @media only screen and (max-width: 992px) {
   .uxl_children_container {
     height: auto;
     flex-direction: column;
+    justify-content: flex-end !important;
+    align-items: flex-end;
   }
   .ds_ml_container {
     width: 100%;
+    overflow: unset;
+    max-height: unset;
+    padding: 8% 13% !important;
   }
   .ds_ml_container_heading {
-    padding: 4% 0%;
+    padding: 10% 0%;
   }
   .ds_tlt_icon_text_container {
     padding: 1% 0% 3% 0%;
   }
   .ds_sl_container {
     width: 100%;
+    padding: 6% !important;
   }
   .ds_tlt_container {
     padding: 4% 4%;
   }
   .divider {
     margin: 1% 0% 3% 0%;
+  }
+  .ticket_container {
+    flex-direction: column;
+    height: auto !important;
+    position: relative;
+    width: 100% !important;
+  }
+  .dropable_box {
+    margin-bottom: 0%;
+  }
+  .dropable_box_one {
+    margin-bottom: 0%;
+  }
+}
+
+@media only screen and (max-width: 667px) {
+  .ds_sl_container {
+    margin: 0% 5%;
   }
 }

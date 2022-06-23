@@ -111,24 +111,18 @@ function StatisticsScreen() {
           ))}
         </div>
         <div
-          className="w100"
-          style={{
-            backgroundColor: "#FFFFFF",
-            height: "45vh",
-            marginBottom: "2%",
-            borderRadius: "20px",
-          }}
+          className="w100 bar_conatiner"
         >
           <Bar options={options} data={data} />
         </div>
         <div
-          className="column w100 jcc"
-          style={{
-            backgroundColor: "#FFFFFF",
-            height: "30vh",
-            borderRadius: "20px",
-            padding: "2%, 3%",
-          }}
+          className="column w100 jcc percentage_container"
+          // style={{
+          //   backgroundColor: "#FFFFFF",
+          //   height: "30vh",
+          //   borderRadius: "20px",
+          //   // padding: "2%, 3%",
+          // }}
         >
           <p style={{ marginLeft: "3%", marginBottom: "3%", color: "#4F4F4F", fontWeight: "600" }}>
             Emplacement avec la plupart des tickets
