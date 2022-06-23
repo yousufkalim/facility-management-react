@@ -10,12 +10,11 @@ import Loader from "../../components/Loader";
 
 import Api from "../../api";
 
+import { Store, UpdateStore } from "../../StoreContext";
+
 function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [buildings, setBuildings] = useState([]);
-  const [buildingLevels, setBuildingLevels] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [priorities, setPriorities] = useState([]);
+  const store = Store();
+  const updateStore = UpdateStore();
 
   const _setState = (key, value) => {
     const obj = {};
@@ -32,7 +31,9 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   };
 
   useEffect(() => {
-    _load();
+    if (store.addTicket.isLoading) {
+      _load();
+    }
   }, []);
 
   const _load = async () => {
@@ -41,25 +42,16 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     const _categories = await getCategories();
     const _priorities = await getPriorities();
 
-    // console.log(_buildings, "_buildings");
-    // console.log(_buildingLevels, "_buildingLevels");
-    // console.log(_categories, "_categories");
-    // console.log(_priorities, "_priorities");
-
-    setBuildings(_buildings);
-    setBuildingLevels(_buildingLevels);
-    setCategories(_categories);
-    setPriorities(_priorities);
-
-    setState({
-      ...state,
-      building: _buildings[0].value,
-      building_level: _buildingLevels[0].value,
-      category: _categories[0].value,
-      priority: _priorities[0].value,
+    updateStore({
+      addTicket: {
+        ...store.addTicket,
+        buildings: _buildings,
+        buildingLevels: _buildingLevels,
+        categories: _categories,
+        priorities: _priorities,
+        isLoading: false,
+      },
     });
-
-    setIsLoading(false);
   };
 
   const getBuildings = async () => {
@@ -108,7 +100,12 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const selectBuilding = async (_) => {
     const _buildingLevels = await getBuildingLevels(_);
-    setBuildingLevels(_buildingLevels);
+    updateStore({
+      addTicket: {
+        ...store.addTicket,
+        buildingLevels: _buildingLevels,
+      },
+    });
     setState({
       ...state,
       building: _.value,
@@ -119,7 +116,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   return (
     <>
       {/* {console.log(state)} */}
-      {isLoading ? (
+      {store.addTicket.isLoading ? (
         <div
           className="wh100 column ajc"
           style={{
@@ -189,7 +186,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
                 <div className="row">
-                  {buildings.map((_) => (
+                  {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
                       text={_.text}
@@ -206,7 +203,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 <div className="column" style={{ marginBottom: "2%" }}>
                   <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
                   <div className="row aic">
-                    {buildingLevels.map((_) => (
+                    {store.addTicket.buildingLevels.map((_) => (
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
@@ -255,7 +252,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie *</p>
                 <div className="row">
-                  {categories.map((_) => (
+                  {store.addTicket.categories.map((_) => (
                     <SelectableTag
                       text={_.text}
                       isSelected={state.category == _.value}
@@ -328,7 +325,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité *</p>
                 <div className="row">
-                  {priorities.map((_) => (
+                  {store.addTicket.priorities.map((_) => (
                     <SelectableTag
                       {..._}
                       text={_.text}

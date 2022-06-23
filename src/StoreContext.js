@@ -18,8 +18,27 @@ export function UpdateStore() {
 export function StoreProvider({ children }) {
   // Initializing State
   let [store, setStore] = useState({
+    // Globals
     isSideBar: true,
     sideBarSelectIndex: 0,
+
+    // All Tickets Screen
+    allTickets: {
+      isLoading: true,
+      recentTickets: [],
+      pendingTickets: [],
+      inProgressTickets: [],
+      completedTickets: [],
+    },
+
+    // Add Ticket Screen
+    addTicket: {
+      isLoading: true,
+      buildings: [],
+      buildingLevels: [],
+      categories: [],
+      priorities: [],
+    },
   });
 
   const updateStore = (data) => {
