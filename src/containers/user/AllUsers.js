@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import UXL from "../../components/UXL";
 
-import AllUsersModal from '../../components/modals/AllUsersModal'
+import AllUsersModal from "../../components/modals/AllUsersModal";
 
-import profile from '../../assets/Profile.svg'
+import profile from "../../assets/Profile.svg";
 import dummy from "../../assets/DummyUser.jpeg";
 import badge from "../../assets/Badge.svg";
 import searchicon from "../../assets/Search.svg";
@@ -26,12 +26,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
-
-import CustomAlert from '../../components/customalert/CustomAlert'
+import CustomAlert from "../../components/customalert/CustomAlert";
 
 import { Store } from "../../StoreContext";
-
-
 
 const items = [
   {
@@ -211,7 +208,6 @@ const AllUsers = () => {
   const handleClose = () => setOpen(false);
   return (
     <>
-    
       <UXL appBarText="Allusers">
         <div
           className="row uxl_children_container"
@@ -222,7 +218,6 @@ const AllUsers = () => {
             width: store?.isSideBar ? "97%" : "100%",
           }}
         >
-         
           <div className="column ds_ml_container">
             <div className="search-msg-cont">
               <input className="search-msg-input" placeholder="Search by name" />
@@ -244,7 +239,7 @@ const AllUsers = () => {
 
             <div style={{ marginTop: "30px" }}></div>
           </div>
-          
+
           <div className="footer_image_container">
             <img className="footer_image" src={footerimage} />
             <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
@@ -331,27 +326,23 @@ const AllUsers = () => {
                             </div>
                           </>
                         ))}
-                       <CustomButton
-          // text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
-          // onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
-             onClick={handleOpen}
-          text="Ajouter un utilisateur ➕"
-          style={{
-            position: "absolute",
-            right: "20pt",
-            bottom: "20pt",
-          }}
-        />
-        {/* can be used after ticket confirmation */}
-        {/* <CustomAlert
+                        <CustomButton
+                          // text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+                          // onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
+                          onClick={handleOpen}
+                          text="Ajouter un utilisateur ➕"
+                          style={{
+                            position: "absolute",
+                            right: "20pt",
+                            bottom: "20pt",
+                          }}
+                        />
+                        {/* can be used after ticket confirmation */}
+                        {/* <CustomAlert
         text="some text"
         /> */}
 
-        <AllUsersModal
-        open={open}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-        />
+                        <AllUsersModal open={open} handleOpen={handleOpen} handleClose={handleClose} />
                       </div>
                     </div>
                   </div>

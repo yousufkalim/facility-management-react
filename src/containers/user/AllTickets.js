@@ -138,12 +138,9 @@ function AllTickets({ show }) {
     return arr;
   };
 
-  const _findDragRequestArr = (start, end, subArr) => {
+  const _findDragRequestArr = (start, end, _subArr) => {
+    const subArr = [..._subArr];
     const reqArr = [];
-
-    console.log(start, "start");
-    console.log(end, "end");
-    console.log(subArr, "subArr");
 
     // Lower ticket is moved up
     if (start.orderNumber > end.orderNumber) {
@@ -185,8 +182,6 @@ function AllTickets({ show }) {
       }
     }
 
-    console.log(reqArr, "reqArr");
-
     return reqArr;
   };
 
@@ -200,24 +195,209 @@ function AllTickets({ show }) {
     } else if (_ == "3") {
       return 1;
     } else {
-      throw "Tsar Bomba 💣";
+      throw "Tsar Bomba 1 💣";
     }
   };
 
+  const _findDragStateArr = (start, end, _subArr) => {
+    const subArr = [..._subArr];
+    const stateArr = [];
+
+    // Lower ticket is moved up
+    if (start.orderNumber > end.orderNumber) {
+      stateArr.push({
+        ...start,
+        orderNumber: end.orderNumber,
+      });
+
+      stateArr.push({
+        ...end,
+        orderNumber: end.orderNumber + 1,
+      });
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        stateArr.push({
+          ...obj,
+          orderNumber: end.orderNumber + 2 + i,
+        });
+      }
+    } else {
+      // Upper ticket is moved down
+      stateArr.push({
+        ...start,
+        orderNumber: end.orderNumber,
+      });
+
+      stateArr.push({
+        ...end,
+        orderNumber: end.orderNumber - 1,
+      });
+
+      subArr.reverse(); // As we are moving in the opposite direction
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        stateArr.push({
+          ...obj,
+          orderNumber: end.orderNumber - 2 - i,
+        });
+      }
+    }
+
+    return stateArr;
+  };
+
+  const _mutateReOrderTicketsState = (droppableId, stateArr) => {
+    let tempArr;
+    if (droppableId == "0") {
+      tempArr = [...store.allTickets.recentTickets];
+    } else if (droppableId == "1") {
+      tempArr = [...store.allTickets.pendingTickets];
+    } else if (droppableId == "2") {
+      tempArr = [...store.allTickets.inProgressTickets];
+    } else if (droppableId == "3") {
+      tempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Tsar Bomba 2 💣";
+    }
+
+    const parsedArr = [];
+    for (let i = 0; i < tempArr.length; i++) {
+      const _ = tempArr[i];
+      let modifiedObj;
+      for (let j = 0; j < stateArr.length; j++) {
+        const __ = stateArr[j];
+        if (_.taskTicketId == __.taskTicketId) {
+          modifiedObj = __;
+          continue;
+        }
+      }
+      if (modifiedObj) {
+        parsedArr.push(modifiedObj);
+      } else {
+        parsedArr.push(_);
+      }
+    }
+
+    parsedArr.sort((a, b) => a.orderNumber - b.orderNumber);
+
+    if (droppableId == "0") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          recentTickets: parsedArr,
+        },
+      });
+    } else if (droppableId == "1") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          pendingTickets: parsedArr,
+        },
+      });
+    } else if (droppableId == "2") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          inProgressTickets: parsedArr,
+        },
+      });
+    } else if (droppableId == "3") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          completedTickets: parsedArr,
+        },
+      });
+    } else {
+      throw "Tsar Bomba 2 💣";
+    }
+  };
+
+  const _mutateMoveTicketState = (sourceDroppableId, destinationDroppableId, ticket) => {
+    let sourceTempArr;
+    let destinationTempArr;
+
+    if (sourceDroppableId == "0") {
+      sourceTempArr = [...store.allTickets.recentTickets];
+    } else if (sourceDroppableId == "1") {
+      sourceTempArr = [...store.allTickets.pendingTickets];
+    } else if (sourceDroppableId == "2") {
+      sourceTempArr = [...store.allTickets.inProgressTickets];
+    } else if (sourceDroppableId == "3") {
+      sourceTempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+    if (destinationDroppableId == "0") {
+      destinationTempArr = [...store.allTickets.recentTickets];
+    } else if (destinationDroppableId == "1") {
+      destinationTempArr = [...store.allTickets.pendingTickets];
+    } else if (destinationDroppableId == "2") {
+      destinationTempArr = [...store.allTickets.inProgressTickets];
+    } else if (destinationDroppableId == "3") {
+      destinationTempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+
+    ticket = {
+      ...ticket,
+      orderNumber: destinationTempArr + 1,
+    };
+
+    sourceTempArr = sourceTempArr.filter((_) => _.taskTicketId != ticket.taskTicketId);
+    destinationTempArr.push(ticket);
+
+    let state = {};
+
+    if (sourceDroppableId == "0") {
+      state.recentTickets = sourceTempArr;
+    } else if (sourceDroppableId == "1") {
+      state.pendingTickets = sourceTempArr;
+    } else if (sourceDroppableId == "2") {
+      state.inProgressTickets = sourceTempArr;
+    } else if (sourceDroppableId == "3") {
+      state.completedTickets = sourceTempArr;
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+
+    if (destinationDroppableId == "0") {
+      state.recentTickets = destinationTempArr;
+    } else if (destinationDroppableId == "1") {
+      state.pendingTickets = destinationTempArr;
+    } else if (destinationDroppableId == "2") {
+      state.inProgressTickets = destinationTempArr;
+    } else if (destinationDroppableId == "3") {
+      state.completedTickets = destinationTempArr;
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+
+    updateStore({
+      allTickets: {
+        ...store.allTickets,
+        ...state,
+      },
+    });
+  };
+
   const onDragEnd = async (_) => {
-    // Handle reoder
     const sourceTicket = _findDraggedTicket(_.source);
     const destinationTicket = _findDraggedTicket(_.destination);
+    // Handle reoder
     if (_.source.droppableId == _.destination.droppableId) {
       const subArr = _findDraggedTicketsList(sourceTicket, destinationTicket, _.source.droppableId);
       const reqArr = _findDragRequestArr(sourceTicket, destinationTicket, subArr);
+      const stateArr = _findDragStateArr(sourceTicket, destinationTicket, subArr);
+      _mutateReOrderTicketsState(_.source.droppableId, stateArr);
       await reorderTickets(reqArr);
-      await _load();
     } else {
+      // Handle move
       const ticketID = sourceTicket.taskTicketId;
       const flag = _findFlagFromdroppableID(_.destination.droppableId);
+      _mutateMoveTicketState(_.source.droppableId, _.destination.droppableId, sourceTicket);
       await moveTicket(ticketID, flag);
-      await _load();
     }
   };
 
@@ -243,6 +423,7 @@ function AllTickets({ show }) {
 
   return (
     <>
+      {console.log(store)}
       {store.allTickets.isLoading ? (
         <div
           className="wh100 column ajc"
