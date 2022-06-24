@@ -106,29 +106,47 @@ function AllTickets({ show }) {
           >
             {/* Nouveaux Billets */}
             <div
-              className="column ds_ml_container"
+              className="ds_sl_container"
               style={{
-                padding: "2%",
+                padding: "3% 2%",
               }}
             >
-              <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
-              <Droppable droppableId="droppable-0">
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
-                    {store.allTickets.recentTickets.map((_) => (
-                      <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
-                        {(provided) => (
-                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <TicketListTile {..._} />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                  </div>
-                )}
-              </Droppable>
+              <div
+                className="column ds_ml_container"
+                style={{
+                  padding: "2%",
+                }}
+              >
+                <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
+                <Droppable droppableId="droppable-0">
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className="w100 dropable_box_one"
+                    >
+                      {store.allTickets.recentTickets.map((_) => (
+                        <Draggable
+                          key={_.taskTicketId}
+                          draggableId={`${_.taskTicketId}`}
+                          index={_.taskTicketId}
+                        >
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <TicketListTile {..._} />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
             </div>
-
             {/* En attente */}
             <div
               className="ds_sl_container"
@@ -161,11 +179,23 @@ function AllTickets({ show }) {
               >
                 <Droppable droppableId="droppable-1">
                   {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className="w100 dropable_box"
+                    >
                       {store.allTickets.pendingTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                        <Draggable
+                          key={_.taskTicketId}
+                          draggableId={`${_.taskTicketId}`}
+                          index={_.taskTicketId}
+                        >
                           {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -208,11 +238,23 @@ function AllTickets({ show }) {
               >
                 <Droppable droppableId="droppable-2">
                   {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className="w100 dropable_box"
+                    >
                       {store.allTickets.inProgressTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                        <Draggable
+                          key={_.taskTicketId}
+                          draggableId={`${_.taskTicketId}`}
+                          index={_.taskTicketId}
+                        >
                           {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -254,11 +296,23 @@ function AllTickets({ show }) {
               >
                 <Droppable droppableId="droppable-3">
                   {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className="w100 dropable_box"
+                    >
                       {store.allTickets.completedTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.taskTicketId}>
+                        <Draggable
+                          key={_.taskTicketId}
+                          draggableId={`${_.taskTicketId}`}
+                          index={_.taskTicketId}
+                        >
                           {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -289,7 +343,10 @@ function TicketListTile(props) {
 
   return (
     <>
-      <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
+      <div
+        className="column ds_tlt_container"
+        onClick={handleIsTicketDetailModalOpen}
+      >
         <div
           className="row"
           style={{
@@ -391,11 +448,21 @@ function TicketListTile(props) {
             >
               {props.comments.length}
             </p>
-            <img src={TicketComment} style={{ height: "28px", width: "20px", paddingTop: "40%" }} />
+            <img
+              src={TicketComment}
+              style={{ height: "28px", width: "20px", paddingTop: "40%" }}
+            />
           </div>
         </div>
-        <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
-          <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
+        <Modal
+          open={isTicketDetailModal}
+          onClose={handleIsTicketDetailModalClose}
+          aria-labelledby="Ticket Detail"
+        >
+          <TicketDetailModal
+            {...props}
+            handleClose={handleIsTicketDetailModalClose}
+          />
         </Modal>
       </div>
     </>

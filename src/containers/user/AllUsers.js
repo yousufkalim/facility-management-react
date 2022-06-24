@@ -27,11 +27,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
-
-import CustomAlert from '../../components/customalert/CustomAlert'
-
 import { Store } from "../../StoreContext";
 
+
+import useWindowSize from '../../utils/WindowSize'
 
 
 const items = [
@@ -73,6 +72,16 @@ const userDetail = [
     designation: "AXA",
   },
   {
+    id: "ihtisham",
+    name: "ihtisham",
+    designation: "AXA",
+  },
+  {
+    id: "ihtisham",
+    name: "ihtisham",
+    designation: "AXA",
+  },
+  {
     id: "hassan",
     name: "hassan",
     designation: "VXA",
@@ -92,17 +101,17 @@ const tags = [
   {
     title: "Normale",
     color: "#D8ECFF",
-    icon: null,
+    icon: TagBuildingSVG,
   },
   {
     title: "Élevée",
     color: "#FFF0BC",
-    icon: null,
+    icon: TagBuildingSVG,
   },
   {
     title: "Urgente",
     color: "#FFD8D8",
-    icon: null,
+    icon: TagBuildingSVG,
   },
   {
     title: "Bâtiment Bleu",
@@ -210,6 +219,7 @@ const AllUsers = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [width] = useWindowSize();
   return (
     <>
     
@@ -221,6 +231,7 @@ const AllUsers = () => {
             backgroundColor: "#F4F4F4",
             overflow: "hidden",
             width: store?.isSideBar ? "97%" : "100%",
+            paddingLeft: width<667? "10%":""
           }}
         >
          
@@ -256,8 +267,9 @@ const AllUsers = () => {
             <img src={EditProfileIcon} />
             </div> */}
                   <div className="input_image_container">
-                 
-                   <img className="edit_icon_image" src={EditProfileIcon} />
+                    <div style={{position:"relative"}}> 
+                    <img className="edit_icon_image" src={EditProfileIcon} />
+                    </div>
       
                     <img
                       className="input_image"
@@ -269,29 +281,29 @@ const AllUsers = () => {
                     <div className="input_row">
                       <div className="label_input_container">
                         <label className="row_label">Prénom</label>
-                        <input value="Feroze" />
+                        <input value="ihtisham" />
                       </div>
                       <div className="label_input_container">
                         <label className="row_label">Nom de famille</label>
-                        <input value="khan" />
+                        <input value="huss" />
                       </div>
                     </div>
                     <div className="label_input_container">
                       <label>E-mail</label>
-                      <input value="khan" />
+                      <input value="ihtisham@gmail.com" />
                     </div>
                     <div className="label_input_container">
                       <label>Numéro de portable</label>
-                      <input value="khan" />
+                      <input value="12345678" />
                     </div>
                     <div style={{ display: "flex" }} className="input_row">
                       <div className="label_input_container">
                         <label className="row_label">Entreprise</label>
-                        <input value="Feroze" />
+                        <input value="falcon" />
                       </div>
                       <div className="label_input_container">
                         <label className="row_label">Badge NFC</label>
-                        <input value="khan" />
+                        <input value="consultant" />
                       </div>
                     </div>
                   </div>
@@ -340,17 +352,7 @@ const AllUsers = () => {
                             </div>
                           </>
                         ))}
-                       <CustomButton
-          // text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
-          // onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
-             onClick={handleOpen}
-          text="Ajouter un utilisateur ➕"
-          style={{
-            position: "absolute",
-            right: "20pt",
-            bottom: "20pt",
-          }}
-        />
+                      
         {/* can be used after ticket confirmation */}
         {/* <CustomAlert
         text="some text"
@@ -369,6 +371,17 @@ const AllUsers = () => {
             </div>
           </div>
         </div>
+        <CustomButton
+          // text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+          // onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
+             onClick={handleOpen}
+          text="Ajouter un utilisateur ➕"
+          style={{
+            position: "absolute",
+            right: "20pt",
+            bottom: "20pt",
+          }}
+        />
       </UXL>
     </>
   );

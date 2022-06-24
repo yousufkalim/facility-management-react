@@ -19,8 +19,8 @@
   height: 30vh;
   border-radius: 20px;
 }
-.tickets_percentage{
-    padding: 10% 180pt 10% 20pt;
+.tickets_percentage {
+  padding: 10% 180pt 10% 20pt;
 }
 /* media queries */
 @media only screen and (max-width: 992px) {
@@ -46,5 +46,10 @@
     padding: 2%;
     width: 80% !important;
     margin: 4% auto;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .tickets_percentage {
+    padding: 10% 135pt 10% 20pt;
   }
 }

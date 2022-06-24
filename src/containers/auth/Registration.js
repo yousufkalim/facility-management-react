@@ -12,6 +12,8 @@ import * as FormValidations from "../../utils/Validations";
 import Api from "../../api/index";
 import { toast } from "react-toastify";
 
+import useWindowSize from "../../utils/WindowSize";
+
 function RegistrationScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ function RegistrationScreen() {
       ...obj,
     });
   };
-
+  const [width] = useWindowSize();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -222,12 +224,13 @@ function RegistrationScreen() {
               marginBottom: "2%",
               marginRight: "20%",
               cursor: "pointer",
+              padding:width<667? "3%":""
             }}
             onClick={navToLogin}
           >
             <p
               style={{
-                fontSize: "11px",
+                fontSize:width<992? "20px":"11px",
                 color: "#A0A0A0",
               }}
             >
@@ -235,7 +238,7 @@ function RegistrationScreen() {
             </p>
             <p
               style={{
-                fontSize: "16px",
+                fontSize:width<992? "22px":"16px",
                 color: "#FF8C39",
               }}
             >
