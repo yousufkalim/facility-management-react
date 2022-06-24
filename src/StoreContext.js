@@ -39,6 +39,16 @@ export function StoreProvider({ children }) {
       categories: [],
       priorities: [],
     },
+
+    // Statistics Screen
+    statistics: {
+      isLoading: true,
+      data: {
+        tilesData: null,
+        graphicalData: [],
+        buildingTickets: [],
+      },
+    },
   });
 
   const updateStore = (data) => {

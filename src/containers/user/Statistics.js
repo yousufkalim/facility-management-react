@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 import { useTranslation } from "react-i18next";
 
@@ -8,12 +8,21 @@ import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 
 import UXL from "../../components/UXL";
+import Loader from "../../components/Loader";
 
 import StatisticsHeadBlackSVG from "../../assets/StatisticsHeadBlack.png";
 import StatisticsHeadGreenSVG from "../../assets/StatisticsHeadGreen.png";
 import StatisticsHeadYellowSVG from "../../assets/StatisticsHeadYellow.png";
 
+import { getUser } from "../../utils/Auth";
+import Api from "../../api";
+import { toast } from "react-toastify";
+import assetsURL from "../../utils/Assets";
+
 import { Store, UpdateStore } from "../../StoreContext";
+
+import { months } from "../../utils/Constants";
+import moment from "moment";
 
 const headArr = [
   {
@@ -78,75 +87,140 @@ const options = {
   maintainAspectRatio: false,
 };
 
-const labels = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July"];
-const data = {
-  labels,
-  datasets: [],
-};
-for (let i = 0; i < headArr.length; i++) {
-  const obj = headArr[i];
-  data.datasets.push({
-    label: obj.title,
-    data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-    backgroundColor: obj.color,
-  });
-}
-
 function StatisticsScreen() {
   const { t } = useTranslation();
   const store = Store();
+  const updateStore = UpdateStore();
+
+  const user = getUser();
+
+  useEffect(() => {
+    if (store.statistics.isLoading) {
+      _load();
+    }
+  }, []);
+
+  const _getLabels = (_) => {
+    const arr = [];
+    for (let i = 0; i < _.length; i++) {
+      const obj = _[i];
+      const date = new Date(obj.transactionDate);
+
+      const dateMonth = date.getUTCMonth();
+      const dateDay = date.getUTCDate();
+
+      const month = months[dateMonth];
+      const startDay = dateDay - 7 <= 0 ? 1 : dateDay - 7;
+      const endDay = dateDay;
+
+      const str = `${month} ${startDay}-${endDay}`;
+      arr.push(str);
+    }
+    return arr;
+  };
+
+  const _load = async () => {
+    const _data = await getStatistics();
+
+    console.log(_data, "_data");
+
+    const labels = _getLabels(_data.graphicalData);
+    const gDataObj = {
+      labels,
+      datasets: [],
+    };
+
+    const gDataArr = [];
+    for (let i = 0; i < _data.graphicalData.length; i++) {
+      let _ = _data.graphicalData[i];
+      _ = Object.values(_);
+      _ = [_[0], _[1], _[2]];
+      gDataArr.push(_);
+    }
+
+    const gParsedDataArr1 = gDataArr.map((_) => _[0]);
+    const gParsedDataArr2 = gDataArr.map((_) => _[1]);
+    const gParsedDataArr3 = gDataArr.map((_) => _[2]);
+
+    const gParsedDataArr = [gParsedDataArr1, gParsedDataArr2, gParsedDataArr3];
+
+    for (let i = 0; i < headArr.length; i++) {
+      const obj = headArr[i];
+      gDataObj.datasets.push({
+        label: obj.title,
+        data: gParsedDataArr[i],
+        backgroundColor: obj.color,
+      });
+    }
+
+    updateStore({
+      statistics: {
+        ...store.statistics,
+        ..._data,
+        gData: gDataObj,
+        isLoading: false,
+      },
+    });
+  };
+
+  const getStatistics = async () => {
+    let response;
+    try {
+      response = await Api("get", `/dashboard/currentweek_casefile_details`);
+      const _statistics = response.data.data;
+      return _statistics;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
   return (
     <UXL appBarText="Statistics">
-      <div
-        className="column wh100"
-        style={{
-          backgroundColor: "#F4F4F4",
-          padding: "3% 2%",
-          width: store?.isSideBar ? "97%" : "100%",
-        }}
-      >
-        <div className="row w100 header_list_container">
-          {headArr.map((_) => (
-            <HeaderListTile {..._} />
-          ))}
-        </div>
+      {store.statistics.isLoading ? (
+        <Loader />
+      ) : (
         <div
-          className="w100 bar_conatiner"
+          className="column wh100"
+          style={{
+            backgroundColor: "#F4F4F4",
+            padding: "3% 2%",
+            width: store?.isSideBar ? "97%" : "100%",
+          }}
         >
-          <Bar options={options} data={data} />
-        </div>
-        <div
-          className="column w100 jcc percentage_container"
-          // style={{
-          //   backgroundColor: "#FFFFFF",
-          //   height: "30vh",
-          //   borderRadius: "20px",
-          //   // padding: "2%, 3%",
-          // }}
-        >
-          <p style={{ marginLeft: "3%", marginBottom: "3%", color: "#4F4F4F", fontWeight: "600" }}>
-            Emplacement avec la plupart des tickets
-          </p>
-          <div className="column jcc w100">
-            {footArr.map((_) => (
-              <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
-                <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _.color, fontWeight: "600" }}>{_.title}</p>
-                <div
-                  style={{
-                    height: "10pt",
-                    width: `${5 * _.value}pt`,
-                    maxWidth: "50%",
-                    backgroundColor: _.color,
-                    borderRadius: "20px",
-                    paddingLeft: "6%",
-                  }}
-                />
-                <p style={{ paddingLeft: "3%", fontSize: "16px", color: _.color }}>{_.value}</p>
-              </div>
+          <div className="row w100 header_list_container">
+            {headArr.map((_, __) => (
+              <HeaderListTile {..._} count={Object.values(store.statistics.tilesData)[__]} />
             ))}
           </div>
+          <div className="w100 bar_conatiner">
+            <Bar options={options} data={store.statistics.gData} />
+          </div>
+          <div className="column w100 jcc percentage_container">
+            <p style={{ marginLeft: "3%", marginBottom: "3%", color: "#4F4F4F", fontWeight: "600" }}>
+              Emplacement avec la plupart des tickets
+            </p>
+            <div className="column jcc w100">
+              {store.statistics.buildingTickets.map((_, __) => (
+                <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
+                  <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _.color, fontWeight: "600" }}>{_.buildingName}</p>
+                  <div
+                    style={{
+                      height: "10pt",
+                      width: `${5 * (_.ticketCount ?? 0)}pt`,
+                      maxWidth: "5%",
+                      maxWidth: "50%",
+                      backgroundColor: footArr[__].color,
+                      borderRadius: "20px",
+                      paddingLeft: "6%",
+                    }}
+                  />
+                  <p style={{ paddingLeft: "3%", fontSize: "16px", color: footArr[__].color }}>{_.ticketCount ?? 0}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </UXL>
   );
 }
@@ -201,7 +275,7 @@ function HeaderListTile(props) {
             bottom: "-8pt",
           }}
         >
-          100
+          {props.count}
         </p>
       </div>
     </div>

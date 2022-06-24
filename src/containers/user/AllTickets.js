@@ -77,7 +77,7 @@ function AllTickets({ show }) {
     }
   };
 
-  const findDraggedTicket = (_) => {
+  const _findDraggedTicket = (_) => {
     if (_.droppableId == "0") {
       return store.allTickets.recentTickets.filter((__) => __.orderNumber == _.index)[0];
     } else if (_.droppableId == "1") {
@@ -91,7 +91,7 @@ function AllTickets({ show }) {
     }
   };
 
-  const findDraggedTicketsList = (start, end, droppableId) => {
+  const _findDraggedTicketsList = (start, end, droppableId) => {
     let startIndex;
     let endIndex;
     let sorterArr;
@@ -100,17 +100,17 @@ function AllTickets({ show }) {
     let arr;
 
     if (droppableId == "0") {
-      startIndex = store.allTickets.recentTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
-      endIndex = store.allTickets.recentTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+      startIndex = store.allTickets.recentTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.recentTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
     } else if (droppableId == "1") {
-      startIndex = store.allTickets.pendingTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
-      endIndex = store.allTickets.pendingTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+      startIndex = store.allTickets.pendingTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.pendingTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
     } else if (droppableId == "2") {
-      startIndex = store.allTickets.inProgressTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
-      endIndex = store.allTickets.inProgressTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+      startIndex = store.allTickets.inProgressTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.inProgressTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
     } else if (droppableId == "3") {
-      startIndex = store.allTickets.completedTickets.map((_) => _.orderNumber).indexOf(start.orderNumber);
-      endIndex = store.allTickets.completedTickets.map((_) => _.orderNumber).indexOf(end.orderNumber);
+      startIndex = store.allTickets.completedTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.completedTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
     } else {
       throw "Fat Man BOMB1 💣";
     }
@@ -132,31 +132,92 @@ function AllTickets({ show }) {
       throw "Fat Man BOMB2 💣";
     }
 
-    arr = tempArr.splice(startIndex, endIndex + 1);
+    arr = tempArr.splice(startIndex, endIndex - startIndex);
+    arr.shift();
 
     return arr;
   };
 
+  const _findDragRequestArr = (start, end, subArr) => {
+    const reqArr = [];
+
+    console.log(start, "start");
+    console.log(end, "end");
+    console.log(subArr, "subArr");
+
+    // Lower ticket is moved up
+    if (start.orderNumber > end.orderNumber) {
+      reqArr.push({
+        ticketId: start.taskTicketId,
+        orderNum: end.orderNumber,
+      });
+
+      reqArr.push({
+        ticketId: end.taskTicketId,
+        orderNum: end.orderNumber + 1,
+      });
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        reqArr.push({
+          ticketId: obj.taskTicketId,
+          orderNum: end.orderNumber + 2 + i,
+        });
+      }
+    } else {
+      // Upper ticket is moved down
+      reqArr.push({
+        ticketId: start.taskTicketId,
+        orderNum: end.orderNumber,
+      });
+
+      reqArr.push({
+        ticketId: end.taskTicketId,
+        orderNum: end.orderNumber - 1,
+      });
+
+      subArr.reverse(); // As we are moving in the opposite direction
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        reqArr.push({
+          ticketId: obj.taskTicketId,
+          orderNum: end.orderNumber - 2 - i,
+        });
+      }
+    }
+
+    console.log(reqArr, "reqArr");
+
+    return reqArr;
+  };
+
+  const _findFlagFromdroppableID = (_) => {
+    if (_ == "0") {
+      return 4;
+    } else if (_ == "1") {
+      return 3;
+    } else if (_ == "2") {
+      return 2;
+    } else if (_ == "3") {
+      return 1;
+    } else {
+      throw "Tsar Bomba 💣";
+    }
+  };
+
   const onDragEnd = async (_) => {
     // Handle reoder
+    const sourceTicket = _findDraggedTicket(_.source);
+    const destinationTicket = _findDraggedTicket(_.destination);
     if (_.source.droppableId == _.destination.droppableId) {
-      let sourceTicket = findDraggedTicket(_.source);
-      let destinationTicket = findDraggedTicket(_.destination);
-      const subArr = findDraggedTicketsList(sourceTicket, destinationTicket, _.source.droppableId);
-      console.log(subArr);
-      const reqArr = [];
-      reqArr.push({
-        ticketId: sourceTicket.taskTicketId,
-        orderNum: destinationTicket.orderNumber,
-      });
-      reqArr.push({
-        ticketId: destinationTicket.taskTicketId,
-        orderNum: sourceTicket.orderNumber,
-      });
+      const subArr = _findDraggedTicketsList(sourceTicket, destinationTicket, _.source.droppableId);
+      const reqArr = _findDragRequestArr(sourceTicket, destinationTicket, subArr);
       await reorderTickets(reqArr);
       await _load();
     } else {
-      // Handle move
+      const ticketID = sourceTicket.taskTicketId;
+      const flag = _findFlagFromdroppableID(_.destination.droppableId);
+      await moveTicket(ticketID, flag);
+      await _load();
     }
   };
 
@@ -164,8 +225,17 @@ function AllTickets({ show }) {
     let response;
     try {
       response = await Api("post", `/tickets/update_ticket_order`, _);
-      // const _message = response.data.message;
-      // toast.success(_message);
+      const _message = response.data.message;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const moveTicket = async (ticketID, flag) => {
+    let response;
+    try {
+      response = await Api("post", `/tickets/update_ticket_info/${ticketID}/${flag}`);
+      const _message = response.data.message;
     } catch (e) {
       console.trace(e);
     }
@@ -491,3 +561,34 @@ function TicketListTile(props) {
 }
 
 export default AllTickets;
+
+// Reset all tickets order.
+// for (let i = 0; i < store.allTickets.recentTickets.length; i++) {
+//   const obj = store.allTickets.recentTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// for (let i = 0; i < store.allTickets.pendingTickets.length; i++) {
+//   const obj = store.allTickets.pendingTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// for (let i = 0; i < store.allTickets.inProgressTickets.length; i++) {
+//   const obj = store.allTickets.inProgressTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// for (let i = 0; i < store.allTickets.completedTickets.length; i++) {
+//   const obj = store.allTickets.completedTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// return reqArr;
