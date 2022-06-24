@@ -91,8 +91,8 @@ function StatisticsScreen() {
     layout: {
       padding: {
         top: 20,
-        left: width < 767 ? 10 : 100,
-        right: width < 767 ? 10 : 100,
+        left: width < 992 ? 10 : 100,
+        right: width < 992 ? 10 : 100,
         bottom: 20,
       },
     },
@@ -112,6 +112,7 @@ function StatisticsScreen() {
       backgroundColor: obj.color,
     });
   }
+  console.log(store,"store");
   return (
     <UXL appBarText="Statistics">
       <div
@@ -125,16 +126,30 @@ function StatisticsScreen() {
           width: store?.isSideBar ? "97%" : "100%",
         }}
       >
-        <div className="row w100 header_list_container">
+        <div
+         style={{
+          width:store?.isSideBar && width<992? "90%":"100%",
+          paddingLeft:store?.isSideBar && width<667? "10%":store?.isSideBar && width<992?"5%":""
+         }}
+        className="row w100 header_list_container">
           {headArr.map((_) => (
             <HeaderListTile width={width} {..._} />
           ))}
         </div>
-        <div className="w100 bar_conatiner">
+        <div
+          style={{
+            width:store?.isSideBar && width<667? "90%":store?.isSideBar && width<992?"95%":"100%",
+            marginLeft:store?.isSideBar && width<667? "10%":store?.isSideBar && width<992?"5%":""
+           }}
+        className="bar_conatiner">
           <Bar options={options} data={data} />
         </div>
         <div
-          className="column w100 jcc percentage_container"
+         style={{
+          width:store?.isSideBar && width<667? "90%":store?.isSideBar && width<992?"95%":"100%",
+          marginLeft:store?.isSideBar && width<667? "10%":store?.isSideBar && width<992?"5%":""
+         }}
+          className="column  jcc percentage_container"
           // style={{
           //   backgroundColor: "#FFFFFF",
           //   height: "30vh",

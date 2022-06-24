@@ -46,6 +46,7 @@
   border-radius: 20px;
   position: relative;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 .input_container {
   display: flex;
@@ -360,6 +361,12 @@
   .row_label {
     padding-bottom: 4% !important;
   }
+  .configuration_conatiner span {
+    font-size: 17px;
+  }
+  .configuration_conatiner p{
+    font-size: 11px;
+  }
 }
 @media only screen and (max-width: 500px) {
   .allusers_modal {
@@ -386,11 +393,12 @@
   .user_designation {
     font-size: 10px;
   }
-  .configuration_conatiner span {
-    font-size: 17px;
-  }
+ 
   .configuration_conatiner p {
-    font-size: 11px;
+    font-size: 9px;
+  }
+  .configuration_conatiner span {
+    font-size: 15px;
   }
   .responsable-span {
     font-size: 15px !important;
