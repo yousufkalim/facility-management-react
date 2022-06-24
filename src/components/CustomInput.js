@@ -33,6 +33,7 @@ function CustomInput({
       }}
     >
       <p
+      className="custom_input_text"
         style={{
           marginBottom: "5px",
           ...enableYoursStyle,

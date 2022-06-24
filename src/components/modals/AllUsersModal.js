@@ -9,7 +9,9 @@ import CustomInput from "../CustomInput";
 import dummy from "../../assets/DummyUser.jpeg";
 
 import { useTranslation } from "react-i18next";
-import { borderRadius } from "@mui/system";
+import EditProfileIcon from "../../assets/EditProfileIcon.svg";
+
+import useWindowSize from '../../utils/WindowSize'
 
 // const style = {
 //   position: "absolute",
@@ -24,6 +26,7 @@ import { borderRadius } from "@mui/system";
 // };
 const AllUsersModal = ({ open, handleOpen, handleClose }) => {
   const { t } = useTranslation();
+  const [width] = useWindowSize();
   return (
     <>
       <div>
@@ -36,7 +39,14 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
           <Box className="allusers_modal">
             <div className="modal_parent_container">
               <div>
+              <div style={{position:"relative"}}> 
+                    <img className="edit_icon_image edit_icon_image_modal" src={EditProfileIcon} />
+                    </div> 
                 <img
+                style={{
+                  marginTop:"46%"
+                }}
+                className="input_image" 
                   src={dummy}
                 />
               </div>
@@ -58,6 +68,7 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
                     borderBottom: "2px solid #F4F4F4",
                     width: "40%",
                     marginLeft: "5%",
+                    margin:width<850?"auto":"unset"
                   }}
                 ></div>
                 <div
@@ -77,14 +88,18 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
                       fontWeight: "400",
                       fontSize: "14px",
                       lineHeight: "21px",
-                      color: "#8C8C8C",
+                      color: "#8C8C8C", 
+                      marginBottom:"0px"
                     }}
                     divStyle={{
-                      width: "45%",
+                      width: width<667?"100%" :"45%",
                     }}
                     inputStyle={{
                       border: " 2px solid #8C8C8C",
                       borderRadius: "20px",
+                    }}
+                    labelStyle={{
+                      marginBottom:"8px"
                     }}
                     // onChange={(e) => _setState("firstName", e.target.value)}
                   />
@@ -99,13 +114,17 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
                       fontSize: "14px",
                       lineHeight: "21px",
                       color: "#8C8C8C",
+                      marginBottom:"0px"
                     }}
                     divStyle={{
-                      width: "45%",
+                      width: width<667?"100%" :"45%",
                     }}
                     inputStyle={{
                       border: " 2px solid #8C8C8C",
                       borderRadius: "20px",
+                    }}
+                    labelStyle={{
+                      marginBottom:"8px"
                     }}
                     // onChange={(e) => _setState("lastName", e.target.value)}
                   />
@@ -121,6 +140,10 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
                     fontSize: "14px",
                     lineHeight: "21px",
                     color: "#8C8C8C",
+                    marginBottom:"0px"
+                  }}
+                  labelStyle={{
+                    marginBottom:"8px"
                   }}
                   // labelText={t("Name of Company")}
                   inputType="text"
@@ -145,10 +168,14 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
                     fontSize: "14px",
                     lineHeight: "21px",
                     color: "#8C8C8C",
+                    marginBottom:"0px"
                   }}
                   inputStyle={{
                     border: " 2px solid #8C8C8C",
                     borderRadius: "20px",
+                  }}
+                  labelStyle={{
+                    marginBottom:"8px"
                   }}
                   // onChange={(e) => _setState("companyName", e.target.value)}
                 />
@@ -168,7 +195,7 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
                 >
                   <div className="select_input_container">
                     <label> Entreprise</label>   
-                    <select className="all_user_select_input">
+                    <select style={{marginTop:"6%"}} className="all_user_select_input">
                       <option value="volvo">Volvo</option>
                       <option value="saab">Saab</option>
                       <option value="mercedes">Mercedes</option>
@@ -178,7 +205,7 @@ const AllUsersModal = ({ open, handleOpen, handleClose }) => {
 
                   <div className="select_input_container">
                   <label> Badge NFC</label>
-                    <select className="all_user_select_input">
+                    <select style={{marginTop:"6%"}} className="all_user_select_input">
                       <option value="volvo">Volvo</option>
                       <option value="saab">Saab</option>
                       <option value="mercedes">Mercedes</option>

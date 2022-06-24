@@ -13,6 +13,8 @@ import Api from "../../api/index";
 import { handleLogin } from "../../utils/Auth";
 import { toast } from "react-toastify";
 
+import useWindowSize from "../../utils/WindowSize";
+
 function LoginScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ function LoginScreen() {
     email: "",
     password: "",
   });
+  const [width] = useWindowSize();
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;
@@ -102,7 +105,7 @@ function LoginScreen() {
         >
           <p
             style={{
-              fontSize: "34px",
+              fontSize: width < 667 ? "27px" : "34px",
               color: "#436062",
             }}
           >
@@ -110,7 +113,7 @@ function LoginScreen() {
           </p>
           <p
             style={{
-              fontSize: "24px",
+              fontSize: width < 667 ? "20px" : "24px",
               color: "%494949",
             }}
           >
@@ -124,7 +127,8 @@ function LoginScreen() {
             //   color: "%999999",
             // }}
           >
-            Welcome to Facility Management, Please put your login credentials to start!
+            Welcome to Facility Management, Please put your login credentials to
+            start!
           </p>
         </div>
         <div
@@ -189,7 +193,7 @@ function LoginScreen() {
           >
             <p
               style={{
-                fontSize: "11px",
+                fontSize:width<992? "20px":"11px",
                 color: "#A0A0A0",
               }}
             >
@@ -197,7 +201,7 @@ function LoginScreen() {
             </p>
             <p
               style={{
-                fontSize: "16px",
+                fontSize:width<992? "22px":"16px",
                 color: "#FF8C39",
               }}
             >
