@@ -10,7 +10,11 @@ import { isExpired } from "react-jwt";
 import RoutesObj from "../routes/Routes";
 import { getRoutes } from "../utils/Auth";
 
+import { Store, UpdateStore } from "../StoreContext";
+
 const Main = () => {
+  const store = Store();
+  const updateStore = UpdateStore();
   const token = getToken();
   //const user = getUser();
   const location = useLocation();
@@ -24,7 +28,7 @@ const Main = () => {
     document.querySelector("html").style.scrollBehavior = "";
     focusHandling("outline");
     if (token && isMyTokenExpired) {
-      handleLogout(navigate);
+      handleLogout(navigate, updateStore);
     }
   }, [location.pathname]); // triggered on route change
 

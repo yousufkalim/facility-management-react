@@ -130,7 +130,7 @@ function AppBar({ color, sticky = true, text, disableSearch = false, divStyle })
             open={openProfile}
             onClose={handleCloseProfile}
           >
-            <MenuItem className="menu-item sign-out-padding" onClick={() => handleLogout(navigate)}>
+            <MenuItem className="menu-item sign-out-padding" onClick={() => handleLogout(navigate, updateStore)}>
               <img style={{ width: "16px" }} src={SignOutIcon} /> <p> {t("Sign out")} </p>
             </MenuItem>
           </StyledMenu>
