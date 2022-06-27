@@ -1,6 +1,8 @@
 // Init
 import React, { useContext, useState, createContext } from "react";
 
+import dState from "./utils/DState";
+
 // Initializing Create Context Hook
 const storeContext = createContext();
 const storeUpdateContext = createContext();
@@ -18,37 +20,7 @@ export function UpdateStore() {
 export function StoreProvider({ children }) {
   // Initializing State
   let [store, setStore] = useState({
-    // Globals
-    isSideBar: true,
-    sideBarSelectIndex: 0,
-
-    // All Tickets Screen
-    allTickets: {
-      isLoading: true,
-      recentTickets: [],
-      pendingTickets: [],
-      inProgressTickets: [],
-      completedTickets: [],
-    },
-
-    // Add Ticket Screen
-    addTicket: {
-      isLoading: true,
-      buildings: [],
-      buildingLevels: [],
-      categories: [],
-      priorities: [],
-    },
-
-    // Statistics Screen
-    statistics: {
-      isLoading: true,
-      data: {
-        tilesData: null,
-        graphicalData: [],
-        buildingTickets: [],
-      },
-    },
+    ...dState,
   });
 
   const updateStore = (data) => {

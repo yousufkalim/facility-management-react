@@ -1,4 +1,5 @@
 import { Route } from "react-router-dom";
+import dState from "./DState";
 
 export const handleLogin = (token, user) => {
   localStorage.setItem("token", token);
@@ -8,7 +9,9 @@ export const handleLogin = (token, user) => {
 
 export const handleLogout = (navigate, updateStore) => {
   localStorage.clear();
-  updateStore({});
+  updateStore({
+    ...dState,
+  });
   navigate("/login");
 }; // Handle here.
 
