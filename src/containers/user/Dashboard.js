@@ -12,8 +12,12 @@ import Api from "../../api";
 import { toast } from "react-toastify";
 import { getUser } from "../../utils/Auth";
 
+import { Store, UpdateStore } from "../../StoreContext";
+
 function DashboardScreen() {
   const { t } = useTranslation();
+  const store = Store();
+  const updateStore = UpdateStore();
   const user = getUser();
 
   const [renderAddTicket, setRenderAddTicket] = useState(false);
@@ -78,6 +82,14 @@ function DashboardScreen() {
 
       if (response?.data?.success) {
         toast.success("Ticket added successfully.");
+        const _recentTickets = await getRecentTickets();
+        updateStore({
+          allTickets: {
+            ...store.allTickets,
+            recentTickets: _recentTickets,
+          },
+        });
+        setState({});
         handleRenderAddTicket();
       }
     } catch (e) {
@@ -85,6 +97,17 @@ function DashboardScreen() {
     }
 
     setIsProcessing(false);
+  };
+
+  const getRecentTickets = async () => {
+    let response;
+    try {
+      response = await Api("get", `/tickets/tickets_list/4/${user.id}`);
+      const _tickets = response.data.data;
+      return _tickets;
+    } catch (e) {
+      console.trace(e);
+    }
   };
 
   return (

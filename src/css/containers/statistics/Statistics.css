@@ -20,7 +20,7 @@
   border-radius: 20px;
 }
 .tickets_percentage {
-  padding: 10% 180pt 10% 20pt;
+  padding: 10% 160pt 10% 20pt;
 }
 /* media queries */
 @media only screen and (max-width: 992px) {
@@ -34,19 +34,20 @@
 }
 
 @media only screen and (max-width: 667px) {
-  .header_list_container {
+  /* .header_list_container {
     width: 80% !important;
-    margin: auto;
+    margin: auto !important;
+    padding-left: unset !important;
   }
   .bar_conatiner {
     width: 80% !important;
-    margin: auto;
+    margin: auto !important;
   }
   .percentage_container {
     padding: 2%;
     width: 80% !important;
-    margin: 4% auto;
-  }
+    margin: 4% auto !important;
+  } */
 }
 @media only screen and (max-width: 450px) {
   .tickets_percentage {

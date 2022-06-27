@@ -16,16 +16,17 @@ import { toast } from "react-toastify";
 import assetsURL from "../../utils/Assets";
 
 import { Store, UpdateStore } from "../../StoreContext";
+import useWindowSize from "../../utils/WindowSize";
+import { tickets } from "../../utils/Constants";
 
 import moment from "moment";
-
-import { tickets } from "../../utils/Constants";
 
 function AllTickets({ show }) {
   const store = Store();
   const updateStore = UpdateStore();
 
   const user = getUser();
+  const [width] = useWindowSize();
 
   useEffect(() => {
     if (store.allTickets.isLoading) {
@@ -79,8 +80,353 @@ function AllTickets({ show }) {
     }
   };
 
+  const _findDraggedTicket = (_) => {
+    if (_.droppableId == "0") {
+      return store.allTickets.recentTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else if (_.droppableId == "1") {
+      return store.allTickets.pendingTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else if (_.droppableId == "2") {
+      return store.allTickets.inProgressTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else if (_.droppableId == "3") {
+      return store.allTickets.completedTickets.filter((__) => __.orderNumber == _.index)[0];
+    } else {
+      throw "Little Boy BOMB 💣";
+    }
+  };
+
+  const _findDraggedTicketsList = (start, end, droppableId) => {
+    let startIndex;
+    let endIndex;
+    let sorterArr;
+
+    let tempArr;
+    let arr;
+
+    if (droppableId == "0") {
+      startIndex = store.allTickets.recentTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.recentTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
+    } else if (droppableId == "1") {
+      startIndex = store.allTickets.pendingTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.pendingTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
+    } else if (droppableId == "2") {
+      startIndex = store.allTickets.inProgressTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.inProgressTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
+    } else if (droppableId == "3") {
+      startIndex = store.allTickets.completedTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
+      endIndex = store.allTickets.completedTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
+    } else {
+      throw "Fat Man BOMB1 💣";
+    }
+
+    sorterArr = [startIndex, endIndex].sort((a, b) => a - b);
+
+    startIndex = sorterArr[0];
+    endIndex = sorterArr[1];
+
+    if (droppableId == "0") {
+      tempArr = [...store.allTickets.recentTickets];
+    } else if (droppableId == "1") {
+      tempArr = [...store.allTickets.pendingTickets];
+    } else if (droppableId == "2") {
+      tempArr = [...store.allTickets.inProgressTickets];
+    } else if (droppableId == "3") {
+      tempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Fat Man BOMB2 💣";
+    }
+
+    arr = tempArr.splice(startIndex, endIndex - startIndex);
+    arr.shift();
+
+    return arr;
+  };
+
+  const _findDragRequestArr = (start, end, _subArr) => {
+    const subArr = [..._subArr];
+    const reqArr = [];
+
+    // Lower ticket is moved up
+    if (start.orderNumber > end.orderNumber) {
+      reqArr.push({
+        ticketId: start.taskTicketId,
+        orderNum: end.orderNumber,
+      });
+
+      reqArr.push({
+        ticketId: end.taskTicketId,
+        orderNum: end.orderNumber + 1,
+      });
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        reqArr.push({
+          ticketId: obj.taskTicketId,
+          orderNum: end.orderNumber + 2 + i,
+        });
+      }
+    } else {
+      // Upper ticket is moved down
+      reqArr.push({
+        ticketId: start.taskTicketId,
+        orderNum: end.orderNumber,
+      });
+
+      reqArr.push({
+        ticketId: end.taskTicketId,
+        orderNum: end.orderNumber - 1,
+      });
+
+      subArr.reverse(); // As we are moving in the opposite direction
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        reqArr.push({
+          ticketId: obj.taskTicketId,
+          orderNum: end.orderNumber - 2 - i,
+        });
+      }
+    }
+
+    return reqArr;
+  };
+
+  const _findFlagFromdroppableID = (_) => {
+    if (_ == "0") {
+      return 4;
+    } else if (_ == "1") {
+      return 3;
+    } else if (_ == "2") {
+      return 2;
+    } else if (_ == "3") {
+      return 1;
+    } else {
+      throw "Tsar Bomba 1 💣";
+    }
+  };
+
+  const _findDragStateArr = (start, end, _subArr) => {
+    const subArr = [..._subArr];
+    const stateArr = [];
+
+    // Lower ticket is moved up
+    if (start.orderNumber > end.orderNumber) {
+      stateArr.push({
+        ...start,
+        orderNumber: end.orderNumber,
+      });
+
+      stateArr.push({
+        ...end,
+        orderNumber: end.orderNumber + 1,
+      });
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        stateArr.push({
+          ...obj,
+          orderNumber: end.orderNumber + 2 + i,
+        });
+      }
+    } else {
+      // Upper ticket is moved down
+      stateArr.push({
+        ...start,
+        orderNumber: end.orderNumber,
+      });
+
+      stateArr.push({
+        ...end,
+        orderNumber: end.orderNumber - 1,
+      });
+
+      subArr.reverse(); // As we are moving in the opposite direction
+      for (let i = 0; i < subArr.length; i++) {
+        const obj = subArr[i];
+        stateArr.push({
+          ...obj,
+          orderNumber: end.orderNumber - 2 - i,
+        });
+      }
+    }
+
+    return stateArr;
+  };
+
+  const _mutateReOrderTicketsState = (droppableId, stateArr) => {
+    let tempArr;
+    if (droppableId == "0") {
+      tempArr = [...store.allTickets.recentTickets];
+    } else if (droppableId == "1") {
+      tempArr = [...store.allTickets.pendingTickets];
+    } else if (droppableId == "2") {
+      tempArr = [...store.allTickets.inProgressTickets];
+    } else if (droppableId == "3") {
+      tempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Tsar Bomba 2 💣";
+    }
+
+    const parsedArr = [];
+    for (let i = 0; i < tempArr.length; i++) {
+      const _ = tempArr[i];
+      let modifiedObj;
+      for (let j = 0; j < stateArr.length; j++) {
+        const __ = stateArr[j];
+        if (_.taskTicketId == __.taskTicketId) {
+          modifiedObj = __;
+          continue;
+        }
+      }
+      if (modifiedObj) {
+        parsedArr.push(modifiedObj);
+      } else {
+        parsedArr.push(_);
+      }
+    }
+
+    parsedArr.sort((a, b) => a.orderNumber - b.orderNumber);
+
+    if (droppableId == "0") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          recentTickets: parsedArr,
+        },
+      });
+    } else if (droppableId == "1") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          pendingTickets: parsedArr,
+        },
+      });
+    } else if (droppableId == "2") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          inProgressTickets: parsedArr,
+        },
+      });
+    } else if (droppableId == "3") {
+      updateStore({
+        allTickets: {
+          ...store.allTickets,
+          completedTickets: parsedArr,
+        },
+      });
+    } else {
+      throw "Tsar Bomba 2 💣";
+    }
+  };
+
+  const _mutateMoveTicketState = (sourceDroppableId, destinationDroppableId, ticket) => {
+    let sourceTempArr;
+    let destinationTempArr;
+
+    if (sourceDroppableId == "0") {
+      sourceTempArr = [...store.allTickets.recentTickets];
+    } else if (sourceDroppableId == "1") {
+      sourceTempArr = [...store.allTickets.pendingTickets];
+    } else if (sourceDroppableId == "2") {
+      sourceTempArr = [...store.allTickets.inProgressTickets];
+    } else if (sourceDroppableId == "3") {
+      sourceTempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+    if (destinationDroppableId == "0") {
+      destinationTempArr = [...store.allTickets.recentTickets];
+    } else if (destinationDroppableId == "1") {
+      destinationTempArr = [...store.allTickets.pendingTickets];
+    } else if (destinationDroppableId == "2") {
+      destinationTempArr = [...store.allTickets.inProgressTickets];
+    } else if (destinationDroppableId == "3") {
+      destinationTempArr = [...store.allTickets.completedTickets];
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+
+    ticket = {
+      ...ticket,
+      orderNumber: destinationTempArr + 1,
+    };
+
+    sourceTempArr = sourceTempArr.filter((_) => _.taskTicketId != ticket.taskTicketId);
+    destinationTempArr.push(ticket);
+
+    let state = {};
+
+    if (sourceDroppableId == "0") {
+      state.recentTickets = sourceTempArr;
+    } else if (sourceDroppableId == "1") {
+      state.pendingTickets = sourceTempArr;
+    } else if (sourceDroppableId == "2") {
+      state.inProgressTickets = sourceTempArr;
+    } else if (sourceDroppableId == "3") {
+      state.completedTickets = sourceTempArr;
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+
+    if (destinationDroppableId == "0") {
+      state.recentTickets = destinationTempArr;
+    } else if (destinationDroppableId == "1") {
+      state.pendingTickets = destinationTempArr;
+    } else if (destinationDroppableId == "2") {
+      state.inProgressTickets = destinationTempArr;
+    } else if (destinationDroppableId == "3") {
+      state.completedTickets = destinationTempArr;
+    } else {
+      throw "Tsar Bomba 3 💣";
+    }
+
+    updateStore({
+      allTickets: {
+        ...store.allTickets,
+        ...state,
+      },
+    });
+  };
+
+  const onDragEnd = async (_) => {
+    const sourceTicket = _findDraggedTicket(_.source);
+    const destinationTicket = _findDraggedTicket(_.destination);
+    // Handle reoder
+    if (_.source.droppableId == _.destination.droppableId) {
+      const subArr = _findDraggedTicketsList(sourceTicket, destinationTicket, _.source.droppableId);
+      const reqArr = _findDragRequestArr(sourceTicket, destinationTicket, subArr);
+      const stateArr = _findDragStateArr(sourceTicket, destinationTicket, subArr);
+      _mutateReOrderTicketsState(_.source.droppableId, stateArr);
+      await reorderTickets(reqArr);
+    } else {
+      // Handle move
+      const ticketID = sourceTicket.taskTicketId;
+      const flag = _findFlagFromdroppableID(_.destination.droppableId);
+      _mutateMoveTicketState(_.source.droppableId, _.destination.droppableId, sourceTicket);
+      await moveTicket(ticketID, flag);
+    }
+  };
+
+  const reorderTickets = async (_) => {
+    let response;
+    try {
+      response = await Api("post", `/tickets/update_ticket_order`, _);
+      const _message = response.data.message;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const moveTicket = async (ticketID, flag) => {
+    let response;
+    try {
+      response = await Api("post", `/tickets/update_ticket_info/${ticketID}/${flag}`);
+      const _message = response.data.message;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
   return (
     <>
+      {console.log(store)}
       {store.allTickets.isLoading ? (
         <div
           className="wh100 column ajc"
@@ -99,16 +445,13 @@ function AllTickets({ show }) {
           }}
         >
           {/* DragDrop Global Context */}
-          <DragDropContext
-            onDragEnd={(_) => {
-              console.log(_);
-            }}
-          >
+          <DragDropContext onDragEnd={onDragEnd}>
             {/* Nouveaux Billets */}
             <div
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -118,25 +461,13 @@ function AllTickets({ show }) {
                 }}
               >
                 <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
-                <Droppable droppableId="droppable-0">
+                <Droppable droppableId="0">
                   {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      className="w100 dropable_box_one"
-                    >
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
                       {store.allTickets.recentTickets.map((_) => (
-                        <Draggable
-                          key={_.taskTicketId}
-                          draggableId={`${_.taskTicketId}`}
-                          index={_.taskTicketId}
-                        >
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
+                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -152,6 +483,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -177,25 +509,13 @@ function AllTickets({ show }) {
                   padding: "8% 4%",
                 }}
               >
-                <Droppable droppableId="droppable-1">
+                <Droppable droppableId="1">
                   {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      className="w100 dropable_box"
-                    >
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                       {store.allTickets.pendingTickets.map((_) => (
-                        <Draggable
-                          key={_.taskTicketId}
-                          draggableId={`${_.taskTicketId}`}
-                          index={_.taskTicketId}
-                        >
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
+                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -212,6 +532,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -236,25 +557,13 @@ function AllTickets({ show }) {
                   padding: "8% 4%",
                 }}
               >
-                <Droppable droppableId="droppable-2">
+                <Droppable droppableId="2">
                   {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      className="w100 dropable_box"
-                    >
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                       {store.allTickets.inProgressTickets.map((_) => (
-                        <Draggable
-                          key={_.taskTicketId}
-                          draggableId={`${_.taskTicketId}`}
-                          index={_.taskTicketId}
-                        >
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
+                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -270,6 +579,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -294,25 +604,13 @@ function AllTickets({ show }) {
                   padding: "8% 4%",
                 }}
               >
-                <Droppable droppableId="droppable-3">
+                <Droppable droppableId="3">
                   {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                      className="w100 dropable_box"
-                    >
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
                       {store.allTickets.completedTickets.map((_) => (
-                        <Draggable
-                          key={_.taskTicketId}
-                          draggableId={`${_.taskTicketId}`}
-                          index={_.taskTicketId}
-                        >
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                           {(provided) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
+                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                               <TicketListTile {..._} />
                             </div>
                           )}
@@ -343,10 +641,7 @@ function TicketListTile(props) {
 
   return (
     <>
-      <div
-        className="column ds_tlt_container"
-        onClick={handleIsTicketDetailModalOpen}
-      >
+      <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
         <div
           className="row"
           style={{
@@ -448,21 +743,11 @@ function TicketListTile(props) {
             >
               {props.comments.length}
             </p>
-            <img
-              src={TicketComment}
-              style={{ height: "28px", width: "20px", paddingTop: "40%" }}
-            />
+            <img src={TicketComment} style={{ height: "28px", width: "20px", paddingTop: "40%" }} />
           </div>
         </div>
-        <Modal
-          open={isTicketDetailModal}
-          onClose={handleIsTicketDetailModalClose}
-          aria-labelledby="Ticket Detail"
-        >
-          <TicketDetailModal
-            {...props}
-            handleClose={handleIsTicketDetailModalClose}
-          />
+        <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
+          <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
         </Modal>
       </div>
     </>
@@ -470,3 +755,34 @@ function TicketListTile(props) {
 }
 
 export default AllTickets;
+
+// Reset all tickets order.
+// for (let i = 0; i < store.allTickets.recentTickets.length; i++) {
+//   const obj = store.allTickets.recentTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// for (let i = 0; i < store.allTickets.pendingTickets.length; i++) {
+//   const obj = store.allTickets.pendingTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// for (let i = 0; i < store.allTickets.inProgressTickets.length; i++) {
+//   const obj = store.allTickets.inProgressTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// for (let i = 0; i < store.allTickets.completedTickets.length; i++) {
+//   const obj = store.allTickets.completedTickets[i];
+//   reqArr.push({
+//     ticketId: obj.taskTicketId,
+//     orderNum: i,
+//   });
+// }
+// return reqArr;

@@ -124,9 +124,9 @@
 }
 
 @media only screen and (max-width: 667px) {
-  .ds_sl_container {
+  /* .ds_sl_container {
     margin: 0% 5%;
-  }
+  } */
   .ds_tlt_container{
     padding: 10% 6%;
     min-height: 139pt !important;
