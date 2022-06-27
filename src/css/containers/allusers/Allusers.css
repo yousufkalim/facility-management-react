@@ -140,13 +140,11 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 18px;
-  color: #494949;
 }
 .user_designation {
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
-  color: #494949;
 }
 .badge_container {
   position: relative;
@@ -171,7 +169,6 @@
 }
 
 .user_detail_conatiner {
-  background: #f4f4f4;
   width: 90%;
   margin: 2% auto 0% auto;
   border-radius: 20px;
@@ -253,7 +250,7 @@
   margin-top: 33%;
 }
 .edit_icon_image_modal {
-  top: 166px !important;
+  top: 420px !important;
 }
 .form_heading_box {
   width: 70%;
@@ -364,7 +361,7 @@
   .configuration_conatiner span {
     font-size: 17px;
   }
-  .configuration_conatiner p{
+  .configuration_conatiner p {
     font-size: 11px;
   }
 }
@@ -393,7 +390,7 @@
   .user_designation {
     font-size: 10px;
   }
- 
+
   .configuration_conatiner p {
     font-size: 9px;
   }

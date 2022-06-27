@@ -32,6 +32,20 @@ const _ = {
     },
     gData: {},
   },
+
+  // Add User Modal
+  addUser: {
+    isLoading: true,
+    enterprises: [],
+    buildings: [],
+  },
+
+  // All Users Screenl
+  allUsers: {
+    isLoading: true,
+    users: [],
+    user: null,
+  },
 };
 
 export default _;
