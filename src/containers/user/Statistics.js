@@ -167,7 +167,7 @@ function StatisticsScreen() {
   const getStatistics = async () => {
     let response;
     try {
-      response = await Api("get", `/dashboard/currentweek_casefile_details`);
+      response = await Api("get", `/dashboard/currentweek_casefile_details/${user.id}`);
       const _statistics = response.data.data;
       return _statistics;
     } catch (e) {
