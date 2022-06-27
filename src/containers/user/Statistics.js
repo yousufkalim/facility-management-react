@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import assetsURL from "../../utils/Assets";
 
 import { Store, UpdateStore } from "../../StoreContext";
+import useWindowSize from "../../utils/WindowSize";
 
 import { months } from "../../utils/Constants";
 import moment from "moment";
@@ -65,34 +66,34 @@ const footArr = [
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Tickets",
-    },
-  },
-  layout: {
-    padding: {
-      top: 20,
-      left: 100,
-      right: 100,
-      bottom: 20,
-    },
-  },
-  maintainAspectRatio: false,
-};
-
 function StatisticsScreen() {
   const { t } = useTranslation();
   const store = Store();
   const updateStore = UpdateStore();
-
+  const [width] = useWindowSize();
   const user = getUser();
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Tickets",
+      },
+    },
+    layout: {
+      padding: {
+        top: 20,
+        left: width < 767 ? 10 : 100,
+        right: width < 767 ? 10 : 100,
+        bottom: 20,
+      },
+    },
+    maintainAspectRatio: false,
+  };
 
   useEffect(() => {
     if (store.statistics.isLoading) {
@@ -183,13 +184,13 @@ function StatisticsScreen() {
           className="column wh100"
           style={{
             backgroundColor: "#F4F4F4",
-            padding: "3% 2%",
+            padding: store?.sideBarSelectIndex == 1 && width < 993 && width > 667 ? "3% 5%" : "3% 2%",
             width: store?.isSideBar ? "97%" : "100%",
           }}
         >
           <div className="row w100 header_list_container">
             {headArr.map((_, __) => (
-              <HeaderListTile {..._} count={Object.values(store.statistics.tilesData)[__]} />
+              <HeaderListTile {..._} width={width} count={Object.values(store.statistics.tilesData)[__]} />
             ))}
           </div>
           <div className="w100 bar_conatiner">
@@ -228,17 +229,10 @@ function StatisticsScreen() {
 function HeaderListTile(props) {
   return (
     <div className="row aic header_list_tile_container">
-      <div
-        className="column"
-        style={{
-          padding: "10% 0",
-          paddingLeft: "20pt",
-          paddingRight: "180pt",
-        }}
-      >
+      <div className="column tickets_percentage">
         <p
           style={{
-            fontSize: "14px",
+            fontSize: props?.width < 400 ? "10px" : "14px",
             fontWeight: "600",
             color: props.color,
           }}
@@ -247,7 +241,7 @@ function HeaderListTile(props) {
         </p>
         <p
           style={{
-            fontSize: "12px",
+            fontSize: props?.width < 400 ? "6px" : "12px",
             color: props.color,
           }}
         >

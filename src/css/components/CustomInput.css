@@ -27,3 +27,20 @@
   top: 13px;
   right: 1%;
 }
+
+
+@media only screen and (max-width: 667px) {
+  .custom_input_label {
+   font-size: 10px;
+  }
+  .custom_input_text{
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .reg_screen_top{
+    height: 100vh !important;
+  }  
+}
+

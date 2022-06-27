@@ -12,7 +12,14 @@ import Api from "../../api";
 
 import { Store, UpdateStore } from "../../StoreContext";
 
-function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
+function AddTicketScreen({
+  show,
+  handleClose,
+  state,
+  setState,
+  attachment,
+  setAttachment,
+}) {
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -144,12 +151,28 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
           >
             <div style={{ flex: 1 }}></div>
             <div className="row ajc" style={{ flex: 2 }}>
-              <p style={{ fontSize: "22px", fontWeight: "600", color: "#2F696D" }}>Ajouter un nouveau ticket</p>
+              <p
+                style={{
+                  fontSize: "22px",
+                  fontWeight: "600",
+                  color: "#2F696D",
+                }}
+              >
+                Ajouter un nouveau ticket
+              </p>
             </div>
-            <div className="row aic" style={{ flex: 1, justifyContent: "flex-end" }}>
+            <div
+              className="row aic"
+              style={{ flex: 1, justifyContent: "flex-end" }}
+            >
               <img
                 src={ModalCrossSVG}
-                style={{ height: "24px", width: "24px", marginRight: "8%", cursor: "pointer" }}
+                style={{
+                  height: "24px",
+                  width: "24px",
+                  marginRight: "8%",
+                  cursor: "pointer",
+                }}
                 onClick={handleClose}
               />
             </div>
@@ -163,28 +186,65 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
             >
               <div
                 className="column ajc"
-                style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}
+                style={{
+                  height: "40pt",
+                  width: "40pt",
+                  borderRadius: "50%",
+                  backgroundColor: "#2F696D",
+                }}
               >
                 <p style={{ fontSize: "30", color: "#FFFFFF" }}>1</p>
               </div>
-              <div style={{ height: "15%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
+              <div
+                style={{
+                  height: "15%",
+                  width: "2.5pt",
+                  backgroundColor: "#2F696D",
+                  margin: "5% 0",
+                }}
+              ></div>
               <div
                 className="column ajc"
-                style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}
+                style={{
+                  height: "40pt",
+                  width: "40pt",
+                  borderRadius: "50%",
+                  backgroundColor: "#2F696D",
+                }}
               >
                 <p style={{ fontSize: "30", color: "#FFFFFF" }}>2</p>
               </div>
-              <div style={{ height: "35%", width: "2.5pt", backgroundColor: "#2F696D", margin: "5% 0" }}></div>
+              <div
+                style={{
+                  height: "35%",
+                  width: "2.5pt",
+                  backgroundColor: "#2F696D",
+                  margin: "5% 0",
+                }}
+              ></div>
               <div
                 className="column ajc"
-                style={{ height: "40pt", width: "40pt", borderRadius: "50%", backgroundColor: "#2F696D" }}
+                style={{
+                  height: "40pt",
+                  width: "40pt",
+                  borderRadius: "50%",
+                  backgroundColor: "#2F696D",
+                }}
               >
                 <p style={{ fontSize: "30", color: "#FFFFFF" }}>3</p>
               </div>
             </div>
             <div className="column wh100">
               <div className="column" style={{ marginBottom: "2%" }}>
-                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Bâtiment *</p>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#B7B7B7",
+                    paddingBottom: "10pt",
+                  }}
+                >
+                  Bâtiment *
+                </p>
                 <div className="row">
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
@@ -201,7 +261,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               </div>
               <div className="row w100">
                 <div className="column" style={{ marginBottom: "2%" }}>
-                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      color: "#B7B7B7",
+                      paddingBottom: "10pt",
+                    }}
+                  >
+                    Lieu
+                  </p>
                   <div className="row aic">
                     {store.addTicket.buildingLevels.map((_) => (
                       <SelectableTag
@@ -227,11 +295,24 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     </p>
                   </div>
                 </div>
-                <div className="column w100" style={{ marginBottom: "2%", marginLeft: "5%" }}>
-                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
+                <div
+                  className="column w100"
+                  style={{ marginBottom: "2%", marginLeft: "5%" }}
+                >
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      color: "#B7B7B7",
+                      paddingBottom: "10pt",
+                    }}
+                  >
+                    Détails du lieu
+                  </p>
                   <CustomInput
                     inputValue={state.location_details}
-                    onChange={(e) => _setState("location_details", e.target.value)}
+                    onChange={(e) =>
+                      _setState("location_details", e.target.value)
+                    }
                     divStyle={{
                       width: "40%",
                     }}
@@ -250,7 +331,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               </div>
               {/* Section 2 */}
               <div className="column" style={{ marginBottom: "2%" }}>
-                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie *</p>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#B7B7B7",
+                    paddingBottom: "10pt",
+                  }}
+                >
+                  Catégorie *
+                </p>
                 <div className="row">
                   {store.addTicket.categories.map((_) => (
                     <SelectableTag
@@ -265,7 +354,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 </div>
               </div>
               <div className="column w100" style={{ marginBottom: "2%" }}>
-                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Titre *</p>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#B7B7B7",
+                    paddingBottom: "10pt",
+                  }}
+                >
+                  Titre *
+                </p>
                 <input
                   value={state.title}
                   onChange={(e) => _setState("title", e.target.value)}
@@ -282,8 +379,19 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 />
               </div>
               <div className="row w100" style={{ marginBottom: "2%" }}>
-                <div className="column" style={{ marginRight: "2%", width: "20%" }}>
-                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails</p>
+                <div
+                  className="column"
+                  style={{ marginRight: "2%", width: "20%" }}
+                >
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      color: "#B7B7B7",
+                      paddingBottom: "10pt",
+                    }}
+                  >
+                    Détails
+                  </p>
                   <textarea
                     value={state.details}
                     onChange={(e) => _setState("details", e.target.value)}
@@ -301,7 +409,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   />
                 </div>
                 <div className="column w100">
-                  <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Attachement *</p>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      color: "#B7B7B7",
+                      paddingBottom: "10pt",
+                    }}
+                  >
+                    Attachement *
+                  </p>
                   <div
                     className="row ajc"
                     style={{
@@ -312,10 +428,26 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     }}
                   >
                     <label>
-                      <input type="file" accept="image/*" hidden id="filePicker" name="file" onChange={handleFileSelect} />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        id="filePicker"
+                        name="file"
+                        onChange={handleFileSelect}
+                      />
                       <div className="row ajc">
-                        <img src={AttachmentSVG} style={{ height: "16pt", width: "16pt", marginRight: "15pt" }} />
-                        <p style={{ fontSize: "11px", fontWeight: "bold" }}>{`${attachment?.name ?? "Ajouter pièce jointe"}`}</p>
+                        <img
+                          src={AttachmentSVG}
+                          style={{
+                            height: "16pt",
+                            width: "16pt",
+                            marginRight: "15pt",
+                          }}
+                        />
+                        <p style={{ fontSize: "11px", fontWeight: "bold" }}>{`${
+                          attachment?.name ?? "Ajouter pièce jointe"
+                        }`}</p>
                       </div>
                     </label>
                   </div>
@@ -323,7 +455,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               </div>
               {/* Section 3 */}
               <div className="column" style={{ marginBottom: "2%" }}>
-                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité *</p>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#B7B7B7",
+                    paddingBottom: "10pt",
+                  }}
+                >
+                  Priorité *
+                </p>
                 <div className="row">
                   {store.addTicket.priorities.map((_) => (
                     <SelectableTag
@@ -342,7 +482,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 </div>
               </div>
               <div className="column" style={{ marginBottom: "2%" }}>
-                <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Assignés</p>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#B7B7B7",
+                    paddingBottom: "10pt",
+                  }}
+                >
+                  Assignés
+                </p>
                 <div className="row">
                   {[].map((_, __) => (
                     <SelectableTag

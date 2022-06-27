@@ -112,7 +112,6 @@ function DashboardScreen() {
 
   return (
     <>
-      {console.log(state, "state")}
       <UXL appBarText="Dashboard">
         {/* Needs to have UXL conatiner */}
         <AllTicketsScreen show={!renderAddTicket} />
@@ -125,8 +124,12 @@ function DashboardScreen() {
           setAttachment={setAttachment}
         />
         <CustomButton
-          text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
-          onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
+          text={`${
+            !renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"
+          }`}
+          onClick={
+            !renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)
+          }
           style={{
             position: "absolute",
             right: "20pt",

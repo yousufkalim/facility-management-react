@@ -5,10 +5,10 @@ import UXL from "../../components/UXL";
 import AllUsersModal from "../../components/modals/AllUsersModal";
 
 import profile from "../../assets/Profile.svg";
-import dummy from "../../assets/DummyUser.jpeg";
-import badge from "../../assets/Badge.svg";
-import searchicon from "../../assets/Search.svg";
-import footerimage from "../../assets/Cornerimage.svg";
+import DummySVG from "../../assets/DummyUser.jpeg";
+import BadgeSVG from "../../assets/Badge.svg";
+import SearchSVG from "../../assets/Search.svg";
+import FooterSVG from "../../assets/Cornerimage.svg";
 import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 import TagBuildingSVG from "../../assets/TagBuilding.svg";
 import TicketTextSVG from "../../assets/TicketText.svg";
@@ -20,15 +20,16 @@ import TicketTracking from "../../assets/TicketTracking.svg";
 import AsignTicket from "../../assets/AsignTicket.svg";
 import NewRoundTicket from "../../assets/NewRoundTicket.svg";
 import RoundTrackingTicket from "../../assets/RoundTrackingTicket.svg";
+import EditProfileIcon from "../../assets/EditProfileIcon.svg";
 import CustomButton from "../../components/CustomButton";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
-import CustomAlert from "../../components/customalert/CustomAlert";
-
 import { Store } from "../../StoreContext";
+
+import useWindowSize from "../../utils/WindowSize";
 
 const items = [
   {
@@ -69,6 +70,16 @@ const userDetail = [
     designation: "AXA",
   },
   {
+    id: "ihtisham",
+    name: "ihtisham",
+    designation: "AXA",
+  },
+  {
+    id: "ihtisham",
+    name: "ihtisham",
+    designation: "AXA",
+  },
+  {
     id: "hassan",
     name: "hassan",
     designation: "VXA",
@@ -88,17 +99,17 @@ const tags = [
   {
     title: "Normale",
     color: "#D8ECFF",
-    icon: null,
+    icon: TagBuildingSVG,
   },
   {
     title: "Élevée",
     color: "#FFF0BC",
-    icon: null,
+    icon: TagBuildingSVG,
   },
   {
     title: "Urgente",
     color: "#FFD8D8",
-    icon: null,
+    icon: TagBuildingSVG,
   },
   {
     title: "Bâtiment Bleu",
@@ -206,6 +217,7 @@ const AllUsers = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [width] = useWindowSize();
   return (
     <>
       <UXL appBarText="Allusers">
@@ -216,12 +228,13 @@ const AllUsers = () => {
             backgroundColor: "#F4F4F4",
             overflow: "hidden",
             width: store?.isSideBar ? "97%" : "100%",
+            paddingLeft: width < 667 ? "10%" : "",
           }}
         >
           <div className="column ds_ml_container">
             <div className="search-msg-cont">
               <input className="search-msg-input" placeholder="Search by name" />
-              <img className="srch-icon" src={searchicon} />
+              <img className="srch-icon" src={SearchSVG} />
             </div>
             <div className="tab_container">
               {items?.map((val) => (
@@ -241,40 +254,47 @@ const AllUsers = () => {
           </div>
 
           <div className="footer_image_container">
-            <img className="footer_image" src={footerimage} />
+            <img className="footer_image" src={FooterSVG} />
             <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
               <div className="user_profile_info">
                 <div className="form_container">
+                  {/* <div className="badge_container_edit_form">
+            <img src={EditProfileIcon} />
+            </div> */}
                   <div className="input_image_container">
-                    <img className="input_image" style={{ borderRadius: "50%" }} src={dummy} />
+                    <div style={{ position: "relative" }}>
+                      <img className="edit_icon_image" src={EditProfileIcon} />
+                    </div>
+
+                    <img className="input_image" style={{ borderRadius: "50%" }} src={profile} />
                   </div>
                   <div className="input_container">
                     <div className="input_row">
                       <div className="label_input_container">
                         <label className="row_label">Prénom</label>
-                        <input value="Feroze" />
+                        <input value="ihtisham" />
                       </div>
                       <div className="label_input_container">
                         <label className="row_label">Nom de famille</label>
-                        <input value="khan" />
+                        <input value="huss" />
                       </div>
                     </div>
                     <div className="label_input_container">
                       <label>E-mail</label>
-                      <input value="khan" />
+                      <input value="ihtisham@gmail.com" />
                     </div>
                     <div className="label_input_container">
                       <label>Numéro de portable</label>
-                      <input value="khan" />
+                      <input value="12345678" />
                     </div>
                     <div style={{ display: "flex" }} className="input_row">
                       <div className="label_input_container">
                         <label className="row_label">Entreprise</label>
-                        <input value="Feroze" />
+                        <input value="falcon" />
                       </div>
                       <div className="label_input_container">
                         <label className="row_label">Badge NFC</label>
-                        <input value="khan" />
+                        <input value="consultant" />
                       </div>
                     </div>
                   </div>
@@ -294,17 +314,9 @@ const AllUsers = () => {
                     }}
                     className="tickets_container"
                   >
-                    <div style={{ width: "50%" }}>
+                    <div className="tickets-status_container">
                       <p> Rôle</p>
-                      <p
-                        style={{
-                          color: "#494949",
-                          fontWeight: "600",
-                          fontSize: "20px",
-                          lineHeight: "30px",
-                        }}
-                      >
-                        {" "}
+                      <p className="responsable-span" style={{}}>
                         Responsable
                       </p>
                       <p> Bâtiment accessibles</p>
@@ -326,21 +338,11 @@ const AllUsers = () => {
                             </div>
                           </>
                         ))}
-                        <CustomButton
-                          // text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
-                          // onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
-                          onClick={handleOpen}
-                          text="Ajouter un utilisateur ➕"
-                          style={{
-                            position: "absolute",
-                            right: "20pt",
-                            bottom: "20pt",
-                          }}
-                        />
+
                         {/* can be used after ticket confirmation */}
                         {/* <CustomAlert
-        text="some text"
-        /> */}
+                        text="some text"
+                        /> */}
 
                         <AllUsersModal open={open} handleOpen={handleOpen} handleClose={handleClose} />
                       </div>
@@ -351,6 +353,15 @@ const AllUsers = () => {
             </div>
           </div>
         </div>
+        <CustomButton
+          text="Ajouter un utilisateur ➕"
+          onClick={handleOpen}
+          style={{
+            position: "absolute",
+            right: "20pt",
+            bottom: "20pt",
+          }}
+        />
       </UXL>
     </>
   );
@@ -363,7 +374,7 @@ function UserCard() {
         <div className="user_detail_conatiner">
           <div className="user_detail_img_detail_container">
             <div className="badge_container">
-              <img src={badge} />
+              <img src={BadgeSVG} />
             </div>
             <img src={profile} />
             <div className="user_detail_name_designation">
@@ -420,35 +431,6 @@ function TicketListTile(props) {
             </div>
           ))}
         </div>
-        {/* <div
-        className="row ds_tlt_icon_text_container"
-      >
-        <img
-          src={props.icon}
-          style={{
-            height: "24px",
-            width: "24px",
-            marginRight: "4%",
-          }}
-        />
-        <p
-          style={{
-            fontSize: "14px",
-            fontWeight: "600",
-            color: "#2F696D",
-          }}
-        >
-          {props.title}
-        </p>
-      </div> */}
-
-        {/* <div
-      className="divider"
-      /> */}
-
-        {/* <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">
-        <TicketDetailModal {...props} handleClose={handleIsTicketDetailModalClose} />
-      </Modal> */}
       </div>
     </>
   );

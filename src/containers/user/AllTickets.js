@@ -445,29 +445,35 @@ function AllTickets({ show }) {
           <DragDropContext onDragEnd={onDragEnd}>
             {/* Nouveaux Billets */}
             <div
-              className="column ds_ml_container"
+              className="ds_sl_container"
               style={{
-                padding: "2%",
+                padding: "3% 2%",
               }}
             >
-              <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
-              <Droppable droppableId="0">
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
-                    {store.allTickets.recentTickets.map((_) => (
-                      <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
-                        {(provided) => (
-                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <TicketListTile {..._} />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                  </div>
-                )}
-              </Droppable>
+              <div
+                className="column ds_ml_container"
+                style={{
+                  padding: "2%",
+                }}
+              >
+                <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
+                <Droppable droppableId="0">
+                  {(provided) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
+                      {store.allTickets.recentTickets.map((_) => (
+                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
+                          {(provided) => (
+                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              <TicketListTile {..._} />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
             </div>
-
             {/* En attente */}
             <div
               className="ds_sl_container"
