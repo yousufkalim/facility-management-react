@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import assetsURL from "../../utils/Assets";
 
 import { Store, UpdateStore } from "../../StoreContext";
+import useWindowSize from "../../utils/WindowSize";
+import { tickets } from "../../utils/Constants";
 
 import moment from "moment";
 
@@ -24,6 +26,7 @@ function AllTickets({ show }) {
   const updateStore = UpdateStore();
 
   const user = getUser();
+  const [width] = useWindowSize();
 
   useEffect(() => {
     if (store.allTickets.isLoading) {
@@ -448,6 +451,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -479,6 +483,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -527,6 +532,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div
@@ -573,6 +579,7 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 padding: "3% 2%",
+                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
               <div

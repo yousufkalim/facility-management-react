@@ -228,7 +228,7 @@ const AllUsers = () => {
             backgroundColor: "#F4F4F4",
             overflow: "hidden",
             width: store?.isSideBar ? "97%" : "100%",
-            paddingLeft: width < 667 ? "10%" : "",
+            paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
           }}
         >
           <div className="column ds_ml_container">
