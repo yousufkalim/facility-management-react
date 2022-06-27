@@ -139,7 +139,7 @@
 .user_name {
   font-weight: 500;
   font-size: 18px;
-  line-height: 27px;
+  line-height: 18px;
   color: #494949;
 }
 .user_designation {
@@ -178,7 +178,7 @@
 }
 .user_detail_img_detail_container {
   display: flex;
-  padding: 2% 6%;
+  padding: 4% 0% 3% 2%;
   border-radius: 20px;
 }
 .user_detail_name_designation,
