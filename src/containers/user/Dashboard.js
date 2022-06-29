@@ -33,12 +33,14 @@ function DashboardScreen() {
     building: "",
     building_level: "",
     location_details: "",
+
     // section 2
     category: "",
-    title: "",
+    // title: "",
     details: "",
+
     // section 3
-    priority: "",
+    // priority: "",
     assignee: "",
   });
   const [attachment, setAttachment] = useState(null);

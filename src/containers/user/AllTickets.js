@@ -450,7 +450,7 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 2%",
+                width: "25vw",
                 margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
@@ -482,7 +482,7 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 2%",
+                padding: "3% 1%",
                 margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
@@ -531,7 +531,7 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 2%",
+                padding: "3% 1%",
                 margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
@@ -578,7 +578,7 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 2%",
+                padding: "3% 1%",
                 margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
@@ -685,7 +685,7 @@ function TicketListTile(props) {
               color: "#2F696D",
             }}
           >
-            {props.taskTitle}
+            {props.categoryName}
           </p>
         </div>
         <p
