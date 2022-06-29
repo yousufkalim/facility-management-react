@@ -6,6 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TicketTextSVG from "../../assets/TicketText.svg";
 import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 import TicketComment from "../../assets/Comment.svg";
+import ProfileSVG from "../../assets/Profile.svg";
 
 import TicketDetailModal from "../../components/modals/TicketDetail";
 import Loader from "../../components/Loader";
@@ -712,21 +713,20 @@ function TicketListTile(props) {
               position: "relative",
             }}
           >
-            {props.comments.map((_, __) => ({
-              /* <img
+            {props.comments.map((_, __) => (
+              <img
                 className="ip_container"
-                src={_.avatar}
+                src={_.avatar ?? ProfileSVG}
                 style={{
                   height: "40px",
                   width: "40px",
                   position: "absolute",
-                  left: `${20 * __}pt`,
+                  left: `${12 * __}pt`,
                   top: "-10pt",
                 }}
-              /> */
-            }))}
+              />
+            ))}
           </div>
-
           <div
             className="row jcc"
             style={{

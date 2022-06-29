@@ -75,9 +75,9 @@ function DashboardScreen() {
       body.append("PlaceId", state.building_level);
       body.append("LocationDetails", state.location_details);
       body.append("CategoryId", state.category);
-      body.append("Title", state.title);
+      // body.append("Title", state.title);
       body.append("Details", state.details);
-      body.append("PriorityId", state.priority);
+      // body.append("PriorityId", state.priority);
       body.append("TicketFile", attachment);
 
       response = await Api("post", "/tickets/save_ticket", body);

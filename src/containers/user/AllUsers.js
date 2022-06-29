@@ -6,7 +6,7 @@ import UXL from "../../components/UXL";
 
 import AddUser from "../../components/modals/AddUser";
 
-import profile from "../../assets/Profile.svg";
+import ProfileSVG from "../../assets/Profile.svg";
 import BadgeSVG from "../../assets/Badge.svg";
 import SearchSVG from "../../assets/Search.svg";
 import FooterSVG from "../../assets/Cornerimage.svg";
@@ -250,7 +250,7 @@ const AllUsers = () => {
                       <div style={{ position: "relative" }}>
                         <img className="edit_icon_image" src={EditSVG} />
                       </div>
-                      <img className="input_image" style={{ borderRadius: "50%" }} src={profile} />
+                      <img className="input_image" style={{ borderRadius: "50%" }} src={ProfileSVG} />
                     </div>
                     <div className="input_container">
                       <div className="input_row" style={{ width: "100%" }}>
@@ -380,7 +380,7 @@ function UserCard(props) {
           <div className="badge_container">
             <img src={BadgeSVG} />
           </div>
-          <img src={profile} />
+          <img src={ProfileSVG} />
           <div className="user_detail_name_designation">
             <span className="user_name" style={{ color: store.allUsers.user.userId == props.userId ? "#FFFFFF" : "#494949" }}>
               {props.firstName} {props.lastName}
