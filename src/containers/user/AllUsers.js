@@ -6,23 +6,16 @@ import UXL from "../../components/UXL";
 
 import AddUser from "../../components/modals/AddUser";
 
-import profile from "../../assets/Profile.svg";
-import DummySVG from "../../assets/DummyUser.jpeg";
+import ProfileSVG from "../../assets/Profile.svg";
 import BadgeSVG from "../../assets/Badge.svg";
 import SearchSVG from "../../assets/Search.svg";
 import FooterSVG from "../../assets/Cornerimage.svg";
-import TicketSettingsSVG from "../../assets/TicketSettings.svg";
-import TagBuildingSVG from "../../assets/TagBuilding.svg";
-import TicketTextSVG from "../../assets/TicketText.svg";
-import TicketComment from "../../assets/Comment.svg";
-import User1AvatarSVG from "../../assets/User1Avatar.png";
-import User2AvatarSVG from "../../assets/User2Avatar.png";
 import TicketIcon from "../../assets/TicketIcon.svg";
 import TicketTracking from "../../assets/TicketTracking.svg";
 import AsignTicket from "../../assets/AsignTicket.svg";
 import NewRoundTicket from "../../assets/NewRoundTicket.svg";
 import RoundTrackingTicket from "../../assets/RoundTrackingTicket.svg";
-import EditProfileIcon from "../../assets/EditProfileIcon.svg";
+import EditSVG from "../../assets/Edit.svg";
 
 import CustomButton from "../../components/CustomButton";
 
@@ -50,7 +43,7 @@ const items = [
     text: "Utilisateurs",
   },
 ];
-const TicketsIcon = [
+const switches = [
   {
     image: TicketIcon,
     text: "Nouveau ticket",
@@ -70,102 +63,6 @@ const TicketsIcon = [
   {
     image: RoundTrackingTicket,
     text: "Suivi de ronde",
-  },
-];
-const userDetail = [
-  {
-    id: "ihtisham",
-    name: "ihtisham",
-    designation: "AXA",
-  },
-  {
-    id: "ihtisham",
-    name: "ihtisham",
-    designation: "AXA",
-  },
-  {
-    id: "ihtisham",
-    name: "ihtisham",
-    designation: "AXA",
-  },
-  {
-    id: "hassan",
-    name: "hassan",
-    designation: "VXA",
-  },
-  {
-    id: "shuja",
-    name: "shuja",
-    designation: "Developer",
-  },
-  {
-    id: "umar",
-    name: "umar",
-    designation: "Developer",
-  },
-];
-const tags = [
-  {
-    title: "Normale",
-    color: "#D8ECFF",
-    icon: TagBuildingSVG,
-  },
-  {
-    title: "Élevée",
-    color: "#FFF0BC",
-    icon: TagBuildingSVG,
-  },
-  {
-    title: "Urgente",
-    color: "#FFD8D8",
-    icon: TagBuildingSVG,
-  },
-  {
-    title: "Bâtiment Bleu",
-    color: "#D8ECFF",
-    icon: TagBuildingSVG,
-  },
-  {
-    title: "Bâtiment Jaune",
-    color: "#FFF0BC",
-    icon: TagBuildingSVG,
-  },
-  {
-    title: "Bâtiment Rouge",
-    color: "#FFD8D8",
-    icon: TagBuildingSVG,
-  },
-];
-const tickets = [
-  {
-    tags: [tags[0], tags[3]],
-    title: "Fuite d'eau lavabo",
-    icon: TicketTextSVG,
-    createdAt: Date.now(),
-    users: [
-      {
-        avatar: User1AvatarSVG,
-      },
-      {
-        avatar: User2AvatarSVG,
-      },
-    ],
-    comments_count: 6,
-  },
-  {
-    tags: [tags[2], tags[3]],
-    title: "Alerte sur Pointage entrée/sortie",
-    icon: TicketSettingsSVG,
-    createdAt: Date.now(),
-    users: [
-      {
-        avatar: User1AvatarSVG,
-      },
-      {
-        avatar: User2AvatarSVG,
-      },
-    ],
-    comments_count: 4,
   },
 ];
 
@@ -219,17 +116,25 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
 
 const AllUsers = () => {
   const user = getUser();
-  const [activeTabId, setActiveTabId] = useState("");
 
   const store = Store();
   const updateStore = UpdateStore();
 
-  const ActiveTab = (activetabid) => {
+  const [editUser, setEditUser] = useState(null);
+  const [activeTabId, setActiveTabId] = useState("");
+  const handleActiveTab = (activetabid) => {
     setActiveTabId(activetabid);
   };
 
   const [addUserOpen, setAddUserOpen] = useState(false);
-  const handleAddUserOpen = () => setAddUserOpen(true);
+  const handleAddUserOpen = (toEdit) => {
+    if (toEdit) {
+      setEditUser(store.allUsers.user);
+    } else {
+      setEditUser(null);
+    }
+    setAddUserOpen(true);
+  };
   const handleAddUserClose = () => setAddUserOpen(false);
 
   useEffect(() => {
@@ -256,6 +161,7 @@ const AllUsers = () => {
   };
 
   const userTileCB = async (userID) => {
+    // If same user was clicked then do nothing.
     if (userID == store.allUsers.user.userId) {
       return;
     }
@@ -314,7 +220,11 @@ const AllUsers = () => {
               </div>
               <div className="tab_container">
                 {items?.map((val) => (
-                  <p className={` ${val?.id == activeTabId ? "active_tab" : ""}`} id={val?.id} onClick={() => ActiveTab(val?.id)}>
+                  <p
+                    className={` ${val?.id == activeTabId ? "active_tab" : ""}`}
+                    id={val?.id}
+                    onClick={() => handleActiveTab(val?.id)}
+                  >
                     {val?.text}
                   </p>
                 ))}
@@ -338,12 +248,12 @@ const AllUsers = () => {
                   <div className="form_container">
                     <div className="input_image_container">
                       <div style={{ position: "relative" }}>
-                        <img className="edit_icon_image" src={EditProfileIcon} />
+                        <img className="edit_icon_image" src={EditSVG} />
                       </div>
-                      <img className="input_image" style={{ borderRadius: "50%" }} src={profile} />
+                      <img className="input_image" style={{ borderRadius: "50%" }} src={ProfileSVG} />
                     </div>
                     <div className="input_container">
-                      <div className="input_row">
+                      <div className="input_row" style={{ width: "100%" }}>
                         <div className="label_input_container">
                           <label className="row_label">Prénom</label>
                           <input value={store.allUsers.user.firstName} />
@@ -351,6 +261,20 @@ const AllUsers = () => {
                         <div className="label_input_container">
                           <label className="row_label">Nom de famille</label>
                           <input value={store.allUsers.user.lastName} />
+                        </div>
+                        <div
+                          className="row ajc"
+                          style={{
+                            height: "60%",
+                            padding: "0 2%",
+                            backgroundColor: "#F4F4F4",
+                            borderRadius: "20%",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleAddUserOpen(true)}
+                        >
+                          <img src={EditSVG} style={{ height: "30%", paddingRight: "10%" }} />
+                          <p style={{ fontSize: "12px" }}>Éditer</p>
                         </div>
                       </div>
                       <div className="label_input_container">
@@ -394,12 +318,12 @@ const AllUsers = () => {
                           Responsable
                         </p>
                         <p>Bâtiment accessibles</p>
-                        {[1].map((_) => (
-                          <TagListTile {...(_ % 2 == 0 ? tickets[0] : tickets[1])} />
-                        ))}
+                        {/* {store.allUsers.user.allowedBuildings.map((_) => ({
+                          <TagListTile {..._} />
+                        }))} */}
                         <p>Alertes par mail</p>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                          {TicketsIcon.map((val) => (
+                          {switches.map((val) => (
                             <>
                               <div className="tickets_icon_btn_container">
                                 <div style={{ width: "50%" }}>
@@ -412,19 +336,13 @@ const AllUsers = () => {
                               </div>
                             </>
                           ))}
-
-                          {/* can be used after ticket confirmation */}
-                          {/* <CustomAlert
-                        text="some text"
-                        /> */}
-
                           <Modal
                             open={addUserOpen}
                             onClose={() => handleAddUserClose()}
                             aria-labelledby="Add User"
                             aria-describedby="Add User"
                           >
-                            <AddUser cb={_load} handleClose={handleAddUserClose} />
+                            <AddUser existingUser={editUser} cb={_load} handleClose={handleAddUserClose} />
                           </Modal>
                         </div>
                       </div>
@@ -435,10 +353,9 @@ const AllUsers = () => {
             </div>
           </div>
         )}
-
         <CustomButton
           text="Ajouter un utilisateur ➕"
-          onClick={handleAddUserOpen}
+          onClick={() => handleAddUserOpen(false)}
           style={{
             position: "absolute",
             right: "20pt",
@@ -463,7 +380,7 @@ function UserCard(props) {
           <div className="badge_container">
             <img src={BadgeSVG} />
           </div>
-          <img src={profile} />
+          <img src={ProfileSVG} />
           <div className="user_detail_name_designation">
             <span className="user_name" style={{ color: store.allUsers.user.userId == props.userId ? "#FFFFFF" : "#494949" }}>
               {props.firstName} {props.lastName}

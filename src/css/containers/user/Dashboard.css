@@ -13,7 +13,7 @@
 
 /* Dashboard Screen - Side List */
 .ds_sl_container {
-  width: 300pt;
+  width: 22vw;
   height: 100%;
   background-color: #f4f4f4;
 }
@@ -75,7 +75,6 @@
 .ticket_container {
   overflow: hidden;
   position: relative;
-  justify-content: space-between;
   background-color: #f4f4f4;
   position: fixed;
 }
@@ -127,7 +126,7 @@
   /* .ds_sl_container {
     margin: 0% 5%;
   } */
-  .ds_tlt_container{
+  .ds_tlt_container {
     padding: 10% 6%;
     min-height: 139pt !important;
   }

@@ -10,7 +10,7 @@ import Loader from "../../components/Loader";
 import DummySVG from "../../assets/DummyUser.jpeg";
 
 import { useTranslation } from "react-i18next";
-import EditProfileIcon from "../../assets/EditProfileIcon.svg";
+import EditProfileIcon from "../../assets/Edit.svg";
 
 import useWindowSize from "../../utils/WindowSize";
 
@@ -21,7 +21,7 @@ import { getUser } from "../../utils/Auth";
 
 import { Store, UpdateStore } from "../../StoreContext";
 
-const AddUser = ({ cb, handleClose }) => {
+const AddUser = ({ existingUser, cb, handleClose }) => {
   const { t } = useTranslation();
   const [width] = useWindowSize();
 
@@ -55,6 +55,20 @@ const AddUser = ({ cb, handleClose }) => {
     const file = event.target.files[0];
     setAttachment(file);
   };
+
+  useEffect(() => {
+    if (existingUser) {
+      setState({
+        first_name: existingUser.firstName,
+        last_name: existingUser.lastName,
+        email: existingUser.email,
+        phone: existingUser.phoneNo,
+        enterprise: existingUser.businessId,
+        is_badge_nfc: existingUser.badgeNFC,
+        building: existingUser.allowedBuildings[0]?.buildingId,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (store.addTicket.isLoading) {
@@ -154,10 +168,21 @@ const AddUser = ({ cb, handleClose }) => {
         ],
       };
 
-      response = await Api("post", "/register_by_admin", body);
+      if (existingUser) {
+        response = await Api("put", "/Users/update", {
+          ...body,
+          userId: existingUser.userId,
+        });
+      } else {
+        response = await Api("post", "/register_by_admin", body);
+      }
 
       if (response?.data?.success) {
-        toast.success("User added successfully.");
+        if (existingUser) {
+          toast.success("User updated successfully.");
+        } else {
+          toast.success("User added successfully.");
+        }
         cb();
         handleClose();
       }
@@ -170,7 +195,7 @@ const AddUser = ({ cb, handleClose }) => {
 
   return (
     <>
-      {console.log(state)}
+      {console.log(state, "state")}
       {store.addUser.isLoading ? (
         <Loader />
       ) : (
@@ -218,6 +243,7 @@ const AddUser = ({ cb, handleClose }) => {
                       inputType="text"
                       inputName="First Name"
                       inputPlaceholder="First Name"
+                      inputValue={state.first_name}
                       enableYoursStyle={{
                         fontWeight: "400",
                         fontSize: "14px",
@@ -242,6 +268,7 @@ const AddUser = ({ cb, handleClose }) => {
                       inputType="text"
                       inputName="Last Name"
                       inputPlaceholder="Last Name"
+                      inputValue={state.last_name}
                       enableYoursStyle={{
                         fontWeight: "400",
                         fontSize: "14px",
@@ -264,6 +291,7 @@ const AddUser = ({ cb, handleClose }) => {
                   </div>
                   <CustomInput
                     ptext="E-mail"
+                    inputValue={state.email}
                     inputStyle={{
                       border: " 2px solid #8C8C8C",
                       borderRadius: "20px",
@@ -291,6 +319,7 @@ const AddUser = ({ cb, handleClose }) => {
                     inputType="text"
                     inputName="Phone"
                     inputPlaceholder="Phone"
+                    inputValue={state.phone}
                     divStyle={{
                       marginBottom: "3%",
                     }}
