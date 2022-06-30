@@ -163,7 +163,7 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.Details}</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.details}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
@@ -182,19 +182,19 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.LocationDetails}</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.locationDetails}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
               <Tag color="#D8ECFF" text={props.taskPriority} />
             </div> */}
-            <div className="column" style={{ marginBottom: "10%" }}>
+            {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Abonnés</p>
               <div className="row">
                 <Tag color="#F4F4F4" text="Anaïs Moriceau" divStyle={{ marginRight: "5%" }} />
                 <Tag color="#F4F4F4" text="damien dehoul" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <p

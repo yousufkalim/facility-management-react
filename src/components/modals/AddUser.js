@@ -7,13 +7,14 @@ import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
 import Loader from "../../components/Loader";
 
-import DummySVG from "../../assets/DummyUser.jpeg";
+import ProfileInputSVG from "../../assets/ProfileInput.svg";
 
 import { useTranslation } from "react-i18next";
 import EditProfileIcon from "../../assets/Edit.svg";
 
 import useWindowSize from "../../utils/WindowSize";
 
+import assetsURL from "../../utils/Assets";
 import * as FormValidations from "../../utils/Validations";
 import Api from "../../api";
 import { toast } from "react-toastify";
@@ -71,7 +72,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
   }, []);
 
   useEffect(() => {
-    if (store.addTicket.isLoading) {
+    if (store.addUser.isLoading) {
       _load();
     }
   }, []);
@@ -125,7 +126,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       return;
     }
 
-    if (!attachment) {
+    if (!attachment && !existingUser) {
       toast.error("Attachment must be selected.");
       return;
     }
@@ -134,23 +135,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
     try {
       setIsProcessing(true);
-
-      // const body = new FormData();
-      // body.append("firstName", state.first_name);
-      // body.append("lastName", state.last_name);
-      // body.append("phoneNo", state.phone);
-      // body.append("email", state.email);
-      // body.append("password", "12345678");
-      // body.append("parentId", user.id);
-      // body.append("badgeNFC", state.is_badge_nfc == "1" ? true : false);
-      // body.append("businessId", state.enterprise);
-      // body.append("allowedBuildings", JSON.stringify({
-      //   allowedBuildings: [
-      //     {
-      //       "buildingId": state.building
-      //     }
-      //   ]
-      // }));
 
       const body = {
         firstName: state.first_name,
@@ -169,15 +153,30 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       };
 
       if (existingUser) {
-        response = await Api("put", "/Users/update", {
+        response = await Api("put", "/Users/update_user_profile", {
           ...body,
-          userId: existingUser.userId,
+          employeeId: existingUser.userId,
         });
       } else {
         response = await Api("post", "/register_by_admin", body);
       }
 
       if (response?.data?.success) {
+        if (attachment) {
+          let userID;
+          if (existingUser) {
+            userID = existingUser.userId;
+          } else {
+            userID = response.data.id;
+          }
+
+          const formData = new FormData();
+
+          formData.append("EmployeeId", userID);
+          formData.append("ProfileImage", attachment);
+
+          await Api("post", "/Users/updateprofile_pic", formData);
+        }
         if (existingUser) {
           toast.success("User updated successfully.");
         } else {
@@ -213,10 +212,16 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 </div>
                 <img
                   style={{
-                    marginTop: "46%",
+                    marginTop: "10%",
                   }}
                   className="input_image"
-                  src={DummySVG}
+                  src={
+                    attachment
+                      ? URL.createObjectURL(attachment)
+                      : existingUser.profilePicture
+                      ? assetsURL(existingUser.profilePicture)
+                      : ProfileInputSVG
+                  }
                 />
                 <div className="form_heading_box">
                   <div className="form_heading_text">
