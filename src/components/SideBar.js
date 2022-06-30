@@ -17,7 +17,7 @@ import { Store, UpdateStore } from "../StoreContext";
 
 import { useSpring, animated } from "react-spring";
 
-const svgArr = [
+const svgArrTop = [
   {
     selected: SBDashboardSelectedSVG,
     unselected: SBDashboardUnselectedSVG,
@@ -76,7 +76,7 @@ function SideBar({ color, sticky = true, divStyle }) {
     >
       <div className="sidebar_top">
         <div className="sidebar_column1">
-          {svgArr.map((_, __) => (
+          {svgArrTop.map((_, __) => (
             <SideBarMenuItem
               imgObj={_}
               isSelected={__ == store.sideBarSelectIndex}
