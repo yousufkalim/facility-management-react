@@ -64,7 +64,7 @@ function LoginScreen() {
         const user = {
           id: response.data.userId,
         };
-        handleLogin(token, user);
+        await handleLogin(token, user);
         navToDashboard();
       }
 
@@ -127,8 +127,7 @@ function LoginScreen() {
             //   color: "%999999",
             // }}
           >
-            Welcome to Facility Management, Please put your login credentials to
-            start!
+            Welcome to Facility Management, Please put your login credentials to start!
           </p>
         </div>
         <div
@@ -193,7 +192,7 @@ function LoginScreen() {
           >
             <p
               style={{
-                fontSize:width<992? "20px":"11px",
+                fontSize: width < 992 ? "20px" : "11px",
                 color: "#A0A0A0",
               }}
             >
@@ -201,7 +200,7 @@ function LoginScreen() {
             </p>
             <p
               style={{
-                fontSize:width<992? "22px":"16px",
+                fontSize: width < 992 ? "22px" : "16px",
                 color: "#FF8C39",
               }}
             >

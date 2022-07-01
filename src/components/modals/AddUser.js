@@ -65,7 +65,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         email: existingUser.email,
         phone: existingUser.phoneNo,
         enterprise: existingUser.businessId,
-        is_badge_nfc: existingUser.badgeNFC,
+        is_badge_nfc: existingUser.badgeNFC ? "1" : "0",
         building: existingUser.allowedBuildings[0]?.buildingId,
       });
     }
@@ -218,7 +218,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   src={
                     attachment
                       ? URL.createObjectURL(attachment)
-                      : existingUser.profilePicture
+                      : existingUser?.profilePicture
                       ? assetsURL(existingUser.profilePicture)
                       : ProfileInputSVG
                   }
@@ -229,7 +229,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     <span style={{ color: "#8C8C8C" }}>IL sera invité par mail.</span>
                   </div>
                   <div
-                  className="horizental_seperator"
+                    className="horizental_seperator"
                     style={{
                       margin: width < 850 ? "auto" : "unset",
                     }}
@@ -359,7 +359,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       <select
                         style={{ marginTop: "6%" }}
                         className="all_user_select_input"
-                        onClick={(e) => _setState("enterprise", e.target.value)}
+                        value={state.enterprise}
+                        onChange={(e) => _setState("enterprise", e.target.value)}
                       >
                         {store.addUser.enterprises.map((_) => (
                           <option value={_.value}>{_.text}</option>
@@ -371,7 +372,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       <select
                         style={{ marginTop: "6%" }}
                         className="all_user_select_input"
-                        onClick={(e) => _setState("is_badge_nfc", e.target.value)}
+                        value={state.is_badge_nfc}
+                        onChange={(e) => _setState("is_badge_nfc", e.target.value)}
                       >
                         <option value="1">Yes</option>
                         <option value="0">No</option>
@@ -380,7 +382,11 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   </div>
                   <div style={{ width: "100%" }} className="select_input_container">
                     <label>Bâtiments accessibles</label>
-                    <select className="all_user_select_input" onClick={(e) => _setState("building", e.target.value)}>
+                    <select
+                      className="all_user_select_input"
+                      value={state.building}
+                      onChange={(e) => _setState("building", e.target.value)}
+                    >
                       {store.addUser.buildings.map((_) => (
                         <option value={_.value}>{_.text}</option>
                       ))}

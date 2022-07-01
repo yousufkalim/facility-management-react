@@ -67,7 +67,7 @@ const switches = [
   },
 ];
 
-const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(
+const iOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(
   ({ theme }) => ({
     width: 32,
     height: 14,
@@ -243,117 +243,121 @@ const AllUsers = () => {
               )}
               <div style={{ marginTop: "30px" }} />
             </div>
-            <div className="footer_image_container">
-              <img className="footer_image" src={FooterSVG} />
-              <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
-                <div className="user_profile_info">
-                  <div className="form_container">
-                    <div className="input_image_container">
-                      <img
-                        className="input_image"
-                        style={{ borderRadius: "50%" }}
-                        src={store.allUsers.user.profilePicture ? assetsURL(store.allUsers.user.profilePicture) : ProfileSVG}
-                      />
+            {!store.allUsers.user ? (
+              <></>
+            ) : (
+              <div className="footer_image_container">
+                <img className="footer_image" src={FooterSVG} />
+                <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
+                  <div className="user_profile_info">
+                    <div className="form_container">
+                      <div className="input_image_container">
+                        <img
+                          className="input_image"
+                          style={{ borderRadius: "50%" }}
+                          src={store.allUsers.user.profilePicture ? assetsURL(store.allUsers.user.profilePicture) : ProfileSVG}
+                        />
+                      </div>
+                      <div className="input_container">
+                        <div className="input_row" style={{ width: "100%" }}>
+                          <div className="label_input_container">
+                            <label className="row_label">Prénom</label>
+                            <input value={store.allUsers.user.firstName} />
+                          </div>
+                          <div className="label_input_container">
+                            <label className="row_label">Nom de famille</label>
+                            <input value={store.allUsers.user.lastName} />
+                          </div>
+                          <div
+                            className="row ajc"
+                            style={{
+                              height: "60%",
+                              padding: "0 2%",
+                              backgroundColor: "#F4F4F4",
+                              borderRadius: "20%",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => handleAddUserOpen(true)}
+                          >
+                            <img src={EditSVG} style={{ height: "30%", paddingRight: "10%" }} />
+                            <p style={{ fontSize: "12px" }}>Éditer</p>
+                          </div>
+                        </div>
+                        <div className="label_input_container">
+                          <label>E-mail</label>
+                          <input value={store.allUsers.user.email} />
+                        </div>
+                        <div className="label_input_container">
+                          <label>Numéro de portable</label>
+                          <input value={store.allUsers.user.phoneNo} />
+                        </div>
+                        <div style={{ display: "flex" }} className="input_row">
+                          <div className="label_input_container">
+                            <label className="row_label">Entreprise</label>
+                            <input value={store.allUsers.user.businessName} />
+                          </div>
+                          <div className="label_input_container">
+                            <label className="row_label">Badge NFC</label>
+                            <input value={store.allUsers.user.badgeNFC ? "Yes" : "No"} />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="input_container">
-                      <div className="input_row" style={{ width: "100%" }}>
-                        <div className="label_input_container">
-                          <label className="row_label">Prénom</label>
-                          <input value={store.allUsers.user.firstName} />
-                        </div>
-                        <div className="label_input_container">
-                          <label className="row_label">Nom de famille</label>
-                          <input value={store.allUsers.user.lastName} />
-                        </div>
-                        <div
-                          className="row ajc"
-                          style={{
-                            height: "60%",
-                            padding: "0 2%",
-                            backgroundColor: "#F4F4F4",
-                            borderRadius: "20%",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handleAddUserOpen(true)}
-                        >
-                          <img src={EditSVG} style={{ height: "30%", paddingRight: "10%" }} />
-                          <p style={{ fontSize: "12px" }}>Éditer</p>
-                        </div>
-                      </div>
-                      <div className="label_input_container">
-                        <label>E-mail</label>
-                        <input value={store.allUsers.user.email} />
-                      </div>
-                      <div className="label_input_container">
-                        <label>Numéro de portable</label>
-                        <input value={store.allUsers.user.phoneNo} />
-                      </div>
-                      <div style={{ display: "flex" }} className="input_row">
-                        <div className="label_input_container">
-                          <label className="row_label">Entreprise</label>
-                          <input value={store.allUsers.user.businessName} />
-                        </div>
-                        <div className="label_input_container">
-                          <label className="row_label">Badge NFC</label>
-                          <input value={store.allUsers.user.badgeNFC ? "Yes" : "No"} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="configuration_conatiner">
-                    <div>
-                      <span style={{ color: "#2F696D" }}>Configuration</span>
-                      <p>
-                        Attention, la modification d'un des champs ci-dessous peut provoquer la désassignaiton automatique de
-                        l'utilisateur sur des tickets
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                      className="tickets_container"
-                    >
-                      <div className="tickets-status_container">
-                        <p> Rôle</p>
-                        <p className="responsable-span" style={{}}>
-                          Responsable
+                    <div className="configuration_conatiner">
+                      <div>
+                        <span style={{ color: "#2F696D" }}>Configuration</span>
+                        <p>
+                          Attention, la modification d'un des champs ci-dessous peut provoquer la désassignaiton automatique de
+                          l'utilisateur sur des tickets
                         </p>
-                        <p>Bâtiment accessibles</p>
-                        {/* {store.allUsers.user.allowedBuildings.map((_) => ({
+                      </div>
+                      <div
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        className="tickets_container"
+                      >
+                        <div className="tickets-status_container">
+                          <p> Rôle</p>
+                          <p className="responsable-span" style={{}}>
+                            Responsable
+                          </p>
+                          <p>Bâtiment accessibles</p>
+                          {/* {store.allUsers.user.allowedBuildings.map((_) => ({
                           <TagListTile {..._} />
                         }))} */}
-                        <p>Alertes par mail</p>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                          {switches.map((val) => (
-                            <>
-                              <div className="tickets_icon_btn_container">
-                                <div style={{ width: "50%" }}>
-                                  <img className="tickets_icon_btn" src={val?.image} />
-                                  <span className="tickets_icon_btn_span">{val?.text}</span>
+                          <p>Alertes par mail</p>
+                          <div style={{ display: "flex", flexDirection: "column" }}>
+                            {switches.map((val) => (
+                              <>
+                                <div className="tickets_icon_btn_container">
+                                  <div style={{ width: "50%" }}>
+                                    <img className="tickets_icon_btn" src={val?.image} />
+                                    <span className="tickets_icon_btn_span">{val?.text}</span>
+                                  </div>
+                                  <div>
+                                    <FormControlLabel control={<iOSSwitch sx={{ m: 1 }} />} />
+                                  </div>
                                 </div>
-                                <div>
-                                  <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
-                                </div>
-                              </div>
-                            </>
-                          ))}
-                          <Modal
-                            open={addUserOpen}
-                            onClose={() => handleAddUserClose()}
-                            aria-labelledby="Add User"
-                            aria-describedby="Add User"
-                          >
-                            <AddUser existingUser={editUser} cb={_load} handleClose={handleAddUserClose} />
-                          </Modal>
+                              </>
+                            ))}
+                            <Modal
+                              open={addUserOpen}
+                              onClose={() => handleAddUserClose()}
+                              aria-labelledby="Add User"
+                              aria-describedby="Add User"
+                            >
+                              <AddUser existingUser={editUser} cb={_load} handleClose={handleAddUserClose} />
+                            </Modal>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
         <CustomButton
@@ -400,19 +404,9 @@ function UserCard(props) {
 }
 
 function TagListTile(props) {
-  const [isTicketDetailModal, setIsTicketDetailModal] = useState(false);
-  const handleIsTicketDetailModalClose = () => {
-    setIsTicketDetailModal(false);
-  };
-  const handleIsTicketDetailModalOpen = () => {
-    if (!isTicketDetailModal) {
-      setIsTicketDetailModal(true);
-    }
-  };
-
   return (
     <>
-      <div className="column ds_tlt_container_all_users" onClick={handleIsTicketDetailModalOpen}>
+      <div className="column ds_tlt_container_all_users">
         <div
           className="row"
           style={{
