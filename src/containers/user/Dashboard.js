@@ -78,6 +78,9 @@ function DashboardScreen() {
       // body.append("Title", state.title);
       body.append("Details", state.details);
       // body.append("PriorityId", state.priority);
+      if (state.assignee) {
+        body.append("EmployeeId", state.assignee);
+      }
       body.append("TicketFile", attachment);
 
       response = await Api("post", "/tickets/save_ticket", body);

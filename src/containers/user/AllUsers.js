@@ -6,7 +6,7 @@ import UXL from "../../components/UXL";
 
 import AddUser from "../../components/modals/AddUser";
 
-import ProfileSVG from "../../assets/Profile.svg";
+import ProfileSVG from "../../assets/DummyUser.jpeg";
 import BadgeSVG from "../../assets/Badge.svg";
 import SearchSVG from "../../assets/Search.svg";
 import FooterSVG from "../../assets/Cornerimage.svg";
@@ -23,6 +23,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
+import assetsURL from "../../utils/Assets";
 import * as FormValidations from "../../utils/Validations";
 import Api from "../../api";
 import { toast } from "react-toastify";
@@ -138,7 +139,7 @@ const AllUsers = () => {
   const handleAddUserClose = () => setAddUserOpen(false);
 
   useEffect(() => {
-    if (store.allTickets.isLoading) {
+    if (store.allUsers.isLoading) {
       _load();
     }
   }, []);
@@ -199,6 +200,7 @@ const AllUsers = () => {
   const [width] = useWindowSize();
   return (
     <>
+      {console.log(store, "store")}
       <UXL appBarText="Allusers">
         {store.allUsers.isLoading ? (
           <Loader />
@@ -213,7 +215,7 @@ const AllUsers = () => {
               paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
             }}
           >
-            <div className="column ds_ml_container">
+            <div className="column ds_ml_container_all_users">
               <div className="search-msg-cont">
                 <input className="search-msg-input" placeholder="Search by name" />
                 <img className="srch-icon" src={SearchSVG} />
@@ -239,7 +241,7 @@ const AllUsers = () => {
               ) : (
                 <></>
               )}
-              <div style={{ marginTop: "30px" }}></div>
+              <div style={{ marginTop: "30px" }} />
             </div>
             <div className="footer_image_container">
               <img className="footer_image" src={FooterSVG} />
@@ -247,10 +249,11 @@ const AllUsers = () => {
                 <div className="user_profile_info">
                   <div className="form_container">
                     <div className="input_image_container">
-                      <div style={{ position: "relative" }}>
-                        <img className="edit_icon_image" src={EditSVG} />
-                      </div>
-                      <img className="input_image" style={{ borderRadius: "50%" }} src={ProfileSVG} />
+                      <img
+                        className="input_image"
+                        style={{ borderRadius: "50%" }}
+                        src={store.allUsers.user.profilePicture ? assetsURL(store.allUsers.user.profilePicture) : ProfileSVG}
+                      />
                     </div>
                     <div className="input_container">
                       <div className="input_row" style={{ width: "100%" }}>
@@ -288,7 +291,7 @@ const AllUsers = () => {
                       <div style={{ display: "flex" }} className="input_row">
                         <div className="label_input_container">
                           <label className="row_label">Entreprise</label>
-                          <input value={store.allUsers.user.businessId} />
+                          <input value={store.allUsers.user.businessName} />
                         </div>
                         <div className="label_input_container">
                           <label className="row_label">Badge NFC</label>
@@ -380,7 +383,7 @@ function UserCard(props) {
           <div className="badge_container">
             <img src={BadgeSVG} />
           </div>
-          <img src={ProfileSVG} />
+          <img src={props.profilePicture ? assetsURL(props.profilePicture) : ProfileSVG} />
           <div className="user_detail_name_designation">
             <span className="user_name" style={{ color: store.allUsers.user.userId == props.userId ? "#FFFFFF" : "#494949" }}>
               {props.firstName} {props.lastName}
@@ -388,7 +391,7 @@ function UserCard(props) {
             <span
               className="user_designation"
               style={{ color: store.allUsers.user.userId == props.userId ? "#FFFFFF" : "#494949" }}
-            >{`${props.badgeNFC}`}</span>
+            >{`${props.businessName}`}</span>
           </div>
         </div>
       </div>

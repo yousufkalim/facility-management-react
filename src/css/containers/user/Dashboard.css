@@ -4,10 +4,12 @@
 .ds_ml_container {
   align-items: flex-start;
   justify-content: flex-start;
-  width: 280pt;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 20vh;
   max-height: 100vh;
   overflow-y: scroll;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   background-color: #ffffff;
 }
 

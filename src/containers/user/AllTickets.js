@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TicketTextSVG from "../../assets/TicketText.svg";
 import TicketSettingsSVG from "../../assets/TicketSettings.svg";
 import TicketComment from "../../assets/Comment.svg";
-import ProfileSVG from "../../assets/Profile.svg";
+import ProfileSVG from "../../assets/DummyUser.jpeg";
 
 import TicketDetailModal from "../../components/modals/TicketDetail";
 import Loader from "../../components/Loader";
@@ -346,7 +346,7 @@ function AllTickets({ show }) {
 
     ticket = {
       ...ticket,
-      orderNumber: destinationTempArr + 1,
+      orderNumber: destinationTempArr.length + 1,
     };
 
     sourceTempArr = sourceTempArr.filter((_) => _.taskTicketId != ticket.taskTicketId);
@@ -363,7 +363,7 @@ function AllTickets({ show }) {
     } else if (sourceDroppableId == "3") {
       state.completedTickets = sourceTempArr;
     } else {
-      throw "Tsar Bomba 3 💣";
+      throw "Tsar Bomba 4 💣";
     }
 
     if (destinationDroppableId == "0") {
@@ -375,7 +375,7 @@ function AllTickets({ show }) {
     } else if (destinationDroppableId == "3") {
       state.completedTickets = destinationTempArr;
     } else {
-      throw "Tsar Bomba 3 💣";
+      throw "Tsar Bomba 4 💣";
     }
 
     updateStore({
@@ -458,7 +458,7 @@ function AllTickets({ show }) {
               <div
                 className="column ds_ml_container"
                 style={{
-                  padding: "2%",
+                  padding: "2% 4%",
                 }}
               >
                 <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
@@ -713,7 +713,7 @@ function TicketListTile(props) {
               position: "relative",
             }}
           >
-            {props.comments.map((_, __) => (
+            {[...props.comments].splice(0, 2).map((_, __) => (
               <img
                 className="ip_container"
                 src={_.avatar ?? ProfileSVG}

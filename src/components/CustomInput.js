@@ -18,7 +18,7 @@ function CustomInput({
   enableYoursStyle,
   labelStyle,
   inputStyle,
-  ptext
+  ptext,
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -33,15 +33,14 @@ function CustomInput({
       }}
     >
       <p
-      className="custom_input_text"
+        className="custom_input_text"
         style={{
           marginBottom: "5px",
           ...enableYoursStyle,
         }}
       >
-        {ptext? ptext: "Enter your"}
+        {ptext ? ptext : "Enter your"}
       </p>
-
       <label
         htmlFor={labelText}
         className="custom_input_label"

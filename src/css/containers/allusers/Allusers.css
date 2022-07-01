@@ -1,3 +1,13 @@
+.ds_ml_container_all_users {
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 350px;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: scroll;
+  background-color: #ffffff;
+}
+
 .tab_container {
   display: flex;
   width: 100%;
@@ -101,6 +111,7 @@
   height: 150px;
   margin-top: 18%;
   border: 8px solid #f4f4f4;
+  object-fit: cover;
 }
 .input_image_container {
   display: flex;
@@ -250,7 +261,7 @@
   margin-top: 33%;
 }
 .edit_icon_image_modal {
-  top: 420px !important;
+  top: 135pt !important;
 }
 .form_heading_box {
   width: 70%;
@@ -279,6 +290,7 @@
   }
   .input_image {
     margin-top: 0%;
+    object-fit: cover;
   }
   .input_container {
     width: 100%;

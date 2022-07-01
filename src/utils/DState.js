@@ -19,7 +19,8 @@ const _ = {
     buildings: [],
     buildingLevels: [],
     categories: [],
-    priorities: [],
+    // priorities: [],
+    assignees: [],
   },
 
   // Statistics Screen
