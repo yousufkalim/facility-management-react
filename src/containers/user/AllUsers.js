@@ -67,7 +67,7 @@ const switches = [
   },
 ];
 
-const iOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(
+const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(
   ({ theme }) => ({
     width: 32,
     height: 14,
@@ -337,7 +337,7 @@ const AllUsers = () => {
                                     <span className="tickets_icon_btn_span">{val?.text}</span>
                                   </div>
                                   <div>
-                                    <FormControlLabel control={<iOSSwitch sx={{ m: 1 }} />} />
+                                    <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
                                   </div>
                                 </div>
                               </>
