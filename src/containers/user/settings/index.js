@@ -9,40 +9,17 @@ import SBSettingsBuildingIconUnSelected from "../../../assets/SBSettingsBuilding
 
 import CustomButton from "../../../components/CustomButton";
 
-import EditBuilding from "../../../components/modals/EditBuilding";
 import AddBuilding from "../../../components/modals/AddBuilding";
 
-import Buildings from "./AccountSettingsSubComponents/Buildings";
-import Account from "./AccountSettingsSubComponents/Account";
-import Catogories from "./AccountSettingsSubComponents/Catogories";
+import Buildings from "./Buildings";
+import Account from "./Account";
+import Catogories from "./Catogories";
 
 import { Store, UpdateStore } from "../../../StoreContext";
 
 import useWindowSize from "../../../utils/WindowSize";
 import Modal from "@mui/material/Modal";
 
-const items = [
-  {
-    id: 0,
-    text: "Invitations envoyées",
-  },
-  {
-    id: 1,
-    text: "Utilisateurs",
-  },
-];
-
-const levels = [
-  {
-    text: "Level A",
-  },
-  {
-    text: "Level B",
-  },
-  {
-    text: "Level C",
-  },
-];
 const svgArrSideBar = [
   {
     selected: SBSettingsAccountIconUnSelected,
@@ -60,38 +37,32 @@ const svgArrSideBar = [
     text: "Catégories",
   },
 ];
-const AccountSetting = () => {
-  const [editBuilding, setEditbuilding] = useState(false);
-  const [addBuilding, setAddbuilding] = useState(false);
+
+const Settings = () => {
   const [activeSideBar, setActiveSideBar] = useState("");
   const store = Store();
+  const updateStore = UpdateStore();
   const [width] = useWindowSize();
 
-  const handleOpenAddEditBuilding = (CompToRender) => {
-    if (CompToRender == "editbuilding") {
-      setEditbuilding(true);
-      setAddbuilding(false);
+  const [addBuildingOpen, setAddBuildingOpen] = useState(false);
+  const handleAddBuildingOpen = (toEdit) => {
+    if (!toEdit) {
+      updateStore({
+        settings: {
+          ...store.settings,
+          allBuildings: {
+            ...store.settings.allBuildings,
+            building: null,
+          },
+        },
+      });
     }
-    if (CompToRender == "addbuilding") {
-      setEditbuilding(false);
-      setAddbuilding(true);
-    }
+    setAddBuildingOpen(true);
   };
-  const handleCloseAddEditBuilding = () => {
-    setEditbuilding(false);
-    setAddbuilding(false);
-  };
+  const handleAddBuildingClose = () => setAddBuildingOpen(false);
   return (
     <>
       <UXL appBarText="Account Settings">
-        <Modal
-          open={editBuilding || addBuilding}
-          onClose={() => handleCloseAddEditBuilding()}
-          aria-labelledby="Add User"
-          aria-describedby="Add User"
-        >
-          {addBuilding ? <AddBuilding /> : <EditBuilding />}
-        </Modal>
         <div
           className="row uxl_children_container"
           style={{
@@ -125,23 +96,44 @@ const AccountSetting = () => {
           </div>
           <div style={{ width: "81%", left: "28%" }} className="footer_image_container">
             <img className="footer_image" src={FooterSVG} />
-            {activeSideBar == 0 ? <Account /> : null}
-            {activeSideBar == 1 ? <Buildings levels={levels} handleOpenAddEditBuilding={handleOpenAddEditBuilding} /> : null}
-            {activeSideBar == 2 ? <Catogories /> : null}
+            {activeSideBar == 0 ? <Account /> : <></>}
+            {activeSideBar == 1 ? <Buildings handleAddBuildingOpen={handleAddBuildingOpen} /> : <></>}
+            {activeSideBar == 2 ? <Catogories /> : <></>}
           </div>
         </div>
-        <CustomButton
-          text="Ajouter un bâtiment ➕"
-          onClick={() => handleOpenAddEditBuilding("addbuilding")}
-          style={{
-            position: "absolute",
-            right: "20pt",
-            bottom: "20pt",
-          }}
-        />
+        {activeSideBar == 1 ? (
+          <CustomButton
+            text="Ajouter un bâtiment ➕"
+            onClick={() => handleAddBuildingOpen(false)}
+            style={{
+              position: "absolute",
+              right: "20pt",
+              bottom: "20pt",
+            }}
+          />
+        ) : activeSideBar == 2 ? (
+          <CustomButton
+            text="Ajouter une nouvelle catégorie ➕"
+            style={{
+              position: "absolute",
+              right: "20pt",
+              bottom: "20pt",
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        <Modal
+          open={addBuildingOpen}
+          onClose={() => handleAddBuildingClose()}
+          aria-labelledby="Add User"
+          aria-describedby="Add User"
+        >
+          <AddBuilding />
+        </Modal>
       </UXL>
     </>
   );
 };
 
-export default AccountSetting;
+export default Settings;

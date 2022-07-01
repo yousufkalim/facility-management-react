@@ -14,7 +14,6 @@ import Loader from "../../components/Loader";
 import { getUser } from "../../utils/Auth";
 import Api from "../../api";
 import { toast } from "react-toastify";
-import assetsURL from "../../utils/Assets";
 
 import { Store, UpdateStore } from "../../StoreContext";
 import useWindowSize from "../../utils/WindowSize";

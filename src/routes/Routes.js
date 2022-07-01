@@ -1,10 +1,12 @@
 // Auth Screens
 import LoginScreen from "../containers/auth/Login";
 import RegistrationScreen from "../containers/auth/Registration";
+
+// User Screens
 import DashboardScreen from "../containers/user/Dashboard";
 import StatisticsScreen from "../containers/user/Statistics";
 import AllUsersScreen from "../containers/user/AllUsers";
-import AccountSettingScreen from '../containers/user/AccountSettings/AccountSetting'
+import Settingscreen from "../containers/user/settings";
 
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -57,10 +59,10 @@ const UserRoutes = [
     element: StatisticsScreen,
   },
   {
-    path: "/accountsettings",
-    name: "accountsettings",
+    path: "/settings",
+    name: "settings",
     icon: <LoginIcon />,
-    element: AccountSettingScreen,
+    element: Settingscreen,
   },
 ];
 

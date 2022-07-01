@@ -1,0 +1,142 @@
+import React, { useState, useEffect } from "react";
+
+import SBDeleteIcon from "../../../assets/SBDeleteIcon.svg";
+import SBEditIcon from "../../../assets/Edit.svg";
+import SBSettingsBuildingIconUnSelected from "../../../assets/SBSettingsBuildingIconUnSelected.svg";
+
+import Api from "../../../api";
+import { getUser } from "../../../utils/Auth";
+
+import { Store, UpdateStore } from "../../../StoreContext";
+
+import Loader from "../../../components/Loader";
+
+const Buildings = (props) => {
+  const user = getUser();
+  const store = Store();
+  const updateStore = UpdateStore();
+
+  useEffect(() => {
+    if (store.settings.allBuildings.isLoading) {
+      _load();
+    }
+  }, []);
+
+  const _load = async () => {
+    const _buildings = await getBuildings();
+
+    updateStore({
+      settings: {
+        ...store.settings,
+        allBuildings: {
+          buildings: _buildings,
+          isLoading: false,
+        },
+      },
+    });
+  };
+
+  const getBuildings = async () => {
+    let response;
+    try {
+      response = await Api("get", `/buildings/active_building_with_levels`);
+      const _buildings = response.data.data;
+      return _buildings;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  return (
+    <>
+      {store.settings.allBuildings.isLoading ? (
+        <Loader />
+      ) : (
+        <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
+          <div className="user_profile_info">
+            <div className="parent_container_header">
+              <div className="batments_levels_actions_conatiner d-flex">
+                <div className="prnt d-flex batments_levels_container">
+                  <div>Bâtiments</div>
+                  <div>levels</div>
+                </div>
+                <div>Action</div>
+              </div>
+            </div>
+            {store.settings.allBuildings.buildings.map((_) => (
+              <BuildingListTile {..._} {...props} />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+function BuildingListTile(props) {
+  const store = Store();
+  const updateStore = UpdateStore();
+
+  const handleEdit = () => {
+    updateStore({
+      settings: {
+        ...store.settings,
+        allBuildings: {
+          ...store.settings.allBuildings,
+          building: props,
+        },
+      },
+    });
+    props.handleAddBuildingOpen(true);
+  };
+
+  const color = props.color ?? "#000000";
+
+  return (
+    <div style={{ background: "#ffffff", borderBottom: "0.2px solid #8C8C8C", color: color }} className="parent_container_header">
+      <div style={{ width: "94%", padding: "1.6% 0%" }} className="batments_levels_actions_conatiner d-flex">
+        <div className="d-flex batments_levels_container_edit_delete">
+          <div style={{ width: "19%" }} className="d-flex aic">
+            <img style={{ width: "15px", marginRight: "6%" }} src={SBSettingsBuildingIconUnSelected} />
+            <span className="white_space">{props.name}</span>
+          </div>
+          <div style={{ width: "72%" }}>
+            {props.levels.map((_) => (
+              <span className="levels" style={{ background: _hexToRGB(color) }}>
+                {_.name}{" "}
+              </span>
+            ))}
+            <span onClick={handleEdit} className="add_more_btn">
+              {" "}
+              Add More
+            </span>
+          </div>
+          <div className="d-flex edit_delete_icon_container">
+            <div className="img_round_container" style={{ cursor: "pointer" }} onClick={handleEdit}>
+              <img src={SBEditIcon} />
+            </div>
+            <div className="img_round_container" style={{ cursor: "pointer" }}>
+              <img src={SBDeleteIcon} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function _hexToRGB(hex, opacity) {
+  const obj = _hexToRGBObj(hex);
+  return `rgba(${obj.r}, ${obj.g}, ${obj.b}, ${opacity ?? 0.6})`;
+}
+
+function _hexToRGBObj(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  };
+}
+
+export default Buildings;

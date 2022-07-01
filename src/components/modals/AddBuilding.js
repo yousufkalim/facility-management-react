@@ -1,80 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 
 import CustomInput from "../CustomInput";
 
 import { useTranslation } from "react-i18next";
 
+import { buildingColors, buildingLevels } from "../../utils/Constants";
+
 const AddBuilding = () => {
+  const { t } = useTranslation();
 
-    const { t } = useTranslation();
-
-    const colorsarray = [
-      {
-        color: "#00109E",
-      },
-      {
-        color: "#9E2600",
-      },
-      {
-        color: "#F18200",
-      },
-      {
-        color: "#F4F4F4",
-      },
-      {
-        color: "#494949",
-      },
-      {
-        color: "#00A9B5",
-      },
-      {
-        color: "#7B61FF",
-      },
-      {
-        color: "#9B9E00",
-      },
-    ];
-    const levels = [
-      {
-        text: "Level A",
-      },
-      {
-        text: "Level B",
-      },
-      {
-        text: "Level C",
-      },
-      {
-          text: "Level A",
-        },
-        {
-          text: "Level B",
-        },
-        {
-          text: "Level C",
-        },
-        {
-          text: "Level A",
-        },
-        {
-          text: "Level B",
-        },
-        {
-          text: "Level C",
-        },
-        {
-          text: "Level A",
-        },
-        {
-          text: "Level B",
-        },
-        {
-          text: "Level C",
-        },
-    ];
+  const [title, setTitle] = useState("");
+  const [color, setColor] = useState(buildingColors[0]);
+  const [levels, setLevels] = useState([]);
   return (
-   <>
-     <div style={{padding:"1% 4%"}} className="allusers_modal">
+    <>
+      <div style={{ padding: "1% 4%" }} className="allusers_modal">
         <div className="modal_parent_container">
           <div style={{ width: "100%" }} className="form_heading_text edit_building_header">
             <span style={{ color: "#2F696D", fontWeight: "600" }}>Add le bâtiment</span>
@@ -85,7 +25,7 @@ const AddBuilding = () => {
               inputType="text"
               inputName="Bâtiment Orange"
               inputPlaceholder="Bâtiment Orange"
-              //   inputValue={state.first_name}
+              inputValue={title}
               enableYoursStyle={{
                 fontWeight: "400",
                 fontSize: "14px",
@@ -103,13 +43,19 @@ const AddBuilding = () => {
               labelStyle={{
                 marginBottom: "8px",
               }}
-              //   onChange={(e) => _setState("first_name", e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
-            <div  className="colors_btn_container">
+            <div className="colors_btn_container">
               <span className="colors_heading"> Couleur du bâtiment</span>
               <div className="colors_container d-flex space-between aic">
-                {colorsarray.map((color) => (
-                  <div style={{ background: color?.color }} className="colored_circle">
+                {buildingColors.map((_) => (
+                  <div
+                    style={{ border: color == _ ? "5px solid #2F696D" : "none", background: _ }}
+                    className="colored_circle"
+                    onClick={() => {
+                      setColor(_);
+                    }}
+                  >
                     {" "}
                   </div>
                 ))}
@@ -126,16 +72,24 @@ const AddBuilding = () => {
               </div>
               <span className="colors_heading"> Lieu</span>
               <div className="levels_box_container">
-                        {levels.map((_) => (
-                          <span className="levels" style={{background:"#D8ECFF", padding: "2% 2%"}}>{_?.text} </span>
-                        ))}
-                     <div className="d-flex aic"> <span onClick={()=>console.log("clicked")} className="load_more_btn"> Load More</span></div>  
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "center", margin:"2%" }}>
+                {buildingLevels.map((_) => (
+                  <span className="levels" style={{ background: "#D8ECFF", padding: "2% 2%", cursor: "pointer" }}>
+                    {`Level ${_}`}{" "}
+                  </span>
+                ))}
+                <div className="d-flex aic">
+                  {" "}
+                  <span onClick={() => console.log("clicked")} className="load_more_btn">
+                    {" "}
+                    Load More
+                  </span>
+                </div>
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", margin: "2%" }}>
                 <button onClick={() => console.log("fdf")} className="btn_all_user">
                   {t("Jeter")}
                 </button>
-                <button className="btn_all_user" onClick={()=>console.log("")}  >
+                <button className="btn_all_user" onClick={() => console.log("")}>
                   {t("Sauvegarder ☑️")}
                 </button>
               </div>
@@ -143,8 +97,8 @@ const AddBuilding = () => {
           </div>
         </div>
       </div>
-   </>
-  )
-}
+    </>
+  );
+};
 
-export default AddBuilding
+export default AddBuilding;

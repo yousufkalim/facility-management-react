@@ -70,8 +70,8 @@ const handleNavigation = (navigate, index) => {
     case 2:
       navigate("/allusers");
       break;
-    case 6:
-      navigate("/accountsettings");
+    case 5:
+      navigate("/settings");
       break;
     default:
       break;
@@ -112,18 +112,17 @@ function SideBar({ color, sticky = true, divStyle }) {
           ))}
         </div>
       </div>
-
       <div className="sidebar_top">
         <div className="sidebar_column1">
           {svgArrBottom.map((_, __) => (
             <SideBarMenuItem
               imgObj={_}
-              isSelected={__ + 4 == store.sideBarSelectIndex + 4}
+              isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
               cb={() => {
                 updateStore({
-                  sideBarSelectIndex: __ + 4,
+                  sideBarSelectIndex: __ + svgArrTop.length,
                 });
-                handleNavigation(navigate, __ + 4);
+                handleNavigation(navigate, __ + svgArrTop.length);
               }}
             />
           ))}

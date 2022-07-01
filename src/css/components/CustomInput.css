@@ -12,6 +12,10 @@
   margin-bottom: 10px;
 }
 
+.custom_input_text {
+  font-size: 10px;
+}
+
 .custom_input_input {
   width: 100%;
   padding: 10px;
@@ -28,19 +32,17 @@
   right: 1%;
 }
 
-
 @media only screen and (max-width: 667px) {
   .custom_input_label {
-   font-size: 10px;
+    font-size: 10px;
   }
-  .custom_input_text{
+  .custom_input_text {
     font-size: 12px;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .reg_screen_top{
+  .reg_screen_top {
     height: 100vh !important;
-  }  
+  }
 }
-

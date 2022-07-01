@@ -14,7 +14,6 @@ import EditProfileIcon from "../../assets/Edit.svg";
 
 import useWindowSize from "../../utils/WindowSize";
 
-import assetsURL from "../../utils/Assets";
 import * as FormValidations from "../../utils/Validations";
 import Api from "../../api";
 import { toast } from "react-toastify";
@@ -219,7 +218,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     attachment
                       ? URL.createObjectURL(attachment)
                       : existingUser?.profilePicture
-                      ? assetsURL(existingUser.profilePicture)
+                      ? existingUser.profilePicture
                       : ProfileInputSVG
                   }
                 />
