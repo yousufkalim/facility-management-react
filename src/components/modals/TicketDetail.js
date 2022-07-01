@@ -95,13 +95,13 @@ function TicketDetailModal(props) {
     if (props.flagStatus == 4) {
       ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.recentTickets];
-    } else if (_.droppableId == 3) {
+    } else if (props.flagStatus == 3) {
       ticket = store.allTickets.pendingTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
       tickets = [...store.allTickets.pendingTickets];
-    } else if (_.droppableId == 2) {
+    } else if (props.flagStatus == 2) {
       ticket = store.allTickets.inProgressTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
       tickets = [...store.allTickets.inProgressTickets];
-    } else if (_.droppableId == 1) {
+    } else if (props.flagStatus == 1) {
       ticket = store.allTickets.completedTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
       tickets = [...store.allTickets.completedTickets];
     }
@@ -119,7 +119,7 @@ function TicketDetailModal(props) {
         },
       });
       ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
-    } else if (_.droppableId == 3) {
+    } else if (props.flagStatus == 3) {
       updateStore({
         ...store,
         allTickets: {
@@ -127,7 +127,7 @@ function TicketDetailModal(props) {
           pendingTickets: tickets,
         },
       });
-    } else if (_.droppableId == 2) {
+    } else if (props.flagStatus == 2) {
       updateStore({
         ...store,
         allTickets: {
@@ -135,7 +135,7 @@ function TicketDetailModal(props) {
           inProgressTickets: tickets,
         },
       });
-    } else if (_.droppableId == 1) {
+    } else if (props.flagStatus == 1) {
       updateStore({
         ...store,
         allTickets: {
