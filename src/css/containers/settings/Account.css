@@ -1,0 +1,55 @@
+.input_image_account{
+    border-radius: 50%;
+    border: none;
+    margin-top: 0px;
+    width: 135px;
+    height: 135px;
+}
+.form_container_account{
+    width: 92% !important;
+    margin:  3% 4% 2% 4% !important;
+    border-bottom: none !important;
+}
+.horizental_seperator_account{
+    margin-top: 3%;
+    width: 78%;
+}
+.edit_icon_container{
+    background: #ffffff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.edit_icon_container>img{
+    width: 12px;
+    height: 12px;
+}
+
+.edit_icon_text_container{
+    height: 10%;
+    padding: 1.9% 1.5%;
+    background-color: rgb(244, 244, 244);
+    border-radius: 36px;
+    cursor: pointer;
+    justify-content: space-around;
+    align-items: center;
+}
+.label_inputs{
+    padding-bottom: 5%;
+    color: #8c8c8c;
+    font-weight: 400;
+    font-size: 14px;
+}
+.account_edit_inputs{
+border: 2px solid #8C8C8C;
+border-radius: 20px;
+}
+.w-48{
+    width: 48%;
+}
+.accunt_configuration_container span{
+color: #2F696D;
+}
+.accunt_configuration_container p{
+    width: 80%;
+}

@@ -78,7 +78,7 @@
   transition: visibility 0s 1s, opacity 1s linear;
 }
 .horizental_seperator{
-  border-bottom: 2px solid #F4F4F4;
+  border-bottom: 1px solid #F4F4F4;
   width: 40%;
   margin-left: 5%;
 }

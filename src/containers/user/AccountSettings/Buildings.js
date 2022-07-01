@@ -1,8 +1,9 @@
 import React from 'react'
 
-import SBDeleteIcon from "../../../../assets/SBDeleteIcon.svg";
-import SBEditIcon from "../../../../assets/Edit.svg";
-import SBSettingsBuildingIconUnSelected from "../../../../assets/SBSettingsBuildingIconUnSelected.svg";
+import SBDeleteIcon from "../../../assets/SBDeleteIcon.svg";
+import SBEditIcon from "../../../assets/Edit.svg";
+import SBSettingsBuildingIconUnSelected from "../../../assets/SBSettingsBuildingIconUnSelected.svg";
+import CustomButton from "../../../components/CustomButton";
 
 
 const Buildings = ({levels,handleOpenAddEditBuilding}) => {
@@ -50,6 +51,15 @@ const Buildings = ({levels,handleOpenAddEditBuilding}) => {
                 </div>
               </div>
             </div>
+            <CustomButton
+          text="Ajouter un bâtiment ➕"
+          onClick={() => handleOpenAddEditBuilding("addbuilding")}
+          style={{
+            position: "absolute",
+            right: "80pt",
+            bottom: "80pt",
+          }}
+        />
   </>
   )
 }

@@ -12,9 +12,9 @@ import CustomButton from "../../../components/CustomButton";
 import EditBuilding from "../../../components/modals/EditBuilding";
 import AddBuilding from "../../../components/modals/AddBuilding";
 
-import Buildings from "./AccountSettingsSubComponents/Buildings";
-import Account from './AccountSettingsSubComponents/Account';
-import Catogories from './AccountSettingsSubComponents/Catogories'
+import Buildings from "./Buildings";
+import Account from './Account';
+import Catogories from './Catogories'
 
 import { Store, UpdateStore } from "../../../StoreContext";
 
@@ -64,6 +64,7 @@ const AccountSetting = () => {
   const [editBuilding, setEditbuilding] = useState(false);
   const [addBuilding, setAddbuilding] = useState(false);
   const [activeSideBar, setActiveSideBar] = useState("");
+  const [editUserProfile, setEditUserProfile] = useState(false)
   const store = Store();
   const [width] = useWindowSize();
 
@@ -106,8 +107,8 @@ const AccountSetting = () => {
             {svgArrSideBar.map((arrData, index) => (
               <div
                 style={{ 
-                padding: "14px 25px", 
-                width: "85%", 
+                padding: "12px 25px", 
+                width: "83%", 
                 margin: "3% auto 0% auto", 
                 borderRadius: "15px", 
                 backgroundColor:activeSideBar==index? "#2F696D":""
@@ -128,20 +129,12 @@ const AccountSetting = () => {
           </div>
           <div style={{ width: "81%", left: "28%" }} className="footer_image_container">
             <img className="footer_image" src={FooterSVG} />
-            {activeSideBar == 0 ? <Account/> : null}
+            {activeSideBar == 0 ? <Account editUserProfile={editUserProfile} setEditUserProfile={setEditUserProfile}/> : null}
             {activeSideBar == 1 ? <Buildings levels={levels} handleOpenAddEditBuilding={handleOpenAddEditBuilding} /> : null}
             {activeSideBar == 2 ? <Catogories/> : null}
           </div>
         </div>
-        <CustomButton
-          text="Ajouter un bâtiment ➕"
-          onClick={() => handleOpenAddEditBuilding("addbuilding")}
-          style={{
-            position: "absolute",
-            right: "20pt",
-            bottom: "20pt",
-          }}
-        />
+        
       </UXL>
     </>
   );

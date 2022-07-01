@@ -314,7 +314,7 @@ const AllUsers = () => {
                     >
                       <div className="tickets-status_container">
                         <p> Rôle</p>
-                        <p className="responsable-span" style={{}}>
+                        <p className="responsable-span">
                           Responsable
                         </p>
                         <p>Bâtiment accessibles</p>
