@@ -33,12 +33,14 @@ function DashboardScreen() {
     building: "",
     building_level: "",
     location_details: "",
+
     // section 2
     category: "",
-    title: "",
+    // title: "",
     details: "",
+
     // section 3
-    priority: "",
+    // priority: "",
     assignee: "",
   });
   const [attachment, setAttachment] = useState(null);
@@ -73,9 +75,9 @@ function DashboardScreen() {
       body.append("PlaceId", state.building_level);
       body.append("LocationDetails", state.location_details);
       body.append("CategoryId", state.category);
-      body.append("Title", state.title);
+      // body.append("Title", state.title);
       body.append("Details", state.details);
-      body.append("PriorityId", state.priority);
+      // body.append("PriorityId", state.priority);
       body.append("TicketFile", attachment);
 
       response = await Api("post", "/tickets/save_ticket", body);
@@ -124,12 +126,8 @@ function DashboardScreen() {
           setAttachment={setAttachment}
         />
         <CustomButton
-          text={`${
-            !renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"
-          }`}
-          onClick={
-            !renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)
-          }
+          text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+          onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
           style={{
             position: "absolute",
             right: "20pt",

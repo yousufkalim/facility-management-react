@@ -48,7 +48,7 @@ const StyledMenu = styled((MenuProps) => (
   },
 }));
 
-function AppBar({ color, sticky = true, text, disableSearch = false, divStyle }) {
+function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -142,7 +142,6 @@ function AppBar({ color, sticky = true, text, disableSearch = false, divStyle })
 
 function SearchInput({ setSearchQuery, callback }) {
   const { t } = useTranslation();
-
   return (
     <div>
       <div

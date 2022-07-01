@@ -32,8 +32,8 @@ function addTicket(data) {
     () => Validators.selectValidator("Building", data["building"]),
     () => Validators.selectValidator("Building Level", data["building_level"]),
     () => Validators.selectValidator("Category", data["category"]),
-    () => Validators.nullValidator("Title", data["title"]),
-    () => Validators.selectValidator("Priority", data["priority"]),
+    // () => Validators.nullValidator("Title", data["title"]),
+    // () => Validators.selectValidator("Priority", data["priority"]),
     // () => Validators.selectValidator("Assignee", data["assignee"]),
   ];
 
@@ -42,4 +42,19 @@ function addTicket(data) {
   return validated;
 }
 
-export { login, registration, addTicket };
+function addUser(data) {
+  const valFuncArr = [
+    () => Validators.nullValidator("First Name", data["first_name"]),
+    () => Validators.nullValidator("Last Name", data["last_name"]),
+    () => Validators.emailValidator("Email Address", data["email"]),
+    () => Validators.nullValidator("Phone Number", data["phone"]),
+    () => Validators.selectValidator("Enterprise", data["enterprise"]),
+    () => Validators.nullValidator("Building", data["building"]),
+  ];
+
+  const validated = formValidator(valFuncArr);
+
+  return validated;
+}
+
+export { login, registration, addTicket, addUser };

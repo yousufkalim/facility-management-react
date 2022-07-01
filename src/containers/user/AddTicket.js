@@ -12,14 +12,7 @@ import Api from "../../api";
 
 import { Store, UpdateStore } from "../../StoreContext";
 
-function AddTicketScreen({
-  show,
-  handleClose,
-  state,
-  setState,
-  attachment,
-  setAttachment,
-}) {
+function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -47,7 +40,7 @@ function AddTicketScreen({
     const _buildings = await getBuildings();
     const _buildingLevels = await getBuildingLevels(_buildings[0]);
     const _categories = await getCategories();
-    const _priorities = await getPriorities();
+    // const _priorities = await getPriorities();
 
     updateStore({
       addTicket: {
@@ -55,7 +48,7 @@ function AddTicketScreen({
         buildings: _buildings,
         buildingLevels: _buildingLevels,
         categories: _categories,
-        priorities: _priorities,
+        // priorities: _priorities,
         isLoading: false,
       },
     });
@@ -94,16 +87,16 @@ function AddTicketScreen({
     }
   };
 
-  const getPriorities = async () => {
-    let response;
-    try {
-      response = await Api("get", `/priority/dropdown`);
-      const _priorities = response.data.data;
-      return _priorities;
-    } catch (e) {
-      console.trace(e);
-    }
-  };
+  // const getPriorities = async () => {
+  //   let response;
+  //   try {
+  //     response = await Api("get", `/priority/dropdown`);
+  //     const _priorities = response.data.data;
+  //     return _priorities;
+  //   } catch (e) {
+  //     console.trace(e);
+  //   }
+  // };
 
   const selectBuilding = async (_) => {
     const _buildingLevels = await getBuildingLevels(_);
@@ -161,10 +154,7 @@ function AddTicketScreen({
                 Ajouter un nouveau ticket
               </p>
             </div>
-            <div
-              className="row aic"
-              style={{ flex: 1, justifyContent: "flex-end" }}
-            >
+            <div className="row aic" style={{ flex: 1, justifyContent: "flex-end" }}>
               <img
                 src={ModalCrossSVG}
                 style={{
@@ -295,10 +285,7 @@ function AddTicketScreen({
                     </p>
                   </div>
                 </div>
-                <div
-                  className="column w100"
-                  style={{ marginBottom: "2%", marginLeft: "5%" }}
-                >
+                <div className="column w100" style={{ marginBottom: "2%", marginLeft: "5%" }}>
                   <p
                     style={{
                       fontSize: "13px",
@@ -310,9 +297,7 @@ function AddTicketScreen({
                   </p>
                   <CustomInput
                     inputValue={state.location_details}
-                    onChange={(e) =>
-                      _setState("location_details", e.target.value)
-                    }
+                    onChange={(e) => _setState("location_details", e.target.value)}
                     divStyle={{
                       width: "40%",
                     }}
@@ -354,7 +339,7 @@ function AddTicketScreen({
                 </div>
               </div>
               <div className="column w100" style={{ marginBottom: "2%" }}>
-                <p
+                {/* <p
                   style={{
                     fontSize: "13px",
                     color: "#B7B7B7",
@@ -376,13 +361,10 @@ function AddTicketScreen({
                     borderBottomStyle: "solid",
                     borderBottomWidth: "1.5px",
                   }}
-                />
+                /> */}
               </div>
               <div className="row w100" style={{ marginBottom: "2%" }}>
-                <div
-                  className="column"
-                  style={{ marginRight: "2%", width: "20%" }}
-                >
+                <div className="column" style={{ marginRight: "2%", width: "20%" }}>
                   <p
                     style={{
                       fontSize: "13px",
@@ -428,14 +410,7 @@ function AddTicketScreen({
                     }}
                   >
                     <label>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        hidden
-                        id="filePicker"
-                        name="file"
-                        onChange={handleFileSelect}
-                      />
+                      <input type="file" accept="image/*" hidden id="filePicker" name="file" onChange={handleFileSelect} />
                       <div className="row ajc">
                         <img
                           src={AttachmentSVG}
@@ -445,9 +420,7 @@ function AddTicketScreen({
                             marginRight: "15pt",
                           }}
                         />
-                        <p style={{ fontSize: "11px", fontWeight: "bold" }}>{`${
-                          attachment?.name ?? "Ajouter pièce jointe"
-                        }`}</p>
+                        <p style={{ fontSize: "11px", fontWeight: "bold" }}>{`${attachment?.name ?? "Ajouter pièce jointe"}`}</p>
                       </div>
                     </label>
                   </div>
@@ -455,7 +428,7 @@ function AddTicketScreen({
               </div>
               {/* Section 3 */}
               <div className="column" style={{ marginBottom: "2%" }}>
-                <p
+                {/* <p
                   style={{
                     fontSize: "13px",
                     color: "#B7B7B7",
@@ -479,7 +452,7 @@ function AddTicketScreen({
                       }}
                     />
                   ))}
-                </div>
+                </div> */}
               </div>
               <div className="column" style={{ marginBottom: "2%" }}>
                 <p

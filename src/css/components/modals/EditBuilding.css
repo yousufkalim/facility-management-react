@@ -1,0 +1,43 @@
+.edit_building_header>*{
+    margin-bottom: 2%;
+}
+.colors_container{
+    width:82%;
+}
+.colors_container>*{
+    padding-right: 1%;
+}
+.colors_btn_container{
+width: 100%;
+}
+.colors_btn_container>*{
+    padding-bottom: 2%;
+}
+.colors_heading{
+    font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+color: #8C8C8C;
+}
+.colored_circle{
+    width: 50px;
+    font-weight: 400;
+    height: 50px;
+    border-radius: 27px;
+}
+.levels_box_container{
+width: 90%;
+display: flex;
+flex-wrap: wrap;
+color: #00109E;
+font-weight: 600;
+font-size: 14px;
+}
+
+.load_more_btn {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #8C8C8C;
+    border-bottom: 1px solid #8C8C8C;
+}  

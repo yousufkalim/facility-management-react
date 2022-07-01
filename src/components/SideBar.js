@@ -13,6 +13,10 @@ import SBSignalUnselectedSVG from "../assets/SBSignalUnselected.svg";
 import SBEventsSelectedSVG from "../assets/SBEventsSelected.svg";
 import SBEventsUnselectedSVG from "../assets/SBEventsUnselected.svg";
 
+import SBDashboardNotifcationUnSelected from "../assets/SBDashboardNotifcationUnSelected.svg";
+import SBDashboardInfoUnselected from "../assets/SBDashboardInfoUnselected.svg";
+import SBDashboardSettingsUnSelected from "../assets/SBDashboardSettingsUnSelected.svg";
+
 import { Store, UpdateStore } from "../StoreContext";
 
 import { useSpring, animated } from "react-spring";
@@ -30,13 +34,28 @@ const svgArrTop = [
     selected: SBEmployeesSelectedSVG,
     unselected: SBEmployeesUnselectedSVG,
   },
+  // {
+  //   selected: SBSignalSelectedSVG,
+  //   unselected: SBSignalUnselectedSVG,
+  // },
+  // {
+  //   selected: SBEventsSelectedSVG,
+  //   unselected: SBEventsUnselectedSVG,
+  // },
+];
+
+const svgArrBottom = [
   {
-    selected: SBSignalSelectedSVG,
-    unselected: SBSignalUnselectedSVG,
+    selected: SBDashboardNotifcationUnSelected,
+    unselected: SBDashboardNotifcationUnSelected,
   },
   {
-    selected: SBEventsSelectedSVG,
-    unselected: SBEventsUnselectedSVG,
+    selected: SBDashboardInfoUnselected,
+    unselected: SBDashboardInfoUnselected,
+  },
+  {
+    selected: SBDashboardSettingsUnSelected,
+    unselected: SBDashboardSettingsUnSelected,
   },
 ];
 
@@ -50,6 +69,9 @@ const handleNavigation = (navigate, index) => {
       break;
     case 2:
       navigate("/allusers");
+      break;
+    case 6:
+      navigate("/accountsettings");
       break;
     default:
       break;
@@ -85,6 +107,23 @@ function SideBar({ color, sticky = true, divStyle }) {
                   sideBarSelectIndex: __,
                 });
                 handleNavigation(navigate, __);
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="sidebar_top">
+        <div className="sidebar_column1">
+          {svgArrBottom.map((_, __) => (
+            <SideBarMenuItem
+              imgObj={_}
+              isSelected={__ + 4 == store.sideBarSelectIndex + 4}
+              cb={() => {
+                updateStore({
+                  sideBarSelectIndex: __ + 4,
+                });
+                handleNavigation(navigate, __ + 4);
               }}
             />
           ))}
