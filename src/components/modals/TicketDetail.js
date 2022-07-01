@@ -18,6 +18,8 @@ import { Store, UpdateStore } from "../../StoreContext";
 
 function TicketDetailModal(props) {
   const user = getUser();
+  const store = Store();
+  const updateStore = UpdateStore();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [text, setText] = useState("");
@@ -54,13 +56,94 @@ function TicketDetailModal(props) {
       response = await Api("post", "/tickets/comment_on_task", body);
 
       if (response?.data?.success) {
-        toast.success("Comment added successfully.");
+        addCommentToState();
+        setText("");
       }
     } catch (e) {
       console.trace(e);
     }
 
     setIsProcessing(false);
+  };
+
+  const addCommentToState = () => {
+    const now = new Date();
+    const utcNow = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      now.getUTCMinutes(),
+      now.getUTCSeconds(),
+      now.getUTCMilliseconds()
+    );
+
+    const body = {
+      ticketMessageId: null,
+      taskTicketId: props.taskTicketId,
+      parentId: null,
+      employeeName: `${user.firstName} ${user.lastName}`,
+      employeePic: `${user.profilePicture}`,
+      messageText: text,
+      attachFile: null,
+      commentDateTime: utcNow,
+    };
+
+    let ticket;
+    let tickets;
+
+    if (props.flagStatus == 4) {
+      ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
+      tickets = [...store.allTickets.recentTickets];
+    } else if (props.flagStatus == 3) {
+      ticket = store.allTickets.pendingTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
+      tickets = [...store.allTickets.pendingTickets];
+    } else if (props.flagStatus == 2) {
+      ticket = store.allTickets.inProgressTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
+      tickets = [...store.allTickets.inProgressTickets];
+    } else if (props.flagStatus == 1) {
+      ticket = store.allTickets.completedTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
+      tickets = [...store.allTickets.completedTickets];
+    }
+
+    ticket.comments.push(body);
+    const index = tickets.map((_) => _.taskTicketId).indexOf(ticket.taskTicketId);
+    tickets[index] = ticket;
+
+    if (props.flagStatus == 4) {
+      updateStore({
+        ...store,
+        allTickets: {
+          ...store.allTickets,
+          recentTickets: tickets,
+        },
+      });
+      ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
+    } else if (props.flagStatus == 3) {
+      updateStore({
+        ...store,
+        allTickets: {
+          ...store.allTickets,
+          pendingTickets: tickets,
+        },
+      });
+    } else if (props.flagStatus == 2) {
+      updateStore({
+        ...store,
+        allTickets: {
+          ...store.allTickets,
+          inProgressTickets: tickets,
+        },
+      });
+    } else if (props.flagStatus == 1) {
+      updateStore({
+        ...store,
+        allTickets: {
+          ...store.allTickets,
+          completedTickets: tickets,
+        },
+      });
+    }
   };
 
   return (
@@ -163,7 +246,7 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.Details}</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.details}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
@@ -182,19 +265,19 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.LocationDetails}</p>
+              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.locationDetails}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
               <Tag color="#D8ECFF" text={props.taskPriority} />
             </div> */}
-            <div className="column" style={{ marginBottom: "10%" }}>
+            {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Abonnés</p>
               <div className="row">
                 <Tag color="#F4F4F4" text="Anaïs Moriceau" divStyle={{ marginRight: "5%" }} />
                 <Tag color="#F4F4F4" text="damien dehoul" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <p
@@ -326,9 +409,9 @@ function CommentListTile(props) {
       <div className="row ajc w100">
         <div className="column">
           <p style={{ fontSize: "12px", color: "#8C8C8C" }}>
-            {moment(props.commentDateTime).format("LT dddd D,MMM YYYY").length < 35
-              ? moment(props.commentDateTime).format("LT dddd D,MMM YYYY")
-              : moment(props.commentDateTime).format("LT dddd D,MMM YYYY").slice(0, 32) + "..."}
+            {moment.utc(props.commentDateTime).local().format("LT dddd D,MMM YYYY").length < 35
+              ? moment.utc(props.commentDateTime).local().format("LT dddd D,MMM YYYY")
+              : moment.utc(props.commentDateTime).local().format("LT dddd D,MMM YYYY").slice(0, 32) + "..."}
           </p>
         </div>
         <img

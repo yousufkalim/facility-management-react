@@ -1,6 +1,6 @@
 import React from "react";
 
-import ProfileSVG from "../../../assets/Profile.svg";
+import ProfileSVG from "../../../assets/ProfileInput.svg";
 import EditSVG from "../../../assets/Edit.svg";
 import EditIconSelectedSVG from '../../../assets/EditIconSelected.svg'
 import SearchSVG from "../../../assets/Search.svg";

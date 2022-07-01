@@ -221,19 +221,21 @@ function StatisticsScreen() {
             <div className="column jcc w100">
               {store.statistics.buildingTickets.map((_, __) => (
                 <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
-                  <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _.color, fontWeight: "600" }}>{_.buildingName}</p>
+                  <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _?.color ?? "black", fontWeight: "600" }}>
+                    {_.buildingName}
+                  </p>
                   <div
                     style={{
                       height: "10pt",
                       width: `${5 * (_.ticketCount ?? 0)}pt`,
                       maxWidth: "5%",
                       maxWidth: "50%",
-                      backgroundColor: footArr[__].color,
+                      backgroundColor: _.color ?? "black",
                       borderRadius: "20px",
                       paddingLeft: "6%",
                     }}
                   />
-                  <p style={{ paddingLeft: "3%", fontSize: "16px", color: footArr[__].color }}>{_.ticketCount ?? 0}</p>
+                  <p style={{ paddingLeft: "3%", fontSize: "16px", color: _.color ?? "black" }}>{_.ticketCount ?? 0}</p>
                 </div>
               ))}
             </div>

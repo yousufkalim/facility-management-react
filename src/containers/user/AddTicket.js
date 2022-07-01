@@ -9,10 +9,12 @@ import CustomInput from "../../components/CustomInput";
 import Loader from "../../components/Loader";
 
 import Api from "../../api";
+import { getUser } from "../../utils/Auth";
 
 import { Store, UpdateStore } from "../../StoreContext";
 
 function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
+  const user = getUser();
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -41,6 +43,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     const _buildingLevels = await getBuildingLevels(_buildings[0]);
     const _categories = await getCategories();
     // const _priorities = await getPriorities();
+    const _assignees = await getAssignees();
 
     updateStore({
       addTicket: {
@@ -49,6 +52,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
         buildingLevels: _buildingLevels,
         categories: _categories,
         // priorities: _priorities,
+        assignees: _assignees,
         isLoading: false,
       },
     });
@@ -97,6 +101,17 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   //     console.trace(e);
   //   }
   // };
+
+  const getAssignees = async () => {
+    let response;
+    try {
+      response = await Api("get", `/Users/getAll/${user.id}`);
+      const _assignees = response.data.data;
+      return _assignees;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
 
   const selectBuilding = async (_) => {
     const _buildingLevels = await getBuildingLevels(_);
@@ -465,12 +480,12 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   Assignés
                 </p>
                 <div className="row">
-                  {[].map((_, __) => (
+                  {store.addTicket.assignees.map((_) => (
                     <SelectableTag
                       {..._}
-                      text={_.title}
-                      isSelected={state.assignee == __}
-                      onClick={() => _setState("assignee", __)}
+                      text={`${_.firstName} ${_.lastName}`}
+                      isSelected={state.assignee == _.userId}
+                      onClick={() => _setState("assignee", _.userId)}
                       divStyle={{
                         marginRight: "10pt",
                       }}

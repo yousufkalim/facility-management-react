@@ -1,10 +1,28 @@
 import { Route } from "react-router-dom";
 import dState from "./DState";
 
-export const handleLogin = (token, user) => {
+import Api from "../api";
+
+export const handleLogin = async (token, _user) => {
   localStorage.setItem("token", token);
-  localStorage.setItem("user", JSON.stringify(user));
+  const user = await getUserInfo(_user.id);
+  _user = {
+    ..._user,
+    ...user,
+  };
+  localStorage.setItem("user", JSON.stringify(_user));
   return true;
+};
+
+const getUserInfo = async (userID) => {
+  let response;
+  try {
+    response = await Api("get", `/Users/userprofile/${userID}`);
+    const _users = response.data.data;
+    return _users;
+  } catch (e) {
+    console.trace(e);
+  }
 };
 
 export const handleLogout = (navigate, updateStore) => {

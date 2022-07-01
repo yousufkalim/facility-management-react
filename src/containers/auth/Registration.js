@@ -87,6 +87,7 @@ function RegistrationScreen() {
         // background: "#F4F4F4",
         backgroundImage: "url(" + LoginBackgroundSVG + ")",
         backgroundSize: "cover",
+        backgroundPosition:"bottom"
       }}
     >
       <div className="reg_screen_top">
@@ -99,14 +100,14 @@ function RegistrationScreen() {
           >
             Facility
           </p>
-          <p
+          <span
             style={{
               fontSize: "24px",
               color: "%494949",
             }}
           >
             Management
-          </p>
+          </span>
           <p className="welcome_note_fm">Welcome to Facility Management, Please fill out this form to fresh start!</p>
         </div>
         <div
@@ -132,6 +133,14 @@ function RegistrationScreen() {
               divStyle={{
                 marginBottom: "6%",
               }}
+              enableYoursStyle={{
+                color:"#436062",
+                fontWeight:"400",
+                fontSize:"12px",
+              }}
+              labelStyle={{
+                lineHeight:"24px"
+              }}
               onChange={(e) => _setState("name_of_company", e.target.value)}
             />
             <div
@@ -148,15 +157,32 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
+                enableYoursStyle={{
+                  color:"#436062",
+                  fontWeight:"400",
+                  fontSize:"12px",
+                }}
+                labelStyle={{
+                  lineHeight:"24px"
+                }}
                 onChange={(e) => _setState("first_name", e.target.value)}
               />
               <CustomInput
+              
                 labelText={t("Last Name")}
                 inputType="text"
                 inputName="Last Name"
                 inputPlaceholder="Last Name"
                 divStyle={{
                   width: "45%",
+                }}
+                enableYoursStyle={{
+                  color:"#436062",
+                  fontWeight:"400",
+                  fontSize:"12px",
+                }}
+                labelStyle={{
+                  lineHeight:"24px"
                 }}
                 onChange={(e) => _setState("last_name", e.target.value)}
               />
@@ -175,6 +201,14 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
+                enableYoursStyle={{
+                  color:"#436062",
+                  fontWeight:"400",
+                  fontSize:"12px",
+                }}
+                labelStyle={{
+                  lineHeight:"24px"
+                }}
                 onChange={(e) => _setState("email", e.target.value)}
               />
               <CustomInput
@@ -184,6 +218,14 @@ function RegistrationScreen() {
                 inputPlaceholder="Phone Number"
                 divStyle={{
                   width: "45%",
+                }}
+                enableYoursStyle={{
+                  color:"#436062",
+                  fontWeight:"400",
+                  fontSize:"12px",
+                }}
+                labelStyle={{
+                  lineHeight:"24px"
                 }}
                 onChange={(e) => _setState("phone", e.target.value)}
               />
@@ -203,6 +245,14 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
+                enableYoursStyle={{
+                  color:"#436062",
+                  fontWeight:"400",
+                  fontSize:"12px",
+                }}
+                labelStyle={{
+                  lineHeight:"24px"
+                }}
                 onChange={(e) => _setState("password", e.target.value)}
               />
               <CustomInput
@@ -214,6 +264,14 @@ function RegistrationScreen() {
                 divStyle={{
                   width: "45%",
                 }}
+                enableYoursStyle={{
+                  color:"#436062",
+                  fontWeight:"400",
+                  fontSize:"12px",
+                }}
+                labelStyle={{
+                  lineHeight:"24px"
+                }}
                 onChange={(e) => _setState("confirm_password", e.target.value)}
               />
             </div>
@@ -224,14 +282,18 @@ function RegistrationScreen() {
               marginBottom: "2%",
               marginRight: "20%",
               cursor: "pointer",
-              padding:width<667? "3%":""
+              padding:width<667? "3%":"",
+              display:"flex",
+              flexDirection:"column",
+              textAlign:"end"
             }}
+            
             onClick={navToLogin}
           >
             <p
               style={{
-                fontSize:width<992? "20px":"11px",
-                color: "#A0A0A0",
+                fontSize: "15px",
+                color: "#ffffff",
               }}
             >
               {t("Already have an Account ?")}

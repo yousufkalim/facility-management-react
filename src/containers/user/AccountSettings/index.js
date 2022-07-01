@@ -103,7 +103,7 @@ const AccountSetting = () => {
             paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
           }}
         >
-          <div style={{ width: "195pt", paddingTop: "2%" }} className="column ds_ml_container">
+          <div style={{ width: "18vw", minHeight: "100%", paddingTop: "2%" }} className="column ds_ml_container">
             {svgArrSideBar.map((arrData, index) => (
               <div
                 style={{ 
@@ -116,10 +116,7 @@ const AccountSetting = () => {
                 className="search-msg-cont"
                 onClick={() => setActiveSideBar(index)}
               >
-                <div
-                  style={{ justifyContent: "space-between" }}
-                  className="aic  d-flex w50"
-                >
+                <div style={{ justifyContent: "space-between" }} className="aic  d-flex w50">
                   <img className="settings_icon" src={arrData?.unselected} />
                   <span>{arrData?.text}</span>
                 </div>
@@ -131,7 +128,7 @@ const AccountSetting = () => {
             <img className="footer_image" src={FooterSVG} />
             {activeSideBar == 0 ? <Account editUserProfile={editUserProfile} setEditUserProfile={setEditUserProfile}/> : null}
             {activeSideBar == 1 ? <Buildings levels={levels} handleOpenAddEditBuilding={handleOpenAddEditBuilding} /> : null}
-            {activeSideBar == 2 ? <Catogories/> : null}
+            {activeSideBar == 2 ? <Catogories /> : null}
           </div>
         </div>
         
