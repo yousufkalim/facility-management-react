@@ -697,7 +697,7 @@ function TicketListTile(props) {
             paddingBottom: "2%",
           }}
         >
-          {moment(props.creationDateTime).format("LT dddd D,MMM YYYY")}
+          {moment.utc(props.creationDateTime).local().format("LT dddd D,MMM YYYY")}
         </p>
         <div className="divider" />
         <div
