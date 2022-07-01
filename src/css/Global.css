@@ -19,6 +19,9 @@
   overflow-x: auto !important;
 }
 
+.d-flex{
+  display: flex;
+}
 .row {
   display: flex;
   flex-direction: row;
@@ -32,7 +35,9 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
-
+.w50{
+  width: 50%;
+}
 .w100 {
   width: 100% !important;
 }
@@ -58,7 +63,9 @@
   align-items: center !important;
   justify-content: center !important;
 }
-
+.space-between{
+  justify-content: space-between;
+}
 .visible {
   visibility: visible;
   opacity: 1;
@@ -70,7 +77,11 @@
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
-
+.horizental_seperator{
+  border-bottom: 2px solid #F4F4F4;
+  width: 40%;
+  margin-left: 5%;
+}
 /* Hide scrollbars */
 ::-webkit-scrollbar {
   display: none;

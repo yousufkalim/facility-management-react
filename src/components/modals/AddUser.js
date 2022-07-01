@@ -229,10 +229,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     <span style={{ color: "#8C8C8C" }}>IL sera invité par mail.</span>
                   </div>
                   <div
+                  className="horizental_seperator"
                     style={{
-                      borderBottom: "2px solid #F4F4F4",
-                      width: "40%",
-                      marginLeft: "5%",
                       margin: width < 850 ? "auto" : "unset",
                     }}
                   ></div>
