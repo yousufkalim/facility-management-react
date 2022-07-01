@@ -13,8 +13,8 @@ import EditBuilding from "../../../components/modals/EditBuilding";
 import AddBuilding from "../../../components/modals/AddBuilding";
 
 import Buildings from "./AccountSettingsSubComponents/Buildings";
-import Account from './AccountSettingsSubComponents/Account';
-import Catogories from './AccountSettingsSubComponents/Catogories'
+import Account from "./AccountSettingsSubComponents/Account";
+import Catogories from "./AccountSettingsSubComponents/Catogories";
 
 import { Store, UpdateStore } from "../../../StoreContext";
 
@@ -102,23 +102,20 @@ const AccountSetting = () => {
             paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
           }}
         >
-          <div style={{ width: "195pt", paddingTop: "2%" }} className="column ds_ml_container">
+          <div style={{ width: "18vw", minHeight: "100%", paddingTop: "2%" }} className="column ds_ml_container">
             {svgArrSideBar.map((arrData, index) => (
               <div
-                style={{ 
-                padding: "14px 25px", 
-                width: "85%", 
-                margin: "3% auto 0% auto", 
-                borderRadius: "15px", 
-                backgroundColor:activeSideBar==index? "#2F696D":""
-              }}
+                style={{
+                  padding: "14px 25px",
+                  width: "85%",
+                  margin: "3% auto 0% auto",
+                  borderRadius: "15px",
+                  backgroundColor: activeSideBar == index ? "#2F696D" : "",
+                }}
                 className="search-msg-cont"
                 onClick={() => setActiveSideBar(index)}
               >
-                <div
-                  style={{ justifyContent: "space-between" }}
-                  className="aic  d-flex w50"
-                >
+                <div style={{ justifyContent: "space-between" }} className="aic  d-flex w50">
                   <img className="settings_icon" src={arrData?.unselected} />
                   <span>{arrData?.text}</span>
                 </div>
@@ -128,9 +125,9 @@ const AccountSetting = () => {
           </div>
           <div style={{ width: "81%", left: "28%" }} className="footer_image_container">
             <img className="footer_image" src={FooterSVG} />
-            {activeSideBar == 0 ? <Account/> : null}
+            {activeSideBar == 0 ? <Account /> : null}
             {activeSideBar == 1 ? <Buildings levels={levels} handleOpenAddEditBuilding={handleOpenAddEditBuilding} /> : null}
-            {activeSideBar == 2 ? <Catogories/> : null}
+            {activeSideBar == 2 ? <Catogories /> : null}
           </div>
         </div>
         <CustomButton
