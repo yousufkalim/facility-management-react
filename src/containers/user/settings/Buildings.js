@@ -107,23 +107,23 @@ function BuildingListTile(props) {
   };
 
   return (
-    <div style={{ background: '#ffffff', borderBottom: '0.2px solid #8C8C8C', color: color }} className="parent_container_header">
+    <div style={{ color: color }} className="parent_container_header">
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
-          <div style={{ width: '19%' }} className="d-flex aic">
+          <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">
             <img style={{ width: '15px', marginRight: '6%' }} src={SBSettingsBuildingIconUnSelected} />
             <span className="white_space">{props.name}</span>
           </div>
-          <div style={{ width: '72%' }}>
+          <div className="levels_container">
             {props.levels.map((_) => (
               <span className="levels" style={{ background: hexToRGBA(color) }}>
                 {_.name}{' '}
               </span>
             ))}
-            <span onClick={handleEdit} className="add_more_btn">
+            {/* <span onClick={handleEdit} className="add_more_btn">
               {' '}
               Add More
-            </span>
+            </span> */}
           </div>
           <div className="d-flex edit_delete_icon_container">
             <div className="img_round_container" style={{ cursor: 'pointer' }} onClick={handleEdit}>

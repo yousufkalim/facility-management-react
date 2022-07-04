@@ -60,7 +60,7 @@ const UserRoutes = [
   },
   {
     path: '/settings',
-    name: 'settings',
+    name: 'Settings',
     icon: <LoginIcon />,
     element: SettingsScreen,
   },
