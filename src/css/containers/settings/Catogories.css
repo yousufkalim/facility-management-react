@@ -1,7 +1,16 @@
 .category_actions_container {
-    width: 64% !important;
-    margin: auto 4% !important;
+  width: 64% !important;
+  margin: auto 4% !important;
 }
-.category_edit_delete_container{
-    width: 70% !important;
+.category_edit_delete_container {
+  width: 70% !important;
+}
+.category_tile {
+  padding: 5.5% 15%;
+  border-radius: 20px;
+  margin: 1%;
+  color: #494949;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
 }

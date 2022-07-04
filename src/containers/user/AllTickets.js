@@ -458,6 +458,7 @@ function AllTickets({ show }) {
                 className="column ds_ml_container"
                 style={{
                   padding: "2% 4%",
+                  minHeight:"100vh"
                 }}
               >
                 <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>

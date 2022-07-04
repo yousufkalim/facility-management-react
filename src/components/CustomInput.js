@@ -32,7 +32,7 @@ function CustomInput({
         ...divStyle,
       }}
     >
-      <p
+      <small
         className="custom_input_text"
         style={{
           marginBottom: "5px",
@@ -40,7 +40,7 @@ function CustomInput({
         }}
       >
         {ptext ? ptext : "Enter your"}
-      </p>
+      </small>
       <label
         htmlFor={labelText}
         className="custom_input_label"

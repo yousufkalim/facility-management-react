@@ -78,7 +78,7 @@
   transition: visibility 0s 1s, opacity 1s linear;
 }
 .horizental_seperator{
-  border-bottom: 2px solid #F4F4F4;
+  border-bottom: 1px solid #F4F4F4;
   width: 40%;
   margin-left: 5%;
 }
@@ -125,4 +125,10 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
+}
+input::placeholder{
+  color: #8C8C8C;
+  font-weight: 100;
+font-size: 12px;
+line-height: 20px;
 }

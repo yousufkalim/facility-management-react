@@ -91,6 +91,7 @@ function LoginScreen() {
         // background: "#F4F4F4",
         backgroundImage: "url(" + LoginBackgroundSVG + ")",
         backgroundSize: "cover",
+        backgroundPosition:"bottom",
       }}
     >
       <div className="login_screen_top">
@@ -105,20 +106,19 @@ function LoginScreen() {
         >
           <p
             style={{
-              fontSize: width < 667 ? "27px" : "34px",
-              color: "#436062",
+              fontSize: width < 667 ? "27px" : "36px",
             }}
           >
             Facility
           </p>
-          <p
+          <span
             style={{
-              fontSize: width < 667 ? "20px" : "24px",
+              fontSize: width < 667 ? "20px" : "27px",
               color: "%494949",
             }}
           >
             Management
-          </p>
+          </span>
           <p
             className="welcome_note_fm_login"
             // style={{
@@ -144,15 +144,31 @@ function LoginScreen() {
             }}
           >
             <CustomInput
-              labelText={t("Email")}
+            enableYoursStyle={{
+              color:"#436062",
+              fontWeight:"400",
+              fontSize:"12px",
+            }}
+              labelText={t("Email Address")}
               inputType="email"
               inputPlaceholder="abc@xyz.com"
               divStyle={{
                 marginBottom: "6%",
               }}
+              labelStyle={{
+                lineHeight:"26px"
+              }}
               onChange={(e) => _setState("email", e.target.value)}
             />
             <CustomInput
+             enableYoursStyle={{
+              color:"#436062",
+              fontWeight:"400",
+              fontSize:"12px",
+            }}
+            labelStyle={{
+              lineHeight:"26px"
+            }}
               labelText={t("Password")}
               inputType="password"
               inputName="Password"
@@ -163,21 +179,20 @@ function LoginScreen() {
               }}
               onChange={(e) => _setState("password", e.target.value)}
             />
-            <p
-              style={{
-                fontSize: "11px",
-                fontWeight: "600",
-                color: "#A0A0A0",
-                marginBottom: "4%",
-              }}
+            <div className="forget_password_text d-flex"> 
+            <small
             >
               {t("Forgot Password?")}
-            </p>
+            </small>
+            </div>
             <CustomButton
               text={t("Login")}
               type="submit"
               style={{
-                marginBottom: "10%",
+                marginTop: "5%",
+                fontSize:"20px",
+                padding:"2% 6%",
+                borderRadius:"18px"
               }}
               onClick={handleSubmit}
             />
@@ -185,15 +200,19 @@ function LoginScreen() {
           <div
             style={{
               marginBottom: "7%",
-              marginRight: "20%",
+              marginRight: "30%",
               cursor: "pointer",
+              display:"flex",
+              flexDirection:"column",
+              textAlign:"end",
+              lineHeight:"18px"
             }}
             onClick={navToRegistration}
           >
             <p
               style={{
-                fontSize: width < 992 ? "20px" : "11px",
-                color: "#A0A0A0",
+                fontSize: "15px",
+                color: "#FFFFFF",
               }}
             >
               {t("Don't have an account?")}
