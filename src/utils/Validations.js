@@ -57,4 +57,16 @@ function addUser(data) {
   return validated;
 }
 
-export { login, registration, addTicket, addUser };
+function addBuilding(data) {
+  const valFuncArr = [
+    () => Validators.nullValidator("Title", data["title"]),
+    () => Validators.nullValidator("Color", data["color"]),
+    () => Validators.arrayValidator("level", data["levels"]),
+  ];
+
+  const validated = formValidator(valFuncArr);
+
+  return validated;
+}
+
+export { login, registration, addTicket, addUser, addBuilding };

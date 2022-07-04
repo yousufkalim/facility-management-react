@@ -78,7 +78,20 @@ const tickets = [
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-const buildingColors = ["#00109E", "#9E2600", "#F18200", "#F4F4F4", "#494949", "#00A9B5", "#7B61FF", "#9B9E00"];
-const buildingLevels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+const buildingColors = ["#00109E", "#9E2600", "#F18200", "#F4F4F4", "#494949", "#00A9B5", "#7B61FF", "#A8A91B"];
+const buildingLevels = [
+  "Level A",
+  "Level B",
+  "Level C",
+  "Level D",
+  "Level E",
+  "Level F",
+  "Level G",
+  "Level H",
+  "Level I",
+  "Level J",
+  "Level K",
+  "Level L",
+];
 
 export { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName, tags, tickets, months, buildingColors, buildingLevels };

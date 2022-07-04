@@ -4,7 +4,6 @@ import { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName } from "./
 function isEmpty(str) {
   return !str || str.length === 0;
 }
-
 class Validators {
   static noValidator() {
     return null;
@@ -33,6 +32,13 @@ class Validators {
       return `${name} can't be less than ${length} characters`;
     }
 
+    return null;
+  }
+
+  static arrayValidator(name, value) {
+    if (value.length == 0) {
+      return `Atleast one ${name} must be selected.`;
+    }
     return null;
   }
 

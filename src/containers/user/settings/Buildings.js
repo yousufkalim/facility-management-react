@@ -6,6 +6,7 @@ import SBSettingsBuildingIconUnSelected from "../../../assets/SBSettingsBuilding
 
 import Api from "../../../api";
 import { getUser } from "../../../utils/Auth";
+import { hexToRGBA } from "../../../utils/Helpers";
 
 import { Store, UpdateStore } from "../../../StoreContext";
 
@@ -102,7 +103,7 @@ function BuildingListTile(props) {
           </div>
           <div style={{ width: "72%" }}>
             {props.levels.map((_) => (
-              <span className="levels" style={{ background: _hexToRGB(color) }}>
+              <span className="levels" style={{ background: hexToRGBA(color) }}>
                 {_.name}{" "}
               </span>
             ))}
@@ -123,20 +124,6 @@ function BuildingListTile(props) {
       </div>
     </div>
   );
-}
-
-function _hexToRGB(hex, opacity) {
-  const obj = _hexToRGBObj(hex);
-  return `rgba(${obj.r}, ${obj.g}, ${obj.b}, ${opacity ?? 0.6})`;
-}
-
-function _hexToRGBObj(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16),
-  };
 }
 
 export default Buildings;

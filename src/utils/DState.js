@@ -53,10 +53,12 @@ const _ = {
     allBuildings: {
       isLoading: true,
       buildings: [],
+      building: null,
     },
     allCategories: {
       isLoading: true,
       categories: [],
+      category: null,
     },
     profile: {
       isLoading: true,

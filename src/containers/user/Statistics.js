@@ -45,24 +45,6 @@ const headArr = [
   },
 ];
 
-const footArr = [
-  {
-    title: "Bâtiment Rough",
-    color: "#9E2600",
-    value: 78,
-  },
-  {
-    title: "Bâtiment Bleu",
-    color: "#00109E",
-    value: 54,
-  },
-  {
-    title: "Bâtiment Jaune",
-    color: "#A8A91B",
-    value: 23,
-  },
-];
-
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function StatisticsScreen() {
