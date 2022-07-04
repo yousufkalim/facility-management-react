@@ -7,8 +7,6 @@ import SBSettingsAccountIconUnSelected from "../../../assets/SBSettingsAccountIc
 import SBSettingsCategoriesIconUnSelected from "../../../assets/SBSettingsCategoriesIconUnSelected.svg";
 import SBSettingsBuildingIconUnSelected from "../../../assets/SBSettingsBuildingIconUnSelected.svg";
 
-import CustomButton from "../../../components/CustomButton";
-
 import EditBuilding from "../../../components/modals/EditBuilding";
 import AddBuilding from "../../../components/modals/AddBuilding";
 
@@ -41,6 +39,56 @@ const levels = [
   },
   {
     text: "Level C",
+  },
+  {
+    text: "Level A",
+  },
+  {
+    text: "Level B",
+  },
+  {
+    text: "Level C",
+  },
+  {
+    text: "Level A",
+  },
+  {
+    text: "Level B",
+  },
+  {
+    text: "Level C",
+  },
+  {
+    text: "Level A",
+  },
+  {
+    text: "Level B",
+  },
+  {
+    text: "Level C",
+  },
+  {
+    text: "Level A",
+  },
+  {
+    text: "Level B",
+  },
+  {
+    text: "Level C",
+  },
+  {
+    text: "Level A",
+  },
+  {
+    text: "Level B",
+  },
+  {
+    text: "Level C",
+  },{
+    text: "Level A",
+  },
+  {
+    text: "Level B",
   },
 ];
 const svgArrSideBar = [
@@ -96,19 +144,24 @@ const AccountSetting = () => {
         <div
           className="row uxl_children_container"
           style={{
-            justifyContent: "flex-start",
+            justifyContent: "flex-start !important;",
             backgroundColor: "#F4F4F4",
             overflow: "hidden",
-            width: store?.isSideBar ? "97%" : "100%",
+            width:"100%",
+            minHeight: "100%",
             paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
           }}
         >
-          <div style={{ width: "18vw", minHeight: "100%", paddingTop: "2%" }} className="column ds_ml_container">
+          <div style={{ 
+            width: width<992?"100%":"18vw", 
+            minHeight:width<992?"40%":"100%", 
+            paddingTop: "2%" 
+            }} className="column ds_ml_container">
             {svgArrSideBar.map((arrData, index) => (
               <div
                 style={{ 
                 padding: "12px 25px", 
-                width: "83%", 
+                width:width<575?"50%":width<992?"30%":"83%",
                 margin: "3% auto 0% auto", 
                 borderRadius: "15px", 
                 backgroundColor:activeSideBar==index? "#2F696D":""
@@ -124,7 +177,10 @@ const AccountSetting = () => {
             ))}
             <div style={{ marginTop: "30px" }}></div>
           </div>
-          <div style={{ width: "81%", left: "28%" }} className="footer_image_container">
+          <div style={{ 
+             width:width<992?"100%":"81%",
+             left: "28%" 
+             }} className="footer_image_container">
             <img className="footer_image" src={FooterSVG} />
             {activeSideBar == 0 ? <Account editUserProfile={editUserProfile} setEditUserProfile={setEditUserProfile}/> : null}
             {activeSideBar == 1 ? <Buildings levels={levels} handleOpenAddEditBuilding={handleOpenAddEditBuilding} /> : null}

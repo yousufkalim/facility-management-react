@@ -26,17 +26,17 @@ const Buildings = ({levels,handleOpenAddEditBuilding}) => {
                 >
                   <div style={{ width: "94%",  padding:"1.6% 0%" }} className="batments_levels_actions_conatiner d-flex">
                     <div className="d-flex batments_levels_container_edit_delete">
-                      <div style={{ width: "19%" }} className="d-flex">
+                      <div className="d-flex aic building_name_img_container">
                         <img style={{ width: "15px", marginRight: "6%" }} src={SBSettingsBuildingIconUnSelected} />
                         <span className="white_space">Bâtiment Bleu </span>
                       </div>
-                      <div style={{ width: "72%" }}>
+                      <div className='levels_container'>
                         {levels.map((_) => (
                           <span className="levels" style={{background:"#D8ECFF"}}>{_?.text} </span>
                         ))}
                         <span onClick={()=>console.log("clicked")} className="add_more_btn"> Add More</span>
                       </div>
-                      <div className="d-flex edit_delete_icon_container">
+                      <div className="d-flex edit_delete_icon_container aic">
                         <div className="img_round_container">
                           <img
                           onClick={()=>handleOpenAddEditBuilding("editbuilding")}

@@ -104,20 +104,29 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
           backgroundColor: "#F4F4F4",
           overflow: "hidden",
           width: store?.isSideBar ? "97%" : "100%",
-          paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
+          paddingLeft: store?.isSideBar && width < 667 ? "1%" : "",
         }}
       >
-        <div style={{ width: "82%" }} className="footer_image_container">
+        <div style={{ width: width<992?"100%":"82%"}} className="footer_image_container">
           <img className="footer_image" src={FooterSVG} />
           <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
-            <div className="user_profile_info">
+            <div style={{
+              width:width<575?"100%":"90%"
+            }} className="user_profile_info">
               <div className="form_container form_container_account">
                 <div className="input_image_container">
                   <img className="input_image_account" src={ProfileSVG} />
                 </div>
                 <div style={{ marginTop: "3%" }} className="input_container">
-                  <div className="input_row" style={{ width: "100%" }}>
-                    <div className="label_input_container w-48">
+                  <div className="input_row"
+                   style={{ 
+                    width: "100%", 
+                   flexDirection:width<575?"column":"row"
+                  }}
+                  >
+                    <div 
+                    className={`label_input_container ${width>575?"w-48":"w-100"}`}
+                    >
                       <label className="label_inputs">Prénom</label>
                       <input
                       className="account_edit_inputs"
@@ -127,7 +136,9 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
                       }}
                       value="ihtisham" />
                     </div>
-                    <div className="label_input_container w-48">
+                    <div 
+                    className={`label_input_container ${width>575?"w-48":"w-100"}`}
+                    >
                       <label className="label_inputs">Nom de famille</label>
                       <input
                       className="account_edit_inputs"
@@ -138,8 +149,13 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
                       value="hussain" />
                     </div>
                   </div>
-                  <div className="input_row" style={{ width: "100%" }}>
-                    <div className="label_input_container w-48">
+                  <div className="input_row" 
+                  style={{ 
+                    width: "100%", 
+                   flexDirection:width<575?"column":"row"
+                  }}
+                  >
+                    <div className={`label_input_container ${width>575?"w-48":"w-100"}`}>
                       <label className="label_inputs">E-mail</label>
                       <input
                       className="account_edit_inputs"
@@ -149,7 +165,7 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
                       }}
                       value="sample@gmail.com" />
                     </div>
-                    <div className="label_input_container w-48">
+                    <div className={`label_input_container ${width>575?"w-48":"w-100"}`}>
                       <label className="label_inputs">Numéro de portable</label>
                       <input
                       className="account_edit_inputs"
@@ -161,8 +177,13 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
                     </div>
                   </div>
                  
-                  <div className="input_row" style={{ width: "100%" }}>
-                    <div className="label_input_container w-48">
+                  <div className="input_row"
+                   style={{ 
+                    width: "100%", 
+                   flexDirection:width<575?"column":"row"
+                  }}
+                  >
+                    <div className={`label_input_container ${width>575?"w-48":"w-100"}`}>
                       <label className="label_inputs">Entreprise</label>
                       <input
                       className="account_edit_inputs"
@@ -172,7 +193,7 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
                       }}
                       value="enterprise" />
                     </div>
-                    <div className="label_input_container w-48">
+                    <div className={`label_input_container ${width>575?"w-48":"w-100"}`}>
                       <label className="label_inputs">Password</label>
                       <input
                       className="account_edit_inputs"
@@ -188,7 +209,7 @@ const Account = ({editUserProfile,setEditUserProfile}) => {
                 style={{
                   background:editUserProfile?"#2F696D":"",
                   color:editUserProfile?"#ffffff":"",
-                  width:editUserProfile?"16%":"11%"
+                  width:width<575?"30%":width<992?"25%":editUserProfile?"18%":"11%"
                 }}
                   className="row edit_icon_text_container"
                   onClick={() => setEditUserProfile(!editUserProfile)}
