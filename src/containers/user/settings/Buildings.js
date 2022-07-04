@@ -100,7 +100,33 @@ function BuildingListTile(props) {
       response = await Api('delete', `/buildings/${props.buildingId}`);
       if (response.data.success) {
         toast.success('Building deleted successfully.');
+        await _load();
       }
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const _load = async () => {
+    const _buildings = await getBuildings();
+
+    updateStore({
+      settings: {
+        ...store.settings,
+        allBuildings: {
+          buildings: _buildings,
+          isLoading: false,
+        },
+      },
+    });
+  };
+
+  const getBuildings = async () => {
+    let response;
+    try {
+      response = await Api('get', `/buildings/active_building_with_levels`);
+      const _buildings = response.data.data;
+      return _buildings;
     } catch (e) {
       console.trace(e);
     }
