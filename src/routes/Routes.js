@@ -4,7 +4,7 @@ import RegistrationScreen from "../containers/auth/Registration";
 import DashboardScreen from "../containers/user/Dashboard";
 import StatisticsScreen from "../containers/user/Statistics";
 import AllUsersScreen from "../containers/user/AllUsers";
-import AccountSettingScreen from '../containers/user/AccountSettings/index'
+import SettingsScreen from '../containers/user/settings'
 
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -57,10 +57,10 @@ const UserRoutes = [
     element: StatisticsScreen,
   },
   {
-    path: "/accountsettings",
-    name: "accountsettings",
+    path: "/settings",
+    name: "Settings",
     icon: <LoginIcon />,
-    element: AccountSettingScreen,
+    element: SettingsScreen,
   },
 ];
 

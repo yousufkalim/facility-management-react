@@ -71,7 +71,7 @@ const handleNavigation = (navigate, index) => {
       navigate("/allusers");
       break;
     case 6:
-      navigate("/accountsettings");
+      navigate("/settings");
       break;
     default:
       break;
