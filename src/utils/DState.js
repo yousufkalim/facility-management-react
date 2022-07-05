@@ -60,10 +60,6 @@ const _ = {
       categories: [],
       toAdd: false,
     },
-    profile: {
-      isLoading: true,
-      user: null,
-    },
   },
 };
 

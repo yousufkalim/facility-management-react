@@ -41,7 +41,6 @@ const svgArrSideBar = [
 
 const Settings = () => {
   const [activeSideBar, setActiveSideBar] = useState('');
-  const [editUserProfile, setEditUserProfile] = useState(false);
   const store = Store();
   const updateStore = UpdateStore();
   const [width] = useWindowSize();
@@ -143,7 +142,7 @@ const Settings = () => {
           </div>
           <div style={{ width: width < 992 ? '100%' : '81%', left: '28%' }} className="footer_image_container">
             <img className="footer_image" src={FooterSVG} />
-            {activeSideBar == 0 ? <Account editUserProfile={editUserProfile} setEditUserProfile={setEditUserProfile} /> : <></>}
+            {activeSideBar == 0 ? <Account /> : <></>}
             {activeSideBar == 1 ? <Buildings handleAddBuildingOpen={handleAddBuildingOpen} /> : <></>}
             {activeSideBar == 2 ? <Catogories /> : <></>}
           </div>
