@@ -62,7 +62,7 @@
   display: flex;
   flex-direction: column;
   padding: 3%;
-  width: 80%;
+  width: 100%;
 }
 .input_container > * {
   margin-bottom: 2%;
@@ -261,7 +261,7 @@
   margin-top: 33%;
 }
 .edit_icon_image_modal {
-  top: 135pt !important;
+  top: 142pt !important;
 }
 .form_heading_box {
   width: 70%;
@@ -282,6 +282,12 @@
   width: 100%;
 }
 @media only screen and (max-width: 992px) {
+  .ds_ml_container_all_users{
+    width: 100%;
+  }
+  /* .edit_btn_inputs_row{
+    flex-direction: column-reverse;
+  } */
   .footer_image_container {
     width: 100%;
   }
@@ -316,6 +322,12 @@
     max-height: 95vh;
     overflow: scroll;
   }
+  .edit_icon_image {
+    left: 25px;
+  }
+  .edit_icon_image_modal {
+    top: 128pt !important;
+}
   .modal_parent_container > img {
     margin: 2%;
   }
@@ -376,6 +388,9 @@
   .configuration_conatiner p {
     font-size: 11px;
   }
+  .edit_icon_image_modal{
+    top: 117pt !important;
+  }
 }
 @media only screen and (max-width: 500px) {
   .allusers_modal {
@@ -383,7 +398,7 @@
   }
   .edit_icon_image {
     top: 108px;
-    left: 121px;
+    /* left: 121px; */
   }
   .tickets_icon_btn_span {
     font-size: 9px !important;

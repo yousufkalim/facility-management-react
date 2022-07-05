@@ -194,12 +194,12 @@ function StatisticsScreen() {
               width: store?.isSideBar && width < 667 ? "90%" : store?.isSideBar && width < 992 ? "95%" : "100%",
               marginLeft: store?.isSideBar && width < 667 ? "10%" : store?.isSideBar && width < 992 ? "5%" : "",
             }}
-            className="column w100 jcc percentage_container"
+            className="column jcc percentage_container"
           >
-            <p style={{ marginLeft: "3%", marginBottom: "3%", color: "#4F4F4F", fontWeight: "600" }}>
+            <p style={{ marginLeft: "3%",padding:"1% 0%", color: "#4F4F4F", fontWeight: "600" }}>
               Emplacement avec la plupart des tickets
             </p>
-            <div className="column jcc w100">
+            <div className="column jcc w100 building_details_scrollable">
               {store.statistics.buildingTickets.map((_, __) => (
                 <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
                   <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _?.color ?? "black", fontWeight: "600" }}>

@@ -16,11 +16,16 @@
 }
 .percentage_container {
   background-color: #ffffff;
-  height: 30vh;
+  /* height: 30vh; */
   border-radius: 20px;
 }
 .tickets_percentage {
   padding: 10% 160pt 10% 20pt;
+}
+.building_details_scrollable{
+max-height: 14vh;
+overflow-y: scroll;
+padding-top: 130px;
 }
 /* media queries */
 @media only screen and (max-width: 992px) {
@@ -30,6 +35,9 @@
   .header_list_tile_container {
     width: 100%;
     margin-bottom: 2%;
+  }
+  .building_details_scrollable{
+    padding-top: 94px;
   }
 }
 
