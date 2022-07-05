@@ -78,7 +78,14 @@ function CategoryListTile(props) {
   const updateStore = UpdateStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [toEdit, setToEdit] = useState(false);
+  console.log(props.text, 'props.text');
   const text = useRef(props.text);
+  console.log(text, 'text');
+
+  useEffect(() => {
+    text.current = props.text;
+    console.log(text.current, 'EFFECT');
+  }, [props.text]);
 
   const handleChange = (e) => {
     text.current = e.target.value;
@@ -133,6 +140,44 @@ function CategoryListTile(props) {
     setIsProcessing(false);
   };
 
+  const handleDelete = async () => {
+    let response;
+    try {
+      response = await Api('delete', `/category/${props.value}`);
+      if (response.data.success) {
+        toast.success('Category deleted successfully.');
+        await _load();
+      }
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+  const _load = async () => {
+    const _categories = await getCategories();
+
+    updateStore({
+      settings: {
+        ...store.settings,
+        allCategories: {
+          categories: _categories,
+          isLoading: false,
+        },
+      },
+    });
+  };
+
+  const getCategories = async () => {
+    let response;
+    try {
+      response = await Api('get', `/category/dropdown`);
+      const _categories = response.data.data;
+      return _categories;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
   return (
     <div
       style={{ background: toEdit ? '#FFFBD8' : '#ffffff', borderBottom: '0.2px solid #8C8C8C', color: '#00109E' }}
@@ -156,7 +201,7 @@ function CategoryListTile(props) {
               <div className="img_round_container" style={{ cursor: 'pointer' }} onClick={() => setToEdit(!toEdit)}>
                 <img src={SBEditIcon} />
               </div>
-              <div className="img_round_container" style={{ cursor: 'pointer' }}>
+              <div className="img_round_container" style={{ cursor: 'pointer' }} onClick={() => handleDelete()}>
                 <img src={SBDeleteIcon} />
               </div>
             </div>
