@@ -1,6 +1,3 @@
 /* Importing all CSS files */
-@import url("./auth/index.css");
-@import url("./user/index.css");
-@import url("./statistics/index.css");
-@import url("./allusers//index.css");
-@import url("./settings/index.css");
+@import url('./auth/index.css');
+@import url('./user/index.css');

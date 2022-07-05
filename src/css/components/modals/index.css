@@ -1,4 +1,5 @@
 /* Importing all CSS files */
-@import url("./TicketDetail.css");
-@import url("./AllUserModal.css");
-@import url("./AddBuilding.css");
+@import url('./TicketDetail.css');
+@import url('./AllUserModal.css');
+@import url('./CustomAlertBox.css');
+@import url('./AddBuilding.css');
