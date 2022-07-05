@@ -41,7 +41,7 @@ const svgArrSideBar = [
 
 const Settings = () => {
   const [activeSideBar, setActiveSideBar] = useState('');
-  const [editUserProfile, setEditUserProfile] = useState(false)
+  const [editUserProfile, setEditUserProfile] = useState(false);
   const store = Store();
   const updateStore = UpdateStore();
   const [width] = useWindowSize();
@@ -62,6 +62,18 @@ const Settings = () => {
     setAddBuildingOpen(true);
   };
   const handleAddBuildingClose = () => setAddBuildingOpen(false);
+
+  const handleAddCategory = () => {
+    updateStore({
+      settings: {
+        ...store.settings,
+        allCategories: {
+          ...store.settings.allCategories,
+          toAdd: !store.settings.allCategories.toAdd,
+        },
+      },
+    });
+  };
 
   const _cbBuildings = async () => {
     const _buildings = await getBuildings();
@@ -101,20 +113,23 @@ const Settings = () => {
             paddingLeft: store?.isSideBar && width < 667 ? '10%' : '',
           }}
         >
-          <div style={{ 
-            width: width<992?"100%":"18vw", 
-            minHeight:width<992?"40%":"100%", 
-            paddingTop: "2%"  
-            }} className="column ds_ml_container">
+          <div
+            style={{
+              width: width < 992 ? '100%' : '18vw',
+              minHeight: width < 992 ? '40%' : '100%',
+              paddingTop: '2%',
+            }}
+            className="column ds_ml_container"
+          >
             {svgArrSideBar.map((arrData, index) => (
               <div
-              style={{ 
-                padding: "12px 25px", 
-                width:width<575?"50%":width<992?"30%":"83%",
-                margin: "3% auto 0% auto", 
-                borderRadius: "15px", 
-                backgroundColor:activeSideBar==index? "#2F696D":""
-              }}
+                style={{
+                  padding: '12px 25px',
+                  width: width < 575 ? '50%' : width < 992 ? '30%' : '83%',
+                  margin: '3% auto 0% auto',
+                  borderRadius: '15px',
+                  backgroundColor: activeSideBar == index ? '#2F696D' : '',
+                }}
                 className="search-msg-cont"
                 onClick={() => setActiveSideBar(index)}
               >
@@ -126,12 +141,9 @@ const Settings = () => {
             ))}
             <div style={{ marginTop: '30px' }}></div>
           </div>
-          <div style={{width:width<992?"100%":"81%", left: '28%' }} className="footer_image_container">
+          <div style={{ width: width < 992 ? '100%' : '81%', left: '28%' }} className="footer_image_container">
             <img className="footer_image" src={FooterSVG} />
-            {activeSideBar == 0 ? <Account 
-            editUserProfile={editUserProfile} 
-            setEditUserProfile={setEditUserProfile}
-            /> : <></>}
+            {activeSideBar == 0 ? <Account editUserProfile={editUserProfile} setEditUserProfile={setEditUserProfile} /> : <></>}
             {activeSideBar == 1 ? <Buildings handleAddBuildingOpen={handleAddBuildingOpen} /> : <></>}
             {activeSideBar == 2 ? <Catogories /> : <></>}
           </div>
@@ -149,6 +161,7 @@ const Settings = () => {
         ) : activeSideBar == 2 ? (
           <CustomButton
             text="Ajouter une nouvelle catégorie ➕"
+            onClick={() => handleAddCategory()}
             style={{
               position: 'absolute',
               right: '20pt',

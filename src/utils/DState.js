@@ -58,7 +58,7 @@ const _ = {
     allCategories: {
       isLoading: true,
       categories: [],
-      category: null,
+      toAdd: false,
     },
     profile: {
       isLoading: true,
