@@ -8,8 +8,8 @@ const Catogories = () => {
     <>
       <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
         <div className="user_profile_info">
-          <div className="parent_container_header">
-            <div className="batments_levels_actions_conatiner category_actions_container d-flex">
+          <div style={{background:"#8C8C8C"}} className="parent_container_header">
+            <div style={{padding:"1% 1%"}} className="batments_levels_actions_conatiner category_actions_container d-flex">
               <div className="prnt d-flex batments_levels_container">
                 <div> Category</div>
               </div>
@@ -41,7 +41,7 @@ const Catogories = () => {
           </div>
         </div>
       </div>
-      <CustomButton
+      {/* <CustomButton
         text="Ajouter une nouvelle catégorie ➕"
         // onClick={() => handleOpenAddEditBuilding("addbuilding")}
         style={{
@@ -49,7 +49,7 @@ const Catogories = () => {
           right: '80pt',
           bottom: '80pt',
         }}
-      />
+      /> */}
     </>
   );
 };

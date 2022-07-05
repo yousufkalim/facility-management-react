@@ -53,3 +53,17 @@ color: #2F696D;
 .accunt_configuration_container p{
     width: 80%;
 }
+
+@media only screen and (max-width: 500px) {
+    .edit_icon_text_container{
+        padding: 2.9% 1.5%;
+        width: 35% !important;margin-left: 4%;
+
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .edit_icon_text_container{
+        width: 40% !important;
+    }
+}

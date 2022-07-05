@@ -57,7 +57,7 @@ const Buildings = (props) => {
         <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
           <div className="user_profile_info">
             <div className="parent_container_header">
-              <div className="batments_levels_actions_conatiner d-flex">
+              <div style={{background:"#8C8C8C"}} className="batments_levels_actions_conatiner d-flex">
                 <div className="prnt d-flex batments_levels_container">
                   <div>Bâtiments</div>
                   <div>levels</div>
