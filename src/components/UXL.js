@@ -36,10 +36,12 @@ console.log(width);
         <div className="uxl_top">
           {store.isSideBar && !disableSideBar ? <SideBar /> : <></>}
           <div
-            className="wh100"
+            // className="wh100"
             style={{
               marginTop: !disableAppBar ? "7vh" : "0",
               marginLeft: store.isSideBar && !disableSideBar && width>667 ? "4vw" : "0",
+              width:"100%",
+              height:"max-content"
               // width:  store.isSideBar && !disableSideBar ? "100%" :"98%"
             }}
           >

@@ -450,7 +450,7 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                width: "25vw",
+                // width: "25vw",
                 margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >

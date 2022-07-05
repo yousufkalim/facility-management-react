@@ -258,7 +258,7 @@ const AllUsers = () => {
                         />
                       </div>
                       <div className="input_container">
-                        <div className="input_row" style={{ width: "100%" }}>
+                        <div className="input_row edit_btn_inputs_row" style={{ width: "100%" }}>
                           <div className="label_input_container">
                             <label className="row_label">Prénom</label>
                             <input value={store.allUsers.user.firstName} />
@@ -271,9 +271,9 @@ const AllUsers = () => {
                             className="row ajc"
                             style={{
                               height: "60%",
-                              padding: "0 2%",
+                              padding: width<992? "8px 5%":"0 5%",
                               backgroundColor: "#F4F4F4",
-                              borderRadius: "20%",
+                              borderRadius: "20px",
                               cursor: "pointer",
                             }}
                             onClick={() => handleAddUserOpen(true)}
@@ -290,7 +290,7 @@ const AllUsers = () => {
                           <label>Numéro de portable</label>
                           <input value={store.allUsers.user.phoneNo} />
                         </div>
-                        <div style={{ display: "flex" }} className="input_row">
+                        <div style={{ display: "flex", width:"65%" }} className="input_row">
                           <div className="label_input_container">
                             <label className="row_label">Entreprise</label>
                             <input value={store.allUsers.user.businessName} />
