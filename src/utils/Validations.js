@@ -3,7 +3,7 @@ import { Validators, formValidator } from '../utils/Validate';
 function login(data) {
   const valFuncArr = [
     () => Validators.emailValidator('Email', data['email']),
-    () => Validators.lengthValidator('Password', data['password'], 8),
+    // () => Validators.lengthValidator('Password', data['password'], 8),
   ];
 
   const validated = formValidator(valFuncArr);

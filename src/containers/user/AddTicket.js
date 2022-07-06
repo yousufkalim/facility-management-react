@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import ModalCrossSVG from "../../assets/ModalCross.svg";
-import AttachmentSVG from "../../assets/Attachment.svg";
+import ModalCrossSVG from '../../assets/ModalCross.svg';
+import AttachmentSVG from '../../assets/Attachment.svg';
 
-import SelectableTag from "../../components/SelectableTag";
-import CustomInput from "../../components/CustomInput";
-import Loader from "../../components/Loader";
+import SelectableTag from '../../components/SelectableTag';
+import CustomInput from '../../components/CustomInput';
+import Loader from '../../components/Loader';
 
-import Api from "../../api";
-import { getUser } from "../../utils/Auth";
+import Api from '../../api';
+import { getUser } from '../../utils/Auth';
 
-import { Store, UpdateStore } from "../../StoreContext";
+import { Store, UpdateStore } from '../../StoreContext';
 
 function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
   const user = getUser();
@@ -61,7 +61,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const getBuildings = async () => {
     let response;
     try {
-      response = await Api("get", `/buildings/dropdown`);
+      response = await Api('get', `/buildings/dropdown`);
       const _buildings = response.data.data;
       return _buildings;
     } catch (e) {
@@ -72,7 +72,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const getBuildingLevels = async (building) => {
     let response;
     try {
-      response = await Api("get", `/levels/dropdown/${building.value}`);
+      response = await Api('get', `/levels/dropdown/${building.value}`);
       const _buildingLevels = response.data.data;
       return _buildingLevels;
     } catch (e) {
@@ -83,7 +83,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const getCategories = async () => {
     let response;
     try {
-      response = await Api("get", `/category/dropdown`);
+      response = await Api('get', `/category/dropdown`);
       const _categories = response.data.data;
       return _categories;
     } catch (e) {
@@ -105,7 +105,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const getAssignees = async () => {
     let response;
     try {
-      response = await Api("get", `/Users/getAll/${user.id}`);
+      response = await Api('get', `/Users/getAll/${user.id}`);
       const _assignees = response.data.data;
       return _assignees;
     } catch (e) {
@@ -135,7 +135,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
         <div
           className="wh100 column ajc"
           style={{
-            display: show ? "flex" : "none",
+            display: show ? 'flex' : 'none',
           }}
         >
           <Loader />
@@ -144,39 +144,39 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
         <div
           className="column wh100"
           style={{
-            display: show ? "flex" : "none",
-            backgroundColor: "#FFFFFF",
-            overflow: "hidden",
-            position: "relative",
+            display: show ? 'flex' : 'none',
+            backgroundColor: '#FFFFFF',
+            overflow: 'hidden',
+            position: 'relative',
           }}
         >
           {/* Section 1 */}
           <div
             className="row w100"
             style={{
-              margin: "2% 0",
+              margin: '2% 0',
             }}
           >
             <div style={{ flex: 1 }}></div>
             <div className="row ajc" style={{ flex: 2 }}>
               <p
                 style={{
-                  fontSize: "22px",
-                  fontWeight: "600",
-                  color: "#2F696D",
+                  fontSize: '22px',
+                  fontWeight: '600',
+                  color: '#2F696D',
                 }}
               >
                 Ajouter un nouveau ticket
               </p>
             </div>
-            <div className="row aic" style={{ flex: 1, justifyContent: "flex-end" }}>
+            <div className="row aic" style={{ flex: 1, justifyContent: 'flex-end' }}>
               <img
                 src={ModalCrossSVG}
                 style={{
-                  height: "24px",
-                  width: "24px",
-                  marginRight: "8%",
-                  cursor: "pointer",
+                  height: '24px',
+                  width: '24px',
+                  marginRight: '8%',
+                  cursor: 'pointer',
                 }}
                 onClick={handleClose}
               />
@@ -186,66 +186,66 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
             <div
               className="column aic h100"
               style={{
-                margin: "0 8%",
+                margin: '0 8%',
               }}
             >
               <div
                 className="column ajc"
                 style={{
-                  height: "40pt",
-                  width: "40pt",
-                  borderRadius: "50%",
-                  backgroundColor: "#2F696D",
+                  height: '40pt',
+                  width: '40pt',
+                  borderRadius: '50%',
+                  backgroundColor: '#2F696D',
                 }}
               >
-                <p style={{ fontSize: "30", color: "#FFFFFF" }}>1</p>
+                <p style={{ fontSize: '30', color: '#FFFFFF' }}>1</p>
               </div>
               <div
                 style={{
-                  height: "15%",
-                  width: "2.5pt",
-                  backgroundColor: "#2F696D",
-                  margin: "5% 0",
+                  height: '15%',
+                  width: '2.5pt',
+                  backgroundColor: '#2F696D',
+                  margin: '5% 0',
                 }}
               ></div>
               <div
                 className="column ajc"
                 style={{
-                  height: "40pt",
-                  width: "40pt",
-                  borderRadius: "50%",
-                  backgroundColor: "#2F696D",
+                  height: '40pt',
+                  width: '40pt',
+                  borderRadius: '50%',
+                  backgroundColor: '#2F696D',
                 }}
               >
-                <p style={{ fontSize: "30", color: "#FFFFFF" }}>2</p>
+                <p style={{ fontSize: '30', color: '#FFFFFF' }}>2</p>
               </div>
               <div
                 style={{
-                  height: "35%",
-                  width: "2.5pt",
-                  backgroundColor: "#2F696D",
-                  margin: "5% 0",
+                  height: '35%',
+                  width: '2.5pt',
+                  backgroundColor: '#2F696D',
+                  margin: '5% 0',
                 }}
               ></div>
               <div
                 className="column ajc"
                 style={{
-                  height: "40pt",
-                  width: "40pt",
-                  borderRadius: "50%",
-                  backgroundColor: "#2F696D",
+                  height: '40pt',
+                  width: '40pt',
+                  borderRadius: '50%',
+                  backgroundColor: '#2F696D',
                 }}
               >
-                <p style={{ fontSize: "30", color: "#FFFFFF" }}>3</p>
+                <p style={{ fontSize: '30', color: '#FFFFFF' }}>3</p>
               </div>
             </div>
             <div className="column wh100">
-              <div className="column" style={{ marginBottom: "2%" }}>
+              <div className="column" style={{ marginBottom: '2%' }}>
                 <p
                   style={{
-                    fontSize: "13px",
-                    color: "#B7B7B7",
-                    paddingBottom: "10pt",
+                    fontSize: '13px',
+                    color: '#B7B7B7',
+                    paddingBottom: '10pt',
                   }}
                 >
                   Bâtiment *
@@ -258,19 +258,19 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       isSelected={state.building == _.value}
                       onClick={() => selectBuilding(_)}
                       pStyle={{
-                        padding: "6pt",
+                        padding: '6pt',
                       }}
                     />
                   ))}
                 </div>
               </div>
               <div className="row w100">
-                <div className="column" style={{ marginBottom: "2%" }}>
+                <div className="column" style={{ marginBottom: '2%' }}>
                   <p
                     style={{
-                      fontSize: "13px",
-                      color: "#B7B7B7",
-                      paddingBottom: "10pt",
+                      fontSize: '13px',
+                      color: '#B7B7B7',
+                      paddingBottom: '10pt',
                     }}
                   >
                     Lieu
@@ -280,62 +280,62 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
-                        onClick={() => _setState("building_level", _.value)}
+                        onClick={() => _setState('building_level', _.value)}
                         pStyle={{
-                          padding: "6pt",
+                          padding: '6pt',
                         }}
                       />
                     ))}
                     <p
                       style={{
-                        whiteSpace: "nowrap",
-                        cursor: "pointer",
-                        fontSize: "13px",
-                        color: "#B7B7B7",
-                        textDecoration: "underline",
-                        marginLeft: "10%",
+                        whiteSpace: 'nowrap',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        color: '#B7B7B7',
+                        textDecoration: 'underline',
+                        marginLeft: '10%',
                       }}
                     >
                       Show more
                     </p>
                   </div>
                 </div>
-                <div className="column w100" style={{ marginBottom: "2%", marginLeft: "5%" }}>
+                <div className="column w100" style={{ marginBottom: '2%', marginLeft: '5%' }}>
                   <p
                     style={{
-                      fontSize: "13px",
-                      color: "#B7B7B7",
-                      paddingBottom: "10pt",
+                      fontSize: '13px',
+                      color: '#B7B7B7',
+                      paddingBottom: '10pt',
                     }}
                   >
                     Détails du lieu
                   </p>
                   <CustomInput
                     inputValue={state.location_details}
-                    onChange={(e) => _setState("location_details", e.target.value)}
+                    onChange={(e) => _setState('location_details', e.target.value)}
                     divStyle={{
-                      width: "40%",
+                      width: '40%',
                     }}
                     labelStyle={{
-                      display: "none",
+                      display: 'none',
                     }}
                     enableYoursStyle={{
-                      display: "none",
+                      display: 'none',
                     }}
                     inputStyle={{
-                      fontSize: "12px",
-                      padding: "8px",
+                      fontSize: '12px',
+                      padding: '8px',
                     }}
                   />
                 </div>
               </div>
               {/* Section 2 */}
-              <div className="column" style={{ marginBottom: "2%" }}>
+              <div className="column" style={{ marginBottom: '2%' }}>
                 <p
                   style={{
-                    fontSize: "13px",
-                    color: "#B7B7B7",
-                    paddingBottom: "10pt",
+                    fontSize: '13px',
+                    color: '#B7B7B7',
+                    paddingBottom: '10pt',
                   }}
                 >
                   Catégorie *
@@ -345,15 +345,15 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     <SelectableTag
                       text={_.text}
                       isSelected={state.category == _.value}
-                      onClick={() => _setState("category", _.value)}
+                      onClick={() => _setState('category', _.value)}
                       pStyle={{
-                        padding: "6pt",
+                        padding: '6pt',
                       }}
                     />
                   ))}
                 </div>
               </div>
-              <div className="column w100" style={{ marginBottom: "2%" }}>
+              <div className="column w100" style={{ marginBottom: '2%' }}>
                 {/* <p
                   style={{
                     fontSize: "13px",
@@ -378,39 +378,39 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   }}
                 /> */}
               </div>
-              <div className="row w100" style={{ marginBottom: "2%" }}>
-                <div className="column" style={{ marginRight: "2%", width: "20%" }}>
+              <div className="row w100" style={{ marginBottom: '2%' }}>
+                <div className="column" style={{ marginRight: '2%', width: '20%' }}>
                   <p
                     style={{
-                      fontSize: "13px",
-                      color: "#B7B7B7",
-                      paddingBottom: "10pt",
+                      fontSize: '13px',
+                      color: '#B7B7B7',
+                      paddingBottom: '10pt',
                     }}
                   >
                     Détails
                   </p>
                   <textarea
                     value={state.details}
-                    onChange={(e) => _setState("details", e.target.value)}
+                    onChange={(e) => _setState('details', e.target.value)}
                     style={{
-                      fontSize: "12px",
-                      height: "60pt",
-                      width: "100%",
-                      padding: "10px",
-                      background: "transparent",
-                      borderRadius: "10pt",
-                      borderColor: "#000000",
-                      borderStyle: "solid",
-                      borderWidth: "1.5px",
+                      fontSize: '12px',
+                      height: '60pt',
+                      width: '100%',
+                      padding: '10px',
+                      background: 'transparent',
+                      borderRadius: '10pt',
+                      borderColor: '#000000',
+                      borderStyle: 'solid',
+                      borderWidth: '1.5px',
                     }}
                   />
                 </div>
                 <div className="column w100">
                   <p
                     style={{
-                      fontSize: "13px",
-                      color: "#B7B7B7",
-                      paddingBottom: "10pt",
+                      fontSize: '13px',
+                      color: '#B7B7B7',
+                      paddingBottom: '10pt',
                     }}
                   >
                     Attachement *
@@ -418,10 +418,10 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   <div
                     className="row ajc"
                     style={{
-                      backgroundColor: "#F4F4F4",
-                      borderRadius: "20pt",
-                      padding: "7pt",
-                      cursor: "pointer",
+                      backgroundColor: '#F4F4F4',
+                      borderRadius: '20pt',
+                      padding: '7pt',
+                      cursor: 'pointer',
                     }}
                   >
                     <label>
@@ -430,19 +430,19 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         <img
                           src={AttachmentSVG}
                           style={{
-                            height: "16pt",
-                            width: "16pt",
-                            marginRight: "15pt",
+                            height: '16pt',
+                            width: '16pt',
+                            marginRight: '15pt',
                           }}
                         />
-                        <p style={{ fontSize: "11px", fontWeight: "bold" }}>{`${attachment?.name ?? "Ajouter pièce jointe"}`}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${attachment?.name ?? 'Ajouter pièce jointe'}`}</p>
                       </div>
                     </label>
                   </div>
                 </div>
               </div>
               {/* Section 3 */}
-              <div className="column" style={{ marginBottom: "2%" }}>
+              <div className="column" style={{ marginBottom: '2%' }}>
                 {/* <p
                   style={{
                     fontSize: "13px",
@@ -469,12 +469,12 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   ))}
                 </div> */}
               </div>
-              <div className="column" style={{ marginBottom: "2%" }}>
+              <div className="column" style={{ marginBottom: '2%' }}>
                 <p
                   style={{
-                    fontSize: "13px",
-                    color: "#B7B7B7",
-                    paddingBottom: "10pt",
+                    fontSize: '13px',
+                    color: '#B7B7B7',
+                    paddingBottom: '10pt',
                   }}
                 >
                   Assignés
@@ -485,12 +485,12 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       {..._}
                       text={`${_.firstName} ${_.lastName}`}
                       isSelected={state.assignee == _.userId}
-                      onClick={() => _setState("assignee", _.userId)}
+                      onClick={() => _setState('assignee', _.userId)}
                       divStyle={{
-                        marginRight: "10pt",
+                        marginRight: '10pt',
                       }}
                       pStyle={{
-                        padding: "6pt",
+                        padding: '6pt',
                       }}
                     />
                   ))}

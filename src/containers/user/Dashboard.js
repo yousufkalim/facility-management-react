@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import AllTicketsScreen from "./AllTickets";
-import AddTicketScreen from "./AddTicket";
+import AllTicketsScreen from './AllTickets';
+import AddTicketScreen from './AddTicket';
 
-import UXL from "../../components/UXL";
-import CustomButton from "../../components/CustomButton";
+import UXL from '../../components/UXL';
+import CustomButton from '../../components/CustomButton';
 
-import * as FormValidations from "../../utils/Validations";
-import Api from "../../api";
-import { toast } from "react-toastify";
-import { getUser } from "../../utils/Auth";
+import * as FormValidations from '../../utils/Validations';
+import Api from '../../api';
+import { toast } from 'react-toastify';
+import { getUser } from '../../utils/Auth';
 
-import { Store, UpdateStore } from "../../StoreContext";
+import { Store, UpdateStore } from '../../StoreContext';
 
 function DashboardScreen() {
   const { t } = useTranslation();
@@ -30,18 +30,18 @@ function DashboardScreen() {
   // Add Ticket State
   const [state, setState] = useState({
     // section 1
-    building: "",
-    building_level: "",
-    location_details: "",
+    building: '',
+    building_level: '',
+    location_details: '',
 
     // section 2
-    category: "",
+    category: '',
     // title: "",
-    details: "",
+    details: '',
 
     // section 3
     // priority: "",
-    assignee: "",
+    assignee: '',
   });
   const [attachment, setAttachment] = useState(null);
 
@@ -59,7 +59,7 @@ function DashboardScreen() {
     }
 
     if (!attachment) {
-      toast.error("Attachment must be selected.");
+      toast.error('Attachment must be selected.');
       return;
     }
 
@@ -70,23 +70,23 @@ function DashboardScreen() {
 
       const body = new FormData();
 
-      body.append("CompanyAdminId", user.id);
-      body.append("BuildingId", state.building);
-      body.append("PlaceId", state.building_level);
-      body.append("LocationDetails", state.location_details);
-      body.append("CategoryId", state.category);
+      body.append('CompanyAdminId', user.id);
+      body.append('BuildingId', state.building);
+      body.append('PlaceId', state.building_level);
+      body.append('LocationDetails', state.location_details);
+      body.append('CategoryId', state.category);
       // body.append("Title", state.title);
-      body.append("Details", state.details);
+      body.append('Details', state.details);
       // body.append("PriorityId", state.priority);
       if (state.assignee) {
-        body.append("EmployeeId", state.assignee);
+        body.append('EmployeeId', state.assignee);
       }
-      body.append("TicketFile", attachment);
+      body.append('TicketFile', attachment);
 
-      response = await Api("post", "/tickets/save_ticket", body);
+      response = await Api('post', '/tickets/save_ticket', body);
 
       if (response?.data?.success) {
-        toast.success("Ticket added successfully.");
+        toast.success('Ticket added successfully.');
         const _recentTickets = await getRecentTickets();
         updateStore({
           allTickets: {
@@ -107,7 +107,7 @@ function DashboardScreen() {
   const getRecentTickets = async () => {
     let response;
     try {
-      response = await Api("get", `/tickets/tickets_list/4/${user.id}`);
+      response = await Api('get', `/tickets/tickets_list/4/${user.id}`);
       const _tickets = response.data.data;
       return _tickets;
     } catch (e) {
@@ -117,7 +117,12 @@ function DashboardScreen() {
 
   return (
     <>
-      <UXL appBarText="Dashboard">
+      <UXL
+        appBarText="Dashboard"
+        innerMostDivStyle={{
+          height: '100%',
+        }}
+      >
         {/* Needs to have UXL conatiner */}
         <AllTicketsScreen show={!renderAddTicket} />
         <AddTicketScreen
@@ -129,12 +134,12 @@ function DashboardScreen() {
           setAttachment={setAttachment}
         />
         <CustomButton
-          text={`${!renderAddTicket ? "Ajouter un ticket ➕" : "Sauvegarder ✔️"}`}
+          text={`${!renderAddTicket ? 'Ajouter un ticket ➕' : 'Sauvegarder ✔️'}`}
           onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
           style={{
-            position: "absolute",
-            right: "20pt",
-            bottom: "20pt",
+            position: 'absolute',
+            right: '20pt',
+            bottom: '20pt',
           }}
         />
       </UXL>
