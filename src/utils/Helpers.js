@@ -1,13 +1,7 @@
-export function calculateRating(_) {
-  // const sum = _.reduce((a, b) => a + b, 0);
-  // const divide = _.length == 0 ? 1 : _.length;
-  // const avg = parseFloat((sum / divide).toFixed(2));
-  // return `${avg}`;
-
-  const rating = _.reduce((a, b) => a + b, 0) / _.length;
-  return rating || 0;
-}
-
-export function calculateRatingsCount(_) {
-  return `${_.length}`;
+export function hexToRGBA(hex, opacity) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const r = parseInt(result[1], 16);
+  const g = parseInt(result[2], 16);
+  const b = parseInt(result[3], 16);
+  return `rgba(${r}, ${g}, ${b}, ${opacity ?? 0.6})`;
 }

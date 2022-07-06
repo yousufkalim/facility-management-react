@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import SBDashboardSelectedSVG from "../assets/SBDashboardSelected.svg";
-import SBDashboardUnselectedSVG from "../assets/SBDashboardUnselected.svg";
-import SBStatisticsSelectedSVG from "../assets/SBStatisticsSelected.svg";
-import SBStatisticsUnselectedSVG from "../assets/SBStatisticsUnselected.svg";
-import SBEmployeesSelectedSVG from "../assets/SBEmployeesSelected.svg";
-import SBEmployeesUnselectedSVG from "../assets/SBEmployeesUnselected.svg";
-import SBSignalSelectedSVG from "../assets/SBSignalSelected.svg";
-import SBSignalUnselectedSVG from "../assets/SBSignalUnselected.svg";
-import SBEventsSelectedSVG from "../assets/SBEventsSelected.svg";
-import SBEventsUnselectedSVG from "../assets/SBEventsUnselected.svg";
+import SBDashboardSelectedSVG from '../assets/SBDashboardSelected.svg';
+import SBDashboardUnselectedSVG from '../assets/SBDashboardUnselected.svg';
+import SBStatisticsSelectedSVG from '../assets/SBStatisticsSelected.svg';
+import SBStatisticsUnselectedSVG from '../assets/SBStatisticsUnselected.svg';
+import SBEmployeesSelectedSVG from '../assets/SBEmployeesSelected.svg';
+import SBEmployeesUnselectedSVG from '../assets/SBEmployeesUnselected.svg';
+import SBSignalSelectedSVG from '../assets/SBSignalSelected.svg';
+import SBSignalUnselectedSVG from '../assets/SBSignalUnselected.svg';
+import SBEventsSelectedSVG from '../assets/SBEventsSelected.svg';
+import SBEventsUnselectedSVG from '../assets/SBEventsUnselected.svg';
 
-import SBDashboardNotifcationUnSelected from "../assets/SBDashboardNotifcationUnSelected.svg";
-import SBDashboardInfoUnselected from "../assets/SBDashboardInfoUnselected.svg";
-import SBDashboardSettingsUnSelected from "../assets/SBDashboardSettingsUnSelected.svg";
+import SBDashboardNotifcationUnSelected from '../assets/SBDashboardNotifcationUnSelected.svg';
+import SBDashboardInfoUnselected from '../assets/SBDashboardInfoUnselected.svg';
+import SBDashboardSettingsUnSelected from '../assets/SBDashboardSettingsUnSelected.svg';
 
-import { Store, UpdateStore } from "../StoreContext";
+import { Store, UpdateStore } from '../StoreContext';
 
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from 'react-spring';
 
 const svgArrTop = [
   {
@@ -62,16 +62,16 @@ const svgArrBottom = [
 const handleNavigation = (navigate, index) => {
   switch (index) {
     case 0:
-      navigate("/dashboard");
+      navigate('/dashboard');
       break;
     case 1:
-      navigate("/statistics");
+      navigate('/statistics');
       break;
     case 2:
-      navigate("/allusers");
+      navigate('/allusers');
       break;
-    case 6:
-      navigate("/accountsettings");
+    case 5:
+      navigate('/settings');
       break;
     default:
       break;
@@ -90,8 +90,8 @@ function SideBar({ color, sticky = true, divStyle }) {
     <animated.div
       className="sidebar_container"
       style={{
-        backgroundColor: color ?? "#2F696D",
-        position: sticky ? "fixed" : "inherit",
+        backgroundColor: color ?? '#2F696D',
+        position: sticky ? 'fixed' : 'inherit',
         ...divStyle,
         ...animationProps,
       }}
@@ -112,18 +112,17 @@ function SideBar({ color, sticky = true, divStyle }) {
           ))}
         </div>
       </div>
-
       <div className="sidebar_top">
         <div className="sidebar_column1">
           {svgArrBottom.map((_, __) => (
             <SideBarMenuItem
               imgObj={_}
-              isSelected={__ + 4 == store.sideBarSelectIndex + 4}
+              isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
               cb={() => {
                 updateStore({
-                  sideBarSelectIndex: __ + 4,
+                  sideBarSelectIndex: __ + svgArrTop.length,
                 });
-                handleNavigation(navigate, __ + 4);
+                handleNavigation(navigate, __ + svgArrTop.length);
               }}
             />
           ))}
@@ -138,19 +137,19 @@ function SideBarMenuItem({ imgObj, isSelected, cb }) {
     <div
       className="jcc"
       style={{
-        height: "8vh",
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        backgroundColor: isSelected ? "#F4F4F4" : "transparent",
+        height: '8vh',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: isSelected ? '#F4F4F4' : 'transparent',
       }}
       onClick={cb}
     >
       <img
         className="image_container"
         style={{
-          height: "20pt",
-          width: "20pt",
+          height: '20pt',
+          width: '20pt',
         }}
         src={isSelected ? imgObj.selected : imgObj.unselected}
       />

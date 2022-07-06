@@ -17,7 +17,6 @@ import StatisticsHeadYellowSVG from "../../assets/StatisticsHeadYellow.png";
 import { getUser } from "../../utils/Auth";
 import Api from "../../api";
 import { toast } from "react-toastify";
-import assetsURL from "../../utils/Assets";
 
 import { Store, UpdateStore } from "../../StoreContext";
 import useWindowSize from "../../utils/WindowSize";
@@ -43,24 +42,6 @@ const headArr = [
     description: "actuellement en cours",
     color: "#FF974D",
     background: StatisticsHeadYellowSVG,
-  },
-];
-
-const footArr = [
-  {
-    title: "Bâtiment Rough",
-    color: "#9E2600",
-    value: 78,
-  },
-  {
-    title: "Bâtiment Bleu",
-    color: "#00109E",
-    value: 54,
-  },
-  {
-    title: "Bâtiment Jaune",
-    color: "#A8A91B",
-    value: 23,
   },
 ];
 
@@ -213,12 +194,12 @@ function StatisticsScreen() {
               width: store?.isSideBar && width < 667 ? "90%" : store?.isSideBar && width < 992 ? "95%" : "100%",
               marginLeft: store?.isSideBar && width < 667 ? "10%" : store?.isSideBar && width < 992 ? "5%" : "",
             }}
-            className="column w100 jcc percentage_container"
+            className="column jcc percentage_container"
           >
-            <p style={{ marginLeft: "3%", marginBottom: "3%", color: "#4F4F4F", fontWeight: "600" }}>
+            <p style={{ marginLeft: "3%",padding:"1% 0%", color: "#4F4F4F", fontWeight: "600" }}>
               Emplacement avec la plupart des tickets
             </p>
-            <div className="column jcc w100">
+            <div className="column jcc w100 building_details_scrollable">
               {store.statistics.buildingTickets.map((_, __) => (
                 <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
                   <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _?.color ?? "black", fontWeight: "600" }}>

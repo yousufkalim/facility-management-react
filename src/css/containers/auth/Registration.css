@@ -1,7 +1,10 @@
 .welcome_note_fm {
   padding-top: 2%;
   font-size: 14px;
-  color: #999999;
+  color: #999999 !important;
+  line-height: 20px;
+  letter-spacing: unset !important;
+  font-weight: 500 !important;
 }
 .registration_screen_row2_row1 {
   display: flex;
@@ -45,6 +48,17 @@
   border-radius: 5%;
   box-shadow: 2px 2px 10px #d1cbc6;
   margin-bottom: 2%;
+}
+.reg_screen_row1 p{
+  color: rgb(67, 96, 98);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.reg_screen_row1 span{
+color: #494949;
+font-weight: 600;
+padding: 1% 0%;
+letter-spacing: 0.5px;
 }
 
 @media only screen and (max-width: 992px) {

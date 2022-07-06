@@ -41,11 +41,25 @@ const _ = {
     buildings: [],
   },
 
-  // All Users Screenl
+  // All Users Screen
   allUsers: {
     isLoading: true,
     users: [],
     user: null,
+  },
+
+  // Settings Screen
+  settings: {
+    allBuildings: {
+      isLoading: true,
+      buildings: [],
+      building: null,
+    },
+    allCategories: {
+      isLoading: true,
+      categories: [],
+      toAdd: false,
+    },
   },
 };
 

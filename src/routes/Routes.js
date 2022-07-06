@@ -1,30 +1,32 @@
 // Auth Screens
-import LoginScreen from "../containers/auth/Login";
-import RegistrationScreen from "../containers/auth/Registration";
-import DashboardScreen from "../containers/user/Dashboard";
-import StatisticsScreen from "../containers/user/Statistics";
-import AllUsersScreen from "../containers/user/AllUsers";
-import AccountSettingScreen from '../containers/user/AccountSettings/AccountSetting'
+import LoginScreen from '../containers/auth/Login';
+import RegistrationScreen from '../containers/auth/Registration';
 
-import LoginIcon from "@mui/icons-material/Login";
+// User Screens
+import DashboardScreen from '../containers/user/Dashboard';
+import StatisticsScreen from '../containers/user/Statistics';
+import AllUsersScreen from '../containers/user/AllUsers';
+import SettingsScreen from '../containers/user/settings';
+
+import LoginIcon from '@mui/icons-material/Login';
 
 // Routes for Auth
 const AuthRoutes = [
   {
-    path: "*",
-    name: "Login",
+    path: '*',
+    name: 'Login',
     icon: <LoginIcon />,
     element: LoginScreen,
   },
   {
-    path: "/login",
-    name: "Login",
+    path: '/login',
+    name: 'Login',
     icon: <LoginIcon />,
     element: LoginScreen,
   },
   {
-    path: "/registration",
-    name: "Registration",
+    path: '/registration',
+    name: 'Registration',
     icon: <LoginIcon />,
     element: RegistrationScreen,
   },
@@ -33,34 +35,34 @@ const AuthRoutes = [
 // Routes for User
 const UserRoutes = [
   {
-    path: "*",
-    name: "Dashboard",
+    path: '*',
+    name: 'Dashboard',
     icon: <LoginIcon />,
     element: DashboardScreen,
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
+    path: '/dashboard',
+    name: 'Dashboard',
     icon: <LoginIcon />,
     element: DashboardScreen,
   },
   {
-    path: "/allusers",
-    name: "AllUsers",
+    path: '/allusers',
+    name: 'AllUsers',
     icon: <LoginIcon />,
     element: AllUsersScreen,
   },
   {
-    path: "/statistics",
-    name: "Statistics",
+    path: '/statistics',
+    name: 'Statistics',
     icon: <LoginIcon />,
     element: StatisticsScreen,
   },
   {
-    path: "/accountsettings",
-    name: "accountsettings",
+    path: '/settings',
+    name: 'Settings',
     icon: <LoginIcon />,
-    element: AccountSettingScreen,
+    element: SettingsScreen,
   },
 ];
 

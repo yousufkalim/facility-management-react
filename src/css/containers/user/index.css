@@ -1,2 +1,7 @@
 /* Importing all CSS files */
-@import url("./Dashboard.css");
+@import url('./Account.css');
+@import url('./AllUsers.css');
+@import url('./Catogories.css');
+@import url('./Dashboard.css');
+@import url('./Settings.css');
+@import url('./Statistics.css');

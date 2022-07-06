@@ -1,7 +1,11 @@
 .welcome_note_fm_login {
   padding-top: 2%;
   font-size: 14px;
-  color: #999999;
+  color: #999999 !important;
+  font-weight: 500 !important;
+  width: 80%;
+  line-height: 20px;
+  letter-spacing: unset !important;
 }
 .login_screen_top {
   display: flex;
@@ -17,7 +21,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   margin-left: 10%;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 .login_screen_row2 {
@@ -34,14 +38,33 @@
   align-items: flex-start;
   justify-content: center;
   background-color: #fff;
-  width: 50%;
+  width: 60%;
   height: auto;
-  margin-right: 20%;
-  padding: 5%;
+  margin-right: 30%;
+  padding: 4%;
   border-radius: 5%;
   box-shadow: 2px 2px 10px #d1cbc6;
 }
-
+.login_screen_row1 p{
+  color: rgb(67, 96, 98);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.login_screen_row1 span{
+color: #494949;
+font-weight: 600;
+padding: 1% 0%;
+letter-spacing: 0.5px;
+}
+.forget_password_text{
+width: 100%;
+justify-content: end;
+}
+.forget_password_text small{
+  font-size: 11px;
+  color: #436062;
+  margin-bottom: 4%;
+}
 @media only screen and (max-width: 992px) {
   .login_screen_top {
     flex-direction: column;

@@ -14,7 +14,6 @@ import Loader from "../../components/Loader";
 import { getUser } from "../../utils/Auth";
 import Api from "../../api";
 import { toast } from "react-toastify";
-import assetsURL from "../../utils/Assets";
 
 import { Store, UpdateStore } from "../../StoreContext";
 import useWindowSize from "../../utils/WindowSize";
@@ -451,7 +450,7 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                width: "25vw",
+                // width: "25vw",
                 margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
               }}
             >
@@ -459,6 +458,7 @@ function AllTickets({ show }) {
                 className="column ds_ml_container"
                 style={{
                   padding: "2% 4%",
+                  minHeight:"100vh"
                 }}
               >
                 <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>

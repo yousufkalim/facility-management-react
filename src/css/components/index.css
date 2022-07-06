@@ -1,9 +1,8 @@
 /* Importing all CSS files */
-@import url("./AppBar.css");
-@import url("./CustomButton.css");
-@import url("./CustomInput.css");
-@import url("./CustomStepper.css");
-@import url("./SideBar.css");
-@import url("./UXL.css");
-@import url("./modals/index.css");
-@import url("./customalertbox/index.css");
+@import url('./AppBar.css');
+@import url('./CustomButton.css');
+@import url('./CustomInput.css');
+@import url('./CustomStepper.css');
+@import url('./SideBar.css');
+@import url('./UXL.css');
+@import url('./modals/index.css');

@@ -23,7 +23,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
 
-import assetsURL from "../../utils/Assets";
 import * as FormValidations from "../../utils/Validations";
 import Api from "../../api";
 import { toast } from "react-toastify";
@@ -201,7 +200,7 @@ const AllUsers = () => {
   return (
     <>
       {console.log(store, "store")}
-      <UXL appBarText="Allusers">
+      <UXL appBarText="All Users">
         {store.allUsers.isLoading ? (
           <Loader />
         ) : (
@@ -255,11 +254,11 @@ const AllUsers = () => {
                         <img
                           className="input_image"
                           style={{ borderRadius: "50%" }}
-                          src={store.allUsers.user.profilePicture ? assetsURL(store.allUsers.user.profilePicture) : ProfileSVG}
+                          src={store.allUsers.user.profilePicture ? store.allUsers.user.profilePicture : ProfileSVG}
                         />
                       </div>
                       <div className="input_container">
-                        <div className="input_row" style={{ width: "100%" }}>
+                        <div className="input_row edit_btn_inputs_row" style={{ width: "100%" }}>
                           <div className="label_input_container">
                             <label className="row_label">Prénom</label>
                             <input value={store.allUsers.user.firstName} />
@@ -272,9 +271,9 @@ const AllUsers = () => {
                             className="row ajc"
                             style={{
                               height: "60%",
-                              padding: "0 2%",
+                              padding: width<992? "8px 5%":"0 5%",
                               backgroundColor: "#F4F4F4",
-                              borderRadius: "20%",
+                              borderRadius: "20px",
                               cursor: "pointer",
                             }}
                             onClick={() => handleAddUserOpen(true)}
@@ -291,7 +290,7 @@ const AllUsers = () => {
                           <label>Numéro de portable</label>
                           <input value={store.allUsers.user.phoneNo} />
                         </div>
-                        <div style={{ display: "flex" }} className="input_row">
+                        <div style={{ display: "flex", width:"65%" }} className="input_row">
                           <div className="label_input_container">
                             <label className="row_label">Entreprise</label>
                             <input value={store.allUsers.user.businessName} />
@@ -387,7 +386,7 @@ function UserCard(props) {
           <div className="badge_container">
             <img src={BadgeSVG} />
           </div>
-          <img src={props.profilePicture ? assetsURL(props.profilePicture) : ProfileSVG} />
+          <img src={props.profilePicture ? props.profilePicture : ProfileSVG} />
           <div className="user_detail_name_designation">
             <span className="user_name" style={{ color: store.allUsers.user.userId == props.userId ? "#FFFFFF" : "#494949" }}>
               {props.firstName} {props.lastName}
