@@ -286,6 +286,7 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Numéro de portable</label>
                         <input
+                          type="number"
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',

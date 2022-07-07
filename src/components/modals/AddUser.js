@@ -314,7 +314,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 />
                 <CustomInput
                   ptext="Numéro de portable"
-                  inputType="text"
+                  inputType="number"
                   inputName="Phone"
                   inputPlaceholder="Phone"
                   inputValue={state.phone}

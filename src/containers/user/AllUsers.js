@@ -164,8 +164,6 @@ const AllUsers = () => {
     });
   };
 
-  // invitedUsers
-
   const userTileCB = async (userID) => {
     // If same user was clicked then do nothing.
     if (userID == store.allUsers.user.userId) {

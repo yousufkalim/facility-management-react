@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 
-import Tag from "../Tag";
+import Tag from '../Tag';
 
-import TicketSettingsSVG from "../../assets/TicketSettings.svg";
-import ModalCrossSVG from "../../assets/ModalCross.svg";
-import CommentAttachmentSVG from "../../assets/CommentAttachment.svg";
-import CommentSendSVG from "../../assets/CommentSend.svg";
-import CommentUserSVG from "../../assets/CommentUser.png";
+import TicketSettingsSVG from '../../assets/TicketSettings.svg';
+import ModalCrossSVG from '../../assets/ModalCross.svg';
+import CommentAttachmentSVG from '../../assets/CommentAttachment.svg';
+import CommentSendSVG from '../../assets/CommentSend.svg';
+import CommentUserSVG from '../../assets/CommentUser.png';
 
-import * as FormValidations from "../../utils/Validations";
-import Api from "../../api";
-import { toast } from "react-toastify";
-import { getUser } from "../../utils/Auth";
+import * as FormValidations from '../../utils/Validations';
+import Api from '../../api';
+import { toast } from 'react-toastify';
+import { getUser } from '../../utils/Auth';
 
-import { Store, UpdateStore } from "../../StoreContext";
+import { Store, UpdateStore } from '../../StoreContext';
 
 function TicketDetailModal(props) {
   const user = getUser();
@@ -22,7 +22,7 @@ function TicketDetailModal(props) {
   const updateStore = UpdateStore();
 
   const [isProcessing, setIsProcessing] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [attachment, setAttachment] = useState(null);
 
   const handleFileSelect = (event) => {
@@ -49,15 +49,15 @@ function TicketDetailModal(props) {
 
       const body = new FormData();
 
-      body.append("TaskTicketId", props.taskTicketId);
-      body.append("EmployeeId", user.id);
-      body.append("MessageText", text);
+      body.append('TaskTicketId', props.taskTicketId);
+      body.append('EmployeeId', user.id);
+      body.append('MessageText', text);
 
-      response = await Api("post", "/tickets/comment_on_task", body);
+      response = await Api('post', '/tickets/comment_on_task', body);
 
       if (response?.data?.success) {
         addCommentToState();
-        setText("");
+        setText('');
       }
     } catch (e) {
       console.trace(e);
@@ -144,6 +144,8 @@ function TicketDetailModal(props) {
         },
       });
     }
+
+    setText('');
   };
 
   return (
@@ -151,63 +153,63 @@ function TicketDetailModal(props) {
       <div
         className="row w100 aic"
         style={{
-          justifyContent: "space-between",
-          padding: "4% 5%",
-          backgroundColor: "#F4F4F4",
+          justifyContent: 'space-between',
+          padding: '4% 5%',
+          backgroundColor: '#F4F4F4',
         }}
       >
         <div className="row">
           <div
             style={{
-              paddingRight: "10%",
+              paddingRight: '10%',
             }}
           >
             <img
               src={TicketSettingsSVG}
               style={{
-                height: "40px",
-                width: "40px",
+                height: '40px',
+                width: '40px',
               }}
             />
           </div>
           <div className="column">
             <p
               style={{
-                fontSize: "14px",
-                fontWeight: "600",
-                color: "#436062",
-                marginBottom: "1%",
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#436062',
+                marginBottom: '1%',
               }}
             >
               {props.categoryName}
             </p>
             <p
               style={{
-                fontSize: "12px",
-                fontWeight: "600",
-                color: "#8C8C8C",
-                whiteSpace: "nowrap",
+                fontSize: '12px',
+                fontWeight: '600',
+                color: '#8C8C8C',
+                whiteSpace: 'nowrap',
               }}
             >
               {`Ticket n°${props.taskTicketId}`}
             </p>
           </div>
         </div>
-        <img src={ModalCrossSVG} style={{ height: "30px", width: "30px", cursor: "pointer" }} onClick={props.handleClose} />
+        <img src={ModalCrossSVG} style={{ height: '30px', width: '30px', cursor: 'pointer' }} onClick={props.handleClose} />
       </div>
       <div
         className="column w100"
         style={{
-          height: "auto",
-          padding: "0 5%",
+          height: 'auto',
+          padding: '0 5%',
         }}
       >
         <p
           style={{
-            marginTop: "4%",
-            marginBottom: "2%",
-            fontSize: "12px",
-            color: "#9A9A9A",
+            marginTop: '4%',
+            marginBottom: '2%',
+            fontSize: '12px',
+            color: '#9A9A9A',
           }}
         >
           Bâtiment accessibles
@@ -215,22 +217,22 @@ function TicketDetailModal(props) {
         <div
           className="row"
           style={{
-            marginBottom: "5%",
+            marginBottom: '5%',
           }}
         >
           <div
             className="row"
             style={{
-              borderRadius: "20px",
-              backgroundColor: "#D8ECFF",
-              marginRight: "4%",
-              padding: "4%",
+              borderRadius: '20px',
+              backgroundColor: '#D8ECFF',
+              marginRight: '4%',
+              padding: '4%',
             }}
           >
             <p
               style={{
-                fontSize: "12px",
-                whiteSpace: "nowrap",
+                fontSize: '12px',
+                whiteSpace: 'nowrap',
               }}
             >
               {props.building}
@@ -241,31 +243,31 @@ function TicketDetailModal(props) {
           <div
             className="column"
             style={{
-              width: "30%",
+              width: '30%',
             }}
           >
-            <div className="column" style={{ marginBottom: "10%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.details}</p>
+            <div className="column" style={{ marginBottom: '10%' }}>
+              <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Lieu</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props.details}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
               <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.categoryName}</p>
             </div> */}
-            <div className="column" style={{ marginBottom: "10%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Assignés</p>
+            <div className="column" style={{ marginBottom: '10%' }}>
+              <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
               {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
             </div>
           </div>
           <div
             className="column"
             style={{
-              width: "30%",
+              width: '30%',
             }}
           >
-            <div className="column" style={{ marginBottom: "10%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Détails du lieu</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.locationDetails}</p>
+            <div className="column" style={{ marginBottom: '10%' }}>
+              <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props.locationDetails}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
@@ -282,17 +284,17 @@ function TicketDetailModal(props) {
         </div>
         <p
           style={{
-            fontSize: "12px",
-            color: "#8C8C8C",
-            paddingBottom: "2%",
+            fontSize: '12px',
+            color: '#8C8C8C',
+            paddingBottom: '2%',
           }}
         >
           Note importante
         </p>
         <p
           style={{
-            fontSize: "12px",
-            color: "#494949",
+            fontSize: '12px',
+            color: '#494949',
           }}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ligula nunc, suscipit id vestibulum vel, gravida
@@ -301,18 +303,18 @@ function TicketDetailModal(props) {
         <div
           className="w100"
           style={{
-            height: "1px",
-            marginTop: "3%",
-            marginBottom: "3%",
-            backgroundColor: "#D5D5D5",
+            height: '1px',
+            marginTop: '3%',
+            marginBottom: '3%',
+            backgroundColor: '#D5D5D5',
           }}
         />
         <p
           style={{
-            fontSize: "16px",
-            fontWeight: "bold",
-            color: "#2F696D",
-            marginBottom: "3%",
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#2F696D',
+            marginBottom: '3%',
           }}
         >
           Histoire
@@ -320,24 +322,25 @@ function TicketDetailModal(props) {
         <div
           className="w100"
           style={{
-            padding: "0 5%",
-            paddingBottom: "10%",
+            padding: '0 5%',
+            paddingBottom: '10%',
           }}
         >
           <div
             className="wh100"
             style={{
-              position: "relative",
+              position: 'relative',
             }}
           >
             <input
+              value={text}
               type="text"
               placeholder="Tapez un commentaire ici"
               className="appbar_row3_input w100"
               style={{
-                padding: "10px 15px",
-                backgroundColor: "#F4F4F4",
-                borderRadius: "20px",
+                padding: '10px 15px',
+                backgroundColor: '#F4F4F4',
+                borderRadius: '20px',
               }}
               onChange={(e) => setText(e.target.value)}
             />
@@ -347,8 +350,8 @@ function TicketDetailModal(props) {
             <div
               className="column ajc appbar_row3_search_img tdm_comment_images_img"
               style={{
-                right: "2%",
-                backgroundColor: "#2F696D",
+                right: '2%',
+                backgroundColor: '#2F696D',
               }}
               onClick={handleSubmit}
             >
@@ -359,7 +362,7 @@ function TicketDetailModal(props) {
         <div
           className="column w100"
           style={{
-            paddingBottom: "10%",
+            paddingBottom: '10%',
           }}
         >
           <CustomStepper comments={props.comments} />
@@ -378,21 +381,21 @@ function CustomStepper({ comments }) {
       <div
         className="row"
         style={{
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
-          width: "51%",
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
+          width: '51%',
         }}
       >
         <div
           style={{
-            height: "10pt",
-            width: "10pt",
-            borderRadius: "50%",
-            backgroundColor: "#2F696D",
-            marginRight: "10pt",
+            height: '10pt',
+            width: '10pt',
+            borderRadius: '50%',
+            backgroundColor: '#2F696D',
+            marginRight: '10pt',
           }}
         />
-        <p style={{ fontSize: "12px", color: "#8C8C8C", fontWeight: "600" }}>L'administrateur a créé un ticket</p>
+        <p style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600' }}>L'administrateur a créé un ticket</p>
       </div>
     </div>
   );
@@ -403,51 +406,51 @@ function CommentListTile(props) {
     <div
       className="column w100"
       style={{
-        marginBottom: "5pt",
+        marginBottom: '5pt',
       }}
     >
       <div className="row ajc w100">
         <div className="column">
-          <p style={{ fontSize: "12px", color: "#8C8C8C" }}>
-            {moment.utc(props.commentDateTime).local().format("LT dddd D,MMM YYYY").length < 35
-              ? moment.utc(props.commentDateTime).local().format("LT dddd D,MMM YYYY")
-              : moment.utc(props.commentDateTime).local().format("LT dddd D,MMM YYYY").slice(0, 32) + "..."}
+          <p style={{ fontSize: '12px', color: '#8C8C8C' }}>
+            {moment.utc(props.commentDateTime).local().format('LT dddd D,MMM YYYY').length < 35
+              ? moment.utc(props.commentDateTime).local().format('LT dddd D,MMM YYYY')
+              : moment.utc(props.commentDateTime).local().format('LT dddd D,MMM YYYY').slice(0, 32) + '...'}
           </p>
         </div>
         <img
           src={props.employeePic ?? CommentUserSVG}
           className="ip_container"
-          style={{ height: "40pt", width: "40pt", margin: "0 10pt" }}
+          style={{ height: '40pt', width: '40pt', margin: '0 10pt' }}
         />
-        <p style={{ fontSize: "12px", color: "#8C8C8C", fontWeight: "600" }}>{`${props.employeeName} a ajouté un commentaire`}</p>
+        <p style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600' }}>{`${props.employeeName} a ajouté un commentaire`}</p>
       </div>
       <div
         className="row ajc w100"
         style={{
-          paddingLeft: "46%",
+          paddingLeft: '46%',
         }}
       >
         <div
           style={{
-            height: "90%",
-            width: "1px",
-            marginRight: "10pt",
-            backgroundColor: "#D5D5D5",
+            height: '90%',
+            width: '1px',
+            marginRight: '10pt',
+            backgroundColor: '#D5D5D5',
           }}
         />
         <div
           className="column w100"
           style={{
-            backgroundColor: "#F4F4F4",
-            borderRadius: "20pt",
-            padding: "15pt",
+            backgroundColor: '#F4F4F4',
+            borderRadius: '20pt',
+            padding: '15pt',
           }}
         >
           <p
             className="w100"
             style={{
-              fontSize: "14px",
-              color: "#2F696D",
+              fontSize: '14px',
+              color: '#2F696D',
             }}
           >
             {props.messageText}

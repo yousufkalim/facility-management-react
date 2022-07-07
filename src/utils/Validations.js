@@ -17,7 +17,7 @@ function registration(data) {
     () => Validators.nullValidator('First Name', data['first_name']),
     () => Validators.nullValidator('Last Name', data['last_name']),
     () => Validators.emailValidator('Email Address', data['email']),
-    () => Validators.nullValidator('Phone Number', data['phone']),
+    () => Validators.phoneLengthValidator('Phone Number', data['phone']),
     () => Validators.lengthValidator('Password', data['password'], 8),
     () => Validators.nullValidator('Confirm Password', data['confirm_password']),
   ];
@@ -47,7 +47,7 @@ function addUser(data) {
     () => Validators.nullValidator('First Name', data['first_name']),
     () => Validators.nullValidator('Last Name', data['last_name']),
     () => Validators.emailValidator('Email Address', data['email']),
-    () => Validators.nullValidator('Phone Number', data['phone']),
+    () => Validators.phoneLengthValidator('Phone Number', data['phone']),
     () => Validators.selectValidator('Enterprise', data['enterprise']),
     () => Validators.nullValidator('Building', data['building']),
   ];
@@ -74,7 +74,7 @@ function updateAdmin(data) {
     () => Validators.nullValidator('First Name', data['first_name']),
     () => Validators.nullValidator('Last Name', data['last_name']),
     () => Validators.emailValidator('Email', data['email']),
-    () => Validators.nullValidator('Phone', data['phone']),
+    () => Validators.phoneLengthValidator('Phone', data['phone']),
   ];
 
   const validated = formValidator(valFuncArr);

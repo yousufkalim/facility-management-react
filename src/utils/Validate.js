@@ -1,5 +1,5 @@
-import { toast } from "react-toastify";
-import { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName } from "./Constants";
+import { toast } from 'react-toastify';
+import { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName } from './Constants';
 
 function isEmpty(str) {
   return !str || str.length === 0;
@@ -79,6 +79,22 @@ class Validators {
 
     if (!regexMatch) {
       return `${name} is invalid`;
+    }
+
+    return null;
+  }
+
+  static phoneLengthValidator(name, value) {
+    if (isEmpty(value)) {
+      return `${name} can't be empty`;
+    }
+
+    if (value.length < 10) {
+      return `${name} must be 10 digits at least.`;
+    }
+
+    if (value.length > 13) {
+      return `${name} can't be more than 13 digits.`;
     }
 
     return null;
