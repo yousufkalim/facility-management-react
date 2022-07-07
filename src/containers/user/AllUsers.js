@@ -145,8 +145,11 @@ const AllUsers = () => {
 
   const _load = async () => {
     const _users = await getUsers();
+    const _invitedUsers = await getInvitedUsers();
     let _user;
-    if (_users?.length > 0) {
+    if (_invitedUsers?.length > 0) {
+      _user = await getUserInfo(_invitedUsers[0].userId);
+    } else if (_users?.length > 0) {
       _user = await getUserInfo(_users[0].userId);
     }
 
@@ -154,11 +157,14 @@ const AllUsers = () => {
       allUsers: {
         ...store.allUsers,
         users: _users,
+        invitedUsers: _invitedUsers,
         user: _user,
         isLoading: false,
       },
     });
   };
+
+  // invitedUsers
 
   const userTileCB = async (userID) => {
     // If same user was clicked then do nothing.
@@ -172,6 +178,17 @@ const AllUsers = () => {
         user: _user,
       },
     });
+  };
+
+  const getInvitedUsers = async () => {
+    let response;
+    try {
+      response = await Api('get', `/Users/getNonConfirmedAll/${user.id}`);
+      const _users = response.data.data;
+      return _users;
+    } catch (e) {
+      console.trace(e);
+    }
   };
 
   const getUsers = async () => {
@@ -230,7 +247,15 @@ const AllUsers = () => {
                   </p>
                 ))}
               </div>
-              {activeTabId == 0 ? <></> : <></>}
+              {activeTabId == 0 ? (
+                <>
+                  {store.allUsers.invitedUsers.map((_) => (
+                    <UserCard {..._} cb={userTileCB} />
+                  ))}
+                </>
+              ) : (
+                <></>
+              )}
               {activeTabId == 1 ? (
                 <>
                   {store.allUsers.users.map((_) => (
