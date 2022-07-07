@@ -45,6 +45,7 @@ const _ = {
   allUsers: {
     isLoading: true,
     users: [],
+    invitedUsers: [],
     user: null,
   },
 
