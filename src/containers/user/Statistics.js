@@ -1,46 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-import { Bar } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
+import { Bar } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
 
-import UXL from "../../components/UXL";
-import Loader from "../../components/Loader";
+import UXL from '../../components/UXL';
+import Loader from '../../components/Loader';
 
-import StatisticsHeadBlackSVG from "../../assets/StatisticsHeadBlack.png";
-import StatisticsHeadGreenSVG from "../../assets/StatisticsHeadGreen.png";
-import StatisticsHeadYellowSVG from "../../assets/StatisticsHeadYellow.png";
+import StatisticsHeadBlackSVG from '../../assets/StatisticsHeadBlack.png';
+import StatisticsHeadGreenSVG from '../../assets/StatisticsHeadGreen.png';
+import StatisticsHeadYellowSVG from '../../assets/StatisticsHeadYellow.png';
 
-import { getUser } from "../../utils/Auth";
-import Api from "../../api";
-import { toast } from "react-toastify";
+import { getUser } from '../../utils/Auth';
+import Api from '../../api';
+import { toast } from 'react-toastify';
 
-import { Store, UpdateStore } from "../../StoreContext";
-import useWindowSize from "../../utils/WindowSize";
+import { Store, UpdateStore } from '../../StoreContext';
+import useWindowSize from '../../utils/WindowSize';
 
-import { months } from "../../utils/Constants";
-import moment from "moment";
+import { months } from '../../utils/Constants';
+import moment from 'moment';
 
 const headArr = [
   {
-    title: "tickets créés",
-    description: "depuis le début",
-    color: "#5B5B5B",
+    title: 'tickets créés',
+    description: 'depuis le début',
+    color: '#5B5B5B',
     background: StatisticsHeadBlackSVG,
   },
   {
-    title: "tickets résolus",
-    description: "depuis le débuts",
-    color: "#44787B",
+    title: 'tickets résolus',
+    description: 'depuis le débuts',
+    color: '#44787B',
     background: StatisticsHeadGreenSVG,
   },
   {
-    title: "tickets",
-    description: "actuellement en cours",
-    color: "#FF974D",
+    title: 'tickets',
+    description: 'actuellement en cours',
+    color: '#FF974D',
     background: StatisticsHeadYellowSVG,
   },
 ];
@@ -58,11 +58,11 @@ function StatisticsScreen() {
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: 'top',
       },
       title: {
         display: true,
-        text: "Tickets",
+        text: 'Tickets',
       },
     },
     layout: {
@@ -73,13 +73,22 @@ function StatisticsScreen() {
         bottom: 20,
       },
     },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'Number de tickets',
+          font: {
+            size: 12,
+          },
+        },
+      },
+    },
     maintainAspectRatio: false,
   };
 
   useEffect(() => {
-    if (store.statistics.isLoading) {
-      _load();
-    }
+    _load();
   }, []);
 
   const _getLabels = (_) => {
@@ -103,8 +112,6 @@ function StatisticsScreen() {
 
   const _load = async () => {
     const _data = await getStatistics();
-
-    console.log(_data, "_data");
 
     const labels = _getLabels(_data.graphicalData);
     const gDataObj = {
@@ -148,7 +155,7 @@ function StatisticsScreen() {
   const getStatistics = async () => {
     let response;
     try {
-      response = await Api("get", `/dashboard/currentweek_casefile_details/${user.id}`);
+      response = await Api('get', `/dashboard/currentweek_casefile_details/${user.id}`);
       const _statistics = response.data.data;
       return _statistics;
     } catch (e) {
@@ -164,15 +171,15 @@ function StatisticsScreen() {
         <div
           className="column wh100"
           style={{
-            backgroundColor: "#F4F4F4",
-            padding: store?.sideBarSelectIndex == 1 && width < 993 && width > 667 ? "3% 5%" : "3% 2%",
-            width: store?.isSideBar ? "97%" : "100%",
+            backgroundColor: '#F4F4F4',
+            padding: store?.sideBarSelectIndex == 1 && width < 993 && width > 667 ? '3% 5%' : '3% 2%',
+            width: store?.isSideBar ? '97%' : '100%',
           }}
         >
           <div
             style={{
-              width: store?.isSideBar && width < 992 ? "90%" : "100%",
-              paddingLeft: store?.isSideBar && width < 667 ? "10%" : store?.isSideBar && width < 992 ? "5%" : "",
+              width: store?.isSideBar && width < 992 ? '90%' : '100%',
+              paddingLeft: store?.isSideBar && width < 667 ? '10%' : store?.isSideBar && width < 992 ? '5%' : '',
             }}
             className="row w100 header_list_container"
           >
@@ -182,8 +189,8 @@ function StatisticsScreen() {
           </div>
           <div
             style={{
-              width: store?.isSideBar && width < 667 ? "90%" : store?.isSideBar && width < 992 ? "95%" : "100%",
-              marginLeft: store?.isSideBar && width < 667 ? "10%" : store?.isSideBar && width < 992 ? "5%" : "",
+              width: store?.isSideBar && width < 667 ? '90%' : store?.isSideBar && width < 992 ? '95%' : '100%',
+              marginLeft: store?.isSideBar && width < 667 ? '10%' : store?.isSideBar && width < 992 ? '5%' : '',
             }}
             className="bar_conatiner"
           >
@@ -191,32 +198,32 @@ function StatisticsScreen() {
           </div>
           <div
             style={{
-              width: store?.isSideBar && width < 667 ? "90%" : store?.isSideBar && width < 992 ? "95%" : "100%",
-              marginLeft: store?.isSideBar && width < 667 ? "10%" : store?.isSideBar && width < 992 ? "5%" : "",
+              width: store?.isSideBar && width < 667 ? '90%' : store?.isSideBar && width < 992 ? '95%' : '100%',
+              marginLeft: store?.isSideBar && width < 667 ? '10%' : store?.isSideBar && width < 992 ? '5%' : '',
             }}
             className="column jcc percentage_container"
           >
-            <p style={{ marginLeft: "3%",padding:"1% 0%", color: "#4F4F4F", fontWeight: "600" }}>
+            <p style={{ marginLeft: '3%', padding: '1% 0%', color: '#4F4F4F', fontWeight: '600' }}>
               Emplacement avec la plupart des tickets
             </p>
             <div className="column jcc w100 building_details_scrollable">
               {store.statistics.buildingTickets.map((_, __) => (
-                <div className="row aic" style={{ width: "80%", marginBottom: "1%" }}>
-                  <p style={{ paddingLeft: "6%", paddingRight: "3%", color: _?.color ?? "black", fontWeight: "600" }}>
+                <div className="row aic" style={{ width: '80%', marginBottom: '1%' }}>
+                  <p style={{ paddingLeft: '6%', paddingRight: '3%', color: _?.color ?? 'black', fontWeight: '600' }}>
                     {_.buildingName}
                   </p>
                   <div
                     style={{
-                      height: "10pt",
+                      height: '10pt',
                       width: `${5 * (_.ticketCount ?? 0)}pt`,
-                      maxWidth: "5%",
-                      maxWidth: "50%",
-                      backgroundColor: _.color ?? "black",
-                      borderRadius: "20px",
-                      paddingLeft: "6%",
+                      maxWidth: '5%',
+                      maxWidth: '50%',
+                      backgroundColor: _.color ?? 'black',
+                      borderRadius: '20px',
+                      paddingLeft: '6%',
                     }}
                   />
-                  <p style={{ paddingLeft: "3%", fontSize: "16px", color: _.color ?? "black" }}>{_.ticketCount ?? 0}</p>
+                  <p style={{ paddingLeft: '3%', fontSize: '16px', color: _.color ?? 'black' }}>{_.ticketCount ?? 0}</p>
                 </div>
               ))}
             </div>
@@ -233,8 +240,8 @@ function HeaderListTile(props) {
       <div className="column tickets_percentage">
         <p
           style={{
-            fontSize: props?.width < 400 ? "10px" : "14px",
-            fontWeight: "600",
+            fontSize: props?.width < 400 ? '10px' : '14px',
+            fontWeight: '600',
             color: props.color,
           }}
         >
@@ -242,32 +249,32 @@ function HeaderListTile(props) {
         </p>
         <p
           style={{
-            fontSize: props?.width < 400 ? "6px" : "12px",
+            fontSize: props?.width < 400 ? '6px' : '12px',
             color: props.color,
           }}
         >
           {props.description}
         </p>
       </div>
-      <div style={{ position: "relative" }}>
+      <div style={{ position: 'relative' }}>
         <img
           src={props.background}
           style={{
-            position: "absolute",
-            height: "60pt",
-            width: "100pt",
-            left: "-100pt",
-            bottom: "-30pt",
+            position: 'absolute',
+            height: '60pt',
+            width: '100pt',
+            left: '-100pt',
+            bottom: '-30pt',
           }}
         />
         <p
           style={{
-            position: "absolute",
-            fontSize: "24px",
-            fontWeight: "bold",
-            color: "#FFFFFF",
-            left: "-60pt",
-            bottom: "-8pt",
+            position: 'absolute',
+            fontSize: '24px',
+            fontWeight: 'bold',
+            color: '#FFFFFF',
+            left: '-60pt',
+            bottom: '-8pt',
           }}
         >
           {props.count}

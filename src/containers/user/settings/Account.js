@@ -243,6 +243,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="prénom"
                           value={state.first_name}
@@ -256,6 +257,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="nom de famille"
                           value={state.last_name}
@@ -277,6 +279,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="email"
                           value={state.email}
@@ -290,6 +293,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           type="number"
                           placeholder="numéro de portable"
@@ -314,6 +318,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="entreprise"
                         />
@@ -325,6 +330,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="********"
                         />

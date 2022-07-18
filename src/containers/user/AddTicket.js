@@ -18,6 +18,8 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const store = Store();
   const updateStore = UpdateStore();
 
+  const [fillLevel, setFillLevel] = useState(0);
+
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;
@@ -33,9 +35,24 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   };
 
   useEffect(() => {
-    if (store.addTicket.isLoading) {
-      _load();
+    let _fillLevel = 0;
+    if (state.building) {
+      _fillLevel = 1;
     }
+
+    if (state.building && state.building_level && state.category) {
+      _fillLevel = 2;
+    }
+
+    if (state.building && state.building_level && state.category && attachment) {
+      _fillLevel = 3;
+    }
+
+    setFillLevel(_fillLevel);
+  }, [state, attachment]);
+
+  useEffect(() => {
+    _load();
   }, []);
 
   const _load = async () => {
@@ -130,7 +147,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   return (
     <>
-      {/* {console.log(state)} */}
       {store.addTicket.isLoading ? (
         <div
           className="wh100 column ajc"
@@ -157,7 +173,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               margin: '2% 0',
             }}
           >
-            <div style={{ flex: 1 }}></div>
+            <div style={{ flex: 1 }} />
             <div className="row ajc" style={{ flex: 2 }}>
               <p
                 style={{
@@ -195,7 +211,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   height: '40pt',
                   width: '40pt',
                   borderRadius: '50%',
-                  backgroundColor: '#2F696D',
+                  backgroundColor: fillLevel > 0 ? '#2F696D' : '#8C8C8C',
                 }}
               >
                 <p style={{ fontSize: '30', color: '#FFFFFF' }}>1</p>
@@ -204,17 +220,17 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 style={{
                   height: '15%',
                   width: '2.5pt',
-                  backgroundColor: '#2F696D',
+                  backgroundColor: fillLevel > 1 ? '#2F696D' : '#8C8C8C',
                   margin: '5% 0',
                 }}
-              ></div>
+              />
               <div
                 className="column ajc"
                 style={{
                   height: '40pt',
                   width: '40pt',
                   borderRadius: '50%',
-                  backgroundColor: '#2F696D',
+                  backgroundColor: fillLevel > 1 ? '#2F696D' : '#8C8C8C',
                 }}
               >
                 <p style={{ fontSize: '30', color: '#FFFFFF' }}>2</p>
@@ -223,17 +239,17 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 style={{
                   height: '35%',
                   width: '2.5pt',
-                  backgroundColor: '#2F696D',
+                  backgroundColor: fillLevel > 2 ? '#2F696D' : '#8C8C8C',
                   margin: '5% 0',
                 }}
-              ></div>
+              />
               <div
                 className="column ajc"
                 style={{
                   height: '40pt',
                   width: '40pt',
                   borderRadius: '50%',
-                  backgroundColor: '#2F696D',
+                  backgroundColor: fillLevel > 2 ? '#2F696D' : '#8C8C8C',
                 }}
               >
                 <p style={{ fontSize: '30', color: '#FFFFFF' }}>3</p>
@@ -259,6 +275,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       onClick={() => selectBuilding(_)}
                       pStyle={{
                         padding: '6pt',
+                        fontWeight: '600',
                       }}
                     />
                   ))}
@@ -283,6 +300,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         onClick={() => _setState('building_level', _.value)}
                         pStyle={{
                           padding: '6pt',
+                          fontWeight: '600',
                         }}
                       />
                     ))}
@@ -348,6 +366,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       onClick={() => _setState('category', _.value)}
                       pStyle={{
                         padding: '6pt',
+                        fontWeight: '600',
                       }}
                     />
                   ))}
@@ -491,6 +510,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       }}
                       pStyle={{
                         padding: '6pt',
+                        fontWeight: '600',
                       }}
                     />
                   ))}

@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import CustomButton from '../CustomButton';
 import CustomInput from '../CustomInput';
 import Loader from '../../components/Loader';
+import CustomAlert from '../../components/modals/CustomAlert';
 
 import ProfileInputSVG from '../../assets/ProfileInput.svg';
 
@@ -38,6 +39,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     building: '',
   });
   const [attachment, setAttachment] = useState(null);
+  const [isAlert, setIsAlert] = useState(false);
 
   const store = Store();
   const updateStore = UpdateStore();
@@ -53,6 +55,10 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
+    if (!file.type.includes('image')) {
+      toast.error('Only image can be selected');
+      return;
+    }
     setAttachment(file);
   };
 
@@ -71,14 +77,26 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
   }, []);
 
   useEffect(() => {
-    if (store.addUser.isLoading) {
-      _load();
-    }
+    _load();
   }, []);
 
   const _load = async () => {
     const _enterprises = await getEnterprises();
     const _buildings = await getBuildings();
+
+    const obj = {};
+    if (_enterprises?.length > 0) {
+      obj['enterprise'] = _enterprises[0].value;
+    }
+
+    if (_buildings?.length > 0) {
+      obj['building'] = _buildings[0].value;
+    }
+
+    setState({
+      ...state,
+      ...obj,
+    });
 
     updateStore({
       addUser: {
@@ -175,14 +193,10 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
           formData.append('ProfileImage', attachment);
 
           await Api('post', '/Users/updateprofile_pic', formData);
-        }
-        if (existingUser) {
-          toast.success('User updated successfully.');
-        } else {
-          toast.success('User added successfully.');
+
+          setIsAlert(true);
         }
         cb();
-        handleClose();
       }
     } catch (e) {
       console.trace(e);
@@ -343,7 +357,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   style={{
                     marginBottom: '3%',
                   }}
-                ></div>
+                />
                 <div
                   className="Modal_form_screen_row2_row1"
                   style={{
@@ -404,6 +418,15 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 {t('Sauvegarder ☑️')}
               </button>
             </div>
+            {isAlert ? (
+              <CustomAlert
+                text={existingUser ? 'User Updated Successfully!' : 'User Added Successfully!'}
+                onClose={() => {
+                  setIsAlert(false);
+                  handleClose();
+                }}
+              />
+            ) : null}
           </>
         )}
       </Box>
