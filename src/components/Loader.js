@@ -1,4 +1,4 @@
-const Spinner = require("react-spinkit");
+import Spinner from 'react-spinkit';
 
 function Loader({ spinnerColor, divStyle, spinnerStyle }) {
   return (
@@ -8,7 +8,7 @@ function Loader({ spinnerColor, divStyle, spinnerStyle }) {
         ...divStyle,
       }}
     >
-      <Spinner name="folding-cube" style={{ height: "40pt", width: "40pt", ...spinnerStyle }} color={spinnerColor ?? "#2F696D"} />
+      <Spinner name="folding-cube" style={{ height: '40pt', width: '40pt', ...spinnerStyle }} color={spinnerColor ?? '#2F696D'} />
     </div>
   );
 }

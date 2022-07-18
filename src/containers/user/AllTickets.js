@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Modal } from "@mui/material";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Modal } from '@mui/material';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import TicketTextSVG from "../../assets/TicketText.svg";
-import TicketSettingsSVG from "../../assets/TicketSettings.svg";
-import TicketComment from "../../assets/Comment.svg";
-import ProfileSVG from "../../assets/DummyUser.jpeg";
+import TicketTextSVG from '../../assets/TicketText.svg';
+import TicketSettingsSVG from '../../assets/TicketSettings.svg';
+import TicketComment from '../../assets/Comment.svg';
+import ProfileSVG from '../../assets/DummyUser.jpeg';
 
-import TicketDetailModal from "../../components/modals/TicketDetail";
-import Loader from "../../components/Loader";
+import TicketDetailModal from '../../components/modals/TicketDetail';
+import Loader from '../../components/Loader';
 
-import { getUser } from "../../utils/Auth";
-import Api from "../../api";
-import { toast } from "react-toastify";
+import { getUser } from '../../utils/Auth';
+import Api from '../../api';
 
-import { Store, UpdateStore } from "../../StoreContext";
-import useWindowSize from "../../utils/WindowSize";
-import { tickets } from "../../utils/Constants";
+import { Store, UpdateStore } from '../../StoreContext';
+import useWindowSize from '../../utils/WindowSize';
+import { tickets } from '../../utils/Constants';
 
-import moment from "moment";
+import moment from 'moment';
 
 function AllTickets({ show }) {
   const store = Store();
@@ -29,15 +28,13 @@ function AllTickets({ show }) {
   const [width] = useWindowSize();
 
   useEffect(() => {
-    if (store.allTickets.isLoading) {
-      _load();
-    }
+    _load();
   }, []);
 
   const _load = async () => {
     const _tickets = await getAllTickets();
 
-    console.log(_tickets, "_tickets");
+    console.log(_tickets, '_tickets');
 
     const _recentTickets = [];
     const _pendingTickets = [];
@@ -72,7 +69,7 @@ function AllTickets({ show }) {
   const getAllTickets = async () => {
     let response;
     try {
-      response = await Api("get", `/tickets/tickets_list/0/${user.id}`);
+      response = await Api('get', `/tickets/tickets_list/0/${user.id}`);
       const _tickets = response.data.data;
       return _tickets;
     } catch (e) {
@@ -81,16 +78,16 @@ function AllTickets({ show }) {
   };
 
   const _findDraggedTicket = (_) => {
-    if (_.droppableId == "0") {
+    if (_.droppableId == '0') {
       return store.allTickets.recentTickets.filter((__) => __.orderNumber == _.index)[0];
-    } else if (_.droppableId == "1") {
+    } else if (_.droppableId == '1') {
       return store.allTickets.pendingTickets.filter((__) => __.orderNumber == _.index)[0];
-    } else if (_.droppableId == "2") {
+    } else if (_.droppableId == '2') {
       return store.allTickets.inProgressTickets.filter((__) => __.orderNumber == _.index)[0];
-    } else if (_.droppableId == "3") {
+    } else if (_.droppableId == '3') {
       return store.allTickets.completedTickets.filter((__) => __.orderNumber == _.index)[0];
     } else {
-      throw "Little Boy BOMB 💣";
+      throw 'Little Boy BOMB 💣';
     }
   };
 
@@ -102,20 +99,20 @@ function AllTickets({ show }) {
     let tempArr;
     let arr;
 
-    if (droppableId == "0") {
+    if (droppableId == '0') {
       startIndex = store.allTickets.recentTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
       endIndex = store.allTickets.recentTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
-    } else if (droppableId == "1") {
+    } else if (droppableId == '1') {
       startIndex = store.allTickets.pendingTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
       endIndex = store.allTickets.pendingTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
-    } else if (droppableId == "2") {
+    } else if (droppableId == '2') {
       startIndex = store.allTickets.inProgressTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
       endIndex = store.allTickets.inProgressTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
-    } else if (droppableId == "3") {
+    } else if (droppableId == '3') {
       startIndex = store.allTickets.completedTickets.map((_) => _.taskTicketId).indexOf(start.taskTicketId);
       endIndex = store.allTickets.completedTickets.map((_) => _.taskTicketId).indexOf(end.taskTicketId);
     } else {
-      throw "Fat Man BOMB1 💣";
+      throw 'Fat Man BOMB1 💣';
     }
 
     sorterArr = [startIndex, endIndex].sort((a, b) => a - b);
@@ -123,16 +120,16 @@ function AllTickets({ show }) {
     startIndex = sorterArr[0];
     endIndex = sorterArr[1];
 
-    if (droppableId == "0") {
+    if (droppableId == '0') {
       tempArr = [...store.allTickets.recentTickets];
-    } else if (droppableId == "1") {
+    } else if (droppableId == '1') {
       tempArr = [...store.allTickets.pendingTickets];
-    } else if (droppableId == "2") {
+    } else if (droppableId == '2') {
       tempArr = [...store.allTickets.inProgressTickets];
-    } else if (droppableId == "3") {
+    } else if (droppableId == '3') {
       tempArr = [...store.allTickets.completedTickets];
     } else {
-      throw "Fat Man BOMB2 💣";
+      throw 'Fat Man BOMB2 💣';
     }
 
     arr = tempArr.splice(startIndex, endIndex - startIndex);
@@ -189,16 +186,16 @@ function AllTickets({ show }) {
   };
 
   const _findFlagFromdroppableID = (_) => {
-    if (_ == "0") {
+    if (_ == '0') {
       return 4;
-    } else if (_ == "1") {
+    } else if (_ == '1') {
       return 3;
-    } else if (_ == "2") {
+    } else if (_ == '2') {
       return 2;
-    } else if (_ == "3") {
+    } else if (_ == '3') {
       return 1;
     } else {
-      throw "Tsar Bomba 1 💣";
+      throw 'Tsar Bomba 1 💣';
     }
   };
 
@@ -251,16 +248,16 @@ function AllTickets({ show }) {
 
   const _mutateReOrderTicketsState = (droppableId, stateArr) => {
     let tempArr;
-    if (droppableId == "0") {
+    if (droppableId == '0') {
       tempArr = [...store.allTickets.recentTickets];
-    } else if (droppableId == "1") {
+    } else if (droppableId == '1') {
       tempArr = [...store.allTickets.pendingTickets];
-    } else if (droppableId == "2") {
+    } else if (droppableId == '2') {
       tempArr = [...store.allTickets.inProgressTickets];
-    } else if (droppableId == "3") {
+    } else if (droppableId == '3') {
       tempArr = [...store.allTickets.completedTickets];
     } else {
-      throw "Tsar Bomba 2 💣";
+      throw 'Tsar Bomba 2 💣';
     }
 
     const parsedArr = [];
@@ -283,28 +280,28 @@ function AllTickets({ show }) {
 
     parsedArr.sort((a, b) => a.orderNumber - b.orderNumber);
 
-    if (droppableId == "0") {
+    if (droppableId == '0') {
       updateStore({
         allTickets: {
           ...store.allTickets,
           recentTickets: parsedArr,
         },
       });
-    } else if (droppableId == "1") {
+    } else if (droppableId == '1') {
       updateStore({
         allTickets: {
           ...store.allTickets,
           pendingTickets: parsedArr,
         },
       });
-    } else if (droppableId == "2") {
+    } else if (droppableId == '2') {
       updateStore({
         allTickets: {
           ...store.allTickets,
           inProgressTickets: parsedArr,
         },
       });
-    } else if (droppableId == "3") {
+    } else if (droppableId == '3') {
       updateStore({
         allTickets: {
           ...store.allTickets,
@@ -312,7 +309,7 @@ function AllTickets({ show }) {
         },
       });
     } else {
-      throw "Tsar Bomba 2 💣";
+      throw 'Tsar Bomba 2 💣';
     }
   };
 
@@ -320,27 +317,27 @@ function AllTickets({ show }) {
     let sourceTempArr;
     let destinationTempArr;
 
-    if (sourceDroppableId == "0") {
+    if (sourceDroppableId == '0') {
       sourceTempArr = [...store.allTickets.recentTickets];
-    } else if (sourceDroppableId == "1") {
+    } else if (sourceDroppableId == '1') {
       sourceTempArr = [...store.allTickets.pendingTickets];
-    } else if (sourceDroppableId == "2") {
+    } else if (sourceDroppableId == '2') {
       sourceTempArr = [...store.allTickets.inProgressTickets];
-    } else if (sourceDroppableId == "3") {
+    } else if (sourceDroppableId == '3') {
       sourceTempArr = [...store.allTickets.completedTickets];
     } else {
-      throw "Tsar Bomba 3 💣";
+      throw 'Tsar Bomba 3 💣';
     }
-    if (destinationDroppableId == "0") {
+    if (destinationDroppableId == '0') {
       destinationTempArr = [...store.allTickets.recentTickets];
-    } else if (destinationDroppableId == "1") {
+    } else if (destinationDroppableId == '1') {
       destinationTempArr = [...store.allTickets.pendingTickets];
-    } else if (destinationDroppableId == "2") {
+    } else if (destinationDroppableId == '2') {
       destinationTempArr = [...store.allTickets.inProgressTickets];
-    } else if (destinationDroppableId == "3") {
+    } else if (destinationDroppableId == '3') {
       destinationTempArr = [...store.allTickets.completedTickets];
     } else {
-      throw "Tsar Bomba 3 💣";
+      throw 'Tsar Bomba 3 💣';
     }
 
     ticket = {
@@ -353,28 +350,28 @@ function AllTickets({ show }) {
 
     let state = {};
 
-    if (sourceDroppableId == "0") {
+    if (sourceDroppableId == '0') {
       state.recentTickets = sourceTempArr;
-    } else if (sourceDroppableId == "1") {
+    } else if (sourceDroppableId == '1') {
       state.pendingTickets = sourceTempArr;
-    } else if (sourceDroppableId == "2") {
+    } else if (sourceDroppableId == '2') {
       state.inProgressTickets = sourceTempArr;
-    } else if (sourceDroppableId == "3") {
+    } else if (sourceDroppableId == '3') {
       state.completedTickets = sourceTempArr;
     } else {
-      throw "Tsar Bomba 4 💣";
+      throw 'Tsar Bomba 4 💣';
     }
 
-    if (destinationDroppableId == "0") {
+    if (destinationDroppableId == '0') {
       state.recentTickets = destinationTempArr;
-    } else if (destinationDroppableId == "1") {
+    } else if (destinationDroppableId == '1') {
       state.pendingTickets = destinationTempArr;
-    } else if (destinationDroppableId == "2") {
+    } else if (destinationDroppableId == '2') {
       state.inProgressTickets = destinationTempArr;
-    } else if (destinationDroppableId == "3") {
+    } else if (destinationDroppableId == '3') {
       state.completedTickets = destinationTempArr;
     } else {
-      throw "Tsar Bomba 4 💣";
+      throw 'Tsar Bomba 4 💣';
     }
 
     updateStore({
@@ -407,7 +404,7 @@ function AllTickets({ show }) {
   const reorderTickets = async (_) => {
     let response;
     try {
-      response = await Api("post", `/tickets/update_ticket_order`, _);
+      response = await Api('post', `/tickets/update_ticket_order`, _);
       const _message = response.data.message;
     } catch (e) {
       console.trace(e);
@@ -417,7 +414,7 @@ function AllTickets({ show }) {
   const moveTicket = async (ticketID, flag) => {
     let response;
     try {
-      response = await Api("post", `/tickets/update_ticket_info/${ticketID}/${flag}`);
+      response = await Api('post', `/tickets/update_ticket_info/${ticketID}/${flag}`);
       const _message = response.data.message;
     } catch (e) {
       console.trace(e);
@@ -431,7 +428,7 @@ function AllTickets({ show }) {
         <div
           className="wh100 column ajc"
           style={{
-            display: show ? "flex" : "none",
+            display: show ? 'flex' : 'none',
           }}
         >
           <Loader />
@@ -440,8 +437,8 @@ function AllTickets({ show }) {
         <div
           className="row ticket_container"
           style={{
-            display: show ? "flex" : "none",
-            width: store?.isSideBar ? "97%" : "100%",
+            display: show ? 'flex' : 'none',
+            width: store?.isSideBar ? '97%' : '100%',
           }}
         >
           {/* DragDrop Global Context */}
@@ -451,14 +448,14 @@ function AllTickets({ show }) {
               className="ds_sl_container"
               style={{
                 // width: "25vw",
-                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
+                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
               }}
             >
               <div
                 className="column ds_ml_container"
                 style={{
-                  padding: "2% 4%",
-                  minHeight:"100vh"
+                  padding: '2% 4%',
+                  minHeight: '100vh',
                 }}
               >
                 <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
@@ -483,20 +480,20 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 1%",
-                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
+                padding: '3% 1%',
+                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
               }}
             >
               <div
                 className="column ds_sl_header_container"
                 style={{
-                  backgroundColor: "#5bd89c",
+                  backgroundColor: '#5bd89c',
                 }}
               >
                 <p
                   className="ds_sl_header_text"
                   style={{
-                    padding: "4% 0",
+                    padding: '4% 0',
                   }}
                 >
                   {`En attente ${store.allTickets.pendingTickets.length}`}
@@ -506,8 +503,8 @@ function AllTickets({ show }) {
               <div
                 className="column ds_ml_container"
                 style={{
-                  width: "100%",
-                  padding: "8% 4%",
+                  width: '100%',
+                  padding: '8% 4%',
                 }}
               >
                 <Droppable droppableId="1">
@@ -532,20 +529,20 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 1%",
-                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
+                padding: '3% 1%',
+                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
               }}
             >
               <div
                 className="column ds_sl_header_container"
                 style={{
-                  backgroundColor: "#FF8C39",
+                  backgroundColor: '#FF8C39',
                 }}
               >
                 <p
                   className="ds_sl_header_text"
                   style={{
-                    padding: "4% 0",
+                    padding: '4% 0',
                   }}
                 >
                   {`En intervention ${store.allTickets.inProgressTickets.length}`}
@@ -554,8 +551,8 @@ function AllTickets({ show }) {
               <div
                 className="column ds_ml_container"
                 style={{
-                  width: "100%",
-                  padding: "8% 4%",
+                  width: '100%',
+                  padding: '8% 4%',
                 }}
               >
                 <Droppable droppableId="2">
@@ -579,20 +576,20 @@ function AllTickets({ show }) {
             <div
               className="ds_sl_container"
               style={{
-                padding: "3% 1%",
-                margin: store?.isSideBar && width < 667 ? "0% 5%" : "",
+                padding: '3% 1%',
+                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
               }}
             >
               <div
                 className="column ds_sl_header_container"
                 style={{
-                  backgroundColor: "#436062",
+                  backgroundColor: '#436062',
                 }}
               >
                 <p
                   className="ds_sl_header_text"
                   style={{
-                    padding: "4% 0",
+                    padding: '4% 0',
                   }}
                 >
                   {`Terminé ${store.allTickets.completedTickets.length}`}
@@ -601,8 +598,8 @@ function AllTickets({ show }) {
               <div
                 className="column ds_ml_container"
                 style={{
-                  width: "100%",
-                  padding: "8% 4%",
+                  width: '100%',
+                  padding: '8% 4%',
                 }}
               >
                 <Droppable droppableId="3">
@@ -646,24 +643,24 @@ function TicketListTile(props) {
         <div
           className="row"
           style={{
-            width: "100%",
-            justifyContent: "flex-start",
-            marginBottom: "2%",
+            width: '100%',
+            justifyContent: 'flex-start',
+            marginBottom: '2%',
           }}
         >
           <div
             className="row"
             style={{
-              borderRadius: "20px",
-              backgroundColor: "#D8ECFF",
-              marginRight: "2%",
-              padding: "2%",
+              borderRadius: '20px',
+              backgroundColor: '#D8ECFF',
+              marginRight: '2%',
+              padding: '2%',
             }}
           >
             <p
               style={{
-                fontSize: "12px",
-                whiteSpace: "nowrap",
+                fontSize: '12px',
+                whiteSpace: 'nowrap',
               }}
             >
               {props.building}
@@ -674,16 +671,16 @@ function TicketListTile(props) {
           <img
             src={TicketSettingsSVG}
             style={{
-              height: "24px",
-              width: "24px",
-              marginRight: "4%",
+              height: '24px',
+              width: '24px',
+              marginRight: '4%',
             }}
           />
           <p
             style={{
-              fontSize: "14px",
-              fontWeight: "600",
-              color: "#2F696D",
+              fontSize: '14px',
+              fontWeight: '600',
+              color: '#2F696D',
             }}
           >
             {props.categoryName}
@@ -691,26 +688,26 @@ function TicketListTile(props) {
         </div>
         <p
           style={{
-            fontSize: "13px",
-            fontWeight: "600",
-            color: "#8C8C8C",
-            paddingBottom: "2%",
+            fontSize: '13px',
+            fontWeight: '600',
+            color: '#8C8C8C',
+            paddingBottom: '2%',
           }}
         >
-          {moment.utc(props.creationDateTime).local().format("LT dddd D,MMM YYYY")}
+          {moment.utc(props.creationDateTime).local().format('LT dddd D,MMM YYYY')}
         </p>
         <div className="divider" />
         <div
           className="row"
           style={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
           }}
         >
           <div
             style={{
-              position: "relative",
+              position: 'relative',
             }}
           >
             {[...props.comments].splice(0, 2).map((_, __) => (
@@ -718,11 +715,11 @@ function TicketListTile(props) {
                 className="ip_container"
                 src={_.avatar ?? ProfileSVG}
                 style={{
-                  height: "40px",
-                  width: "40px",
-                  position: "absolute",
+                  height: '40px',
+                  width: '40px',
+                  position: 'absolute',
                   left: `${12 * __}pt`,
-                  top: "-10pt",
+                  top: '-10pt',
                 }}
               />
             ))}
@@ -730,20 +727,20 @@ function TicketListTile(props) {
           <div
             className="row jcc"
             style={{
-              alignItems: "center",
+              alignItems: 'center',
             }}
           >
             <p
               style={{
-                color: "#8C8C8C",
-                fontSize: "14px",
-                marginRight: "20%",
-                paddingTop: "40%",
+                color: '#8C8C8C',
+                fontSize: '14px',
+                marginRight: '20%',
+                paddingTop: '40%',
               }}
             >
               {props.comments.length}
             </p>
-            <img src={TicketComment} style={{ height: "28px", width: "20px", paddingTop: "40%" }} />
+            <img src={TicketComment} style={{ height: '28px', width: '20px', paddingTop: '40%' }} />
           </div>
         </div>
         <Modal open={isTicketDetailModal} onClose={handleIsTicketDetailModalClose} aria-labelledby="Ticket Detail">

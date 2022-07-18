@@ -1,4 +1,5 @@
 // Auth Screens
+import SplashScreen from '../containers/auth/Splash';
 import LoginScreen from '../containers/auth/Login';
 import RegistrationScreen from '../containers/auth/Registration';
 
@@ -9,6 +10,22 @@ import AllUsersScreen from '../containers/user/AllUsers';
 import SettingsScreen from '../containers/user/settings';
 
 import LoginIcon from '@mui/icons-material/Login';
+
+// Routes for Splash
+const SplashRoutes = [
+  {
+    path: '*',
+    name: 'Splash',
+    icon: <LoginIcon />,
+    element: SplashScreen,
+  },
+  {
+    path: '/',
+    name: 'Splash',
+    icon: <LoginIcon />,
+    element: SplashScreen,
+  },
+];
 
 // Routes for Auth
 const AuthRoutes = [
@@ -68,6 +85,7 @@ const UserRoutes = [
 
 // Getting all routes
 const RoutesObj = {
+  SplashRoutes,
   AuthRoutes,
   UserRoutes,
 };

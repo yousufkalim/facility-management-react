@@ -17,9 +17,7 @@ const Catogories = () => {
   const updateStore = UpdateStore();
 
   useEffect(() => {
-    if (store.settings.allCategories.isLoading) {
-      _load();
-    }
+    _load();
   }, []);
 
   const _load = async () => {

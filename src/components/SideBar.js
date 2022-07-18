@@ -135,12 +135,10 @@ function SideBar({ color, sticky = true, divStyle }) {
 function SideBarMenuItem({ imgObj, isSelected, cb }) {
   return (
     <div
-      className="jcc"
+      className="w100 column ajc"
       style={{
         height: '8vh',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
+        cursor: 'pointer',
         backgroundColor: isSelected ? '#F4F4F4' : 'transparent',
       }}
       onClick={cb}

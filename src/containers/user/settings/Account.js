@@ -243,6 +243,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="prénom"
                           value={state.first_name}
@@ -256,6 +257,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="nom de famille"
                           value={state.last_name}
@@ -277,6 +279,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="email"
                           value={state.email}
@@ -286,13 +289,15 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Numéro de portable</label>
                         <input
-                          type="number"
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
+                          type="number"
                           placeholder="numéro de portable"
+                          maxLength={13}
                           value={state.phone}
                           onChange={(e) => _setState('email', e.target.value)}
                         />
@@ -313,6 +318,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="entreprise"
                         />
@@ -324,6 +330,7 @@ const Account = () => {
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
+                            fontWeight: edit ? 'normal' : '600',
                           }}
                           placeholder="********"
                         />

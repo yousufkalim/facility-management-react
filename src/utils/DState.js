@@ -46,6 +46,7 @@ const _ = {
     isLoading: true,
     users: [],
     invitedUsers: [],
+    buildings: [],
     user: null,
   },
 

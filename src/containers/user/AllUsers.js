@@ -18,6 +18,7 @@ import RoundTrackingTicket from '../../assets/RoundTrackingTicket.svg';
 import EditSVG from '../../assets/Edit.svg';
 
 import CustomButton from '../../components/CustomButton';
+import SelectableTag from '../../components/SelectableTag';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -137,20 +138,26 @@ const AllUsers = () => {
   };
   const handleAddUserClose = () => setAddUserOpen(false);
 
+  const [building, setBuilding] = useState(null);
+
   useEffect(() => {
-    if (store.allUsers.isLoading) {
-      _load();
-    }
+    _load();
   }, []);
 
   const _load = async () => {
     const _users = await getUsers();
     const _invitedUsers = await getInvitedUsers();
+    const _buildings = await getBuildings();
+
     let _user;
     if (_invitedUsers?.length > 0) {
       _user = await getUserInfo(_invitedUsers[0].userId);
     } else if (_users?.length > 0) {
       _user = await getUserInfo(_users[0].userId);
+    }
+
+    if (_buildings?.length > 0) {
+      setBuilding(_buildings[0].value);
     }
 
     updateStore({
@@ -159,6 +166,7 @@ const AllUsers = () => {
         users: _users,
         invitedUsers: _invitedUsers,
         user: _user,
+        buildings: _buildings,
         isLoading: false,
       },
     });
@@ -211,10 +219,20 @@ const AllUsers = () => {
     }
   };
 
+  const getBuildings = async () => {
+    let response;
+    try {
+      response = await Api('get', `/buildings/dropdown`);
+      const _buildings = response.data.data;
+      return _buildings;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
   const [width] = useWindowSize();
   return (
     <>
-      {console.log(addUserOpen)}
       <UXL appBarText="All Users">
         {store.allUsers.isLoading ? (
           <Loader />
@@ -238,6 +256,9 @@ const AllUsers = () => {
                 {items?.map((val) => (
                   <p
                     className={` ${val?.id == activeTabId ? 'active_tab' : ''}`}
+                    style={{
+                      cursor: 'pointer',
+                    }}
                     id={val?.id}
                     onClick={() => handleActiveTab(val?.id)}
                   >
@@ -345,8 +366,37 @@ const AllUsers = () => {
                           <p className="responsable-span" style={{}}>
                             Responsable
                           </p>
-                          <p>Bâtiment accessibles</p>
-                          <p>Alertes par mail</p>
+                          <p
+                            style={{
+                              fontWeight: 'normal',
+                              fontSize: '12px',
+                            }}
+                          >
+                            Bâtiment accessibles
+                          </p>
+                          <div className="row">
+                            {store.allUsers.buildings.map((_) => (
+                              <SelectableTag
+                                {..._}
+                                text={_.text}
+                                isSelected={building == _.value}
+                                onClick={() => setBuilding(_.value)}
+                                pStyle={{
+                                  padding: '6pt',
+                                  fontWeight: '600',
+                                }}
+                              />
+                            ))}
+                          </div>
+                          <p
+                            style={{
+                              fontWeight: 'normal',
+                              fontSize: '12px',
+                              marginTop: '1%',
+                            }}
+                          >
+                            Alertes par mail
+                          </p>
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {switches.map((val) => (
                               <>
@@ -417,41 +467,4 @@ function UserCard(props) {
   );
 }
 
-function TagListTile(props) {
-  return (
-    <>
-      <div className="column ds_tlt_container_all_users">
-        <div
-          className="row"
-          style={{
-            width: '100%',
-            marginBottom: '2%',
-          }}
-        >
-          {props.tags.map((_) => (
-            <div
-              className="row"
-              style={{
-                borderRadius: '20px',
-                backgroundColor: _.color,
-                marginRight: '2%',
-                padding: '2%',
-              }}
-            >
-              {_.icon ? <img style={{ height: '14px', width: '14px', marginRight: '5%' }} src={_.icon} /> : <></>}
-              <p
-                style={{
-                  fontSize: '12px',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {_.title}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
-}
 export default AllUsers;
