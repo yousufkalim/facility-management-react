@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Spinner = require('react-spinkit');
+import Spinner from 'react-spinkit';
 
 import LoginBackgroundSVG from '../../assets/BGSplash.png';
 
