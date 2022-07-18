@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Scrollbars } from 'react-custom-scrollbars';
 
 import TicketTextSVG from '../../assets/TicketText.svg';
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
