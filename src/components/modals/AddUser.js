@@ -318,6 +318,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   inputName="Phone"
                   inputPlaceholder="Phone"
                   inputValue={state.phone}
+                  maxLength={13}
                   divStyle={{
                     marginBottom: '3%',
                   }}

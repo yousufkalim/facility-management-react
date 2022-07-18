@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import Backdrop from '@mui/material/Backdrop';
+
+import Loader from '../../components/Loader';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 
@@ -215,6 +218,7 @@ function RegistrationScreen() {
                 inputType="number"
                 inputName="Phone Number"
                 inputPlaceholder="Phone Number"
+                maxLength={13}
                 divStyle={{
                   width: '45%',
                 }}
@@ -307,6 +311,9 @@ function RegistrationScreen() {
           </div>
         </div>
       </div>
+      <Backdrop open={isProcessing}>
+        <Loader />
+      </Backdrop>
     </div>
   );
 }

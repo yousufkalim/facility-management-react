@@ -1,0 +1,11 @@
+.splash_screen_logo_p {
+  color: rgb(67, 96, 98);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.splash_screen_logo_span {
+  color: #494949;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
