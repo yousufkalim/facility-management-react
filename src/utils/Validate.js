@@ -11,25 +11,25 @@ class Validators {
 
   static nullValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
     return null;
   }
 
   static selectValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} must be selected`;
+      return `${name} doit être sélectionné`; // must be selected
     }
     return null;
   }
 
   static lengthValidator(name, value, length) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
 
     if (String(value).length < length) {
-      return `${name} can't be less than ${length} characters`;
+      return `${name} ne peut pas être inférieur à ${length} personnages`; // can't be less than ${length} characters
     }
 
     return null;
@@ -37,20 +37,20 @@ class Validators {
 
   static arrayValidator(name, value) {
     if (value.length == 0) {
-      return `Atleast one ${name} must be selected.`;
+      return `Au moins un ${name} doit être sélectionné`; // At least one ${name} must be selected.
     }
     return null;
   }
 
   static emailValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
 
     const regexMatch = value.match(kRegExpEmail);
 
     if (!regexMatch) {
-      return `${name} is invalid`;
+      return `${name} est invalide`; // is invalid
     }
 
     return null;
@@ -58,13 +58,13 @@ class Validators {
 
   static passwordValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
 
     const regexMatch = value.match(kRegExpPassword);
 
     if (!regexMatch) {
-      return `${name} must be 8 characters and include uppercase, lowercase, special character and number`;
+      return `${name} doit comporter 8 caractères et inclure des majuscules, des minuscules, des caractères spéciaux et des chiffres`; // must be 8 characters and include uppercase, lowercase, special character and number
     }
 
     return null;
@@ -72,13 +72,13 @@ class Validators {
 
   static phoneNoValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
 
     const regexMatch = value.match(kRegExpPhone);
 
     if (!regexMatch) {
-      return `${name} is invalid`;
+      return `${name} est invalide`; // is invalid
     }
 
     return null;
@@ -86,15 +86,15 @@ class Validators {
 
   static phoneLengthValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
 
     if (value.length < 10) {
-      return `${name} must be 10 digits at least.`;
+      return `${name} doit comporter au moins 10 chiffres`; // must be 10 digits at least
     }
 
     if (value.length > 13) {
-      return `${name} can't be more than 13 digits.`;
+      return `${name} ne peut pas comporter plus de 13 chiffres`; // can't be more than 13 digits
     }
 
     return null;
@@ -102,13 +102,13 @@ class Validators {
 
   static userNameValidator(name, value) {
     if (isEmpty(value)) {
-      return `${name} can't be empty`;
+      return `${name} ne peut pas être vide`; // can't be empty
     }
 
     const regexMatch = value.match(kRegExpUserName);
 
     if (!regexMatch) {
-      return `${name} can only contain alphabets, numbers or underscore`;
+      return `${name} ne peut contenir que des lettres, des chiffres ou un trait de soulignement`; // can only contain alphabets, numbers or underscore
     }
 
     return null;

@@ -233,7 +233,7 @@ const AllUsers = () => {
   const [width] = useWindowSize();
   return (
     <>
-      <UXL appBarText="All Users">
+      <UXL appBarText="Utilisateurs">
         {store.allUsers.isLoading ? (
           <Loader />
         ) : (

@@ -101,7 +101,7 @@ const Settings = () => {
 
   return (
     <>
-      <UXL appBarText="Account Settings">
+      <UXL appBarText="Réglages">
         <div
           className="row uxl_children_container"
           style={{

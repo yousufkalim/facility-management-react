@@ -415,7 +415,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 {t('Close')}
               </button>
               <button className="btn_all_user" onClick={handleSubmit}>
-                {t('Sauvegarder ☑️')}
+                {t(existingUser ? 'Mettre à jour ☑️' : 'Sauvegarder ☑️')}
               </button>
             </div>
             {isAlert ? (
