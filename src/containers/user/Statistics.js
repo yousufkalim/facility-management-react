@@ -164,7 +164,7 @@ function StatisticsScreen() {
   };
 
   return (
-    <UXL appBarText="Statistics">
+    <UXL appBarText="Statistiques">
       {store.statistics.isLoading ? (
         <Loader />
       ) : (

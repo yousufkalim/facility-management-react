@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Loader from '../../../components/Loader';
 
-import ProfileSVG from '../../../assets/ProfileInput.svg';
+import DummyUserSVG from '../../..//assets/DummyUser.jpeg';
 import EditSVG from '../../../assets/Edit.svg';
 import EditIconSelectedSVG from '../../../assets/EditIconSelected.svg';
 import SearchSVG from '../../../assets/Search.svg';
@@ -109,6 +109,7 @@ const Account = () => {
     last_name: '',
     email: '',
     phone: '',
+    company_name: '',
   });
   const [edit, setEdit] = useState(false);
 
@@ -132,6 +133,7 @@ const Account = () => {
       last_name: _profile.lastName,
       email: _profile.email,
       phone: _profile.phoneNo,
+      company_name: _profile.companyName,
     });
     setIsLoading(false);
   };
@@ -180,6 +182,7 @@ const Account = () => {
         lastName: state.last_name,
         phoneNo: state.phone,
         email: state.email,
+        companyName: state.company_name,
       };
 
       response = await Api('put', '/Users/update_admin', body);
@@ -226,7 +229,7 @@ const Account = () => {
               >
                 <div className="form_container form_container_account">
                   <div className="input_image_container">
-                    <img className="input_image_account" src={ProfileSVG} />
+                    <img className="input_image_account" src={DummyUserSVG} />
                   </div>
                   <div style={{ marginTop: '3%' }} className="input_container">
                     <div
@@ -239,11 +242,12 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Prénom</label>
                         <input
+                          disabled={!edit}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
-                            fontWeight: edit ? 'normal' : '600',
+                            fontWeight: '600',
                           }}
                           placeholder="prénom"
                           value={state.first_name}
@@ -253,11 +257,12 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Nom de famille</label>
                         <input
+                          disabled={!edit}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
-                            fontWeight: edit ? 'normal' : '600',
+                            fontWeight: '600',
                           }}
                           placeholder="nom de famille"
                           value={state.last_name}
@@ -275,11 +280,12 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">E-mail</label>
                         <input
+                          disabled={!edit}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
-                            fontWeight: edit ? 'normal' : '600',
+                            fontWeight: '600',
                           }}
                           placeholder="email"
                           value={state.email}
@@ -289,17 +295,18 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Numéro de portable</label>
                         <input
+                          disabled={!edit}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
-                            fontWeight: edit ? 'normal' : '600',
+                            fontWeight: '600',
                           }}
                           type="number"
                           placeholder="numéro de portable"
                           maxLength={13}
                           value={state.phone}
-                          onChange={(e) => _setState('email', e.target.value)}
+                          onChange={(e) => _setState('phone', e.target.value)}
                         />
                       </div>
                     </div>
@@ -314,23 +321,27 @@ const Account = () => {
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Entreprise</label>
                         <input
+                          disabled={!edit}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
-                            fontWeight: edit ? 'normal' : '600',
+                            fontWeight: '600',
                           }}
                           placeholder="entreprise"
+                          value={state.company_name}
+                          onChange={(e) => _setState('company_name', e.target.value)}
                         />
                       </div>
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Password</label>
                         <input
+                          disabled={!edit}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
-                            fontWeight: edit ? 'normal' : '600',
+                            fontWeight: '600',
                           }}
                           placeholder="********"
                         />

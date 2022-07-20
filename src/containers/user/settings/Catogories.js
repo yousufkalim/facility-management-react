@@ -16,9 +16,19 @@ const Catogories = () => {
   const store = Store();
   const updateStore = UpdateStore();
 
+  const bottomRef = useRef(null);
+
   useEffect(() => {
     _load();
   }, []);
+
+  useEffect(() => {
+    console.log(bottomRef.current, 'bottomRef.current');
+    console.log(typeof bottomRef.current, 'typeof bottomRef.current');
+    if (bottomRef) {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [store.settings.allCategories.toAdd]);
 
   const _load = async () => {
     const _categories = await getCategories();
@@ -64,6 +74,7 @@ const Catogories = () => {
               <CategoryListTile {..._} />
             ))}
             {store.settings.allCategories.toAdd ? <AddCategory /> : <></>}
+            <div ref={bottomRef} />
           </div>
         </div>
       )}
@@ -76,13 +87,10 @@ function CategoryListTile(props) {
   const updateStore = UpdateStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [toEdit, setToEdit] = useState(false);
-  console.log(props.text, 'props.text');
   const text = useRef(props.text);
-  console.log(text, 'text');
 
   useEffect(() => {
     text.current = props.text;
-    console.log(text.current, 'EFFECT');
   }, [props.text]);
 
   const handleChange = (e) => {

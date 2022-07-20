@@ -154,8 +154,8 @@ const AddBuilding = ({ cb, handleClose }) => {
             <CustomInput
               ptext="Nom du bâtiment"
               inputType="text"
-              inputName="Bâtiment Orange"
-              inputPlaceholder="Bâtiment Orange"
+              inputName="Bâtiment"
+              inputPlaceholder="Bâtiment"
               inputValue={title}
               enableYoursStyle={{
                 fontWeight: '400',
