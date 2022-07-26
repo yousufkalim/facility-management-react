@@ -79,12 +79,16 @@ function LoginScreen() {
     setIsProcessing(false);
   };
 
-  const navToDashboard = () => {
-    navigate('/dashboard');
-  };
-
   const navToRegistration = () => {
     navigate('/registration');
+  };
+
+  const navToForgotPassword = () => {
+    navigate('/forgot_password_1');
+  };
+
+  const navToDashboard = () => {
+    navigate('/dashboard');
   };
 
   return (
@@ -158,7 +162,13 @@ function LoginScreen() {
               }}
               onChange={(e) => _setState('password', e.target.value)}
             />
-            <div className="forget_password_text d-flex">
+            <div
+              className="forget_password_text d-flex"
+              style={{
+                cursor: 'pointer',
+              }}
+              onClick={navToForgotPassword}
+            >
               <small>{t('Forgot Password?')}</small>
             </div>
             <CustomButton

@@ -23,11 +23,7 @@ const Catogories = () => {
   }, []);
 
   useEffect(() => {
-    console.log(bottomRef.current, 'bottomRef.current');
-    console.log(typeof bottomRef.current, 'typeof bottomRef.current');
-    if (bottomRef) {
-      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
+    bottomRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [store.settings.allCategories.toAdd]);
 
   const _load = async () => {

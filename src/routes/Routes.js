@@ -2,6 +2,8 @@
 import SplashScreen from '../containers/auth/Splash';
 import LoginScreen from '../containers/auth/Login';
 import RegistrationScreen from '../containers/auth/Registration';
+import ForgotPassword1Screen from '../containers/auth/ForgotPassword1';
+import ForgotPassword2Screen from '../containers/auth/ForgotPassword2';
 
 // User Screens
 import DashboardScreen from '../containers/user/Dashboard';
@@ -46,6 +48,18 @@ const AuthRoutes = [
     name: 'Registration',
     icon: <LoginIcon />,
     element: RegistrationScreen,
+  },
+  {
+    path: '/forgot_password_1',
+    name: 'ForgotPassword1',
+    icon: <LoginIcon />,
+    element: ForgotPassword1Screen,
+  },
+  {
+    path: '/forgot_password_2',
+    name: 'ForgotPassword2',
+    icon: <LoginIcon />,
+    element: ForgotPassword2Screen,
   },
 ];
 
