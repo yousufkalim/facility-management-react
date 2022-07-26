@@ -199,7 +199,6 @@ const Account = () => {
 
   return (
     <>
-      {console.log(state)}
       {isLoading ? (
         <Loader />
       ) : (
@@ -310,7 +309,6 @@ const Account = () => {
                         />
                       </div>
                     </div>
-
                     <div
                       className="input_row"
                       style={{
@@ -360,7 +358,6 @@ const Account = () => {
                     <div className="edit_icon_container d-flex aic jcc">
                       <img src={edit ? EditIconSelectedSVG : EditSVG} />
                     </div>
-
                     <p style={{ fontSize: '12px' }}>{edit ? 'Sauvegarder' : 'Éditer'}</p>
                   </div>
                 </div>

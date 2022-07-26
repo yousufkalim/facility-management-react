@@ -27,6 +27,27 @@ function registration(data) {
   return validated;
 }
 
+function forgotPassword1(data) {
+  const valFuncArr = [() => Validators.emailValidator('Email', data['email'])];
+
+  const validated = formValidator(valFuncArr);
+
+  return validated;
+}
+
+function forgotPassword2(data) {
+  const valFuncArr = [
+    () => Validators.passwordValidator('Password', data['password']),
+    () => Validators.passwordValidator('Confirm Password', data['password_re']),
+  ];
+
+  const validated = formValidator(valFuncArr);
+
+  return validated;
+}
+
+// forgotPassword1
+
 function addTicket(data) {
   const valFuncArr = [
     () => Validators.selectValidator('Building', data['building']),
@@ -82,4 +103,4 @@ function updateAdmin(data) {
   return validated;
 }
 
-export { login, registration, addTicket, addUser, addBuilding, updateAdmin };
+export { login, registration, forgotPassword1, forgotPassword2, addTicket, addUser, addBuilding, updateAdmin };
