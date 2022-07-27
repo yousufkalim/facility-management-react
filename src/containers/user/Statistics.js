@@ -309,7 +309,7 @@ function StatisticsScreen() {
                 <button
                   disabled
                   style={{
-                    background: 'rgb(51 124 140)',
+                    background: 'rgb(47, 105, 109)',
                     border: 'none',
                     borderRadius: '10px',
                     padding: '13px',
@@ -330,11 +330,12 @@ function StatisticsScreen() {
                 <button
                   onClick={onButtonClick}
                   style={{
-                    background: 'rgb(51 124 140)',
+                    background: 'rgb(47, 105, 109)',
                     border: 'none',
                     borderRadius: '10px',
                     padding: '13px',
-                    color: 'white'
+                    color: 'white',
+                    cursor: 'pointer'
                   }}
                 >
                   Exporter les données(.pdf)
