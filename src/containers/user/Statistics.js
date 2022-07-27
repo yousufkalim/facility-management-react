@@ -298,50 +298,6 @@ function StatisticsScreen() {
             >
               Emplacement avec la plupart des tickets
             </p>
-            {exportpdf ? (
-              <div
-                style={{
-                  width: '99%',
-                  textAlign: 'right'
-                }}
-              >
-                {' '}
-                <button
-                  disabled
-                  style={{
-                    background: 'rgb(47, 105, 109)',
-                    border: 'none',
-                    borderRadius: '10px',
-                    padding: '13px',
-                    color: 'white'
-                  }}
-                >
-                  Loading
-                </button>
-              </div>
-            ) : (
-              <div
-                style={{
-                  width: '99%',
-                  textAlign: 'right'
-                }}
-              >
-                {' '}
-                <button
-                  onClick={onButtonClick}
-                  style={{
-                    background: 'rgb(47, 105, 109)',
-                    border: 'none',
-                    borderRadius: '10px',
-                    padding: '13px',
-                    color: 'white',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Exporter les données(.pdf)
-                </button>
-              </div>
-            )}
 
             {/* <div dangerouslySetInnerHTML={createMarkup()} /> */}
 
@@ -384,9 +340,61 @@ function StatisticsScreen() {
                 </div>
               ))}
             </div>
+            {exportpdf ? (
+              <div
+                style={{
+                  width: '99%',
+                  textAlign: 'right',
+                  marginBottom: '5px'
+                }}
+              >
+                {' '}
+                <button
+                  disabled
+                  style={{
+                    background: 'rgb(47, 105, 109)',
+                    border: 'none',
+                    borderRadius: '10px',
+                    // padding: '13px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    padding: '8px 16px',
+                    outline: 'none'
+                  }}
+                >
+                  Loading
+                </button>
+              </div>
+            ) : (
+              <div
+                style={{
+                  width: '99%',
+                  textAlign: 'right',
+                  marginBottom: '5px'
+                }}
+              >
+                {' '}
+                <button
+                  onClick={onButtonClick}
+                  style={{
+                    background: 'rgb(47, 105, 109)',
+                    border: 'none',
+                    borderRadius: '10px',
+                    // padding: '13px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    padding: '8px 16px',
+                    outline: 'none'
+                  }}
+                >
+                  Exporter les données(.pdf)
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
+
       <div dangerouslySetInnerHTML={{ __html: templatescreen }} />
     </UXL>
   );
