@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -137,7 +137,6 @@ function StatisticsScreen() {
       labels,
       datasets: []
     };
-
     const gDataArr = [];
     for (let i = 0; i < _data.graphicalData.length; i++) {
       let _ = _data.graphicalData[i];
@@ -145,7 +144,6 @@ function StatisticsScreen() {
       _ = [_[0], _[1], _[2]];
       gDataArr.push(_);
     }
-
     const gParsedDataArr1 = gDataArr.map((_) => _[0]);
     const gParsedDataArr2 = gDataArr.map((_) => _[1]);
     const gParsedDataArr3 = gDataArr.map((_) => _[2]);
@@ -185,10 +183,11 @@ function StatisticsScreen() {
     }
   };
 
-  const onButtonClick = () => {
+  const exportPdf = () => {
     setExportpdf(true);
+    // get element by id with display none
     let domElement = document.getElementById('templatebody');
-    console.log('domElement', domElement);
+    // add class to display page
     domElement.classList.add('displayClass');
     html2canvas(domElement, {
       ignoreElements: function (element) {
@@ -197,21 +196,22 @@ function StatisticsScreen() {
         }
       }
     }).then((canvas) => {
-      console.log('canvas', canvas);
-      var pdf = new jsPDF();
+      // jspd page size set
+      var pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'in',
+        format: [700, 792]
+      });
+      // props of canvas img
       const imgProps = pdf.getImageProperties(canvas);
       var width = pdf.internal.pageSize.getWidth();
-      // var height = pdf.internal.pageSize.getHeight();
       const height = (imgProps.height * width) / imgProps.width;
-      console.log('width', width);
       if (canvas) {
-        pdf.addImage(canvas, 'PNG', 5, 10, 200, height);
+        pdf.addImage(canvas, 'PNG', 5, 10, 190, height);
       }
       domElement.classList.remove('displayClass');
-
-      pdf.save('fm.pdf');
+      pdf.save('Doc.pdf');
       setExportpdf(false);
-
       // document.body.appendChild(canvas);
     });
   };
@@ -222,7 +222,7 @@ function StatisticsScreen() {
         <Loader />
       ) : (
         <div
-          className="column wh100"
+          className={`${exportpdf ? 'blurClass ' : ''} column wh100`}
           style={{
             backgroundColor: '#F4F4F4',
             padding:
@@ -298,9 +298,6 @@ function StatisticsScreen() {
             >
               Emplacement avec la plupart des tickets
             </p>
-
-            {/* <div dangerouslySetInnerHTML={createMarkup()} /> */}
-
             <div className="column jcc w100 building_details_scrollable">
               {store.statistics.buildingTickets.map((_, __) => (
                 <div
@@ -355,7 +352,6 @@ function StatisticsScreen() {
                     background: 'rgb(47, 105, 109)',
                     border: 'none',
                     borderRadius: '10px',
-                    // padding: '13px',
                     color: 'white',
                     cursor: 'pointer',
                     padding: '8px 16px',
@@ -375,12 +371,11 @@ function StatisticsScreen() {
               >
                 {' '}
                 <button
-                  onClick={onButtonClick}
+                  onClick={exportPdf}
                   style={{
                     background: 'rgb(47, 105, 109)',
                     border: 'none',
                     borderRadius: '10px',
-                    // padding: '13px',
                     color: 'white',
                     cursor: 'pointer',
                     padding: '8px 16px',
@@ -395,7 +390,10 @@ function StatisticsScreen() {
         </div>
       )}
 
-      <div dangerouslySetInnerHTML={{ __html: templatescreen }} />
+      <div
+        className={`${exportpdf ? 'blurClass2' : ''}`}
+        dangerouslySetInnerHTML={{ __html: templatescreen }}
+      />
     </UXL>
   );
 }
@@ -449,5 +447,4 @@ function HeaderListTile(props) {
     </div>
   );
 }
-
 export default StatisticsScreen;
