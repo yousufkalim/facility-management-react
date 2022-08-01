@@ -508,7 +508,7 @@ function UserCard(props) {
                     : '#494949'
               }}
             >
-              {props.firstName} {props.lastName}
+              {props.firstName.length>10?props.firstName.slice(0,8)+'...':props.firstName} {props.lastName.length>8?props.lastName.slice(0,8)+'...':props.lastName}
             </span>
             <span
               className="user_designation"

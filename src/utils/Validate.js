@@ -84,6 +84,18 @@ class Validators {
     return null;
   }
 
+  static minlengthValidator(name,value){
+   if(value?.length<4){
+    return `${name} la longueur doit être d'au moins 4`;
+   }
+  }
+ 
+  static matchPasswordConfirmPassword(password,passwordValue,confirmPassword,confirmPasswordValue){
+        if(passwordValue!=confirmPasswordValue){
+         return `${password} et ${confirmPassword} devrait être le même`
+        }
+  }
+
   static phoneLengthValidator(name, value) {
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty

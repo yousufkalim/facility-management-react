@@ -243,6 +243,7 @@ const Account = () => {
                         <input
                           disabled={!edit}
                           className="account_edit_inputs"
+                          maxLength="25"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
@@ -257,6 +258,7 @@ const Account = () => {
                         <label className="label_inputs">Nom de famille</label>
                         <input
                           disabled={!edit}
+                          maxLength="25"
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
@@ -320,6 +322,7 @@ const Account = () => {
                         <label className="label_inputs">Entreprise</label>
                         <input
                           disabled={!edit}
+                          maxLength="25"
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',

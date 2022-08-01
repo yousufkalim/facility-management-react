@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -66,6 +66,7 @@ ChartJS.register(
 function StatisticsScreen() {
   const [templatescreen, setTemplatescreen] = useState('');
   const [exportpdf, setExportpdf] = useState(false);
+  const [pdfData, setPdfData] = useState('')
   const { t } = useTranslation();
   const store = Store();
   const updateStore = UpdateStore();
@@ -107,8 +108,24 @@ function StatisticsScreen() {
 
   useEffect(() => {
     _load();
-    setTemplatescreen(createMarkup().__html);
+    setTemplatescreen(createMarkup(pdfData?pdfData:"").__html);
+    getPdfData();
   }, []);
+  const getPdfData = async()=>{
+    let response
+    try {
+      response = await Api(
+        'get',
+        `/dashboard/template_casefile_details/${user.id}`
+      );
+      if(response){
+
+        setPdfData(response?.data?.data)
+      }
+    } catch (error) {
+      
+    }
+  }
 
   const _getLabels = (_) => {
     const arr = [];
@@ -184,9 +201,11 @@ function StatisticsScreen() {
   };
 
   const exportPdf = () => {
+    createMarkup(pdfData)
     setExportpdf(true);
     // get element by id with display none
     let domElement = document.getElementById('templatebody');
+    console.log(domElement,"domElement");
     // add class to display page
     domElement.classList.add('displayClass');
     html2canvas(domElement, {

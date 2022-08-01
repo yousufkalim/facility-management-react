@@ -43,6 +43,7 @@
 .account_edit_inputs{
 border: 2px solid #8C8C8C;
 border-radius: 20px;
+background: none;
 }
 .w-48{
     width: 48%;

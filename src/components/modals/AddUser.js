@@ -144,7 +144,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     }
 
     if (!attachment && !existingUser) {
-      toast.error('Attachment must be selected.');
+      toast.error('La pièce jointe doit être sélectionnée.');
       return;
     }
 
@@ -200,6 +200,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       }
     } catch (e) {
       console.trace(e);
+      //toast.error(e?.data?.errorMessage[0]);
     }
 
     setIsProcessing(false);
@@ -256,6 +257,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     inputName="First Name"
                     inputPlaceholder="First Name"
                     inputValue={state.first_name}
+                    maxLength="35"
                     enableYoursStyle={{
                       fontWeight: '400',
                       fontSize: '14px',
@@ -280,6 +282,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     inputType="text"
                     inputName="Last Name"
                     inputPlaceholder="Last Name"
+                    maxLength="35"
                     inputValue={state.last_name}
                     enableYoursStyle={{
                       fontWeight: '400',
@@ -328,7 +331,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 />
                 <CustomInput
                   ptext="Numéro de portable"
-                  inputType="number"
+                  inputType="text"
                   inputName="Phone"
                   inputPlaceholder="Phone"
                   inputValue={state.phone}
@@ -350,7 +353,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   labelStyle={{
                     marginBottom: '8px',
                   }}
-                  onChange={(e) => _setState('phone', e.target.value)}
+                  onChange={(e) => _setState('phone', e.target.value.replace(/[^0-9]/g, ''))}
                 />
                 <div
                   className="Modal_form_screen_row2_row1"

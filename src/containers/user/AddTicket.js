@@ -144,7 +144,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
       building_level: _buildingLevels[0].value,
     });
   };
-
+console.log(state,"hk");
   return (
     <>
       {store.addTicket.isLoading ? (
@@ -329,7 +329,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     Détails du lieu
                   </p>
                   <CustomInput
-                    inputValue={state.location_details}
+                    inputValue={state.location_details?state.location_details:""}
                     onChange={(e) => _setState('location_details', e.target.value)}
                     divStyle={{
                       width: '40%',
@@ -409,7 +409,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     Détails
                   </p>
                   <textarea
-                    value={state.details}
+                    value={state.details?state.details:""}
                     onChange={(e) => _setState('details', e.target.value)}
                     style={{
                       fontSize: '12px',

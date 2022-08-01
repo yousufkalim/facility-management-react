@@ -1,6 +1,17 @@
-export default function createMarkup() {
+export default function createMarkup(data) {
+
+    console.log("data?.buildingTickets",data?.buildingTickets);
+    // const output = data?.buildingTickets?.map((val) => {
+    //     return ` <li class="timent_li" style="list-style: none;">
+    //     <span class="timent_span">${val.ticketCount}</span>
+    //     <span class="timent_span2">${val.buildingName}</span>
+    //     </li>`
+    // });
+    
+    // console.log(output);
   return {
-    __html: `<!DOCTYPE html>
+    __html: 
+    `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -275,7 +286,8 @@ export default function createMarkup() {
                             <div class="ticket_count">
                                 <h1 class="ticket_num"
                                     style="font-size: 3.5rem; background-color: #fff; padding: 20px; width: 100px;text-align: center;">
-                                    81
+                                    ${data?.tilesData?.total}
+                                    
                                 </h1>
                             </div>
                             <div class="ticket_heading">
@@ -298,7 +310,7 @@ export default function createMarkup() {
                             <div class="ticket_count">
                                 <h1 class="ticket_num"
                                     style="font-size: 3rem; background-color: #fff; padding: 20px; width: 100px;text-align: center;">
-                                    6
+                                    ${data?.tilesData?.inProgress}
                                 </h1>
                             </div>
                             <div class="ticket_heading">
@@ -321,7 +333,7 @@ export default function createMarkup() {
                             <div class="ticket_count">
                                 <h1 class="ticket_num"
                                     style="font-size: 3.5rem; background-color: #fff; padding: 20px; width: 100px;text-align: center;">
-                                    57
+                                    ${data?.tilesData?.completed}
                                 </h1>
                             </div>
                             <div class="ticket_heading">
@@ -368,11 +380,10 @@ export default function createMarkup() {
                         style="display:flex ; justify-content: space-between;align-items: center; background-color: #F0F2F1;">
                         <div class="timent" style=" padding: 00px 0 0px 30px; width: 30%;">
                             <h3 class="timent_title" style="color: #8CC8C9;padding-bottom: 10%;">Top des Bàtiment</h3>
-                            <li class="timent_li" style="list-style: none;">
-                                <span class="timent_span">1</span>
-                                <span class="timent_span2">Bàtiment A</span>
-                                6 tickets
-                            </li>
+                           
+                            
+                            ${data?.buildingTickets?.map(a=>(`<p>${a.ticketCount}</p>`))}
+                           
                             <li class="timent_li" style="list-style: none;">
                                 <span class="timent_span">2</span>
                                 <span class="timent_span2">Bàtiment B</span>
