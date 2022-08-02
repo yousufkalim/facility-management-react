@@ -59,7 +59,7 @@ function DashboardScreen() {
     }
 
     if (!attachment) {
-      toast.error('Attachment must be selected.');
+      toast.error('La pièce jointe doit être sélectionnée.');
       return;
     }
 

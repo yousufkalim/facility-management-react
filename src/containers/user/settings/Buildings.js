@@ -5,6 +5,8 @@ import SBDeleteIcon from '../../../assets/SBDeleteIcon.svg';
 import SBEditIcon from '../../../assets/Edit.svg';
 import SBSettingsBuildingIconUnSelected from '../../../assets/SBSettingsBuildingIconUnSelected.svg';
 
+import ConfirmationDialog from '../../../components/modals/ConfirmationDialog'
+
 import Api from '../../../api';
 import { getUser } from '../../../utils/Auth';
 import { hexToRGBA } from '../../../utils/Helpers';
@@ -74,6 +76,7 @@ const Buildings = (props) => {
 };
 
 function BuildingListTile(props) {
+  const [Open, setOpen] = useState(false)
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -93,16 +96,8 @@ function BuildingListTile(props) {
   };
 
   const handleDelete = async () => {
-    let response;
-    try {
-      response = await Api('delete', `/buildings/${props.buildingId}`);
-      if (response.data.success) {
-        toast.success('Building deleted successfully.');
-        await _load();
-      }
-    } catch (e) {
-      console.trace(e);
-    }
+    setOpen(true);
+   
   };
 
   const _load = async () => {
@@ -129,9 +124,29 @@ function BuildingListTile(props) {
       console.trace(e);
     }
   };
+  const onClose = async(status)=>{
+     let response;
+     if(status){
+      try {
+        response = await Api('delete', `/buildings/${props.buildingId}`);
+        if (response.data.success) {
+          toast.success('Building deleted successfully.');
+          await _load();
+          setOpen(false)
+        }
+      } catch (e) {
+        console.trace(e);
+      }
+     }
+   if(!status){
+    setOpen(false)
+   }
+    
+  }
 
   return (
     <div style={{ color: color }} className="parent_container_header">
+      <ConfirmationDialog setOpen={setOpen} Open={Open} onClose={onClose}/>
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">

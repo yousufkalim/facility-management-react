@@ -46,7 +46,6 @@ function RegistrationScreen() {
     if (isProcessing) {
       return;
     }
-
     const isValidated = FormValidations.registration(state);
 
     if (!isValidated) {
@@ -144,6 +143,7 @@ function RegistrationScreen() {
               labelStyle={{
                 lineHeight: '24px',
               }}
+              maxLength="35"
               onChange={(e) => _setState('name_of_company', e.target.value)}
             />
             <div
@@ -168,6 +168,7 @@ function RegistrationScreen() {
                 labelStyle={{
                   lineHeight: '24px',
                 }}
+                maxLength="25"
                 onChange={(e) => _setState('first_name', e.target.value)}
               />
               <CustomInput
@@ -186,6 +187,7 @@ function RegistrationScreen() {
                 labelStyle={{
                   lineHeight: '24px',
                 }}
+                maxLength="25"
                 onChange={(e) => _setState('last_name', e.target.value)}
               />
             </div>
@@ -215,8 +217,9 @@ function RegistrationScreen() {
               />
               <CustomInput
                 labelText={t('Phone Number')}
-                inputType="number"
+                inputType="text"
                 inputName="Phone Number"
+                inputValue={state?.phone}
                 inputPlaceholder="Phone Number"
                 maxLength={13}
                 divStyle={{
@@ -230,7 +233,7 @@ function RegistrationScreen() {
                 labelStyle={{
                   lineHeight: '24px',
                 }}
-                onChange={(e) => _setState('phone', e.target.value)}
+                onChange={(e) => _setState('phone', e.target.value.replace(/[^0-9]/g, ''))}
               />
             </div>
             <div

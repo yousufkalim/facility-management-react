@@ -44,23 +44,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
   const store = Store();
   const updateStore = UpdateStore();
 
-  const _setState = (key, value) => {
-    const obj = {};
-    obj[key] = value;
-    setState({
-      ...state,
-      ...obj,
-    });
-  };
-
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
-    if (!file.type.includes('image')) {
-      toast.error('Only image can be selected');
-      return;
-    }
-    setAttachment(file);
-  };
 
   useEffect(() => {
     if (existingUser) {
@@ -75,6 +58,24 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       });
     }
   }, []);
+
+  const _setState = (key, value) => {
+    const obj = {};
+    obj[key] = value;
+    setState({
+      ...state,
+      ...obj,
+    });
+  };
+  const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    if (!file.type.includes('image')) {
+      toast.error('Only image can be selected');
+      return;
+    }
+    setAttachment(file);
+  };
+ 
 
   useEffect(() => {
     _load();
@@ -92,11 +93,16 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     if (_buildings?.length > 0) {
       obj['building'] = _buildings[0].value;
     }
-
-    setState({
-      ...state,
-      ...obj,
-    });
+    setState((pre)=>{
+       return{
+        ...obj,
+        ...pre,
+       }
+    })
+    //setState({
+      //...state,
+      //...obj,
+    //});
 
     updateStore({
       addUser: {
@@ -144,7 +150,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     }
 
     if (!attachment && !existingUser) {
-      toast.error('Attachment must be selected.');
+      toast.error('La pièce jointe doit être sélectionnée.');
       return;
     }
 
@@ -177,7 +183,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       } else {
         response = await Api('post', '/register_by_admin', body);
       }
-
+        console.log(response,"response")
       if (response?.data?.success) {
         if (attachment) {
           let userID;
@@ -193,13 +199,20 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
           formData.append('ProfileImage', attachment);
 
           await Api('post', '/Users/updateprofile_pic', formData);
-
           setIsAlert(true);
+          setTimeout(() => {
+            setIsAlert(false);
+          }, 3000);
         }
+        if (existingUser){
+        toast.success(response?.data?.message)
+      }
         cb();
+       
       }
     } catch (e) {
       console.trace(e);
+      //toast.error(e?.data?.errorMessage[0]);
     }
 
     setIsProcessing(false);
@@ -250,12 +263,14 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     marginTop: '3%',
                   }}
                 >
+                  { console.log(existingUser,"existingUser<<<<<<<<<<<<<<<<<<<..")}
                   <CustomInput
                     ptext="Prénom"
                     inputType="text"
                     inputName="First Name"
                     inputPlaceholder="First Name"
-                    inputValue={state.first_name}
+                    inputValue={state?.first_name}
+                    maxLength="35"
                     enableYoursStyle={{
                       fontWeight: '400',
                       fontSize: '14px',
@@ -280,6 +295,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     inputType="text"
                     inputName="Last Name"
                     inputPlaceholder="Last Name"
+                    maxLength="35"
                     inputValue={state.last_name}
                     enableYoursStyle={{
                       fontWeight: '400',
@@ -328,7 +344,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 />
                 <CustomInput
                   ptext="Numéro de portable"
-                  inputType="number"
+                  inputType="text"
                   inputName="Phone"
                   inputPlaceholder="Phone"
                   inputValue={state.phone}
@@ -350,7 +366,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   labelStyle={{
                     marginBottom: '8px',
                   }}
-                  onChange={(e) => _setState('phone', e.target.value)}
+                  onChange={(e) => _setState('phone', e.target.value.replace(/[^0-9]/g, ''))}
                 />
                 <div
                   className="Modal_form_screen_row2_row1"

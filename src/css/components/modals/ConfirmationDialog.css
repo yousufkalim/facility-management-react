@@ -1,0 +1,37 @@
+.confirmation_header_text {
+  color: #2f696d;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+}
+.checkbox_text_container p {
+  color: #ff8c39;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 4% 0%;
+}
+
+.btn_container{
+    margin-top: 2%;
+}
+.btn_container>*{
+margin: 0% 1%;
+}
+.btn_container button{
+  padding: 2.5% 7%;
+  border-radius: 20px;
+  background: none;
+  border: 1.5px solid #8c8c8c;
+  color: #8c8c8c;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.btn_container button:hover{
+  color: #f4f4f4;
+  background: #ff8c39;
+  border: none;
+}
