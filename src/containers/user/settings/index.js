@@ -6,6 +6,8 @@ import FooterSVG from '../../../assets/Cornerimage.svg';
 import SBSettingsAccountIconUnSelected from '../../../assets/SBSettingsAccountIconUnSelected.svg';
 import SBSettingsCategoriesIconUnSelected from '../../../assets/SBSettingsCategoriesIconUnSelected.svg';
 import SBSettingsBuildingIconUnSelected from '../../../assets/SBSettingsBuildingIconUnSelected.svg';
+import AccountIconSelected from '../../../assets/AccountIconActive.svg';
+import BuildingsIconSelected from '../../../assets/BuildingsIconActive.svg'
 
 import CustomButton from '../../../components/CustomButton';
 
@@ -23,24 +25,24 @@ import Modal from '@mui/material/Modal';
 
 const svgArrSideBar = [
   {
-    selected: SBSettingsAccountIconUnSelected,
+    selected: AccountIconSelected,
     unselected: SBSettingsAccountIconUnSelected,
     text: 'Account',
   },
   {
-    selected: SBSettingsBuildingIconUnSelected,
+    selected: BuildingsIconSelected,
     unselected: SBSettingsBuildingIconUnSelected,
     text: 'Bâtiments',
   },
   {
-    selected: SBSettingsCategoriesIconUnSelected,
+    selected: BuildingsIconSelected,
     unselected: SBSettingsCategoriesIconUnSelected,
     text: 'Catégories',
   },
 ];
 
 const Settings = () => {
-  const [activeSideBar, setActiveSideBar] = useState('');
+  const [activeSideBar, setActiveSideBar] = useState(0);
   const store = Store();
   const updateStore = UpdateStore();
   const [width] = useWindowSize();
@@ -133,8 +135,8 @@ const Settings = () => {
                 onClick={() => setActiveSideBar(index)}
               >
                 <div style={{ justifyContent: 'space-between' }} className="aic  d-flex w50">
-                  <img className="settings_icon" src={arrData?.unselected} />
-                  <span>{arrData?.text}</span>
+                  <img className="settings_icon" src={activeSideBar===index?arrData?.selected:arrData?.unselected} />
+                  <span style={{color:activeSideBar===index?"#ffffff":"#000000"}} id={index}>{arrData?.text}</span>
                 </div>
               </div>
             ))}

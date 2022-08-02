@@ -194,7 +194,7 @@ console.log(state,"hk");
                   marginRight: '8%',
                   cursor: 'pointer',
                 }}
-                onClick={handleClose}
+                onClick={()=>handleClose()}
               />
             </div>
           </div>
