@@ -20,9 +20,9 @@ const api = async (method = "get", uri, body) => {
           resolve(res);
         } else {
           console.log("API Error --------> ", res);
-          console.log(res?.data?.errorMessage.length,"jd")
+          console.log(res?.data?.errorMessage.length,"jd");
           const errors = Object.values(res?.data?.errors ?? {});
-          const error = errors?.[0]?.[0]?.length > 0  ? errors?.[0]?.[0] :res?.data?.errorMessage.length==1?res?.data?.errorMessage[0]:'Something bad happened';
+          const error = errors?.[0]?.[0]?.length > 0  ? errors?.[0]?.[0] : res?.data?.errorMessage.length==1 ? res?.data?.errorMessage[0] : 'Something bad happened';
           //const error = errors?.[0]?.[0]?.length > 0 ? errors?.[0]?.[0] : "Something bad happened";
           toast.error(error);
           reject(res);

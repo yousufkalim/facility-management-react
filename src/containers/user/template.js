@@ -1,17 +1,6 @@
 export default function createMarkup(data) {
-
-    console.log("data?.buildingTickets",data?.buildingTickets);
-    // const output = data?.buildingTickets?.map((val) => {
-    //     return ` <li class="timent_li" style="list-style: none;">
-    //     <span class="timent_span">${val.ticketCount}</span>
-    //     <span class="timent_span2">${val.buildingName}</span>
-    //     </li>`
-    // });
-    
-    // console.log(output);
   return {
-    __html: 
-    `<!DOCTYPE html>
+    __html: `<!DOCTYPE html>
         <html lang="en">
         
         <head>
@@ -262,7 +251,6 @@ export default function createMarkup(data) {
                         height: 240px !important;
                         overflow: hidden;
                     }
-        
                 }
             </style>
         </head>
@@ -353,24 +341,17 @@ export default function createMarkup(data) {
                     <h2 class="demandes_title" style="padding-bottom: 7%; font-size: 2rem;  padding-left: 30px; padding-top: 20px;
                     ">Top des demandes</h2>
                     <div class="demandes_heading">
-                        <h3 class="demandes_h3" style="color: #91c7c8;">Plus de papier dans <br> L'imprimante</h3>
-                        <p class="demandes_p">22 demandes</p>
+                        <h3 class="demandes_h3" style="color: #91c7c8; margin-bottom: 2%;">Plus de papier dans <br> L'imprimante</h3>
+                        <div class="demandes_heading">
+                        ${data?.categoryTickets
+                          ?.map(
+                            (val) => `
+                            <h3 class="demandes_h3">${val?.categoryName}</h3>
+                            <p class="demandes_p">${val?.ticketsNumbers} demandes</p>
+                              `
+                          )
+                          .join("")}
                     </div>
-                    <div class="demandes_heading">
-                        <h3 class="demandes_h3">Besoin de ménage</h3>
-                        <p class="demandes_p">13 demandes</p>
-                    </div>
-                    <div class="demandes_heading">
-                        <h3 class="demandes_h3">Manque de connectique</h3>
-                        <p class="demandes_p">7 demandes</p>
-                    </div>
-                    <div class="demandes_heading">
-                        <h3 class="demandes_h3">Lumiére en panne</h3>
-                        <p class="demandes_p">3 demandes</p>
-                    </div>
-                    <div class="demandes_heading">
-                        <h3 class="demandes_h3">Plus de gobelet</h3>
-                        <p class="demandes_p">1 demandes</p>
                     </div>
                 </div>
                 <!-- demandes_column2  -->
@@ -379,21 +360,24 @@ export default function createMarkup(data) {
                     <div class="demandes_column2_1"
                         style="display:flex ; justify-content: space-between;align-items: center; background-color: #F0F2F1;">
                         <div class="timent" style=" padding: 00px 0 0px 30px; width: 30%;">
-                            <h3 class="timent_title" style="color: #8CC8C9;padding-bottom: 10%;">Top des Bàtiment</h3>
-                           
-                            
-                            ${data?.buildingTickets?.map(a=>(`<p>${a.ticketCount}</p>`))}
-                           
+                            <h3 class="timent_title" style="color: #8CC8C9;padding: 5% 0%;">Top des Bàtiment</h3>
+                            ${data?.buildingTickets
+                              ?.map(
+                                (val, index) => 
+                                `
                             <li class="timent_li" style="list-style: none;">
-                                <span class="timent_span">2</span>
-                                <span class="timent_span2">Bàtiment B</span>
-                                4 tickets
-                            </li>
-                            <li class="timent_li" style="list-style: none;">
-                                <span class="timent_span">3</span>
-                                <span class="timent_span2">Bàtiment C</span>
-                                4 tickets
-                            </li>
+                            <span class="timent_span">
+                            ${index + 1}
+                            </span>
+                            <span class="timent_span2">${
+                              val.buildingName
+                            }
+                            </span>
+                               ${val.ticketCount} tickets
+                        </li>
+                            `
+                              )
+                              .join("")}
                         </div>
                         <div class="timent2"
                             style="text-align:center; font-size: 50px; width: 70%;display: flex; align-items: center;">
@@ -413,31 +397,21 @@ export default function createMarkup(data) {
                             style="display:flex ; justify-content: space-between;align-items: center; background-color: #F0F2F1;">
                             <div class="timent" style="    padding: 0px 0 0px 30px; width: 30%;">
                                 <h3 class="timent_title" style="color: #8CC8C9;padding-bottom: 10%;">Top des Catégories</h3>
-                                <li class="timent_li" style="list-style: none;">
-                                    <span class="timent_span">1</span>
-                                    <span class="timent_span2">Ménage</span>
-                                    58 tickets
+                                ${data?.categoryTickets
+                                  ?.map(
+                                    (val, index) => `
+                                    <li class="timent_li" style="list-style: none;">
+                                    <span class="timent_span">${
+                                      index + 1
+                                    }</span>
+                                    <span class="timent_span2">${
+                                      val?.categoryName
+                                    }</span>
+                                                  ${val?.ticketsNumbers} tickets
                                 </li>
-                                <li class="timent_li" style="list-style: none;">
-                                    <span class="timent_span">2</span>
-                                    <span class="timent_span2">Électricité</span>
-                                    25 tickets
-                                </li>
-                                <li class="timent_li" style="list-style: none;">
-                                    <span class="timent_span">3</span>
-                                    <span class="timent_span2">IT</span>
-                                    13 tickets
-                                </li>
-                                <li class="timent_li" style="list-style: none;">
-                                    <span class="timent_span">4</span>
-                                    <span class="timent_span2">Climatisation</span>
-                                    11 tickets
-                                </li>
-                                <li class="timent_li" style="list-style: none;">
-                                    <span class="timent_span">5</span>
-                                    <span class="timent_span2">Autre</span>
-                                    11 tickets
-                                </li>
+                                    `
+                                  )
+                                  .join("")}
                             </div>
                             <div class="timent2"
                                 style="text-align:center; font-size: 50px; width: 70%; display: flex; align-items: center;">
@@ -456,31 +430,17 @@ export default function createMarkup(data) {
                     style="display:flex ; justify-content: space-between;align-items: center; background-color: #F0F2F1;">
                     <div class="timent" style=" padding: 30px; width: 40%;">
                         <h3 class="timent_title" style="color: #8CC8C9;padding-bottom: 10%;">Top des Catégories</h3>
-                        <li class="timent_li" style="list-style: none;">
-                            <span class="timent_span">1</span>
-                            <span class="timent_span2">Semaine 2</span>
-                            14 tickets
+                        ${data?.weeklyTickets
+                          ?.map(
+                            (val, index) => `
+                          <li class="timent_li" style="list-style: none;">
+                            <span class="timent_span">${index + 1}</span>
+                            <span class="timent_span2">${val?.weekName}</span>
+                            ${val?.ticketsNumbers} tickets
                         </li>
-                        <li class="timent_li" style="list-style: none;">
-                            <span class="timent_span">2</span>
-                            <span class="timent_span2">Semaine 3</span>
-                            8 tickets
-                        </li>
-                        <li class="timent_li" style="list-style: none;">
-                            <span class="timent_span">3</span>
-                            <span class="timent_span2">Semaine 4</span>
-                            8 tickets
-                        </li>
-                        <li class="timent_li" style="list-style: none;">
-                            <span class="timent_span">4</span>
-                            <span class="timent_span2">Semaine 1</span>
-                            4 tickets
-                        </li>
-                        <li class="timent_li" style="list-style: none;">
-                            <span class="timent_span">5</span>
-                            <span class="timent_span2">Cette semaine</span>
-                            2 tickets
-                        </li>
+                          `
+                          )
+                          .join("")}
                     </div>
                     <div class="timent2"
                         style="text-align:center; font-size: 50px; width: 60%;display: flex; align-items: center;">
@@ -494,6 +454,6 @@ export default function createMarkup(data) {
         
         </body>
         
-        </html>`
+        </html>`,
   };
 }
