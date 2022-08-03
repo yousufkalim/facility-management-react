@@ -117,7 +117,7 @@ function LoginScreen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm_login">Welcome to Facility Management, Please put your login credentials to start!</p>
+          <p className="welcome_note_fm_login">Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !</p>
         </div>
         <div className="login_screen_row2">
           <div
@@ -132,7 +132,7 @@ function LoginScreen() {
                 fontWeight: '400',
                 fontSize: '12px',
               }}
-              labelText={t('Email Address')}
+              labelText={t('Adresse e-mail')}
               inputType="email"
               inputPlaceholder="abc@xyz.com"
               divStyle={{
@@ -152,7 +152,7 @@ function LoginScreen() {
               labelStyle={{
                 lineHeight: '26px',
               }}
-              labelText={t('Password')}
+              labelText={'Mot de passe'}
               inputType="password"
               inputName="Password"
               inputPlaceholder="********"
@@ -169,10 +169,10 @@ function LoginScreen() {
               }}
               onClick={navToForgotPassword}
             >
-              <small>{t('Forgot Password?')}</small>
+              <small>{'Mot de passe oublié?'}</small>
             </div>
             <CustomButton
-              text={t('Login')}
+              text={'Connexion'}
               type="submit"
               style={{
                 marginTop: '5%',
@@ -201,7 +201,7 @@ function LoginScreen() {
                 color: '#FFFFFF',
               }}
             >
-              {t("Don't have an account?")}
+              {`Vous n'avez pas de compte ?`}
             </p>
             <p
               style={{
@@ -209,7 +209,7 @@ function LoginScreen() {
                 color: '#FF8C39',
               }}
             >
-              {t('Register now')}
+              {`S'inscrire maintenant`}
             </p>
           </div>
         </div>

@@ -76,7 +76,7 @@ const tickets = [
   },
 ];
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+const months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
 const buildingColors = ["#00109E", "#9E2600", "#F18200", "#F4F4F4", "#494949", "#00A9B5", "#7B61FF", "#A8A91B"];
 const buildingLevels = [

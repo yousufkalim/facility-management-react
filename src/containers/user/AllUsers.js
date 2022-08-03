@@ -142,6 +142,7 @@ const AllUsers = () => {
   const handleAddUserClose = () => setAddUserOpen(false);
 
   const [building, setBuilding] = useState(null);
+  const [Query, setQuery] = useState("")
 
   useEffect(() => {
     _load();
@@ -232,8 +233,28 @@ const AllUsers = () => {
       console.trace(e);
     }
   };
-
   const [width] = useWindowSize();
+  const handleQuery=(value)=>{
+    setQuery(value.toUpperCase())
+  }
+  const search = (filteredData)=>{
+    console.log(filteredData);
+    console.log(Query,"Query");
+    if(Query){
+      return filteredData?.filter((item)=>
+      item?.firstName?.toLowerCase().includes(Query)
+      ||
+      item?.firstName?.toUpperCase().includes(Query)
+      ||
+      item?.lastName?.toLowerCase().includes(Query)
+      ||
+      item?.lastName?.toUpperCase().includes(Query)
+      )
+   }
+     if(!Query){
+    return filteredData
+     }
+  }
   return (
     <>
       <UXL appBarText="Utilisateurs">
@@ -255,6 +276,7 @@ const AllUsers = () => {
                 <input
                   className="search-msg-input"
                   placeholder="Search by name"
+                  onChange={(e)=>handleQuery(e.target.value)}
                 />
                 <img className="srch-icon" src={SearchSVG} />
               </div>
@@ -274,17 +296,19 @@ const AllUsers = () => {
               </div>
               {activeTabId == 0 ? (
                 <>
-                  {store.allUsers.invitedUsers.map((_) => (
+                  {
+                  search(store?.allUsers?.invitedUsers)?.map((_) => (
                     <UserCard {..._} cb={userTileCB} />
-                  ))}
+                  ))
+                  }
                 </>
               ) : (
                 <></>
               )}
               {activeTabId == 1 ? (
                 <>
-                  {store.allUsers.users.map((_) => (
-                    <UserCard {..._} cb={userTileCB} />
+                  {store?.allUsers?.users?.map((_) => (
+                    <UserCard {...search(_)} cb={userTileCB} />
                   ))}
                 </>
               ) : (
@@ -399,7 +423,7 @@ const AllUsers = () => {
                             Bâtiment accessibles
                           </p>
                           <div className="row">
-                            {store.allUsers.buildings.map((_) => (
+                            {store?.allUsers?.buildings?.map((_) => (
                               <SelectableTag
                                 {..._}
                                 text={_.text}
@@ -424,7 +448,7 @@ const AllUsers = () => {
                           <div
                             style={{ display: 'flex', flexDirection: 'column' }}
                           >
-                            {switches.map((val) => (
+                            {switches?.map((val) => (
                               <>
                                 <div className="tickets_icon_btn_container">
                                   <div style={{ width: '50%' }}>
@@ -482,6 +506,7 @@ const AllUsers = () => {
 
 function UserCard(props) {
   const store = Store();
+  console.log(props,"props");
   return (
     <>
       <div
@@ -508,7 +533,7 @@ function UserCard(props) {
                     : '#494949'
               }}
             >
-              {props.firstName.length>10?props.firstName.slice(0,8)+'...':props.firstName} {props.lastName.length>8?props.lastName.slice(0,8)+'...':props.lastName}
+              {props?.firstName?.length>10?props.firstName.slice(0,8)+'...':props.firstName} {props?.lastName?.length>8?props.lastName.slice(0,8)+'...':props.lastName}
             </span>
             <span
               className="user_designation"

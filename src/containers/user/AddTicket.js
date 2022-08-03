@@ -266,7 +266,7 @@ console.log(state,"hk");
                 >
                   Bâtiment *
                 </p>
-                <div className="row">
+                <div style={{flexWrap:"wrap"}} className="row">
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}

@@ -52,11 +52,11 @@ function ForgotPassword2Screen() {
       return;
     }
 
-    const isValidated = FormValidations.forgotPassword2(state);
+    // const isValidated = FormValidations.forgotPassword2(state);
 
-    if (!isValidated) {
-      return;
-    }
+    // if (!isValidated) {
+    //   return;
+    // }
 
     if (state.password != state.password_re) {
       toast.error('Password and Confirm Password pas le même');
@@ -122,7 +122,7 @@ function ForgotPassword2Screen() {
             >
               Management
             </span>
-            <p className="welcome_note_fm_login">Welcome to Facility Management, Please put your login credentials to start!</p>
+            <p className="welcome_note_fm_login">Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !</p>
           </div>
           <div className="login_screen_row2">
             <div
@@ -139,7 +139,7 @@ function ForgotPassword2Screen() {
                   paddingBottom: '2%',
                 }}
               >
-                Forgot Password
+              Mot de passe oublié
               </p>
               <p
                 style={{
@@ -216,7 +216,7 @@ function ForgotPassword2Screen() {
                   color: '#FFFFFF',
                 }}
               >
-                {t("Don't have an account?")}
+                {t("Vous n'avez pas de compte ?")}
               </p>
               <p
                 style={{
@@ -224,7 +224,7 @@ function ForgotPassword2Screen() {
                   color: '#FF8C39',
                 }}
               >
-                {t('Register now')}
+                {t(`S'inscrire maintenant`)}
               </p>
             </div>
           </div>

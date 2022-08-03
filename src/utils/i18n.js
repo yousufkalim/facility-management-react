@@ -30,6 +30,7 @@ i18n
           "Store Name": "Store Name",
           "Date of Birth": "Date of Birth",
           "Select your gender": "Select your gender",
+          "Send Email":"Send Email"
         },
       },
       fr: {
@@ -53,6 +54,7 @@ i18n
           "Store Name": "Nom du magasin",
           "Date of Birth": "Date de naissance",
           "Select your gender": "Sélectionnez votre sexe",
+          "Send Email":"Envoyer un e-mail"
         },
       },
     },

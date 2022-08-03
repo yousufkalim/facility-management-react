@@ -7,6 +7,7 @@ function SelectableTag({ text, icon, isSelected, onClick, divStyle, imgStyle, pS
         marginRight: "5pt",
         borderRadius: "20px",
         backgroundColor: isSelected ? "#D8ECFF" : "#F4F4F4",
+        marginBottom:"1%",
         ...divStyle,
       }}
       onClick={onClick}
