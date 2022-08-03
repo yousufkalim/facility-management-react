@@ -95,6 +95,7 @@ function DashboardScreen() {
           },
         });
         setState({});
+        setAttachment("")
         handleRenderAddTicket();
       }
     } catch (e) {

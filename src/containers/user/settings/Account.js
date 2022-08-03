@@ -185,6 +185,7 @@ const Account = () => {
         phoneNo: state.phone,
         email: state.email,
         companyName: state.company_name,
+        password:state?.password
       };
 
       response = await Api('put', '/Users/update_admin', body);
@@ -347,6 +348,7 @@ const Account = () => {
                             fontWeight: '600',
                           }}
                           placeholder={state?.passwordChangedStatus?state?.passwordChangedStatus:""}
+                          onChange={(e) => _setState('password', e.target.value)}
                         />
                       </div>
                     </div>

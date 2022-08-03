@@ -144,7 +144,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
       building_level: _buildingLevels[0].value,
     });
   };
-console.log(state,"hk");
   return (
     <>
       {store.addTicket.isLoading ? (

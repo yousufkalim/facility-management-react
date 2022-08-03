@@ -9,6 +9,8 @@ import CommentAttachmentSVG from '../../assets/CommentAttachment.svg';
 import CommentSendSVG from '../../assets/CommentSend.svg';
 import CommentUserSVG from '../../assets/CommentUser.png';
 
+import ReactHtmlParser from 'react-html-parser';
+
 import * as FormValidations from '../../utils/Validations';
 import Api from '../../api';
 import { toast } from 'react-toastify';
@@ -67,6 +69,7 @@ function TicketDetailModal(props) {
   };
 
   const addCommentToState = () => {
+    debugger;
     const now = new Date();
     const utcNow = Date.UTC(
       now.getUTCFullYear(),
@@ -181,7 +184,7 @@ function TicketDetailModal(props) {
                 marginBottom: '1%',
               }}
             >
-              {props.categoryName}
+              {ReactHtmlParser(props.categoryName)}
             </p>
             <p
               style={{
@@ -374,6 +377,7 @@ function TicketDetailModal(props) {
 }
 
 function CustomStepper({ comments }) {
+  console.log(comments,"comments");
   return (
     <div className="column w100 ajc">
       {comments.map((_) => (

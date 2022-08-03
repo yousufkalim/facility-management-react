@@ -1,3 +1,5 @@
+import ReactHtmlParser from 'react-html-parser';
+
 function SelectableTag({ text, icon, isSelected, onClick, divStyle, imgStyle, pStyle }) {
   return (
     <div
@@ -29,7 +31,7 @@ function SelectableTag({ text, icon, isSelected, onClick, divStyle, imgStyle, pS
           ...pStyle,
         }}
       >
-        {text}
+        {ReactHtmlParser(text)}
       </p>
     </div>
   );
