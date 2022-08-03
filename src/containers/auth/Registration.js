@@ -110,7 +110,7 @@ function RegistrationScreen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm">Welcome to Facility Management, Please fill out this form to fresh start!</p>
+          <p className="welcome_note_fm">Bienvenue à Facility Management, veuillez remplir ce formulaire pour un nouveau départ !</p>
         </div>
         <div
           className="reg_screen_row2"
@@ -128,10 +128,10 @@ function RegistrationScreen() {
             // }}
           >
             <CustomInput
-              labelText={t('Name of Company')}
+              labelText={`Nom de l'entreprise`}
               inputType="text"
               inputName="Name of Company"
-              inputPlaceholder="Name of Company"
+              inputPlaceholder={`Nom de l'entreprise`}
               divStyle={{
                 marginBottom: '6%',
               }}
@@ -153,10 +153,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={t('First Name')}
+                labelText={'Prénom'}
                 inputType="text"
                 inputName="First Name"
-                inputPlaceholder="First Name"
+                inputPlaceholder='Prénom'
                 divStyle={{
                   width: '45%',
                 }}
@@ -172,10 +172,10 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('first_name', e.target.value)}
               />
               <CustomInput
-                labelText={t('Last Name')}
+                labelText={'Nom de famille'}
                 inputType="text"
                 inputName="Last Name"
-                inputPlaceholder="Last Name"
+                inputPlaceholder='Nom de famille'
                 divStyle={{
                   width: '45%',
                 }}
@@ -198,10 +198,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={t('Email Address')}
+                labelText={t('Adresse e-mail')}
                 inputType="email"
-                inputName="Email Address"
-                inputPlaceholder="Email Address"
+                inputName="Adresse e-mail"
+                inputPlaceholder="Adresse e-mail"
                 divStyle={{
                   width: '45%',
                 }}
@@ -216,11 +216,11 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('email', e.target.value)}
               />
               <CustomInput
-                labelText={t('Phone Number')}
+                labelText={'Numéro de téléphone'}
                 inputType="text"
                 inputName="Phone Number"
                 inputValue={state?.phone}
-                inputPlaceholder="Phone Number"
+                inputPlaceholder='Numéro de téléphone'
                 maxLength={13}
                 divStyle={{
                   width: '45%',
@@ -243,10 +243,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={t('Password')}
+                labelText={'Mot de passe'}
                 inputType="password"
                 inputName="Password"
-                inputPlaceholder="Password"
+                inputPlaceholder='Mot de passe'
                 enableEyes={true}
                 divStyle={{
                   width: '45%',
@@ -262,10 +262,10 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('password', e.target.value)}
               />
               <CustomInput
-                labelText={t('Confirm Password')}
+                labelText={'Confirmez le mot de passe'}
                 inputType="password"
                 inputName="Confirm Password"
-                inputPlaceholder="Confirm Password"
+                inputPlaceholder='Confirmez le mot de passe'
                 enableEyes={true}
                 divStyle={{
                   width: '45%',
@@ -281,7 +281,7 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('confirm_password', e.target.value)}
               />
             </div>
-            <CustomButton text={t('Register')} onClick={handleSubmit} />
+            <CustomButton text={t(`S'inscrire`)} onClick={handleSubmit} />
           </div>
           <div
             style={{
@@ -301,7 +301,7 @@ function RegistrationScreen() {
                 color: '#ffffff',
               }}
             >
-              {t('Already have an Account ?')}
+              {t('Vous avez déjà un compte ?')}
             </p>
             <p
               style={{
@@ -309,7 +309,7 @@ function RegistrationScreen() {
                 color: '#FF8C39',
               }}
             >
-              {t('Log in Now')}
+              {t('Connecte-toi maintenant')}
             </p>
           </div>
         </div>

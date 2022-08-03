@@ -128,12 +128,14 @@ const Account = () => {
 
   const _load = async () => {
     const _profile = await getProfile();
+    console.log(_profile,"_profile");
     setState({
       first_name: _profile.firstName,
       last_name: _profile.lastName,
       email: _profile.email,
       phone: _profile.phoneNo,
       company_name: _profile.companyName,
+      passwordChangedStatus:_profile?.passwordChangedStatus
     });
     setIsLoading(false);
   };
@@ -344,7 +346,7 @@ const Account = () => {
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
                             fontWeight: '600',
                           }}
-                          placeholder="********"
+                          placeholder={state?.passwordChangedStatus?state?.passwordChangedStatus:""}
                         />
                       </div>
                     </div>

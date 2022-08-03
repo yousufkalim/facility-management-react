@@ -257,6 +257,7 @@ function TicketDetailModal(props) {
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
               {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
+              {props?.employeeName}
             </div>
           </div>
           <div

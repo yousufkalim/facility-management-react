@@ -40,7 +40,7 @@ function CustomInput({
           ...enableYoursStyle,
         }}
       >
-        {ptext ? ptext : 'Enter your'}
+        {ptext ? ptext : 'Entrez votre'}
       </small>
       <label
         htmlFor={labelText}

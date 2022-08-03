@@ -111,7 +111,7 @@ function CategoryListTile(props) {
       setIsProcessing(true);
 
       const body = {
-        categoryId: props.value,
+        categoryId:parseInt(props.value),
         name: text.current,
       };
 

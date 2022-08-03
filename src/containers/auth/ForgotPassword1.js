@@ -107,7 +107,7 @@ function ForgotPassword1Screen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm_login">Welcome to Facility Management, Please put your login credentials to start!</p>
+          <p className="welcome_note_fm_login">Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !</p>
         </div>
         <div className="login_screen_row2">
           <div
@@ -124,7 +124,7 @@ function ForgotPassword1Screen() {
                 paddingBottom: '2%',
               }}
             >
-              Forgot Password
+             Mot de passe oublié
             </p>
             <p
               style={{
@@ -133,7 +133,7 @@ function ForgotPassword1Screen() {
                 paddingBottom: '7%',
               }}
             >
-              Enter your email and we sent your verification code
+         Entrez votre e-mail et nous vous envoyons votre code de vérification
             </p>
             <CustomInput
               enableYoursStyle={{
@@ -141,7 +141,7 @@ function ForgotPassword1Screen() {
                 fontWeight: '400',
                 fontSize: '12px',
               }}
-              labelText={t('Email Address')}
+              labelText={t('Adresse e-mail')}
               inputType="email"
               inputPlaceholder="abc@xyz.com"
               divStyle={{
@@ -153,7 +153,7 @@ function ForgotPassword1Screen() {
               onChange={(e) => _setState('email', e.target.value)}
             />
             <CustomButton
-              text={t('Send Code')}
+              text={'Envoyer un e-mail'}
               type="submit"
               style={{
                 marginTop: '5%',
@@ -182,7 +182,7 @@ function ForgotPassword1Screen() {
                 color: '#FFFFFF',
               }}
             >
-              {t("Don't have an account?")}
+              {t("Vous n'avez pas de compte ?")}
             </p>
             <p
               style={{
@@ -190,7 +190,7 @@ function ForgotPassword1Screen() {
                 color: '#FF8C39',
               }}
             >
-              {t('Register now')}
+              {t(`S'inscrire maintenant`)}
             </p>
           </div>
         </div>
