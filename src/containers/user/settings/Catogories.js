@@ -8,6 +8,9 @@ import CustomButton from '../../../components/CustomButton';
 import Loader from '../../../components/Loader';
 
 import { Store, UpdateStore } from '../../../StoreContext';
+
+import ConfirmationDialog from '../../../components/modals/ConfirmationDialog'
+
 import * as FormValidations from '../../../utils/Validations';
 import Api from '../../../api';
 import { toast } from 'react-toastify';
@@ -83,6 +86,7 @@ function CategoryListTile(props) {
   const updateStore = UpdateStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [toEdit, setToEdit] = useState(false);
+  const [Open, setOpen] = useState(false)
   const text = useRef(props.text);
 
   useEffect(() => {
@@ -142,19 +146,40 @@ function CategoryListTile(props) {
     setIsProcessing(false);
   };
 
+  // const handleDelete = async () => {
+  //   let response;
+  //   try {
+  //     response = await Api('delete', `/category/${props.value}`);
+  //     if (response.data.success) {
+  //       toast.success('Category deleted successfully.');
+  //       await _load();
+  //     }
+  //   } catch (e) {
+  //     console.trace(e);
+  //   }
+  // };
   const handleDelete = async () => {
-    let response;
-    try {
-      response = await Api('delete', `/category/${props.value}`);
-      if (response.data.success) {
-        toast.success('Category deleted successfully.');
-        await _load();
-      }
-    } catch (e) {
-      console.trace(e);
-    }
+    setOpen(true);
   };
-
+  const onClose = async(status)=>{
+    let response;
+    if(status){
+     try {
+       response = await Api('delete', `/category/${props.value}`);
+       if (response.data.success) {
+         toast.success('Building deleted successfully.');
+         await _load();
+         setOpen(false)
+       }
+     } catch (e) {
+       console.trace(e);
+     }
+    }
+  if(!status){
+   setOpen(false)
+  }
+   
+ }
   const _load = async () => {
     const _categories = await getCategories();
 
@@ -185,6 +210,7 @@ function CategoryListTile(props) {
       style={{ background: toEdit ? '#FFFBD8' : '#ffffff', borderBottom: '0.2px solid #8C8C8C', color: '#00109E' }}
       className="parent_container_header"
     >
+       <ConfirmationDialog setOpen={setOpen} Open={Open} onClose={onClose}/>
       <div style={{ width: '94%', padding: '1.2% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex category_edit_delete_container">
           <div style={{ width: '19%' }} className="d-flex">

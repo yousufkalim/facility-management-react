@@ -1,6 +1,7 @@
 import ReactHtmlParser from 'react-html-parser';
 
-function SelectableTag({ text, icon, isSelected, onClick, divStyle, imgStyle, pStyle }) {
+function SelectableTag({ text, color, icon, isSelected, onClick, divStyle, imgStyle, pStyle }) {
+  console.log(text)
   return (
     <div
       className="row ajc"
@@ -8,11 +9,12 @@ function SelectableTag({ text, icon, isSelected, onClick, divStyle, imgStyle, pS
         cursor: "pointer",
         marginRight: "5pt",
         borderRadius: "20px",
-        backgroundColor: isSelected ? "#D8ECFF" : "#F4F4F4",
+        ///backgroundColor: isSelected ? "#D8ECFF" : "#F4F4F4",
+        backgroundColor:color,
         marginBottom:"1%",
         ...divStyle,
       }}
-      onClick={onClick}
+      //onClick={onClick}
     >
       {icon ? (
         <img

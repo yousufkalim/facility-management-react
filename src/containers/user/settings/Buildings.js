@@ -97,7 +97,6 @@ function BuildingListTile(props) {
 
   const handleDelete = async () => {
     setOpen(true);
-   
   };
 
   const _load = async () => {

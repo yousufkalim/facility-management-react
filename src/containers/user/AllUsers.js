@@ -216,6 +216,7 @@ const AllUsers = () => {
     let response;
     try {
       response = await Api('get', `/Users/userprofile/${userID}`);
+      console.log(response,"lres");
       const _users = response.data.data;
       return _users;
     } catch (e) {
@@ -228,6 +229,7 @@ const AllUsers = () => {
     try {
       response = await Api('get', `/buildings/dropdown`);
       const _buildings = response.data.data;
+      console.log(response,"respon");
       return _buildings;
     } catch (e) {
       console.trace(e);
@@ -420,18 +422,30 @@ const AllUsers = () => {
                           >
                             Bâtiment accessibles
                           </p>
-                          <div className="row">
-                            {store?.allUsers?.buildings?.map((_) => (
+                          {console.log(store?.allUsers?.user?.allowedBuildings,"kjhgfd")}
+                          <div style={{flexWrap:"wrap"}} className="row">
+                            {store?.allUsers?.user?.allowedBuildings?.map((_) => (
+                              // <SelectableTag
+                              //   {..._}
+                              //   text={_.text}
+                              //   isSelected={building == _.value}
+                              //   onClick={() => setBuilding(_.value)}
+                              //   pStyle={{
+                              //     padding: '6pt',
+                              //     fontWeight: '600'
+                              //   }}
+                              // />
                               <SelectableTag
-                                {..._}
-                                text={_.text}
-                                isSelected={building == _.value}
-                                onClick={() => setBuilding(_.value)}
-                                pStyle={{
-                                  padding: '6pt',
-                                  fontWeight: '600'
-                                }}
-                              />
+                              {..._}
+                              text={_.name}
+                              color={_.color}
+                              isSelected={building == _.value}
+                              onClick={() => setBuilding(_.value)}
+                              pStyle={{
+                                padding: '6pt',
+                                fontWeight: '600'
+                              }}
+                            />
                             ))}
                           </div>
                           <p
@@ -504,7 +518,6 @@ const AllUsers = () => {
 
 function UserCard(props) {
   const store = Store();
-  console.log(props,"props");
   return (
     <>
       <div

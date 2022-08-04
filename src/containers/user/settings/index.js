@@ -8,6 +8,7 @@ import SBSettingsCategoriesIconUnSelected from '../../../assets/SBSettingsCatego
 import SBSettingsBuildingIconUnSelected from '../../../assets/SBSettingsBuildingIconUnSelected.svg';
 import AccountIconSelected from '../../../assets/AccountIconActive.svg';
 import BuildingsIconSelected from '../../../assets/BuildingsIconActive.svg'
+import CategorySelected from '../../../assets/CategorySelected.svg'
 
 import CustomButton from '../../../components/CustomButton';
 
