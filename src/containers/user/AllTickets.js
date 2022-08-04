@@ -18,6 +18,9 @@ import { Store, UpdateStore } from '../../StoreContext';
 import useWindowSize from '../../utils/WindowSize';
 import { tickets } from '../../utils/Constants';
 
+import ReactHtmlParser from 'react-html-parser';
+
+
 import moment from 'moment';
 
 function AllTickets({ show }) {
@@ -423,7 +426,6 @@ function AllTickets({ show }) {
 
   return (
     <>
-      {console.log(store)}
       {store.allTickets.isLoading ? (
         <div
           className="wh100 column ajc"
@@ -452,7 +454,7 @@ function AllTickets({ show }) {
               }}
             >
               <div
-                className="column ds_ml_container"
+                className="column ds_ml_container scroll"
                 style={{
                   padding: '2% 4%',
                   minHeight: '100vh',
@@ -683,7 +685,7 @@ function TicketListTile(props) {
               color: '#2F696D',
             }}
           >
-            {props.categoryName}
+            {ReactHtmlParser(props.categoryName)}
           </p>
         </div>
         <p
