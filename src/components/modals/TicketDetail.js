@@ -227,16 +227,22 @@ const handleImagesSelect = (e)=>{
           <div
             className="row"
             style={{
-              borderRadius: '20px',
-              backgroundColor: '#D8ECFF',
-              marginRight: '4%',
-              padding: '4%',
+              // borderRadius: '20px',
+              // backgroundColor: '#D8ECFF',
+              // marginRight: '4%',
+              // padding: '4%',
             }}
           >
             <p
               style={{
                 fontSize: '12px',
                 whiteSpace: 'nowrap',
+                borderRadius: '20px',
+                backgroundColor: '#D8ECFF',
+              marginRight: '4%',
+              padding: '10% 35%',
+              fontWeight:"600",
+              color: "#494949"
               }}
             >
               {props.building}
@@ -261,7 +267,16 @@ const handleImagesSelect = (e)=>{
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
               {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
-              {props?.employeeName}
+             <div
+             style={{
+              borderRadius: '20px',
+              backgroundColor: '#F4F4F4',
+              marginRight: '4%',
+              padding: '10% 35%',
+              fontWeight:"600",
+              color: "#494949"
+            }}
+            >  {props?.employeeName} </div>
             </div>
           </div>
           <div

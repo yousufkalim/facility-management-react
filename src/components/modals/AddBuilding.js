@@ -115,6 +115,7 @@ const AddBuilding = ({ cb, handleClose }) => {
         name: title,
         color: color,
         buildingLevels: _parsedLevels,
+         //employeeId:user?.userId
       };
 
       if (existingBuilding) {

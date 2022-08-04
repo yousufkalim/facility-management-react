@@ -11,6 +11,8 @@ import { Store, UpdateStore } from "../../../StoreContext";
 
 import ConfirmationDialog from "../../../components/modals/ConfirmationDialog";
 
+import {getUser} from '../../../utils/Auth'
+
 import * as FormValidations from "../../../utils/Validations";
 import Api from "../../../api";
 import { toast } from "react-toastify";
@@ -274,7 +276,8 @@ function AddCategory(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+     let userData = getUser()
+     console.log(userData?.userId,"a");
     if (isProcessing) {
       return;
     }
@@ -291,6 +294,7 @@ function AddCategory(props) {
 
       const body = {
         name: text.current,
+        //employeeId:userData?.userId
       };
 
       response = await Api("post", "/category", body);
