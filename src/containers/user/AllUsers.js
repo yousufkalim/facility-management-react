@@ -238,8 +238,6 @@ const AllUsers = () => {
     setQuery(value.toUpperCase())
   }
   const search = (filteredData)=>{
-    console.log(filteredData);
-    console.log(Query,"Query");
     if(Query){
       return filteredData?.filter((item)=>
       item?.firstName?.toLowerCase().includes(Query)
@@ -307,8 +305,8 @@ const AllUsers = () => {
               )}
               {activeTabId == 1 ? (
                 <>
-                  {store?.allUsers?.users?.map((_) => (
-                    <UserCard {...search(_)} cb={userTileCB} />
+                  {search(store?.allUsers?.users)?.map((_) => (
+                    <UserCard {..._} cb={userTileCB} />
                   ))}
                 </>
               ) : (
