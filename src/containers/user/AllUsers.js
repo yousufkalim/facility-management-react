@@ -1,70 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 
-import UXL from '../../components/UXL';
+import UXL from "../../components/UXL";
 
-import AddUser from '../../components/modals/AddUser';
+import AddUser from "../../components/modals/AddUser";
 
-import ProfileSVG from '../../assets/DummyUser.jpeg';
-import BadgeSVG from '../../assets/Badge.svg';
-import SearchSVG from '../../assets/Search.svg';
-import FooterSVG from '../../assets/Cornerimage.svg';
-import TicketIcon from '../../assets/TicketIcon.svg';
-import TicketTracking from '../../assets/TicketTracking.svg';
-import AsignTicket from '../../assets/AsignTicket.svg';
-import NewRoundTicket from '../../assets/NewRoundTicket.svg';
-import RoundTrackingTicket from '../../assets/RoundTrackingTicket.svg';
-import EditSVG from '../../assets/Edit.svg';
+import ProfileSVG from "../../assets/DummyUser.jpeg";
+import BadgeSVG from "../../assets/Badge.svg";
+import SearchSVG from "../../assets/Search.svg";
+import FooterSVG from "../../assets/Cornerimage.svg";
+import TicketIcon from "../../assets/TicketIcon.svg";
+import TicketTracking from "../../assets/TicketTracking.svg";
+import AsignTicket from "../../assets/AsignTicket.svg";
+import NewRoundTicket from "../../assets/NewRoundTicket.svg";
+import RoundTrackingTicket from "../../assets/RoundTrackingTicket.svg";
+import EditSVG from "../../assets/Edit.svg";
 
-import CustomButton from '../../components/CustomButton';
-import SelectableTag from '../../components/SelectableTag';
+import CustomButton from "../../components/CustomButton";
+import SelectableTag from "../../components/SelectableTag";
 
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import { styled } from '@mui/material/styles';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import { styled } from "@mui/material/styles";
 
-import * as FormValidations from '../../utils/Validations';
-import Api from '../../api';
-import { toast } from 'react-toastify';
-import { getUser } from '../../utils/Auth';
+import * as FormValidations from "../../utils/Validations";
+import Api from "../../api";
+import { toast } from "react-toastify";
+import { getUser } from "../../utils/Auth";
 
-import { Store, UpdateStore } from '../../StoreContext';
+import { Store, UpdateStore } from "../../StoreContext";
 
-import useWindowSize from '../../utils/WindowSize';
-import Loader from '../../components/Loader';
+import useWindowSize from "../../utils/WindowSize";
+import Loader from "../../components/Loader";
 
 const items = [
   {
     id: 0,
-    text: 'Invitations envoyées'
+    text: "Invitations envoyées",
   },
   {
     id: 1,
-    text: 'Utilisateurs'
-  }
+    text: "Utilisateurs",
+  },
 ];
 const switches = [
   {
     image: TicketIcon,
-    text: 'Nouveau ticket'
+    text: "Nouveau ticket",
   },
   {
     image: TicketTracking,
-    text: 'Suivi de ticket'
+    text: "Suivi de ticket",
   },
   {
     image: AsignTicket,
-    text: 'Assignation à un ticket'
+    text: "Assignation à un ticket",
   },
   {
     image: NewRoundTicket,
-    text: 'Nouvelle ronde'
+    text: "Nouvelle ronde",
   },
   {
     image: RoundTrackingTicket,
-    text: 'Suivi de ronde'
-  }
+    text: "Suivi de ronde",
+  },
 ];
 
 const IOSSwitch = styled((props) => (
@@ -73,49 +73,49 @@ const IOSSwitch = styled((props) => (
   width: 32,
   height: 14,
   padding: 0,
-  '& .MuiSwitch-switchBase': {
+  "& .MuiSwitch-switchBase": {
     padding: 0,
     margin: 2,
-    transitionDuration: '300ms',
-    '&.Mui-checked': {
-      transform: 'translateX(16px)',
-      color: '#fff',
-      '& + .MuiSwitch-track': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#2F696D',
+    transitionDuration: "300ms",
+    "&.Mui-checked": {
+      transform: "translateX(16px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#2F696D",
         opacity: 1,
-        border: 0
+        border: 0,
       },
-      '&.Mui-disabled + .MuiSwitch-track': {
-        opacity: 0.5
-      }
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: 0.5,
+      },
     },
-    '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#33cf4d',
-      border: '6px solid #fff'
+    "&.Mui-focusVisible .MuiSwitch-thumb": {
+      color: "#33cf4d",
+      border: "6px solid #fff",
     },
-    '&.Mui-disabled .MuiSwitch-thumb': {
+    "&.Mui-disabled .MuiSwitch-thumb": {
       color:
-        theme.palette.mode === 'light'
+        theme.palette.mode === "light"
           ? theme.palette.grey[100]
-          : theme.palette.grey[600]
+          : theme.palette.grey[600],
     },
-    '&.Mui-disabled + .MuiSwitch-track': {
-      opacity: theme.palette.mode === 'light' ? 0.7 : 0.3
-    }
+    "&.Mui-disabled + .MuiSwitch-track": {
+      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
+    },
   },
-  '& .MuiSwitch-thumb': {
-    boxSizing: 'border-box',
+  "& .MuiSwitch-thumb": {
+    boxSizing: "border-box",
     width: 10,
-    height: 10
+    height: 10,
   },
-  '& .MuiSwitch-track': {
+  "& .MuiSwitch-track": {
     borderRadius: 26 / 2,
-    backgroundColor: theme.palette.mode === 'light' ? '#494949' : '#39393D',
+    backgroundColor: theme.palette.mode === "light" ? "#494949" : "#39393D",
     opacity: 1,
-    transition: theme.transitions.create(['background-color'], {
-      duration: 500
-    })
-  }
+    transition: theme.transitions.create(["background-color"], {
+      duration: 500,
+    }),
+  },
 }));
 
 const AllUsers = () => {
@@ -125,7 +125,7 @@ const AllUsers = () => {
   const updateStore = UpdateStore();
 
   const [editUser, setEditUser] = useState(null);
-  const [activeTabId, setActiveTabId] = useState('');
+  const [activeTabId, setActiveTabId] = useState("");
   const handleActiveTab = (activetabid) => {
     setActiveTabId(activetabid);
   };
@@ -142,7 +142,7 @@ const AllUsers = () => {
   const handleAddUserClose = () => setAddUserOpen(false);
 
   const [building, setBuilding] = useState(null);
-  const [Query, setQuery] = useState("")
+  const [Query, setQuery] = useState("");
 
   useEffect(() => {
     _load();
@@ -171,8 +171,8 @@ const AllUsers = () => {
         invitedUsers: _invitedUsers,
         user: _user,
         buildings: _buildings,
-        isLoading: false
-      }
+        isLoading: false,
+      },
     });
   };
 
@@ -185,15 +185,15 @@ const AllUsers = () => {
     updateStore({
       allUsers: {
         ...store.allUsers,
-        user: _user
-      }
+        user: _user,
+      },
     });
   };
 
   const getInvitedUsers = async () => {
     let response;
     try {
-      response = await Api('get', `/Users/getNonConfirmedAll/${user.id}`);
+      response = await Api("get", `/Users/getNonConfirmedAll/${user.id}`);
       const _users = response.data.data;
       return _users;
     } catch (e) {
@@ -204,7 +204,7 @@ const AllUsers = () => {
   const getUsers = async () => {
     let response;
     try {
-      response = await Api('get', `/Users/getAll/${user.id}`);
+      response = await Api("get", `/Users/getAll/${user.id}`);
       const _users = response.data.data;
       return _users;
     } catch (e) {
@@ -215,7 +215,8 @@ const AllUsers = () => {
   const getUserInfo = async (userID) => {
     let response;
     try {
-      response = await Api('get', `/Users/userprofile/${userID}`);
+      response = await Api("get", `/Users/userprofile/${userID}`);
+      console.log(response, "lres");
       const _users = response.data.data;
       return _users;
     } catch (e) {
@@ -226,35 +227,32 @@ const AllUsers = () => {
   const getBuildings = async () => {
     let response;
     try {
-      response = await Api('get', `/buildings/dropdown`);
+      response = await Api("get", `/buildings/dropdown`);
       const _buildings = response.data.data;
+      console.log(response, "respon");
       return _buildings;
     } catch (e) {
       console.trace(e);
     }
   };
   const [width] = useWindowSize();
-  const handleQuery=(value)=>{
-    setQuery(value.toUpperCase())
-  }
-  const search = (filteredData)=>{
-    console.log(filteredData);
-    console.log(Query,"Query");
-    if(Query){
-      return filteredData?.filter((item)=>
-      item?.firstName?.toLowerCase().includes(Query)
-      ||
-      item?.firstName?.toUpperCase().includes(Query)
-      ||
-      item?.lastName?.toLowerCase().includes(Query)
-      ||
-      item?.lastName?.toUpperCase().includes(Query)
-      )
-   }
-     if(!Query){
-    return filteredData
-     }
-  }
+  const handleQuery = (value) => {
+    setQuery(value.toUpperCase());
+  };
+  const search = (filteredData) => {
+    if (Query) {
+      return filteredData?.filter(
+        (item) =>
+          item?.firstName?.toLowerCase().includes(Query) ||
+          item?.firstName?.toUpperCase().includes(Query) ||
+          item?.lastName?.toLowerCase().includes(Query) ||
+          item?.lastName?.toUpperCase().includes(Query)
+      );
+    }
+    if (!Query) {
+      return filteredData;
+    }
+  };
   return (
     <>
       <UXL appBarText="Utilisateurs">
@@ -264,11 +262,11 @@ const AllUsers = () => {
           <div
             className="row uxl_children_container"
             style={{
-              justifyContent: 'flex-start',
-              backgroundColor: '#F4F4F4',
-              overflow: 'hidden',
-              width: store?.isSideBar ? '97%' : '100%',
-              paddingLeft: store?.isSideBar && width < 667 ? '10%' : ''
+              justifyContent: "flex-start",
+              backgroundColor: "#F4F4F4",
+              overflow: "hidden",
+              width: store?.isSideBar ? "97%" : "100%",
+              paddingLeft: store?.isSideBar && width < 667 ? "10%" : "",
             }}
           >
             <div className="column ds_ml_container_all_users">
@@ -276,16 +274,16 @@ const AllUsers = () => {
                 <input
                   className="search-msg-input"
                   placeholder="Search by name"
-                  onChange={(e)=>handleQuery(e.target.value)}
+                  onChange={(e) => handleQuery(e.target.value)}
                 />
                 <img className="srch-icon" src={SearchSVG} />
               </div>
               <div className="tab_container">
                 {items?.map((val) => (
                   <p
-                    className={` ${val?.id == activeTabId ? 'active_tab' : ''}`}
+                    className={` ${val?.id == activeTabId ? "active_tab" : ""}`}
                     style={{
-                      cursor: 'pointer'
+                      cursor: "pointer",
                     }}
                     id={val?.id}
                     onClick={() => handleActiveTab(val?.id)}
@@ -296,38 +294,36 @@ const AllUsers = () => {
               </div>
               {activeTabId == 0 ? (
                 <>
-                  {
-                  search(store?.allUsers?.invitedUsers)?.map((_) => (
+                  {search(store?.allUsers?.invitedUsers)?.map((_) => (
                     <UserCard {..._} cb={userTileCB} />
-                  ))
-                  }
+                  ))}
                 </>
               ) : (
                 <></>
               )}
               {activeTabId == 1 ? (
                 <>
-                  {store?.allUsers?.users?.map((_) => (
-                    <UserCard {...search(_)} cb={userTileCB} />
+                  {search(store?.allUsers?.users)?.map((_) => (
+                    <UserCard {..._} cb={userTileCB} />
                   ))}
                 </>
               ) : (
                 <></>
               )}
-              <div style={{ marginTop: '30px' }} />
+              <div style={{ marginTop: "30px" }} />
             </div>
             {!store.allUsers.user ? (
               <></>
             ) : (
               <div className="footer_image_container">
                 <img className="footer_image" src={FooterSVG} />
-                <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
+                <div style={{ width: "100%", height: "100%", marginTop: "3%" }}>
                   <div className="user_profile_info">
                     <div className="form_container">
                       <div className="input_image_container">
                         <img
                           className="input_image"
-                          style={{ borderRadius: '50%' }}
+                          style={{ borderRadius: "50%" }}
                           src={
                             store.allUsers.user.profilePicture
                               ? store.allUsers.user.profilePicture
@@ -338,7 +334,7 @@ const AllUsers = () => {
                       <div className="input_container">
                         <div
                           className="input_row edit_btn_inputs_row"
-                          style={{ width: '100%' }}
+                          style={{ width: "100%" }}
                         >
                           <div className="label_input_container">
                             <label className="row_label">Prénom</label>
@@ -351,19 +347,19 @@ const AllUsers = () => {
                           <div
                             className="row ajc"
                             style={{
-                              height: '60%',
-                              padding: width < 992 ? '8px 5%' : '0 5%',
-                              backgroundColor: '#F4F4F4',
-                              borderRadius: '20px',
-                              cursor: 'pointer'
+                              height: "60%",
+                              padding: width < 992 ? "8px 5%" : "0 5%",
+                              backgroundColor: "#F4F4F4",
+                              borderRadius: "20px",
+                              cursor: "pointer",
                             }}
                             onClick={() => handleAddUserOpen(true)}
                           >
                             <img
                               src={EditSVG}
-                              style={{ height: '30%', paddingRight: '10%' }}
+                              style={{ height: "30%", paddingRight: "10%" }}
                             />
-                            <p style={{ fontSize: '12px' }}>Éditer</p>
+                            <p style={{ fontSize: "12px" }}>Éditer</p>
                           </div>
                         </div>
                         <div className="label_input_container">
@@ -375,7 +371,7 @@ const AllUsers = () => {
                           <input value={store.allUsers.user.phoneNo} />
                         </div>
                         <div
-                          style={{ display: 'flex', width: '65%' }}
+                          style={{ display: "flex", width: "65%" }}
                           className="input_row"
                         >
                           <div className="label_input_container">
@@ -386,7 +382,7 @@ const AllUsers = () => {
                             <label className="row_label">Badge NFC</label>
                             <input
                               value={
-                                store.allUsers.user.badgeNFC ? 'Yes' : 'No'
+                                store.allUsers.user.badgeNFC ? "Yes" : "No"
                               }
                             />
                           </div>
@@ -395,7 +391,7 @@ const AllUsers = () => {
                     </div>
                     <div className="configuration_conatiner">
                       <div>
-                        <span style={{ color: '#2F696D' }}>Configuration</span>
+                        <span style={{ color: "#2F696D" }}>Configuration</span>
                         <p>
                           Attention, la modification d'un des champs ci-dessous
                           peut provoquer la désassignaiton automatique de
@@ -404,8 +400,8 @@ const AllUsers = () => {
                       </div>
                       <div
                         style={{
-                          justifyContent: 'center',
-                          alignItems: 'center'
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                         className="tickets_container"
                       >
@@ -416,42 +412,56 @@ const AllUsers = () => {
                           </p>
                           <p
                             style={{
-                              fontWeight: 'normal',
-                              fontSize: '12px'
+                              fontWeight: "normal",
+                              fontSize: "12px",
                             }}
                           >
                             Bâtiment accessibles
                           </p>
-                          <div className="row">
-                            {store?.allUsers?.buildings?.map((_) => (
-                              <SelectableTag
-                                {..._}
-                                text={_.text}
-                                isSelected={building == _.value}
-                                onClick={() => setBuilding(_.value)}
-                                pStyle={{
-                                  padding: '6pt',
-                                  fontWeight: '600'
-                                }}
-                              />
-                            ))}
+                          <div style={{ flexWrap: "wrap" }} className="row">
+                            {store?.allUsers?.user?.allowedBuildings?.map(
+                              (_) => (
+                                // <SelectableTag
+                                //   {..._}
+                                //   text={_.text}
+                                //   isSelected={building == _.value}
+                                //   onClick={() => setBuilding(_.value)}
+                                //   pStyle={{
+                                //     padding: '6pt',
+                                //     fontWeight: '600'
+                                //   }}
+                                // />
+                                <SelectableTag
+                                  {..._}
+                                  text={_.name}
+                                  color={_.color}
+                                  disabled={true}
+                                  isSelected={building == _.value}
+                                  onClick={() => setBuilding(_.value)}
+                                  pStyle={{
+                                    padding: "6pt",
+                                    fontWeight: "600",
+                                  }}
+                                />
+                              )
+                            )}
                           </div>
                           <p
                             style={{
-                              fontWeight: 'normal',
-                              fontSize: '12px',
-                              marginTop: '1%'
+                              fontWeight: "normal",
+                              fontSize: "12px",
+                              marginTop: "1%",
                             }}
                           >
                             Alertes par mail
                           </p>
                           <div
-                            style={{ display: 'flex', flexDirection: 'column' }}
+                            style={{ display: "flex", flexDirection: "column" }}
                           >
                             {switches?.map((val) => (
                               <>
                                 <div className="tickets_icon_btn_container">
-                                  <div style={{ width: '50%' }}>
+                                  <div style={{ width: "50%" }}>
                                     <img
                                       className="tickets_icon_btn"
                                       src={val?.image}
@@ -494,9 +504,9 @@ const AllUsers = () => {
           text="Ajouter un utilisateur ➕"
           onClick={() => handleAddUserOpen(false)}
           style={{
-            position: 'absolute',
-            right: '20pt',
-            bottom: '20pt'
+            position: "absolute",
+            right: "20pt",
+            bottom: "20pt",
           }}
         />
       </UXL>
@@ -506,15 +516,14 @@ const AllUsers = () => {
 
 function UserCard(props) {
   const store = Store();
-  console.log(props,"props");
   return (
     <>
       <div
         className="user_detail_conatiner"
         style={{
-          cursor: 'pointer',
+          cursor: "pointer",
           backgroundColor:
-            store.allUsers.user.userId == props.userId ? '#2F696D' : '#F4F4F4'
+            store.allUsers.user.userId == props.userId ? "#2F696D" : "#F4F4F4",
         }}
         onClick={() => props.cb(props.userId)}
       >
@@ -529,19 +538,24 @@ function UserCard(props) {
               style={{
                 color:
                   store.allUsers.user.userId == props.userId
-                    ? '#FFFFFF'
-                    : '#494949'
+                    ? "#FFFFFF"
+                    : "#494949",
               }}
             >
-              {props?.firstName?.length>10?props.firstName.slice(0,8)+'...':props.firstName} {props?.lastName?.length>8?props.lastName.slice(0,8)+'...':props.lastName}
+              {props?.firstName?.length > 10
+                ? props.firstName.slice(0, 8) + "..."
+                : props.firstName}{" "}
+              {props?.lastName?.length > 8
+                ? props.lastName.slice(0, 8) + "..."
+                : props.lastName}
             </span>
             <span
               className="user_designation"
               style={{
                 color:
                   store.allUsers.user.userId == props.userId
-                    ? '#FFFFFF'
-                    : '#494949'
+                    ? "#FFFFFF"
+                    : "#494949",
               }}
             >{`${props.businessName}`}</span>
           </div>

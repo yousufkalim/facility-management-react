@@ -69,7 +69,6 @@ function TicketDetailModal(props) {
   };
 
   const addCommentToState = () => {
-    debugger;
     const now = new Date();
     const utcNow = Date.UTC(
       now.getUTCFullYear(),
@@ -94,21 +93,21 @@ function TicketDetailModal(props) {
 
     let ticket;
     let tickets;
-
+   console.log(props.flagStatus, 'props.flagStatus');
     if (props.flagStatus == 4) {
       ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.recentTickets];
     } else if (props.flagStatus == 3) {
-      ticket = store.allTickets.pendingTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
+      ticket = store.allTickets.pendingTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.pendingTickets];
     } else if (props.flagStatus == 2) {
-      ticket = store.allTickets.inProgressTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
+      ticket = store.allTickets.inProgressTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.inProgressTickets];
     } else if (props.flagStatus == 1) {
-      ticket = store.allTickets.completedTickets.filter((__) => __.orderNumber == props.taskTicketId)[0];
+      ticket = store.allTickets.completedTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.completedTickets];
     }
-
+    console.log(ticket,"ticket");
     ticket.comments.push(body);
     const index = tickets.map((_) => _.taskTicketId).indexOf(ticket.taskTicketId);
     tickets[index] = ticket;
@@ -150,7 +149,9 @@ function TicketDetailModal(props) {
 
     setText('');
   };
-
+const handleImagesSelect = (e)=>{
+  console.log(e.target.files[0])
+}
   return (
     <div className="modal_container">
       <div
@@ -226,16 +227,22 @@ function TicketDetailModal(props) {
           <div
             className="row"
             style={{
-              borderRadius: '20px',
-              backgroundColor: '#D8ECFF',
-              marginRight: '4%',
-              padding: '4%',
+              // borderRadius: '20px',
+              // backgroundColor: '#D8ECFF',
+              // marginRight: '4%',
+              // padding: '4%',
             }}
           >
             <p
               style={{
                 fontSize: '12px',
                 whiteSpace: 'nowrap',
+                borderRadius: '20px',
+                backgroundColor: '#D8ECFF',
+              marginRight: '4%',
+              padding: '10% 35%',
+              fontWeight:"600",
+              color: "#494949"
               }}
             >
               {props.building}
@@ -251,7 +258,7 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props.details}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.details?? "NA"}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
@@ -260,7 +267,16 @@ function TicketDetailModal(props) {
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
               {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
-              {props?.employeeName}
+             <div
+             style={{
+              borderRadius: '20px',
+              backgroundColor: '#F4F4F4',
+              marginRight: '4%',
+              padding: '10% 35%',
+              fontWeight:"600",
+              color: "#494949"
+            }}
+            >  {props?.employeeName} </div>
             </div>
           </div>
           <div
@@ -271,7 +287,7 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props.locationDetails}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.locationDetails ?? "NA"}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
@@ -330,6 +346,7 @@ function TicketDetailModal(props) {
             paddingBottom: '10%',
           }}
         >
+          
           <div
             className="wh100"
             style={{
@@ -349,7 +366,17 @@ function TicketDetailModal(props) {
               onChange={(e) => setText(e.target.value)}
             />
             <div className="column ajc appbar_row3_search_img tdm_comment_images_img">
+            <label className="upload-pic-label" htmlFor="imagePicker">
+            <input 
+            type="file"
+            accept=".jpg,.jpeg,.png" 
+            id="imagePicker" 
+            name="file"
+            hidden
+            onChange={(e)=>console.log(e.target.files[0])}
+            />
               <img src={CommentAttachmentSVG} />
+              </label>
             </div>
             <div
               className="column ajc appbar_row3_search_img tdm_comment_images_img"

@@ -183,7 +183,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       } else {
         response = await Api('post', '/register_by_admin', body);
       }
-        console.log(response,"response")
       if (response?.data?.success) {
         if (attachment) {
           let userID;
@@ -202,6 +201,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
           setIsAlert(true);
           setTimeout(() => {
             setIsAlert(false);
+            handleClose()
           }, 3000);
         }
         if (existingUser){
