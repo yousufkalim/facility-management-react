@@ -20,7 +20,6 @@ import { tickets } from '../../utils/Constants';
 
 import ReactHtmlParser from 'react-html-parser';
 
-
 import moment from 'moment';
 
 function AllTickets({ show }) {
@@ -36,8 +35,6 @@ function AllTickets({ show }) {
 
   const _load = async () => {
     const _tickets = await getAllTickets();
-
-    console.log(_tickets, '_tickets');
 
     const _recentTickets = [];
     const _pendingTickets = [];

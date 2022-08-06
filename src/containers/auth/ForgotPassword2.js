@@ -96,7 +96,6 @@ function ForgotPassword2Screen() {
 
   return (
     <>
-      {console.log(state, 'state')}
       <div
         className="container"
         style={{
@@ -122,7 +121,9 @@ function ForgotPassword2Screen() {
             >
               Management
             </span>
-            <p className="welcome_note_fm_login">Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !</p>
+            <p className="welcome_note_fm_login">
+              Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !
+            </p>
           </div>
           <div className="login_screen_row2">
             <div
@@ -139,7 +140,7 @@ function ForgotPassword2Screen() {
                   paddingBottom: '2%',
                 }}
               >
-              Mot de passe oublié
+                Mot de passe oublié
               </p>
               <p
                 style={{

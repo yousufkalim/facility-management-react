@@ -45,14 +45,14 @@ const svgArrTop = [
 ];
 
 const svgArrBottom = [
-  {
-    selected: SBDashboardNotifcationUnSelected,
-    unselected: SBDashboardNotifcationUnSelected,
-  },
-  {
-    selected: SBDashboardInfoUnselected,
-    unselected: SBDashboardInfoUnselected,
-  },
+  // {
+  //   selected: SBDashboardNotifcationUnSelected,
+  //   unselected: SBDashboardNotifcationUnSelected,
+  // },
+  // {
+  //   selected: SBDashboardInfoUnselected,
+  //   unselected: SBDashboardInfoUnselected,
+  // },
   {
     selected: SBDashboardSettingsUnSelected,
     unselected: SBDashboardSettingsUnSelected,
@@ -70,7 +70,7 @@ const handleNavigation = (navigate, index) => {
     case 2:
       navigate('/allusers');
       break;
-    case 5:
+    case 3:
       navigate('/settings');
       break;
     default:
