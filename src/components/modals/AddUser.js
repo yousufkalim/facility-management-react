@@ -35,15 +35,14 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     email: '',
     phone: '',
     enterprise: '',
-    is_badge_nfc: '0',
     building: '',
   });
+
   const [attachment, setAttachment] = useState(null);
   const [isAlert, setIsAlert] = useState(false);
 
   const store = Store();
   const updateStore = UpdateStore();
-
 
   useEffect(() => {
     if (existingUser) {
@@ -52,8 +51,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         last_name: existingUser.lastName,
         email: existingUser.email,
         phone: existingUser.phoneNo,
-        enterprise: existingUser.businessId,
-        is_badge_nfc: existingUser.badgeNFC ? '1' : '0',
+        enterprise: existingUser.enterprise ?? '',
         building: existingUser.allowedBuildings[0]?.buildingId,
       });
     }
@@ -67,6 +65,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       ...obj,
     });
   };
+
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (!file.type.includes('image')) {
@@ -75,39 +74,30 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     }
     setAttachment(file);
   };
- 
 
   useEffect(() => {
     _load();
   }, []);
 
   const _load = async () => {
-    const _enterprises = await getEnterprises();
     const _buildings = await getBuildings();
 
     const obj = {};
-    if (_enterprises?.length > 0) {
-      obj['enterprise'] = _enterprises[0].value;
-    }
 
     if (_buildings?.length > 0) {
       obj['building'] = _buildings[0].value;
     }
-    setState((pre)=>{
-       return{
+
+    setState((pre) => {
+      return {
         ...obj,
         ...pre,
-       }
-    })
-    //setState({
-      //...state,
-      //...obj,
-    //});
+      };
+    });
 
     updateStore({
       addUser: {
         ...store.addUser,
-        enterprises: _enterprises,
         buildings: _buildings,
         isLoading: false,
       },
@@ -120,17 +110,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       response = await Api('get', `/buildings/dropdown`);
       const _buildings = response.data.data;
       return _buildings;
-    } catch (e) {
-      console.trace(e);
-    }
-  };
-
-  const getEnterprises = async () => {
-    let response;
-    try {
-      response = await Api('get', `/business/dropdown`);
-      const _enterprises = response.data.data;
-      return _enterprises;
     } catch (e) {
       console.trace(e);
     }
@@ -166,8 +145,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         email: state.email,
         password: '12345678',
         parentId: user.id,
-        badgeNFC: state.is_badge_nfc == '1' ? true : false,
-        businessId: state.enterprise,
+        enterprise: state.enterprise,
         allowedBuildings: [
           {
             buildingId: state.building,
@@ -201,14 +179,13 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
           setIsAlert(true);
           setTimeout(() => {
             setIsAlert(false);
-            handleClose()
+            handleClose();
           }, 3000);
         }
-        if (existingUser){
-        toast.success(response?.data?.message)
-      }
+        if (existingUser) {
+          toast.success(response?.data?.message);
+        }
         cb();
-       
       }
     } catch (e) {
       console.trace(e);
@@ -220,6 +197,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
   return (
     <>
+      {console.log(state)}
       <Box className="allusers_modal">
         {store.addUser.isLoading ? (
           <Loader />
@@ -263,7 +241,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     marginTop: '3%',
                   }}
                 >
-                  { console.log(existingUser,"existingUser<<<<<<<<<<<<<<<<<<<..")}
                   <CustomInput
                     ptext="Prénom"
                     inputType="text"
@@ -382,28 +359,26 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 >
                   <div className="select_input_container">
                     <label>Entreprise</label>
-                    <select
-                      style={{ marginTop: '6%' }}
-                      className="all_user_select_input"
-                      value={state.enterprise}
+                    <CustomInput
+                      inputValue={state.enterprise}
+                      inputStyle={{
+                        border: ' 2px solid #8C8C8C',
+                        borderRadius: '20px',
+                      }}
+                      enableYoursStyle={{
+                        display: 'none',
+                      }}
+                      labelStyle={{
+                        marginBottom: '8px',
+                      }}
+                      inputType="text"
+                      inputName="Enterprise"
+                      inputPlaceholder="Enterprise"
+                      divStyle={{
+                        marginBottom: '3%',
+                      }}
                       onChange={(e) => _setState('enterprise', e.target.value)}
-                    >
-                      {store.addUser.enterprises.map((_) => (
-                        <option value={_.value}>{_.text}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="select_input_container">
-                    <label>Badge NFC</label>
-                    <select
-                      style={{ marginTop: '6%' }}
-                      className="all_user_select_input"
-                      value={state.is_badge_nfc}
-                      onChange={(e) => _setState('is_badge_nfc', e.target.value)}
-                    >
-                      <option value="1">Yes</option>
-                      <option value="0">No</option>
-                    </select>
+                    />
                   </div>
                 </div>
                 <div style={{ width: '100%' }} className="select_input_container">

@@ -38,14 +38,6 @@ const switches = [
     image: AsignTicket,
     text: 'Assignation à un ticket',
   },
-  {
-    image: NewRoundTicket,
-    text: 'Nouvelle ronde',
-  },
-  {
-    image: RoundTrackingTicket,
-    text: 'Suivi de ronde',
-  },
 ];
 
 const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />)(
@@ -128,14 +120,13 @@ const Account = () => {
 
   const _load = async () => {
     const _profile = await getProfile();
-    console.log(_profile,"_profile");
     setState({
       first_name: _profile.firstName,
       last_name: _profile.lastName,
       email: _profile.email,
       phone: _profile.phoneNo,
       company_name: _profile.companyName,
-      passwordChangedStatus:_profile?.passwordChangedStatus
+      passwordChangedStatus: _profile?.passwordChangedStatus,
     });
     setIsLoading(false);
   };
@@ -185,7 +176,7 @@ const Account = () => {
         phoneNo: state.phone,
         email: state.email,
         companyName: state.company_name,
-        password:state?.password
+        password: state?.password,
       };
 
       response = await Api('put', '/Users/update_admin', body);
@@ -347,7 +338,7 @@ const Account = () => {
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
                             fontWeight: '600',
                           }}
-                          placeholder={state?.passwordChangedStatus?state?.passwordChangedStatus:""}
+                          placeholder={state?.passwordChangedStatus ? state?.passwordChangedStatus : ''}
                           onChange={(e) => _setState('password', e.target.value)}
                         />
                       </div>

@@ -20,10 +20,10 @@ function registration(data) {
     () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
     () => Validators.lengthValidator('Password', data['password'], 8),
     () => Validators.nullValidator('Confirm Password', data['confirm_password']),
-    () => Validators.matchPasswordConfirmPassword('Password', data['password'],'Confirm Password', data['confirm_password']),
-    ()=> Validators.minlengthValidator(`Nom de l'entreprise`, data['name_of_company']),
-    ()=> Validators.minlengthValidator('Prénom', data['first_name']),
-    ()=> Validators.minlengthValidator('Nom de famille', data['last_name'])
+    () => Validators.matchPasswordConfirmPassword('Password', data['password'], 'Confirm Password', data['confirm_password']),
+    () => Validators.minlengthValidator(`Nom de l'entreprise`, data['name_of_company']),
+    () => Validators.minlengthValidator('Prénom', data['first_name']),
+    () => Validators.minlengthValidator('Nom de famille', data['last_name']),
   ];
 
   const validated = formValidator(valFuncArr);
@@ -68,15 +68,14 @@ function addTicket(data) {
 }
 
 function addUser(data) {
+  console.log(data, 'data');
   const valFuncArr = [
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
-    () => Validators.emailValidator('Adresse e-mail', data['email']),
+    () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
     () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
-    () => Validators.selectValidator('Entreprise', data['enterprise']),
+    () => Validators.nullValidator('Entreprise', data['enterprise']),
     () => Validators.nullValidator('bâtiment', data['building']),
-    ()=> Validators.minlengthValidator('Prénom', data['first_name']),
-    ()=> Validators.minlengthValidator('Nom de famille', data['last_name'])
   ];
 
   const validated = formValidator(valFuncArr);
@@ -102,10 +101,9 @@ function updateAdmin(data) {
     () => Validators.nullValidator('Nom de famille', data['last_name']),
     () => Validators.emailValidator('Adresse e-mail', data['email']),
     () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
-    ()=> Validators.minlengthValidator(`Nom de l'entreprise`, data['company_name']),
-    ()=> Validators.minlengthValidator('Prénom', data['first_name']),
-    ()=> Validators.minlengthValidator('Nom de famille', data['last_name'])
-
+    () => Validators.minlengthValidator(`Nom de l'entreprise`, data['company_name']),
+    () => Validators.minlengthValidator('Prénom', data['first_name']),
+    () => Validators.minlengthValidator('Nom de famille', data['last_name']),
   ];
 
   const validated = formValidator(valFuncArr);
