@@ -342,6 +342,7 @@ function AllTickets({ show }) {
 
     ticket = {
       ...ticket,
+      flagStatus: destinationTempArr[0].flagStatus,
       orderNumber: destinationTempArr.length + 1,
     };
 
