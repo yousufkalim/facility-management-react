@@ -93,6 +93,7 @@ function TicketDetailModal(props) {
 
     let ticket;
     let tickets;
+
     if (props.flagStatus == 4) {
       ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.recentTickets];
@@ -106,6 +107,7 @@ function TicketDetailModal(props) {
       ticket = store.allTickets.completedTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.completedTickets];
     }
+
     ticket.comments.push(body);
     const index = tickets.map((_) => _.taskTicketId).indexOf(ticket.taskTicketId);
     tickets[index] = ticket;

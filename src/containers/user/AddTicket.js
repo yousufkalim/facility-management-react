@@ -57,7 +57,10 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    const _buildingLevels = await getBuildingLevels(_buildings[0]);
+    let _buildingLevels = [];
+    if (_buildings.length > 0) {
+      _buildingLevels = await getBuildingLevels(_buildings[0]);
+    }
     const _categories = await getCategories();
     const _assignees = await getAssignees();
 

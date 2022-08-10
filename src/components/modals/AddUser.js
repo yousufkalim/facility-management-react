@@ -161,6 +161,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       } else {
         response = await Api('post', '/register_by_admin', body);
       }
+
       if (response?.data?.success) {
         if (attachment) {
           let userID;

@@ -70,9 +70,7 @@ function DashboardScreen() {
       body.append('PlaceId', state.building_level);
       body.append('LocationDetails', state.location_details);
       body.append('CategoryId', state.category);
-      // body.append("Title", state.title);
       body.append('Details', state.details);
-      // body.append("PriorityId", state.priority);
       if (state.assignee) {
         body.append('EmployeeId', state.assignee);
       }
