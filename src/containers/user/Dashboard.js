@@ -58,11 +58,6 @@ function DashboardScreen() {
       return;
     }
 
-    if (!attachment) {
-      toast.error('La pièce jointe doit être sélectionnée.');
-      return;
-    }
-
     let response;
 
     try {
@@ -95,7 +90,7 @@ function DashboardScreen() {
           },
         });
         setState({});
-        setAttachment("")
+        setAttachment('');
         handleRenderAddTicket();
       }
     } catch (e) {
@@ -135,7 +130,12 @@ function DashboardScreen() {
           setAttachment={setAttachment}
         />
         <CustomButton
-          text={`${!renderAddTicket ? 'Ajouter un ticket ➕' : 'Sauvegarder ✔️'}`}
+          text={`${!renderAddTicket ? 
+            'Ajouter un ticket' : 
+            'Sauvegarder'
+          }`}
+          addicon={!renderAddTicket?true:false}
+          checkicon={renderAddTicket?true:false}
           onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
           style={{
             position: 'absolute',

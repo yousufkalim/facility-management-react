@@ -20,7 +20,6 @@ import { tickets } from '../../utils/Constants';
 
 import ReactHtmlParser from 'react-html-parser';
 
-
 import moment from 'moment';
 
 function AllTickets({ show }) {
@@ -36,8 +35,6 @@ function AllTickets({ show }) {
 
   const _load = async () => {
     const _tickets = await getAllTickets();
-
-    console.log(_tickets, '_tickets');
 
     const _recentTickets = [];
     const _pendingTickets = [];
@@ -490,6 +487,8 @@ function AllTickets({ show }) {
                 className="column ds_sl_header_container"
                 style={{
                   backgroundColor: '#5bd89c',
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
                 <p
@@ -498,7 +497,16 @@ function AllTickets({ show }) {
                     padding: '4% 0',
                   }}
                 >
-                  {`En attente ${store.allTickets.pendingTickets.length}`}
+                  {`En attente `}
+                </p>
+                <p
+                  className="ds_sl_header_text"
+                  style={{
+                    padding: '4% 0',
+                    marginLeft: '10%',
+                  }}
+                >
+                  {store.allTickets.pendingTickets.length}
                 </p>
               </div>
 
@@ -539,6 +547,8 @@ function AllTickets({ show }) {
                 className="column ds_sl_header_container"
                 style={{
                   backgroundColor: '#FF8C39',
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
                 <p
@@ -547,7 +557,16 @@ function AllTickets({ show }) {
                     padding: '4% 0',
                   }}
                 >
-                  {`En intervention ${store.allTickets.inProgressTickets.length}`}
+                  {`En intervention`}
+                </p>
+                <p
+                  className="ds_sl_header_text"
+                  style={{
+                    padding: '4% 0',
+                    marginLeft: '5%',
+                  }}
+                >
+                  {store.allTickets.inProgressTickets.length}
                 </p>
               </div>
               <div
@@ -586,6 +605,8 @@ function AllTickets({ show }) {
                 className="column ds_sl_header_container"
                 style={{
                   backgroundColor: '#436062',
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
                 <p
@@ -594,7 +615,16 @@ function AllTickets({ show }) {
                     padding: '4% 0',
                   }}
                 >
-                  {`Terminé ${store.allTickets.completedTickets.length}`}
+                  {`Terminé`}
+                </p>
+                <p
+                  className="ds_sl_header_text"
+                  style={{
+                    padding: '4% 0',
+                    marginLeft: '8%',
+                  }}
+                >
+                  {store.allTickets.completedTickets.length}
                 </p>
               </div>
               <div
@@ -656,7 +686,7 @@ function TicketListTile(props) {
               borderRadius: '20px',
               backgroundColor: '#D8ECFF',
               marginRight: '2%',
-              padding: '2%',
+              padding: '2% 4%',
             }}
           >
             <p

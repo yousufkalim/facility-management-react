@@ -20,7 +20,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const updateStore = UpdateStore();
 
   const [fillLevel, setFillLevel] = useState(0);
-  const [showMore, setShowMore] = useState(3)
+  const [showMore, setShowMore] = useState(3);
 
   const _setState = (key, value) => {
     const obj = {};
@@ -59,9 +59,11 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    const _buildingLevels = await getBuildingLevels(_buildings[0]);
+    let _buildingLevels = [];
+    if (_buildings.length > 0) {
+      _buildingLevels = await getBuildingLevels(_buildings[0]);
+    }
     const _categories = await getCategories();
-    // const _priorities = await getPriorities();
     const _assignees = await getAssignees();
 
     updateStore({
@@ -70,7 +72,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
         buildings: _buildings,
         buildingLevels: _buildingLevels,
         categories: _categories,
-        // priorities: _priorities,
         assignees: _assignees,
         isLoading: false,
       },
@@ -109,17 +110,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
       console.trace(e);
     }
   };
-
-  // const getPriorities = async () => {
-  //   let response;
-  //   try {
-  //     response = await Api("get", `/priority/dropdown`);
-  //     const _priorities = response.data.data;
-  //     return _priorities;
-  //   } catch (e) {
-  //     console.trace(e);
-  //   }
-  // };
 
   const getAssignees = async () => {
     let response;
@@ -195,11 +185,11 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   marginRight: '8%',
                   cursor: 'pointer',
                 }}
-                onClick={()=>handleClose()}
+                onClick={() => handleClose()}
               />
             </div>
           </div>
-          <div style={{overflow:"scroll"}} className="row wh100">
+          <div style={{ overflow: 'scroll' }} className="row wh100">
             <div
               className="column aic h100"
               style={{
@@ -267,13 +257,16 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Bâtiment *
                 </p>
-                <div style={{flexWrap:"wrap"}} className="row">
+                <div style={{ flexWrap: 'wrap', width: '80%' }} className="row">
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
                       text={_.text}
                       isSelected={state.building == _.value}
-                      onClick={() => {selectBuilding(_); setShowMore(3)}}
+                      onClick={() => {
+                        selectBuilding(_);
+                        setShowMore(3);
+                      }}
                       pStyle={{
                         padding: '10pt 14pt',
                         fontWeight: '600',
@@ -293,8 +286,8 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   >
                     Lieu
                   </p>
-                  <div style={{flexWrap:"wrap", width:"406pt"}} className="row aic">
-                    {store.addTicket.buildingLevels.slice(0,showMore).map((_) => (
+                  <div style={{ flexWrap: 'wrap', width: '406pt' }} className="row aic">
+                    {store.addTicket.buildingLevels.slice(0, showMore).map((_) => (
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
@@ -314,7 +307,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         textDecoration: 'underline',
                         marginLeft: '10%',
                       }}
-                      onClick={()=>setShowMore(store?.addTicket?.buildingLevels?.length)}
+                      onClick={() => setShowMore(store?.addTicket?.buildingLevels?.length)}
                     >
                       Show more
                     </div>
@@ -331,7 +324,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     Détails du lieu
                   </p>
                   <CustomInput
-                    inputValue={state.location_details?state.location_details:""}
+                    inputValue={state.location_details ? state.location_details : ''}
                     onChange={(e) => _setState('location_details', e.target.value)}
                     inputPlaceholder="Donne des détails"
                     divStyle={{
@@ -361,7 +354,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Catégorie *
                 </p>
-                <div className="row">
+                <div style={{ flexWrap: 'wrap' }} className="row">
                   {store.addTicket.categories.map((_) => (
                     <SelectableTag
                       text={_.text}
@@ -412,8 +405,8 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     Détails
                   </p>
                   <textarea
-                    value={state.details?state.details:""}
                     placeholder="Donnez des information supplémentaires sur votre demande"
+                    value={state.details ? state.details : ''}
                     onChange={(e) => _setState('details', e.target.value)}
                     style={{
                       fontSize: '12px',
@@ -425,8 +418,8 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       borderColor: '#8C8C8C',
                       borderStyle: 'solid',
                       borderWidth: '1.5px',
-                      maxWidth:"100%",
-                      resize: "none"
+                      maxWidth: '100%',
+                      resize: 'none',
                     }}
                   />
                 </div>
@@ -438,7 +431,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       paddingBottom: '10pt',
                     }}
                   >
-                    Attachement *
+                    Attachement
                   </p>
                   <div
                     className="row ajc"
@@ -450,7 +443,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     }}
                   >
                     <label>
-                      <input type="file" accept="image/*" hidden id="filePicker" name="file" onChange={handleFileSelect} />
+                      <input type="file" hidden id="filePicker" name="file" onChange={handleFileSelect} />
                       <div className="row ajc">
                         <img
                           src={AttachmentSVG}
@@ -460,40 +453,18 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                             marginRight: '15pt',
                           }}
                         />
-                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${attachment?.name?.length>15?attachment?.name?.slice(0,15)+"...":attachment?.name ?? 'Ajouter pièce jointe'}`}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
+                          attachment?.name?.length > 15
+                            ? attachment?.name?.slice(0, 15) + '...'
+                            : attachment?.name ?? 'Ajouter pièce jointe'
+                        }`}</p>
                       </div>
                     </label>
                   </div>
                 </div>
               </div>
               {/* Section 3 */}
-              <div className="column" style={{ marginBottom: '2%' }}>
-                {/* <p
-                  style={{
-                    fontSize: "13px",
-                    color: "#B7B7B7",
-                    paddingBottom: "10pt",
-                  }}
-                >
-                  Priorité *
-                </p>
-                <div className="row">
-                  {store.addTicket.priorities.map((_) => (
-                    <SelectableTag
-                      {..._}
-                      text={_.text}
-                      isSelected={state.priority == _.value}
-                      onClick={() => _setState("priority", _.value)}
-                      divStyle={{
-                        marginRight: "10pt",
-                      }}
-                      pStyle={{
-                        padding: "6pt",
-                      }}
-                    />
-                  ))}
-                </div> */}
-              </div>
+              <div className="column" style={{ marginBottom: '2%' }}></div>
               <div className="column" style={{ marginBottom: '2%' }}>
                 <p
                   style={{
@@ -504,9 +475,8 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Assignés
                 </p>
-                <div style={{flexWrap:"wrap"}} className="row">
-                  {
-                  store.addTicket.assignees.map((_) => (
+                <div style={{ flexWrap: 'wrap' }} className="row">
+                  {store.addTicket.assignees.map((_) => (
                     <SelectableTag
                       {..._}
                       text={`${_.firstName} ${_.lastName}`}
@@ -521,7 +491,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       }}
                     />
                   ))}
-                    {/* <div
+                  {/* <div
                       style={{
                         whiteSpace: 'nowrap',
                         cursor: 'pointer',

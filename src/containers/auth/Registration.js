@@ -85,15 +85,16 @@ function RegistrationScreen() {
   return (
     <div
       className="container"
-      style={{
-        // background: "#F4F4F4",
-        backgroundImage: 'url(' + LoginBackgroundSVG + ')',
-        backgroundSize: 'cover',
-        backgroundPosition: 'bottom',
-      }}
+      // style={{
+      //   // background: "#F4F4F4",
+      //   backgroundImage: 'url(' + LoginBackgroundSVG + ')',
+      //   backgroundSize: 'cover',
+      //   backgroundPosition: 'bottom',
+      // }}
     >
+      <img style={{height:"100%", width:'100%', position:"absolute"}} src={LoginBackgroundSVG}/>
       <div className="reg_screen_top">
-        <div className="reg_screen_row1">
+        <div  style={{zIndex:"9"}} className="reg_screen_row1">
           <p
             style={{
               fontSize: '34px',
@@ -119,6 +120,7 @@ function RegistrationScreen() {
           //   alignItems: "flex-end",
           //   width: "70%",
           // }}
+          style={{zIndex:"9"}}
         >
           <div
             className="reg_screen_row2_container"

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
+import { useSpring, animated } from 'react-spring';
+
 import Tag from '../Tag';
 
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
@@ -22,7 +24,7 @@ function TicketDetailModal(props) {
   const user = getUser();
   const store = Store();
   const updateStore = UpdateStore();
-
+  const [isLoaded, setLoaded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [text, setText] = useState('');
   const [attachment, setAttachment] = useState(null);
@@ -93,7 +95,6 @@ function TicketDetailModal(props) {
 
     let ticket;
     let tickets;
-   console.log(props.flagStatus, 'props.flagStatus');
     if (props.flagStatus == 4) {
       ticket = store.allTickets.recentTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.recentTickets];
@@ -107,7 +108,6 @@ function TicketDetailModal(props) {
       ticket = store.allTickets.completedTickets.filter((__) => __.taskTicketId == props.taskTicketId)[0];
       tickets = [...store.allTickets.completedTickets];
     }
-    console.log(ticket,"ticket");
     ticket.comments.push(body);
     const index = tickets.map((_) => _.taskTicketId).indexOf(ticket.taskTicketId);
     tickets[index] = ticket;
@@ -149,11 +149,31 @@ function TicketDetailModal(props) {
 
     setText('');
   };
-const handleImagesSelect = (e)=>{
-  console.log(e.target.files[0])
-}
+  // const handleImagesSelect = (e) => {
+  //   console.log(e.target.files[0]);
+  // };
+  //const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
+  const animationProps = useSpring({
+    opacity: 1,
+    delay: 100,
+    reset: isLoaded,
+    transform: 'translateX(0px)',
+    from: {
+      opacity: 0,
+      transform: 'translateX(250px)',
+    },
+  });
   return (
-    <div className="modal_container">
+    <animated.div
+      style={{
+        transform: 'none',
+        top: '0%',
+        height: '100%',
+        borderRadius: '0',
+        ...animationProps,
+      }}
+      className="modal_container"
+    >
       <div
         className="row w100 aic"
         style={{
@@ -226,12 +246,14 @@ const handleImagesSelect = (e)=>{
         >
           <div
             className="row"
-            style={{
-              // borderRadius: '20px',
-              // backgroundColor: '#D8ECFF',
-              // marginRight: '4%',
-              // padding: '4%',
-            }}
+            style={
+              {
+                // borderRadius: '20px',
+                // backgroundColor: '#D8ECFF',
+                // marginRight: '4%',
+                // padding: '4%',
+              }
+            }
           >
             <p
               style={{
@@ -239,10 +261,10 @@ const handleImagesSelect = (e)=>{
                 whiteSpace: 'nowrap',
                 borderRadius: '20px',
                 backgroundColor: '#D8ECFF',
-              marginRight: '4%',
-              padding: '10% 35%',
-              fontWeight:"600",
-              color: "#494949"
+                marginRight: '4%',
+                padding: '10% 35%',
+                fontWeight: '600',
+                color: '#494949',
               }}
             >
               {props.building}
@@ -258,7 +280,9 @@ const handleImagesSelect = (e)=>{
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.details==="undefined"||!props?.details ? "NA":props?.details}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
+                {props?.details === 'undefined' || !props?.details ? 'NA' : props?.details}
+              </p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
@@ -267,18 +291,18 @@ const handleImagesSelect = (e)=>{
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
               {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
-             <div
-             style={{
-              borderRadius: '20px',
-              backgroundColor: '#F4F4F4',
-              marginRight: '4%',
-              padding: '10% 35%',
-              fontWeight:"600",
-              color: "#494949"
-            }}
-            >  
-            {props?.employeeName?props?.employeeName:"NA"} 
-            </div>
+              <div
+                style={{
+                  borderRadius: '20px',
+                  backgroundColor: '#F4F4F4',
+                  marginRight: '4%',
+                  padding: '10% 35%',
+                  fontWeight: '600',
+                  color: '#494949',
+                }}
+              >
+                {props?.employeeName ? props?.employeeName : 'NA'}
+              </div>
             </div>
           </div>
           <div
@@ -289,7 +313,9 @@ const handleImagesSelect = (e)=>{
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.locationDetails=="undefined"||!props?.locationDetails ? "NA":props?.locationDetails}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
+                {props?.locationDetails == 'undefined' || !props?.locationDetails ? 'NA' : props?.locationDetails}
+              </p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
@@ -348,7 +374,6 @@ const handleImagesSelect = (e)=>{
             paddingBottom: '10%',
           }}
         >
-          
           <div
             className="wh100"
             style={{
@@ -368,16 +393,16 @@ const handleImagesSelect = (e)=>{
               onChange={(e) => setText(e.target.value)}
             />
             <div className="column ajc appbar_row3_search_img tdm_comment_images_img">
-            <label className="upload-pic-label" htmlFor="imagePicker">
-            <input 
-            type="file"
-            accept=".jpg,.jpeg,.png" 
-            id="imagePicker" 
-            name="file"
-            hidden
-            onChange={(e)=>console.log(e.target.files[0])}
-            />
-              <img src={CommentAttachmentSVG} />
+              <label className="upload-pic-label" htmlFor="imagePicker">
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png"
+                  id="imagePicker"
+                  name="file"
+                  hidden
+                  onChange={(e) => console.log(e.target.files[0])}
+                />
+                <img src={CommentAttachmentSVG} />
               </label>
             </div>
             <div
@@ -401,12 +426,11 @@ const handleImagesSelect = (e)=>{
           <CustomStepper comments={props.comments} />
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
 
 function CustomStepper({ comments }) {
-  console.log(comments,"comments");
   return (
     <div className="column w100 ajc">
       {comments.map((_) => (

@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName } from './Constants';
+import { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName, acceptedEmailDomains } from './Constants';
 
 function isEmpty(str) {
   return !str || str.length === 0;
@@ -56,6 +56,28 @@ class Validators {
     return null;
   }
 
+  static domainEmailValidator(name, value) {
+    const emailValidation = this.emailValidator(name, value);
+
+    if (emailValidation) {
+      return emailValidation;
+    }
+
+    const domain = value.substring(value.lastIndexOf('@') + 1);
+
+    console.log(domain, 'domain');
+    console.log(acceptedEmailDomains, 'acceptedEmailDomains');
+    console.log(acceptedEmailDomains.includes(domain), 'acceptedEmailDomains.includes(domain)');
+
+    if (!acceptedEmailDomains.includes(domain)) {
+      return `Votre entreprise n’a pas accès à cette plateforme`;
+    }
+
+    console.log(domain, 'domain');
+
+    return null;
+  }
+
   static passwordValidator(name, value) {
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty
@@ -84,16 +106,16 @@ class Validators {
     return null;
   }
 
-  static minlengthValidator(name,value){
-   if(value?.length<4){
-    return `${name} la longueur doit être d'au moins 4`;
-   }
+  static minlengthValidator(name, value) {
+    if (value?.length < 4) {
+      return `${name} la longueur doit être d'au moins 4`;
+    }
   }
- 
-  static matchPasswordConfirmPassword(password,passwordValue,confirmPassword,confirmPasswordValue){
-        if(passwordValue!=confirmPasswordValue){
-         return `${password} et ${confirmPassword} devrait être le même`
-        }
+
+  static matchPasswordConfirmPassword(password, passwordValue, confirmPassword, confirmPasswordValue) {
+    if (passwordValue != confirmPasswordValue) {
+      return `${password} et ${confirmPassword} devrait être le même`;
+    }
   }
 
   static phoneLengthValidator(name, value) {
