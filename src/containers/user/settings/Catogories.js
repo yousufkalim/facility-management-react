@@ -11,7 +11,7 @@ import { Store, UpdateStore } from "../../../StoreContext";
 
 import ConfirmationDialog from "../../../components/modals/ConfirmationDialog";
 
-import {getUser} from '../../../utils/Auth'
+import { getUser } from "../../../utils/Auth";
 
 import * as FormValidations from "../../../utils/Validations";
 import Api from "../../../api";
@@ -276,8 +276,8 @@ function AddCategory(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-     let userData = getUser()
-     console.log(userData?.userId,"a");
+    let userData = getUser();
+    console.log(userData?.userId, "a");
     if (isProcessing) {
       return;
     }

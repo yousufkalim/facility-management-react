@@ -258,7 +258,7 @@ const handleImagesSelect = (e)=>{
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.details?? "NA"}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.details==="undefined"||!props?.details ? "NA":props?.details}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
@@ -276,7 +276,9 @@ const handleImagesSelect = (e)=>{
               fontWeight:"600",
               color: "#494949"
             }}
-            >  {props?.employeeName} </div>
+            >  
+            {props?.employeeName?props?.employeeName:"NA"} 
+            </div>
             </div>
           </div>
           <div
@@ -287,7 +289,7 @@ const handleImagesSelect = (e)=>{
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.locationDetails ?? "NA"}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.locationDetails=="undefined"||!props?.locationDetails ? "NA":props?.locationDetails}</p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>

@@ -126,9 +126,7 @@ const AllUsers = () => {
 
   const [editUser, setEditUser] = useState(null);
   const [activeTabId, setActiveTabId] = useState("");
-  const handleActiveTab = (activetabid) => {
-    setActiveTabId(activetabid);
-  };
+  
 
   const [addUserOpen, setAddUserOpen] = useState(false);
   const handleAddUserOpen = (toEdit) => {
@@ -148,6 +146,12 @@ const AllUsers = () => {
     _load();
   }, []);
 
+  const handleActiveTab = (activetabid) => {
+    setActiveTabId(activetabid);
+    if(activetabid==1){
+      _load()
+    }
+  };
   const _load = async () => {
     const _users = await getUsers();
     const _invitedUsers = await getInvitedUsers();
@@ -286,7 +290,9 @@ const AllUsers = () => {
                       cursor: "pointer",
                     }}
                     id={val?.id}
-                    onClick={() => handleActiveTab(val?.id)}
+                    onClick={() => 
+                      handleActiveTab(val?.id)
+                    }
                   >
                     {val?.text}
                   </p>

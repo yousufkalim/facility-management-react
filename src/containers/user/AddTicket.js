@@ -12,6 +12,7 @@ import Api from '../../api';
 import { getUser } from '../../utils/Auth';
 
 import { Store, UpdateStore } from '../../StoreContext';
+import { maxHeight } from '@mui/system';
 
 function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
   const user = getUser();
@@ -19,6 +20,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const updateStore = UpdateStore();
 
   const [fillLevel, setFillLevel] = useState(0);
+  const [showMore, setShowMore] = useState(3)
 
   const _setState = (key, value) => {
     const obj = {};
@@ -197,7 +199,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               />
             </div>
           </div>
-          <div className="row wh100">
+          <div style={{overflow:"scroll"}} className="row wh100">
             <div
               className="column aic h100"
               style={{
@@ -271,9 +273,9 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       {..._}
                       text={_.text}
                       isSelected={state.building == _.value}
-                      onClick={() => selectBuilding(_)}
+                      onClick={() => {selectBuilding(_); setShowMore(3)}}
                       pStyle={{
-                        padding: '6pt',
+                        padding: '10pt 14pt',
                         fontWeight: '600',
                       }}
                     />
@@ -291,19 +293,19 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   >
                     Lieu
                   </p>
-                  <div className="row aic">
-                    {store.addTicket.buildingLevels.map((_) => (
+                  <div style={{flexWrap:"wrap", width:"406pt"}} className="row aic">
+                    {store.addTicket.buildingLevels.slice(0,showMore).map((_) => (
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
                         onClick={() => _setState('building_level', _.value)}
                         pStyle={{
-                          padding: '6pt',
+                          padding: '10pt 14pt',
                           fontWeight: '600',
                         }}
                       />
                     ))}
-                    <p
+                    <div
                       style={{
                         whiteSpace: 'nowrap',
                         cursor: 'pointer',
@@ -312,9 +314,10 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         textDecoration: 'underline',
                         marginLeft: '10%',
                       }}
+                      onClick={()=>setShowMore(store?.addTicket?.buildingLevels?.length)}
                     >
                       Show more
-                    </p>
+                    </div>
                   </div>
                 </div>
                 <div className="column w100" style={{ marginBottom: '2%', marginLeft: '5%' }}>
@@ -330,6 +333,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   <CustomInput
                     inputValue={state.location_details?state.location_details:""}
                     onChange={(e) => _setState('location_details', e.target.value)}
+                    inputPlaceholder="Donne des détails"
                     divStyle={{
                       width: '40%',
                     }}
@@ -364,7 +368,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       isSelected={state.category == _.value}
                       onClick={() => _setState('category', _.value)}
                       pStyle={{
-                        padding: '6pt',
+                        padding: '10pt 14pt',
                         fontWeight: '600',
                       }}
                     />
@@ -397,7 +401,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 /> */}
               </div>
               <div className="row w100" style={{ marginBottom: '2%' }}>
-                <div className="column" style={{ marginRight: '2%', width: '20%' }}>
+                <div className="column" style={{ marginRight: '2%', width: '40%' }}>
                   <p
                     style={{
                       fontSize: '13px',
@@ -409,17 +413,20 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   </p>
                   <textarea
                     value={state.details?state.details:""}
+                    placeholder="Donnez des information supplémentaires sur votre demande"
                     onChange={(e) => _setState('details', e.target.value)}
                     style={{
                       fontSize: '12px',
-                      height: '60pt',
+                      height: '100pt',
                       width: '100%',
                       padding: '10px',
                       background: 'transparent',
                       borderRadius: '10pt',
-                      borderColor: '#000000',
+                      borderColor: '#8C8C8C',
                       borderStyle: 'solid',
                       borderWidth: '1.5px',
+                      maxWidth:"100%",
+                      resize: "none"
                     }}
                   />
                 </div>
@@ -453,7 +460,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                             marginRight: '15pt',
                           }}
                         />
-                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${attachment?.name ?? 'Ajouter pièce jointe'}`}</p>
+                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${attachment?.name?.length>15?attachment?.name?.slice(0,15)+"...":attachment?.name ?? 'Ajouter pièce jointe'}`}</p>
                       </div>
                     </label>
                   </div>
@@ -497,8 +504,9 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Assignés
                 </p>
-                <div className="row">
-                  {store.addTicket.assignees.map((_) => (
+                <div style={{flexWrap:"wrap"}} className="row">
+                  {
+                  store.addTicket.assignees.map((_) => (
                     <SelectableTag
                       {..._}
                       text={`${_.firstName} ${_.lastName}`}
@@ -508,11 +516,24 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         marginRight: '10pt',
                       }}
                       pStyle={{
-                        padding: '6pt',
+                        padding: '10pt 14pt',
                         fontWeight: '600',
                       }}
                     />
                   ))}
+                    {/* <div
+                      style={{
+                        whiteSpace: 'nowrap',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        color: '#B7B7B7',
+                        textDecoration: 'underline',
+                        marginLeft: '10%',
+                      }}
+                      onClick={()=>setShowMore(store.addTicket.assignees?.length)}
+                    >
+                      Show more
+                    </div> */}
                 </div>
               </div>
             </div>

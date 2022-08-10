@@ -110,7 +110,7 @@ function RegistrationScreen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm">Bienvenue à Facility Management, veuillez remplir ce formulaire pour un nouveau départ !</p>
+          <p className="welcome_note_fm">{t("Welcome to Facility Management, please fill out this form for a fresh start!")}</p>
         </div>
         <div
           className="reg_screen_row2"
@@ -128,10 +128,10 @@ function RegistrationScreen() {
             // }}
           >
             <CustomInput
-              labelText={`Nom de l'entreprise`}
+              labelText={t("Company Name")}
               inputType="text"
               inputName="Name of Company"
-              inputPlaceholder={`Nom de l'entreprise`}
+              inputPlaceholder={t("Company Name")}
               divStyle={{
                 marginBottom: '6%',
               }}
@@ -153,10 +153,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={'Prénom'}
+                labelText={t('First name')}
                 inputType="text"
                 inputName="First Name"
-                inputPlaceholder='Prénom'
+                inputPlaceholder={t('First name')}
                 divStyle={{
                   width: '45%',
                 }}
@@ -172,10 +172,10 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('first_name', e.target.value)}
               />
               <CustomInput
-                labelText={'Nom de famille'}
+                labelText={t('Last name')}
                 inputType="text"
                 inputName="Last Name"
-                inputPlaceholder='Nom de famille'
+                inputPlaceholder={t('Last name')}
                 divStyle={{
                   width: '45%',
                 }}
@@ -198,10 +198,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={t('Adresse e-mail')}
+                labelText={t('E-mail address')}
                 inputType="email"
                 inputName="Adresse e-mail"
-                inputPlaceholder="Adresse e-mail"
+                inputPlaceholder="E-mail address"
                 divStyle={{
                   width: '45%',
                 }}
@@ -216,11 +216,11 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('email', e.target.value)}
               />
               <CustomInput
-                labelText={'Numéro de téléphone'}
+                labelText={t('Phone number')}
                 inputType="text"
                 inputName="Phone Number"
                 inputValue={state?.phone}
-                inputPlaceholder='Numéro de téléphone'
+                inputPlaceholder={t('Phone number')}
                 maxLength={13}
                 divStyle={{
                   width: '45%',
@@ -234,6 +234,7 @@ function RegistrationScreen() {
                   lineHeight: '24px',
                 }}
                 onChange={(e) => _setState('phone', e.target.value.replace(/[^0-9]/g, ''))}
+                //onChange={(e) => _setState('phone', e.target.value.replace(^/d(\.\d)*$, ''))}
               />
             </div>
             <div
@@ -243,10 +244,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={'Mot de passe'}
+                labelText={t("Password")}
                 inputType="password"
                 inputName="Password"
-                inputPlaceholder='Mot de passe'
+                inputPlaceholder={t("Password")}
                 enableEyes={true}
                 divStyle={{
                   width: '45%',
@@ -262,10 +263,10 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('password', e.target.value)}
               />
               <CustomInput
-                labelText={'Confirmez le mot de passe'}
+                labelText={t('Confirm password')}
                 inputType="password"
                 inputName="Confirm Password"
-                inputPlaceholder='Confirmez le mot de passe'
+                inputPlaceholder={t('Confirm password')}
                 enableEyes={true}
                 divStyle={{
                   width: '45%',

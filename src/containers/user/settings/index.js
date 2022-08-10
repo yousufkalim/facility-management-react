@@ -29,7 +29,7 @@ const svgArrSideBar = [
   {
     selected: AccountIconSelected,
     unselected: SBSettingsAccountIconUnSelected,
-    text: "Account",
+    text: "Mon compte",
   },
   {
     selected: BuildingsIconSelected,
@@ -39,7 +39,7 @@ const svgArrSideBar = [
   {
     selected: CategorySelected,
     unselected: CategoryUnSelected,
-    text: "Catégories",
+    text: "Catégorie",
   },
 ];
 
@@ -137,7 +137,7 @@ const Settings = () => {
                 onClick={() => setActiveSideBar(index)}
               >
                 <div
-                  style={{ justifyContent: "space-between" }}
+                  style={{ justifyContent: "space-between", whiteSpace:"nowrap"}}
                   className="aic  d-flex w50"
                 >
                   <img

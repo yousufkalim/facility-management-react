@@ -37,17 +37,17 @@ const ConfirmationDialog = ({ Open, onClose }) => {
                     },
                   }}
                 />
-                <p>Effacer tous les billets et autres détails contre ce bâtiment</p>
+                <p>Supprimer tous les billets et autres détails contre ce bâtiment</p>
               </div>
               <div className="d-flex jcc btn_container">
                 <button
                   onClick={()=>
                     checkBoxStatus
                       ? CloseModal(true)
-                      : toast.error("Veuillez effacer tous les billets et autres détails contre ce bâtiment")
+                      : toast.error("Veuillez Supprimer tous les billets et autres détails contre ce bâtiment")
                   }
                 >
-                  Effacer
+                  Supprimer
                 </button>
                 <button onClick={() => CloseModal(false)}>Annuler</button>
               </div>
