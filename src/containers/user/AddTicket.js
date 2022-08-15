@@ -149,7 +149,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
         </div>
       ) : (
         <div
-          className="column wh100"
+          className="column wh100 addticketbgimage"
           style={{
             display: show ? 'flex' : 'none',
             backgroundColor: '#FFFFFF',

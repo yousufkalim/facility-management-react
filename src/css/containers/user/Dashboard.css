@@ -96,7 +96,30 @@
   background-repeat: no-repeat;
   background-position: 98% 10%;
 }
+
+.addticketbgimage {
+  background: url('../../../assets/cornerimageticket.svg');
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-attachment: fixed;
+  background-size: 20%;
+}
 /* media queries */
+@media only screen and (max-width: 1300px) {
+  .addticketbgimage {
+    background-size: 25%;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .addticketbgimage {
+    background-size: 30%;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .addticketbgimage {
+    background-size: 35%;
+  }
+}
 @media only screen and (max-width: 992px) {
   .uxl_children_container {
     height: auto;

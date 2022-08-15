@@ -92,9 +92,9 @@ function RegistrationScreen() {
       //   backgroundPosition: 'bottom',
       // }}
     >
-      <img style={{height:"100%", width:'100%', position:"absolute"}} src={LoginBackgroundSVG}/>
+      <img style={{ height: '100%', width: '100%', position: 'absolute' }} src={LoginBackgroundSVG} />
       <div className="reg_screen_top">
-        <div  style={{zIndex:"9"}} className="reg_screen_row1">
+        <div style={{ zIndex: '9' }} className="reg_screen_row1">
           <p
             style={{
               fontSize: '34px',
@@ -103,6 +103,7 @@ function RegistrationScreen() {
           >
             Facility
           </p>
+
           <span
             style={{
               fontSize: '24px',
@@ -111,7 +112,7 @@ function RegistrationScreen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm">{t("Welcome to Facility Management, please fill out this form for a fresh start!")}</p>
+          <p className="welcome_note_fm">{t('Welcome to Facility Management, please fill out this form for a fresh start!')}</p>
         </div>
         <div
           className="reg_screen_row2"
@@ -120,7 +121,7 @@ function RegistrationScreen() {
           //   alignItems: "flex-end",
           //   width: "70%",
           // }}
-          style={{zIndex:"9"}}
+          style={{ zIndex: '9' }}
         >
           <div
             className="reg_screen_row2_container"
@@ -130,10 +131,10 @@ function RegistrationScreen() {
             // }}
           >
             <CustomInput
-              labelText={t("Company Name")}
+              labelText={t('Company Name')}
               inputType="text"
               inputName="Name of Company"
-              inputPlaceholder={t("Company Name")}
+              inputPlaceholder={t('Company Name')}
               divStyle={{
                 marginBottom: '6%',
               }}
@@ -246,10 +247,10 @@ function RegistrationScreen() {
               }}
             >
               <CustomInput
-                labelText={t("Password")}
+                labelText={t('Password')}
                 inputType="password"
                 inputName="Password"
-                inputPlaceholder={t("Password")}
+                inputPlaceholder={t('Password')}
                 enableEyes={true}
                 divStyle={{
                   width: '45%',

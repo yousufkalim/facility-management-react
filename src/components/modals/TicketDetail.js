@@ -185,7 +185,7 @@ function TicketDetailModal(props) {
         <div className="row">
           <div
             style={{
-              paddingRight: '10%',
+              paddingRight: '25%',
             }}
           >
             <img
@@ -202,7 +202,7 @@ function TicketDetailModal(props) {
                 fontSize: '14px',
                 fontWeight: '600',
                 color: '#436062',
-                marginBottom: '1%',
+                marginBottom: '10%',
               }}
             >
               {ReactHtmlParser(props.categoryName)}
@@ -341,8 +341,10 @@ function TicketDetailModal(props) {
         </p>
         <p
           style={{
-            fontSize: '12px',
+            fontSize: '15px',
             color: '#494949',
+            width: '70%',
+            lineHeight: '20px',
           }}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ligula nunc, suscipit id vestibulum vel, gravida
@@ -441,7 +443,8 @@ function CustomStepper({ comments }) {
         style={{
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
-          width: '51%',
+          position: 'relative',
+          width: '100%',
         }}
       >
         <div
@@ -450,10 +453,21 @@ function CustomStepper({ comments }) {
             width: '10pt',
             borderRadius: '50%',
             backgroundColor: '#2F696D',
-            marginRight: '10pt',
+            right: '53%',
+            position: 'absolute',
           }}
         />
-        <p style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600' }}>L'administrateur a créé un ticket</p>
+        <p
+          style={{
+            position: 'absolute',
+            fontSize: '12px',
+            color: '#8C8C8C',
+            fontWeight: '600',
+            left: '49%',
+          }}
+        >
+          L'administrateur a créé un ticket
+        </p>
       </div>
     </div>
   );
@@ -469,10 +483,15 @@ function CommentListTile(props) {
     >
       <div className="row ajc w100">
         <div className="column">
-          <p style={{ fontSize: '12px', color: '#8C8C8C' }}>
-            {moment.utc(props.commentDateTime).local().format('LT dddd D,MMM YYYY').length < 35
-              ? moment.utc(props.commentDateTime).local().format('LT dddd D,MMM YYYY')
-              : moment.utc(props.commentDateTime).local().format('LT dddd D,MMM YYYY').slice(0, 32) + '...'}
+          <p style={{ fontSize: '12px', color: '#8C8C8C', marginBottom: '5%' }}>
+            {moment.utc(props.commentDateTime).local().format('dddd D,MMM YYYY').length < 35
+              ? moment.utc(props.commentDateTime).local().format('dddd D,MMM YYYY')
+              : moment.utc(props.commentDateTime).local().format('dddd D,MMM YYYY').slice(0, 32) + '...'}
+          </p>
+          <p style={{ fontSize: '12px', color: '#8C8C8C', textAlign: 'end', width: '100%' }}>
+            {moment.utc(props.commentDateTime).local().format('LT').length < 35
+              ? moment.utc(props.commentDateTime).local().format('LT')
+              : moment.utc(props.commentDateTime).local().format('LT').slice(0, 32) + '...'}
           </p>
         </div>
         <img
@@ -490,7 +509,7 @@ function CommentListTile(props) {
       >
         <div
           style={{
-            height: '90%',
+            height: '100px',
             width: '1px',
             marginRight: '10pt',
             backgroundColor: '#D5D5D5',
