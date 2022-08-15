@@ -4,7 +4,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { toast } from 'react-toastify';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-const ConfirmationDialog = ({ Open, onClose }) => {
+const ConfirmationDialog = ({ Open, onClose, headertext, checkboxtext }) => {
   const [checkBoxStatus, setCheckBoxStatus] = useState(true);
 
   const CloseModal = (status) => {
@@ -23,7 +23,7 @@ const ConfirmationDialog = ({ Open, onClose }) => {
           className="modal_container"
         >
           <div className="circle_container">
-            <p className="d-flex confirmation_header_text">Voulez-vous vraiment supprimer ce bâtiment ?</p>
+            <p className="d-flex confirmation_header_text">{headertext}</p>
             <div>
               <div className="d-flex checkbox_text_container">
                 <Checkbox
@@ -37,7 +37,7 @@ const ConfirmationDialog = ({ Open, onClose }) => {
                     },
                   }}
                 />
-                <p>Effacer tous les billets et autres détails contre ce bâtiment</p>
+                <p>{checkboxtext}</p>
               </div>
               <div className="d-flex jcc btn_container">
                 <button

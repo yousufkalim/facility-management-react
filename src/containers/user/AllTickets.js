@@ -443,7 +443,6 @@ function AllTickets({ show }) {
               width: store?.isSideBar ? '97%' : '100%',
             }}
           >
-            {/* <img style={{ zIndex: '0' }} className="footer_image" src={FooterSVG} /> */}
             {/* DragDrop Global Context */}
 
             <DragDropContext onDragEnd={onDragEnd}>

@@ -144,7 +144,13 @@ function BuildingListTile(props) {
 
   return (
     <div style={{ color: color }} className="parent_container_header">
-      <ConfirmationDialog setOpen={setOpen} Open={Open} onClose={onClose} />
+      <ConfirmationDialog
+        checkboxtext="Effacer tous les billets et autres détails contre ce bâtiment"
+        headertext="Voulez-vous vraiment supprimer ce bâtiment ?"
+        setOpen={setOpen}
+        Open={Open}
+        onClose={onClose}
+      />
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">
