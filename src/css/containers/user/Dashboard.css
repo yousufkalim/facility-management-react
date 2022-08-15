@@ -31,7 +31,6 @@
 .ds_sl_container {
   width: 23.8vw;
   height: 100%;
-  background-color: #f4f4f4;
 }
 
 .ds_sl_header_container {
@@ -93,6 +92,9 @@
   position: relative;
   background-color: #f4f4f4;
   position: fixed;
+  background-image: url('../../../assets/Cornerimage.svg');
+  background-repeat: no-repeat;
+  background-position: 98% 10%;
 }
 /* media queries */
 @media only screen and (max-width: 992px) {

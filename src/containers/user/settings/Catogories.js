@@ -215,7 +215,13 @@ function CategoryListTile(props) {
       }}
       className="parent_container_header"
     >
-      <ConfirmationDialog setOpen={setOpen} Open={Open} onClose={onClose} />
+      <ConfirmationDialog
+        checkboxtext="Effacer tous les billets et autres détails contre ce Catégorie"
+        headertext="Voulez-vous vraiment supprimer ce Catégorie ?"
+        setOpen={setOpen}
+        Open={Open}
+        onClose={onClose}
+      />
       <div style={{ width: '94%', padding: '1.2% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex category_edit_delete_container">
           <div style={{ width: '19%' }} className="d-flex">

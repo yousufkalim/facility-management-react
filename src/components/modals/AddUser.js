@@ -45,18 +45,6 @@ const MenuProps = {
     },
   },
 };
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
 
 function getStyles(name, personName, theme) {
   return {
@@ -271,9 +259,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
     setIsProcessing(false);
   };
-  console.log(store.addUser.buildings, 'store.addUser.buildings');
-  console.log(personName, 'personName');
-  console.log(existingUser?.allowedBuildings, 'existingUser?.allowedBuildings');
   return (
     <>
       <Box className="allusers_modal">
