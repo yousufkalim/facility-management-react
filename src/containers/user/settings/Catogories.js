@@ -259,7 +259,9 @@ function AddCategory(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     let userData = getUser();
+
     if (isProcessing) {
       return;
     }
@@ -276,7 +278,6 @@ function AddCategory(props) {
 
       const body = {
         name: text.current,
-        //employeeId:userData?.userId
       };
 
       response = await Api('post', '/category', body);

@@ -8,6 +8,7 @@ import ForgotPassword2Screen from '../containers/auth/ForgotPassword2';
 // User Screens
 import DashboardScreen from '../containers/user/Dashboard';
 import StatisticsScreen from '../containers/user/Statistics';
+import StatisticsReportScreen from '../containers/user/StatisticsReport';
 import AllUsersScreen from '../containers/user/AllUsers';
 import SettingsScreen from '../containers/user/settings';
 
@@ -88,6 +89,12 @@ const UserRoutes = [
     name: 'Statistics',
     icon: <LoginIcon />,
     element: StatisticsScreen,
+  },
+  {
+    path: '/statistics_report',
+    name: 'StatisticsReport',
+    icon: <LoginIcon />,
+    element: StatisticsReportScreen,
   },
   {
     path: '/settings',
