@@ -8,6 +8,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Loader from '../../components/Loader';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import CustomAlert from '../../components/modals/CustomAlert';
 
 import LoginBackgroundSVG from '../../assets/LoginBackground.png';
 
@@ -22,6 +23,7 @@ function ForgotPassword2Screen() {
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [renderAlert, setRenderAlert] = useState(false);
   const [state, setState] = useState({
     password: '',
     password_re: '',
@@ -76,8 +78,11 @@ function ForgotPassword2Screen() {
 
       response = await Api('put', '/Users/update_user_profile/ChangePassword', body);
       if (response?.data?.success) {
-        toast.success('Email Sent.');
-        navToLogin();
+        setRenderAlert(true);
+        setTimeout(() => {
+          setRenderAlert(false);
+          navToLogin();
+        }, 2000);
       }
     } catch (e) {
       console.trace(e);
@@ -96,6 +101,13 @@ function ForgotPassword2Screen() {
 
   return (
     <>
+      {renderAlert ? (
+        <>
+          <CustomAlert text="Password Set Successfully!" />
+        </>
+      ) : (
+        <></>
+      )}
       <div
         className="container"
         style={{

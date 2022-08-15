@@ -30,7 +30,20 @@ i18n
           "Store Name": "Store Name",
           "Date of Birth": "Date of Birth",
           "Select your gender": "Select your gender",
-          "Send Email":"Send Email"
+          "Send Email":"Send Email",
+          "You do not have an account?":"You do not have an account?",
+          "Register now":"Register now",
+         "Forgot your password?":"Forgot your password?",
+         "Password":"Password",
+         "E-mail address":"E-mail address",
+         "Welcome to Facility Management, please enter your login credentials to get started!":"Welcome to Facility Management, please enter your login credentials to get started!",
+         "Login":"Login",
+         "Welcome to Facility Management, please fill out this form for a fresh start!":"Welcome to Facility Management, please fill out this form for a fresh start!",
+        "Company Name":"Company Name",
+        "First name":"First name",
+        "Last name":"Last name",
+        "Phone number":"Phone number",
+        "Confirm password":"Confirmez le mot de passe"
         },
       },
       fr: {
@@ -54,13 +67,26 @@ i18n
           "Store Name": "Nom du magasin",
           "Date of Birth": "Date de naissance",
           "Select your gender": "Sélectionnez votre sexe",
-          "Send Email":"Envoyer un e-mail"
+          "Send Email":"Envoyer un e-mail",
+          "You do not have an account?":"Vous n'avez pas de compte ?",
+          "Register now":"S'inscrire maintenant",
+         "Forgot your password?":"Mot de passe oublié?",
+         "Password":"Mot de passe",
+         "E-mail address":"Adresse e-mail",
+         "Welcome to Facility Management, please enter your login credentials to get started!":"Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !",
+         "Login":"connexion",
+          "Welcome to Facility Management, please fill out this form for a fresh start!":"Bienvenue à Facility Management, veuillez remplir ce formulaire pour un nouveau départ !",
+          "Company Name":"Nom de l'entreprise",
+          "First name":"Prénom",
+          "Last name":"Nom de famille",
+          "Phone number":"Numéro de téléphone",
+          "Confirm password":"Confirmez le mot de passe"
         },
       },
     },
 
-    lng: "en", // default language
-    fallbackLng: "en",
+    lng: "fr", // default language
+    fallbackLng: "fr",
     debug: true,
 
     // have a common namespace used around the full app

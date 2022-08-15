@@ -53,13 +53,14 @@ function forgotPassword2(data) {
 // forgotPassword1
 
 function addTicket(data) {
+  console.log(data);
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
     () => Validators.selectValidator('Category', data['category']),
     // () => Validators.nullValidator("Title", data["title"]),
     // () => Validators.selectValidator("Priority", data["priority"]),
-    // () => Validators.selectValidator("Assignee", data["assignee"]),
+    () => Validators.selectValidator('Assignee', data['assignee']),
   ];
 
   const validated = formValidator(valFuncArr);

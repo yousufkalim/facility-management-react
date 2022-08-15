@@ -6,20 +6,20 @@
   text-align: center;
 }
 .checkbox_text_container p {
-  color: #ff8c39;
+  color: #ff5d39;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
   padding: 4% 0%;
 }
 
-.btn_container{
-    margin-top: 2%;
+.btn_container {
+  margin-top: 2%;
 }
-.btn_container>*{
-margin: 0% 1%;
+.btn_container > * {
+  margin: 0% 1%;
 }
-.btn_container button{
+.btn_container button {
   padding: 2.5% 7%;
   border-radius: 20px;
   background: none;
@@ -30,8 +30,8 @@ margin: 0% 1%;
   line-height: 27px;
 }
 
-.btn_container button:hover{
+.btn_container button:hover {
   color: #f4f4f4;
-  background: #ff8c39;
+  background: #ff5d39;
   border: none;
 }

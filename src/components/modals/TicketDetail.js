@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
+import { useSpring, animated } from 'react-spring';
+
 import Tag from '../Tag';
 
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
@@ -22,7 +24,7 @@ function TicketDetailModal(props) {
   const user = getUser();
   const store = Store();
   const updateStore = UpdateStore();
-
+  const [isLoaded, setLoaded] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [text, setText] = useState('');
   const [attachment, setAttachment] = useState(null);
@@ -149,11 +151,31 @@ function TicketDetailModal(props) {
 
     setText('');
   };
-  const handleImagesSelect = (e) => {
-    console.log(e.target.files[0]);
-  };
+  // const handleImagesSelect = (e) => {
+  //   console.log(e.target.files[0]);
+  // };
+  //const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
+  const animationProps = useSpring({
+    opacity: 1,
+    delay: 100,
+    reset: isLoaded,
+    transform: 'translateX(0px)',
+    from: {
+      opacity: 0,
+      transform: 'translateX(250px)',
+    },
+  });
   return (
-    <div className="modal_container">
+    <animated.div
+      style={{
+        transform: 'none',
+        top: '0%',
+        height: '100%',
+        borderRadius: '0',
+        ...animationProps,
+      }}
+      className="modal_container"
+    >
       <div
         className="row w100 aic"
         style={{
@@ -260,7 +282,9 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.details ?? 'NA'}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
+                {props?.details === 'undefined' || !props?.details ? 'NA' : props?.details}
+              </p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
@@ -279,8 +303,7 @@ function TicketDetailModal(props) {
                   color: '#494949',
                 }}
               >
-                {' '}
-                {props?.employeeName}{' '}
+                {props?.employeeName ? props?.employeeName : 'NA'}
               </div>
             </div>
           </div>
@@ -292,7 +315,9 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>{props?.locationDetails ?? 'NA'}</p>
+              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
+                {props?.locationDetails == 'undefined' || !props?.locationDetails ? 'NA' : props?.locationDetails}
+              </p>
             </div>
             {/* <div className="column" style={{ marginBottom: "10%" }}>
               <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
@@ -403,7 +428,7 @@ function TicketDetailModal(props) {
           <CustomStepper comments={props.comments} />
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
 

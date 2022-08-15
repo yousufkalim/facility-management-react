@@ -66,12 +66,12 @@ function LoginScreen() {
         const token = response.data.token;
         const user = {
           id: response.data.userId,
+          roleSerial: response.data.roleSerial,
         };
+        console.log(response, 'response');
         await handleLogin(token, user);
         navToDashboard();
       }
-
-      console.log(state);
     } catch (e) {
       console.trace(e);
     }
@@ -117,7 +117,9 @@ function LoginScreen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm_login">Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !</p>
+          <p className="welcome_note_fm_login">
+            {t('Welcome to Facility Management, please enter your login credentials to get started!')}
+          </p>
         </div>
         <div className="login_screen_row2">
           <div
@@ -132,7 +134,7 @@ function LoginScreen() {
                 fontWeight: '400',
                 fontSize: '12px',
               }}
-              labelText={t('Adresse e-mail')}
+              labelText={t('E-mail address')}
               inputType="email"
               inputPlaceholder="abc@xyz.com"
               divStyle={{
@@ -152,7 +154,7 @@ function LoginScreen() {
               labelStyle={{
                 lineHeight: '26px',
               }}
-              labelText={'Mot de passe'}
+              labelText={t('Password')}
               inputType="password"
               inputName="Password"
               inputPlaceholder="********"
@@ -169,14 +171,14 @@ function LoginScreen() {
               }}
               onClick={navToForgotPassword}
             >
-              <small>{'Mot de passe oublié?'}</small>
+              <small>{t('Forgot your password?')}</small>
             </div>
             <CustomButton
-              text={'Connexion'}
+              text={t('Login')}
               type="submit"
               style={{
                 marginTop: '5%',
-                fontSize: '20px',
+                fontSize: '18px',
                 padding: '2% 6%',
                 borderRadius: '18px',
               }}
@@ -201,7 +203,7 @@ function LoginScreen() {
                 color: '#FFFFFF',
               }}
             >
-              {`Vous n'avez pas de compte ?`}
+              {t('You do not have an account?')}
             </p>
             <p
               style={{
@@ -209,7 +211,7 @@ function LoginScreen() {
                 color: '#FF8C39',
               }}
             >
-              {`S'inscrire maintenant`}
+              {t('Register now')}
             </p>
           </div>
         </div>

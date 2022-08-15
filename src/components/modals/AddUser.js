@@ -2,6 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Chip from '@mui/material/Chip';
+import DoneIcon from '@mui/icons-material/Done';
+
+import Avatar from '@mui/material/Avatar';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 import CustomButton from '../CustomButton';
 import CustomInput from '../CustomInput';
@@ -9,6 +21,7 @@ import Loader from '../../components/Loader';
 import CustomAlert from '../../components/modals/CustomAlert';
 
 import ProfileInputSVG from '../../assets/ProfileInput.svg';
+import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
 
 import { useTranslation } from 'react-i18next';
 import EditProfileIcon from '../../assets/Edit.svg';
@@ -22,10 +35,48 @@ import { getUser } from '../../utils/Auth';
 
 import { Store, UpdateStore } from '../../StoreContext';
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight: personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
+  };
+}
+
 const AddUser = ({ existingUser, cb, handleClose }) => {
+  const [personName, setPersonName] = React.useState([]);
+  const theme = useTheme();
   const { t } = useTranslation();
   const [width] = useWindowSize();
-
+  const useStyles = makeStyles((theme) => ({
+    inputRoot: {
+      '& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input': {
+        padding: '10px',
+      },
+    },
+  }));
+  const classes = useStyles();
   const user = getUser();
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -46,6 +97,9 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
   useEffect(() => {
     if (existingUser) {
+      let existingdataarr = [];
+      existingUser?.allowedBuildings?.map((_) => existingdataarr.push(_?.name));
+      setPersonName(existingdataarr);
       setState({
         first_name: existingUser.firstName,
         last_name: existingUser.lastName,
@@ -65,7 +119,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       ...obj,
     });
   };
-
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (!file.type.includes('image')) {
@@ -115,9 +168,32 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     }
   };
 
+  const handleChange = (event) => {
+    console.log(event, 'event');
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value
+    );
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    let listwithmatchingdata = store.addUser.buildings.filter(function (word) {
+      return personName.includes(word?.text);
+    });
+    let allowedbuildings = listwithmatchingdata.map((_) => {
+      return { buildingId: _?.value };
+    });
+    setState((pre) => {
+      return {
+        ...pre,
+        building: allowedbuildings,
+      };
+    });
     if (isProcessing) {
       return;
     }
@@ -146,11 +222,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         password: '12345678',
         parentId: user.id,
         enterprise: state.enterprise,
-        allowedBuildings: [
-          {
-            buildingId: state.building,
-          },
-        ],
+        allowedBuildings: allowedbuildings,
       };
 
       if (existingUser) {
@@ -184,7 +256,12 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
           }, 3000);
         }
         if (existingUser) {
-          toast.success(response?.data?.message);
+          setIsAlert(true);
+          setTimeout(() => {
+            setIsAlert(false);
+            handleClose();
+          }, 3000);
+          //toast.success(response?.data?.message);
         }
         cb();
       }
@@ -195,10 +272,11 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
     setIsProcessing(false);
   };
-
+  console.log(store.addUser.buildings, 'store.addUser.buildings');
+  console.log(personName, 'personName');
+  console.log(existingUser?.allowedBuildings, 'existingUser?.allowedBuildings');
   return (
     <>
-      {console.log(state)}
       <Box className="allusers_modal">
         {store.addUser.isLoading ? (
           <Loader />
@@ -384,7 +462,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                 </div>
                 <div style={{ width: '100%' }} className="select_input_container">
                   <label>Bâtiments accessibles</label>
-                  <select
+                  {/* <select
                     className="all_user_select_input"
                     value={state.building}
                     onChange={(e) => _setState('building', e.target.value)}
@@ -392,7 +470,57 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     {store.addUser.buildings.map((_) => (
                       <option value={_.value}>{_.text}</option>
                     ))}
-                  </select>
+                  </select> */}
+                  <FormControl sx={{ mt: 2, width: 500 }}>
+                    {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
+                    <Select
+                      sx={{
+                        border: '2px solid #8C8C8C',
+                        borderRadius: '20px',
+                      }}
+                      labelId="demo-multiple-chip-label"
+                      id="demo-multiple-chip"
+                      multiple
+                      value={personName}
+                      onChange={handleChange}
+                      input={<OutlinedInput className={classes.inputRoot} id="select-multiple-chip" label="Chip" />}
+                      renderValue={(selected) => (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: 0.2,
+                          }}
+                        >
+                          {console.log(selected, 'selected')}
+                          {selected.map((value) => (
+                            <Chip
+                              // key={value}
+                              label={value}
+                              avatar={
+                                <Avatar
+                                  sx={{
+                                    padding: ' 4% 4%',
+                                    width: '10px',
+                                    height: '10px',
+                                  }}
+                                  alt="batiments"
+                                  src={SBSettingsBuildingIconUnSelected}
+                                />
+                              }
+                            />
+                          ))}
+                        </Box>
+                      )}
+                      MenuProps={MenuProps}
+                    >
+                      {store.addUser.buildings.map((name) => (
+                        <MenuItem key={name?.value} value={name?.text} style={getStyles(name, personName, theme)}>
+                          {name?.text}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </div>
                 <div
                   className="Modal_form_screen_row2_row1"

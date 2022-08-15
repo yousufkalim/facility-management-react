@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import AllTicketsScreen from './AllTickets';
 import AddTicketScreen from './AddTicket';
+import CustomAlertCross from '../../components/modals/CustomAlertCross';
 
 import UXL from '../../components/UXL';
 import CustomButton from '../../components/CustomButton';
+import FooterSVG from '../../assets/Cornerimage.svg';
 
 import * as FormValidations from '../../utils/Validations';
 import Api from '../../api';
@@ -21,8 +23,22 @@ function DashboardScreen() {
   const user = getUser();
 
   const [renderAddTicket, setRenderAddTicket] = useState(false);
+  const [customAlert, setCustomAlert] = useState(false);
   const handleRenderAddTicket = () => {
-    setRenderAddTicket(!renderAddTicket);
+    if (
+      store.addTicket.buildings.length > 0 ||
+      user?.roleSerial == 1 ||
+      (store.addTicket.buildings.length > 0 && user?.roleSerial == 2)
+    ) {
+      setRenderAddTicket(!renderAddTicket);
+    }
+    if (store.addTicket.buildings.length == 0 && user?.roleSerial == 2) {
+      setCustomAlert(true);
+    }
+
+    // setTimeout(() => {
+    //   setCustomAlert(false);
+    // }, 2000);
   };
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -108,9 +124,18 @@ function DashboardScreen() {
       console.trace(e);
     }
   };
-
   return (
     <>
+      {customAlert ? (
+        <CustomAlertCross
+          setCustomAlert={setCustomAlert}
+          renderAddTicket={renderAddTicket}
+          setRenderAddTicket={setRenderAddTicket}
+          text="l'utilisateur ne peut pas créer de ticket tant que l'administrateur n'a pas attribué de bâtiment à votre profil"
+        />
+      ) : (
+        <> </>
+      )}
       <UXL
         appBarText="Dashboard"
         innerMostDivStyle={{
@@ -125,10 +150,13 @@ function DashboardScreen() {
           state={state}
           setState={setState}
           attachment={attachment}
+          setCustomAlert={setCustomAlert}
           setAttachment={setAttachment}
         />
         <CustomButton
-          text={`${!renderAddTicket ? 'Ajouter un ticket ➕' : 'Sauvegarder ✔️'}`}
+          text={`${!renderAddTicket ? 'Ajouter un ticket' : 'Sauvegarder'}`}
+          addicon={!renderAddTicket ? true : false}
+          checkicon={renderAddTicket ? true : false}
           onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
           style={{
             position: 'absolute',
