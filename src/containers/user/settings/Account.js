@@ -25,11 +25,21 @@ import Api from '../../../api';
 import { toast } from 'react-toastify';
 import { getUser } from '../../../utils/Auth';
 
-const switches = [
+const switchesAdmin = [
   {
     image: TicketIcon,
     text: 'Nouveau ticket',
   },
+  {
+    image: TicketTracking,
+    text: 'Suivi de ticket',
+  },
+  {
+    image: AsignTicket,
+    text: 'Assignation à un ticket',
+  },
+];
+const switchesUser = [
   {
     image: TicketTracking,
     text: 'Suivi de ticket',
@@ -88,7 +98,7 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
   })
 );
 
-const Account = () => {
+const Account = ({ userInfo }) => {
   const store = Store();
   const updateStore = UpdateStore();
   const user = getUser();
@@ -208,7 +218,7 @@ const Account = () => {
         >
           <div
             style={{
-              width: width < 992 ? '100%' : '82%',
+              width: width < 992 || userInfo?.roleSerial == 2 ? '100%' : '82%',
             }}
             className="footer_image_container"
           >
@@ -216,7 +226,7 @@ const Account = () => {
             <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
               <div
                 style={{
-                  width: width < 575 ? '100%' : '90%',
+                  width: width < 575 || userInfo?.roleSerial == 2 ? '95%' : '90%',
                 }}
                 className="user_profile_info"
               >
@@ -378,24 +388,47 @@ const Account = () => {
                     <div className="tickets-status_container">
                       <p> Rôle</p>
                       <p className="responsable-span" style={{}}>
-                        Admin
+                        {userInfo?.roleSerial == 1 ? 'Admin' : 'User'}
                       </p>
                       <p>Alertes par mail</p>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {switches.map((val) => (
-                          <>
-                            <div className="tickets_icon_btn_container">
-                              <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={val?.image} />
-                                <span className="tickets_icon_btn_span">{val?.text}</span>
+                      {userInfo?.roleSerial == 1 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          {switchesAdmin.map((val) => (
+                            <>
+                              <div className="tickets_icon_btn_container">
+                                <div style={{ width: '50%' }}>
+                                  <img className="tickets_icon_btn" src={val?.image} />
+                                  <span className="tickets_icon_btn_span">{val?.text}</span>
+                                </div>
+                                <div>
+                                  <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
+                                </div>
                               </div>
-                              <div>
-                                <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
+                            </>
+                          ))}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      {userInfo?.roleSerial == 2 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          {switchesUser.map((val) => (
+                            <>
+                              <div className="tickets_icon_btn_container">
+                                <div style={{ width: '50%' }}>
+                                  <img className="tickets_icon_btn" src={val?.image} />
+                                  <span className="tickets_icon_btn_span">{val?.text}</span>
+                                </div>
+                                <div>
+                                  <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
+                                </div>
                               </div>
-                            </div>
-                          </>
-                        ))}
-                      </div>
+                            </>
+                          ))}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>

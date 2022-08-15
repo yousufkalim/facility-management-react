@@ -66,12 +66,12 @@ function LoginScreen() {
         const token = response.data.token;
         const user = {
           id: response.data.userId,
+          roleSerial: response.data.roleSerial,
         };
+        console.log(response, 'response');
         await handleLogin(token, user);
         navToDashboard();
       }
-
-      console.log(state);
     } catch (e) {
       console.trace(e);
     }
@@ -117,7 +117,9 @@ function LoginScreen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm_login">{t("Welcome to Facility Management, please enter your login credentials to get started!")}</p>
+          <p className="welcome_note_fm_login">
+            {t('Welcome to Facility Management, please enter your login credentials to get started!')}
+          </p>
         </div>
         <div className="login_screen_row2">
           <div
@@ -176,7 +178,7 @@ function LoginScreen() {
               type="submit"
               style={{
                 marginTop: '5%',
-                fontSize: '20px',
+                fontSize: '18px',
                 padding: '2% 6%',
                 borderRadius: '18px',
               }}
@@ -201,7 +203,7 @@ function LoginScreen() {
                 color: '#FFFFFF',
               }}
             >
-              {t("You do not have an account?")}
+              {t('You do not have an account?')}
             </p>
             <p
               style={{
@@ -209,7 +211,7 @@ function LoginScreen() {
                 color: '#FF8C39',
               }}
             >
-              {t("Register now")}
+              {t('Register now')}
             </p>
           </div>
         </div>

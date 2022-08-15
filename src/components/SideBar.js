@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,8 @@ import SBStatisticsSelectedSVG from '../assets/SBStatisticsSelected.svg';
 import SBStatisticsUnselectedSVG from '../assets/SBStatisticsUnselected.svg';
 import SBEmployeesSelectedSVG from '../assets/SBEmployeesSelected.svg';
 import SBEmployeesUnselectedSVG from '../assets/SBEmployeesUnselected.svg';
+import AccountIconSelected from '../assets/AccountIconActive.svg';
+import SBSettingsAccountIconUnSelected from '../assets/SBSettingsAccountIconUnSelected.svg';
 import SBSignalSelectedSVG from '../assets/SBSignalSelected.svg';
 import SBSignalUnselectedSVG from '../assets/SBSignalUnselected.svg';
 import SBEventsSelectedSVG from '../assets/SBEventsSelected.svg';
@@ -17,11 +19,13 @@ import SBDashboardNotifcationUnSelected from '../assets/SBDashboardNotifcationUn
 import SBDashboardInfoUnselected from '../assets/SBDashboardInfoUnselected.svg';
 import SBDashboardSettingsUnSelected from '../assets/SBDashboardSettingsUnSelected.svg';
 
+import { getUser } from '../utils/Auth';
+
 import { Store, UpdateStore } from '../StoreContext';
 
 import { useSpring, animated } from 'react-spring';
 
-const svgArrTop = [
+let svgArrTop = [
   {
     selected: SBDashboardSelectedSVG,
     unselected: SBDashboardUnselectedSVG,
@@ -43,8 +47,20 @@ const svgArrTop = [
   //   unselected: SBEventsUnselectedSVG,
   // },
 ];
+/////array for user
+let svgArrTopUser = [
+  {
+    selected: SBDashboardSelectedSVG,
+    unselected: SBDashboardUnselectedSVG,
+  },
+  {
+    selected: SBSettingsAccountIconUnSelected,
+    unselected: AccountIconSelected,
+  },
+];
+////
 
-const svgArrBottom = [
+let svgArrBottom = [
   // {
   //   selected: SBDashboardNotifcationUnSelected,
   //   unselected: SBDashboardNotifcationUnSelected,
@@ -58,6 +74,9 @@ const svgArrBottom = [
     unselected: SBDashboardSettingsUnSelected,
   },
 ];
+/////array for user
+let svgArrBottomUser = [];
+///////
 
 const handleNavigation = (navigate, index) => {
   switch (index) {
@@ -77,7 +96,19 @@ const handleNavigation = (navigate, index) => {
       break;
   }
 };
-
+/////////
+const handleNavigationUser = (navigate, index) => {
+  switch (index) {
+    case 0:
+      navigate('/dashboard');
+      break;
+    case 1:
+      navigate('/settings');
+      break;
+    default:
+      break;
+  }
+};
 function SideBar({ color, sticky = true, divStyle }) {
   const navigate = useNavigate();
 
@@ -85,7 +116,7 @@ function SideBar({ color, sticky = true, divStyle }) {
   const updateStore = UpdateStore();
 
   const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
-
+  const userInfo = getUser();
   return (
     <animated.div
       className="sidebar_container"
@@ -96,38 +127,88 @@ function SideBar({ color, sticky = true, divStyle }) {
         ...animationProps,
       }}
     >
-      <div className="sidebar_top">
-        <div className="sidebar_column1">
-          {svgArrTop.map((_, __) => (
-            <SideBarMenuItem
-              imgObj={_}
-              isSelected={__ == store.sideBarSelectIndex}
-              cb={() => {
-                updateStore({
-                  sideBarSelectIndex: __,
-                });
-                handleNavigation(navigate, __);
-              }}
-            />
-          ))}
+      {userInfo?.roleSerial == 1 ? (
+        <div className="sidebar_top">
+          <div className="sidebar_column1">
+            {svgArrTop.map((_, __) => (
+              <SideBarMenuItem
+                imgObj={_}
+                isSelected={__ == store.sideBarSelectIndex}
+                cb={() => {
+                  updateStore({
+                    sideBarSelectIndex: __,
+                  });
+                  handleNavigation(navigate, __);
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="sidebar_top">
-        <div className="sidebar_column1">
-          {svgArrBottom.map((_, __) => (
-            <SideBarMenuItem
-              imgObj={_}
-              isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
-              cb={() => {
-                updateStore({
-                  sideBarSelectIndex: __ + svgArrTop.length,
-                });
-                handleNavigation(navigate, __ + svgArrTop.length);
-              }}
-            />
-          ))}
+      ) : (
+        <></>
+      )}
+
+      {userInfo?.roleSerial == 2 ? (
+        <div className="sidebar_top">
+          <div className="sidebar_column1">
+            {svgArrTopUser.map((_, __) => (
+              <SideBarMenuItem
+                imgObj={_}
+                isSelected={__ == store.sideBarSelectIndex}
+                cb={() => {
+                  updateStore({
+                    sideBarSelectIndex: __,
+                  });
+                  handleNavigationUser(navigate, __);
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
+
+      {userInfo?.roleSerial == 1 ? (
+        <div className="sidebar_top">
+          <div className="sidebar_column1">
+            {svgArrBottom.map((_, __) => (
+              <SideBarMenuItem
+                imgObj={_}
+                isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
+                cb={() => {
+                  updateStore({
+                    sideBarSelectIndex: __ + svgArrTop.length,
+                  });
+                  handleNavigation(navigate, __ + svgArrTop.length);
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      {userInfo?.roleSerial == 2 ? (
+        <div className="sidebar_top">
+          <div className="sidebar_column1">
+            {svgArrBottomUser.map((_, __) => (
+              <SideBarMenuItem
+                imgObj={_}
+                isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
+                cb={() => {
+                  updateStore({
+                    sideBarSelectIndex: __ + svgArrTop.length,
+                  });
+                  handleNavigation(navigate, __ + svgArrTop.length);
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </animated.div>
   );
 }

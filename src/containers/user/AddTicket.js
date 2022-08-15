@@ -14,7 +14,7 @@ import { getUser } from '../../utils/Auth';
 import { Store, UpdateStore } from '../../StoreContext';
 import { maxHeight } from '@mui/system';
 
-function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment }) {
+function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment, setCustomAlert }) {
   const user = getUser();
   const store = Store();
   const updateStore = UpdateStore();
@@ -185,7 +185,10 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   marginRight: '8%',
                   cursor: 'pointer',
                 }}
-                onClick={() => handleClose()}
+                onClick={() => {
+                  handleClose();
+                  setCustomAlert(false);
+                }}
               />
             </div>
           </div>
@@ -257,7 +260,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Bâtiment *
                 </p>
-                <div style={{ flexWrap: 'wrap', width: '80%' }} className="row">
+                <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
@@ -298,19 +301,27 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         }}
                       />
                     ))}
-                    <div
-                      style={{
-                        whiteSpace: 'nowrap',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        color: '#B7B7B7',
-                        textDecoration: 'underline',
-                        marginLeft: '10%',
-                      }}
-                      onClick={() => setShowMore(store?.addTicket?.buildingLevels?.length)}
-                    >
-                      Show more
-                    </div>
+                    {store?.addTicket?.buildingLevels?.length > 3 ? (
+                      <div
+                        style={{
+                          whiteSpace: 'nowrap',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                          color: '#B7B7B7',
+                          textDecoration: 'underline',
+                          marginLeft: '10%',
+                        }}
+                        onClick={() => {
+                          if (store?.addTicket?.buildingLevels?.length > 3) {
+                            setShowMore(store?.addTicket?.buildingLevels?.length);
+                          }
+                        }}
+                      >
+                        Show more
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
                 <div className="column w100" style={{ marginBottom: '2%', marginLeft: '5%' }}>
