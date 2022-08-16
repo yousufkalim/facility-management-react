@@ -329,6 +329,7 @@ function AllTickets({ show }) {
     } else {
       throw 'Tsar Bomba 3 💣';
     }
+
     if (destinationDroppableId == '0') {
       destinationTempArr = [...store.allTickets.recentTickets];
     } else if (destinationDroppableId == '1') {
@@ -343,7 +344,7 @@ function AllTickets({ show }) {
 
     ticket = {
       ...ticket,
-      flagStatus: destinationTempArr[0].flagStatus,
+      flagStatus: 4 - destinationDroppableId,
       orderNumber: destinationTempArr.length + 1,
     };
 
@@ -385,6 +386,10 @@ function AllTickets({ show }) {
   };
 
   const onDragEnd = async (_) => {
+    if (user.roleSerial == 2) {
+      // Do nothing.
+      return;
+    }
     const sourceTicket = _findDraggedTicket(_.source);
     const destinationTicket = _findDraggedTicket(_.destination);
     // Handle reoder

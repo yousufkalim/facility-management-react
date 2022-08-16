@@ -18,6 +18,7 @@ import EditSVG from '../../assets/Edit.svg';
 
 import CustomButton from '../../components/CustomButton';
 import SelectableTag from '../../components/SelectableTag';
+import Loader from '../../components/Loader';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -31,7 +32,8 @@ import { getUser } from '../../utils/Auth';
 import { Store, UpdateStore } from '../../StoreContext';
 
 import useWindowSize from '../../utils/WindowSize';
-import Loader from '../../components/Loader';
+
+import { useTranslation } from 'react-i18next';
 
 const items = [
   {
@@ -108,6 +110,7 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
 
 const AllUsers = () => {
   const user = getUser();
+  const { t } = useTranslation();
 
   const store = Store();
   const updateStore = UpdateStore();
@@ -242,9 +245,10 @@ const AllUsers = () => {
       return filteredData;
     }
   };
+
   return (
     <>
-      <UXL appBarText="Utilisateurs">
+      <UXL appBarText={t('Users')}>
         {store.allUsers.isLoading ? (
           <Loader />
         ) : (

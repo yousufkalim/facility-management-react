@@ -83,15 +83,7 @@ function RegistrationScreen() {
   };
 
   return (
-    <div
-      className="container"
-      // style={{
-      //   // background: "#F4F4F4",
-      //   backgroundImage: 'url(' + LoginBackgroundSVG + ')',
-      //   backgroundSize: 'cover',
-      //   backgroundPosition: 'bottom',
-      // }}
-    >
+    <div className="container">
       <img style={{ height: '100%', width: '100%', position: 'absolute' }} src={LoginBackgroundSVG} />
       <div className="reg_screen_top">
         <div style={{ zIndex: '9' }} className="reg_screen_row1">
@@ -114,22 +106,8 @@ function RegistrationScreen() {
           </span>
           <p className="welcome_note_fm">{t('Welcome to Facility Management, please fill out this form for a fresh start!')}</p>
         </div>
-        <div
-          className="reg_screen_row2"
-          // style={{
-          //   justifyContent: "flex-end",
-          //   alignItems: "flex-end",
-          //   width: "70%",
-          // }}
-          style={{ zIndex: '9' }}
-        >
-          <div
-            className="reg_screen_row2_container"
-            // style={{
-            //   marginBottom: "10%",
-            //   width: "70%",
-            // }}
-          >
+        <div className="reg_screen_row2" style={{ zIndex: '9' }}>
+          <div className="reg_screen_row2_container">
             <CustomInput
               labelText={t('Company Name')}
               inputType="text"
@@ -285,7 +263,7 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('confirm_password', e.target.value)}
               />
             </div>
-            <CustomButton text={t(`S'inscrire`)} onClick={handleSubmit} />
+            <CustomButton text={t(`Register`)} onClick={handleSubmit} />
           </div>
           <div
             style={{
@@ -306,7 +284,7 @@ function RegistrationScreen() {
                 paddingBottom: '2%',
               }}
             >
-              {t('Vous avez déjà un compte ?')}
+              {t('Already have an account ?')}
             </p>
             <p
               style={{
@@ -314,7 +292,7 @@ function RegistrationScreen() {
                 color: '#FF8C39',
               }}
             >
-              {t('Connecte-toi maintenant')}
+              {t('Log in now')}
             </p>
           </div>
         </div>

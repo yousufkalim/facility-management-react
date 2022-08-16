@@ -137,7 +137,7 @@ function DashboardScreen() {
         <> </>
       )}
       <UXL
-        appBarText="Dashboard"
+        appBarText={t('Dashboard')}
         innerMostDivStyle={{
           height: '100%',
         }}
