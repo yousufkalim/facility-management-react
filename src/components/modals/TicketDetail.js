@@ -8,6 +8,9 @@ import Tag from '../Tag';
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
 import ModalCrossSVG from '../../assets/ModalCross.svg';
 import CommentAttachmentSVG from '../../assets/CommentAttachment.svg';
+import AttachmentSVG from '../../assets/Attachment.svg';
+import AttachmentCrossSVG from '../../assets/AttachmentCross.svg';
+import AttachmentDownloadSVG from '../../assets/AttachmentDownload.svg';
 import CommentSendSVG from '../../assets/CommentSend.svg';
 import CommentUserSVG from '../../assets/CommentUser.png';
 
@@ -31,6 +34,10 @@ function TicketDetailModal(props) {
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
+    if (file.size > 10000000) {
+      toast.error('Attachment can not be greater than 10 MB.');
+      return;
+    }
     setAttachment(file);
   };
 
@@ -56,6 +63,9 @@ function TicketDetailModal(props) {
       body.append('TaskTicketId', props.taskTicketId);
       body.append('EmployeeId', user.id);
       body.append('MessageText', text);
+      if (attachment) {
+        body.append('CommentFile', attachment);
+      }
 
       response = await Api('post', '/tickets/comment_on_task', body);
 
@@ -89,7 +99,7 @@ function TicketDetailModal(props) {
       employeeName: `${user.firstName} ${user.lastName}`,
       employeePic: `${user.profilePicture}`,
       messageText: text,
-      attachFile: null,
+      attachFile: attachment,
       commentDateTime: utcNow,
     };
 
@@ -150,11 +160,9 @@ function TicketDetailModal(props) {
     }
 
     setText('');
+    setAttachment(null);
   };
-  // const handleImagesSelect = (e) => {
-  //   console.log(e.target.files[0]);
-  // };
-  //const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
+
   const animationProps = useSpring({
     opacity: 1,
     delay: 100,
@@ -165,6 +173,7 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
+
   return (
     <animated.div
       style={{
@@ -172,6 +181,8 @@ function TicketDetailModal(props) {
         top: '0%',
         height: '100%',
         borderRadius: '0',
+        width: '47vw',
+        left: '54%',
         ...animationProps,
       }}
       className="modal_container"
@@ -246,17 +257,7 @@ function TicketDetailModal(props) {
             marginBottom: '5%',
           }}
         >
-          <div
-            className="row"
-            style={
-              {
-                // borderRadius: '20px',
-                // backgroundColor: '#D8ECFF',
-                // marginRight: '4%',
-                // padding: '4%',
-              }
-            }
-          >
+          <div className="row">
             <p
               style={{
                 fontSize: '12px',
@@ -286,13 +287,8 @@ function TicketDetailModal(props) {
                 {props?.details === 'undefined' || !props?.details ? 'NA' : props?.details}
               </p>
             </div>
-            {/* <div className="column" style={{ marginBottom: "10%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Catégorie</p>
-              <p style={{ fontSize: "16px", fontWeight: "600", color: "#494949" }}>{props.categoryName}</p>
-            </div> */}
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
-              {/* <Tag color="#F4F4F4" text="Anaïs Moriceau" /> */}
               <div
                 style={{
                   borderRadius: '20px',
@@ -319,17 +315,6 @@ function TicketDetailModal(props) {
                 {props?.locationDetails == 'undefined' || !props?.locationDetails ? 'NA' : props?.locationDetails}
               </p>
             </div>
-            {/* <div className="column" style={{ marginBottom: "10%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Priorité</p>
-              <Tag color="#D8ECFF" text={props.taskPriority} />
-            </div> */}
-            {/* <div className="column" style={{ marginBottom: "10%" }}>
-              <p style={{ fontSize: "13px", color: "#B7B7B7", paddingBottom: "10pt" }}>Abonnés</p>
-              <div className="row">
-                <Tag color="#F4F4F4" text="Anaïs Moriceau" divStyle={{ marginRight: "5%" }} />
-                <Tag color="#F4F4F4" text="damien dehoul" />
-              </div>
-            </div> */}
           </div>
         </div>
         <p
@@ -379,7 +364,7 @@ function TicketDetailModal(props) {
           }}
         >
           <div
-            className="wh100"
+            className="w100"
             style={{
               position: 'relative',
             }}
@@ -404,7 +389,7 @@ function TicketDetailModal(props) {
                   id="imagePicker"
                   name="file"
                   hidden
-                  onChange={(e) => console.log(e.target.files[0])}
+                  onChange={(e) => handleFileSelect(e)}
                 />
                 <img src={CommentAttachmentSVG} />
               </label>
@@ -420,6 +405,36 @@ function TicketDetailModal(props) {
               <img src={CommentSendSVG} />
             </div>
           </div>
+          {attachment ? (
+            <div
+              className="row ajc"
+              style={{
+                width: '30%',
+                marginLeft: '20px',
+                marginTop: '10px',
+                padding: '10px 0',
+                backgroundColor: '#F4F4F4',
+                borderRadius: '20px',
+              }}
+            >
+              <img src={AttachmentSVG} style={{ height: '15px', width: '15px' }} />
+              <p
+                style={{
+                  paddingLeft: '2%',
+                  paddingRight: '3%',
+                  margin: '0',
+                  fontSize: '12px',
+                }}
+              >
+                {attachment.name.length < 20 ? attachment.name : attachment.name.slice(0, 16) + '...'}
+              </p>
+              <img
+                src={AttachmentCrossSVG}
+                style={{ height: '15px', width: '15px', cursor: 'pointer' }}
+                onClick={() => setAttachment(null)}
+              />
+            </div>
+          ) : null}
         </div>
         <div
           className="column w100"
@@ -449,16 +464,7 @@ function CustomStepper({ comments }) {
           width: '100%',
         }}
       >
-        <div
-          style={{
-            height: '10pt',
-            width: '10pt',
-            borderRadius: '50%',
-            backgroundColor: '#2F696D',
-            right: '53%',
-            position: 'absolute',
-          }}
-        />
+        <div className="dot_chat" />
         <p
           style={{
             position: 'absolute',
@@ -475,7 +481,38 @@ function CustomStepper({ comments }) {
   );
 }
 
+function downloadBlob(blob, filename) {
+  const blobUrl = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.dispatchEvent(
+    new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    })
+  );
+  document.body.removeChild(link);
+}
+
+async function blobFromURL(url) {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  return blob;
+}
+
 function CommentListTile(props) {
+  const downloadAttachment = () => {
+    if (typeof props.attachFile == 'string') {
+      const blob = blobFromURL(props.attachFile);
+      downloadBlob(blob);
+    } else {
+      downloadBlob(props.attachFile); // Well then its in memory anyways.
+    }
+  };
+
   return (
     <div
       className="column w100"
@@ -517,23 +554,64 @@ function CommentListTile(props) {
             backgroundColor: '#D5D5D5',
           }}
         />
-        <div
-          className="column w100"
-          style={{
-            backgroundColor: '#F4F4F4',
-            borderRadius: '20pt',
-            padding: '15pt',
-          }}
-        >
-          <p
-            className="w100"
+        <div className="column w100">
+          <div
+            className="column w100"
             style={{
-              fontSize: '14px',
-              color: '#2F696D',
+              backgroundColor: '#F4F4F4',
+              borderRadius: '20pt',
+              padding: '15pt',
             }}
           >
-            {props.messageText}
-          </p>
+            <p
+              className="w100"
+              style={{
+                fontSize: '14px',
+                color: '#2F696D',
+              }}
+            >
+              {props.messageText}
+            </p>
+          </div>
+          {props.attachFile ? (
+            <div
+              className="row ajc"
+              style={{
+                padding: '5% 10%',
+              }}
+            >
+              <p style={{ fontSize: '12px', paddingRight: '20px', whiteSpace: 'nowrap' }}>Pièce jointe</p>
+              <div
+                className="row w100 ajc"
+                style={{
+                  backgroundColor: '#F4F4F4',
+                  borderRadius: '20px',
+                }}
+              >
+                <img src={AttachmentSVG} style={{ height: '15px', width: '15px' }} />
+                <p
+                  style={{
+                    padding: '3% 5%',
+                    fontSize: '12px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {typeof props.attachFile == 'string'
+                    ? props.attachFile.length < 19
+                      ? props.attachFile
+                      : '...' + props.attachFile.slice(props.attachFile.length - 16)
+                    : props.attachFile.name.length < 19
+                    ? props.attachFile.name
+                    : '...' + props.attachFile.name.slice(props.attachFile.name.length - 16)}
+                </p>
+                <img
+                  src={AttachmentDownloadSVG}
+                  style={{ height: '15px', width: '15px', cursor: 'pointer' }}
+                  onClick={downloadAttachment}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

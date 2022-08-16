@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import * as html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import createMarkup from './template';
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 
 import UXL from '../../components/UXL';
 import Loader from '../../components/Loader';
@@ -17,13 +14,11 @@ import StatisticsHeadYellowSVG from '../../assets/StatisticsHeadYellow.png';
 
 import { getUser } from '../../utils/Auth';
 import Api from '../../api';
-import { toast } from 'react-toastify';
 
 import { Store, UpdateStore } from '../../StoreContext';
 import useWindowSize from '../../utils/WindowSize';
 
 import { months } from '../../utils/Constants';
-import moment from 'moment';
 
 const headArr = [
   {
@@ -49,9 +44,9 @@ const headArr = [
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function StatisticsScreen() {
+  const navigate = useNavigate();
   const [templatescreen, setTemplatescreen] = useState('');
   const [exportpdf, setExportpdf] = useState(false);
-  const [pdfData, setPdfData] = useState('');
   const { t } = useTranslation();
   const store = Store();
   const updateStore = UpdateStore();
@@ -93,39 +88,7 @@ function StatisticsScreen() {
 
   useEffect(() => {
     _load();
-    getPdfData();
   }, []);
-  useEffect(() => {
-    setTemplatescreen(createMarkup(pdfData ? pdfData : '').__html);
-  }, [pdfData]);
-  const getPdfData = async () => {
-    let response;
-    try {
-      response = await Api('get', `/dashboard/template_casefile_details/${user.id}`);
-      if (response) {
-        setPdfData(response?.data?.data);
-      }
-    } catch (error) {}
-  };
-
-  const _getLabels = (_) => {
-    const arr = [];
-    for (let i = 0; i < _.length; i++) {
-      const obj = _[i];
-      const date = new Date(obj.transactionDate);
-
-      const dateMonth = date.getUTCMonth();
-      const dateDay = date.getUTCDate();
-
-      const month = months[dateMonth];
-      const startDay = dateDay - 7 <= 0 ? 1 : dateDay - 7;
-      const endDay = dateDay;
-
-      const str = `${month} ${startDay}-${endDay}`;
-      arr.push(str);
-    }
-    return arr;
-  };
 
   const _load = async () => {
     const _data = await getStatistics();
@@ -135,6 +98,7 @@ function StatisticsScreen() {
       labels,
       datasets: [],
     };
+
     const gDataArr = [];
     for (let i = 0; i < _data.graphicalData.length; i++) {
       let _ = _data.graphicalData[i];
@@ -142,6 +106,7 @@ function StatisticsScreen() {
       _ = [_[0], _[1], _[2]];
       gDataArr.push(_);
     }
+
     const gParsedDataArr1 = gDataArr.map((_) => _[0]);
     const gParsedDataArr2 = gDataArr.map((_) => _[1]);
     const gParsedDataArr3 = gDataArr.map((_) => _[2]);
@@ -167,6 +132,25 @@ function StatisticsScreen() {
     });
   };
 
+  const _getLabels = (_) => {
+    const arr = [];
+    for (let i = 0; i < _.length; i++) {
+      const obj = _[i];
+      const date = new Date(obj.transactionDate);
+
+      const dateMonth = date.getUTCMonth();
+      const dateDay = date.getUTCDate();
+
+      const month = months[dateMonth];
+      const startDay = dateDay - 7 <= 0 ? 1 : dateDay - 7;
+      const endDay = dateDay;
+
+      const str = `${month} ${startDay}-${endDay}`;
+      arr.push(str);
+    }
+    return arr;
+  };
+
   const getStatistics = async () => {
     let response;
     try {
@@ -178,38 +162,8 @@ function StatisticsScreen() {
     }
   };
 
-  const exportPdf = () => {
-    createMarkup(pdfData);
-    setExportpdf(true);
-    // get element by id with display none
-    let domElement = document.getElementById('templatebody');
-    // add class to display page
-    domElement.classList.add('displayClass');
-    html2canvas(domElement, {
-      ignoreElements: function (element) {
-        if ('resultButtondiv' === element.id) {
-          return true;
-        }
-      },
-    }).then((canvas) => {
-      // jspd page size set
-      var pdf = new jsPDF({
-        orientation: 'p',
-        unit: 'in',
-        format: [700, 792],
-      });
-      // props of canvas img
-      const imgProps = pdf.getImageProperties(canvas);
-      var width = pdf.internal.pageSize.getWidth();
-      const height = (imgProps.height * width) / imgProps.width;
-      if (canvas) {
-        pdf.addImage(canvas, 'PNG', 5, 10, 190, height);
-      }
-      domElement.classList.remove('displayClass');
-      pdf.save('Doc.pdf');
-      setExportpdf(false);
-      // document.body.appendChild(canvas);
-    });
+  const navToStatisticsReport = () => {
+    window.open('/statistics_report', '_blank');
   };
 
   return (
@@ -332,7 +286,7 @@ function StatisticsScreen() {
               >
                 {' '}
                 <button
-                  onClick={exportPdf}
+                  onClick={navToStatisticsReport}
                   style={{
                     background: 'rgb(47, 105, 109)',
                     border: 'none',
@@ -350,8 +304,7 @@ function StatisticsScreen() {
           </div>
         </div>
       )}
-
-      <div className={`${exportpdf ? 'blurClass2' : ''}`} dangerouslySetInnerHTML={{ __html: templatescreen }} />
+      <div className={`${navToStatisticsReport ? 'blurClass2' : ''}`} dangerouslySetInnerHTML={{ __html: templatescreen }} />
     </UXL>
   );
 }
@@ -405,4 +358,5 @@ function HeaderListTile(props) {
     </div>
   );
 }
+
 export default StatisticsScreen;

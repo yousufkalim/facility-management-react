@@ -123,18 +123,11 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
   const _load = async () => {
     const _buildings = await getBuildings();
 
-    const obj = {};
-
-    if (_buildings?.length > 0) {
-      obj['building'] = _buildings[0].value;
+    if (!existingUser) {
+      if (_buildings?.length > 0) {
+        _setState('building', _buildings[0].value);
+      }
     }
-
-    setState((pre) => {
-      return {
-        ...obj,
-        ...pre,
-      };
-    });
 
     updateStore({
       addUser: {
