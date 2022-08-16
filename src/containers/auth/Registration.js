@@ -303,6 +303,7 @@ function RegistrationScreen() {
               style={{
                 fontSize: '15px',
                 color: '#ffffff',
+                paddingBottom: '2%',
               }}
             >
               {t('Vous avez déjà un compte ?')}

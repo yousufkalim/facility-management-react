@@ -407,7 +407,7 @@ const AllUsers = () => {
                               />
                             ))}
                           </div>
-                          <p
+                          {/* <p
                             style={{
                               fontWeight: 'normal',
                               fontSize: '12px',
@@ -430,7 +430,7 @@ const AllUsers = () => {
                                 </div>
                               </>
                             ))}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

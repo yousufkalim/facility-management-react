@@ -170,6 +170,8 @@ function TicketDetailModal(props) {
         top: '0%',
         height: '100%',
         borderRadius: '0',
+        width: '47vw',
+        left: '54%',
         ...animationProps,
       }}
       className="modal_container"
@@ -447,16 +449,7 @@ function CustomStepper({ comments }) {
           width: '100%',
         }}
       >
-        <div
-          style={{
-            height: '10pt',
-            width: '10pt',
-            borderRadius: '50%',
-            backgroundColor: '#2F696D',
-            right: '53%',
-            position: 'absolute',
-          }}
-        />
+        <div className="dot_chat" />
         <p
           style={{
             position: 'absolute',
