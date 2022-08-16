@@ -39,8 +39,9 @@
 
 .footer_image {
   position: absolute;
-  width: 95%;
-  height: 93%;
+  width: 100%;
+  height: 95%;
+  left: 28%;
 }
 .footer_image_container {
   width: 70%;
@@ -282,7 +283,7 @@
   width: 100%;
 }
 @media only screen and (max-width: 992px) {
-  .ds_ml_container_all_users{
+  .ds_ml_container_all_users {
     width: 100%;
   }
   /* .edit_btn_inputs_row{
@@ -327,7 +328,7 @@
   }
   .edit_icon_image_modal {
     top: 128pt !important;
-}
+  }
   .modal_parent_container > img {
     margin: 2%;
   }
@@ -388,7 +389,7 @@
   .configuration_conatiner p {
     font-size: 11px;
   }
-  .edit_icon_image_modal{
+  .edit_icon_image_modal {
     top: 117pt !important;
   }
 }

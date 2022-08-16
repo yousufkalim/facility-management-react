@@ -1,23 +1,23 @@
-import { Route } from "react-router-dom";
-import dState from "./DState";
+import { Route } from 'react-router-dom';
+import dState from './DState';
 
-import Api from "../api";
+import Api from '../api';
 
 export const handleLogin = async (token, _user) => {
-  localStorage.setItem("token", token);
+  localStorage.setItem('token', token);
   const user = await getUserInfo(_user.id);
   _user = {
     ..._user,
     ...user,
   };
-  localStorage.setItem("user", JSON.stringify(_user));
+  localStorage.setItem('user', JSON.stringify(_user));
   return true;
 };
 
 const getUserInfo = async (userID) => {
   let response;
   try {
-    response = await Api("get", `/Users/userprofile/${userID}`);
+    response = await Api('get', `/Users/userprofile/${userID}`);
     const _users = response.data.data;
     return _users;
   } catch (e) {
@@ -30,21 +30,21 @@ export const handleLogout = (navigate, updateStore) => {
   updateStore({
     ...dState,
   });
-  navigate("/login");
+  navigate('/login');
 }; // Handle here.
 
 export const getUser = () => {
-  let cookie = localStorage.getItem("user");
+  let cookie = localStorage.getItem('user');
   let user = cookie && JSON.parse(cookie);
   return user;
 };
 
 export const setUser = (user) => {
-  return localStorage.setItem("user", JSON.stringify(user));
+  return localStorage.setItem('user', JSON.stringify(user));
 };
 
 export const getToken = () => {
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem('token');
   return token;
 };
 

@@ -5,7 +5,7 @@ import SBDeleteIcon from '../../../assets/SBDeleteIcon.svg';
 import SBEditIcon from '../../../assets/Edit.svg';
 import SBSettingsBuildingIconUnSelected from '../../../assets/SBSettingsBuildingIconUnSelected.svg';
 
-import ConfirmationDialog from '../../../components/modals/ConfirmationDialog'
+import ConfirmationDialog from '../../../components/modals/ConfirmationDialog';
 
 import Api from '../../../api';
 import { getUser } from '../../../utils/Auth';
@@ -60,7 +60,7 @@ const Buildings = (props) => {
               <div style={{ background: '#8C8C8C' }} className="batments_levels_actions_conatiner d-flex">
                 <div className="prnt d-flex batments_levels_container">
                   <div>Bâtiments</div>
-                  <div>levels</div>
+                  <div>Niveaux</div>
                 </div>
                 <div>Action</div>
               </div>
@@ -76,7 +76,7 @@ const Buildings = (props) => {
 };
 
 function BuildingListTile(props) {
-  const [Open, setOpen] = useState(false)
+  const [Open, setOpen] = useState(false);
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -123,29 +123,34 @@ function BuildingListTile(props) {
       console.trace(e);
     }
   };
-  const onClose = async(status)=>{
-     let response;
-     if(status){
+  const onClose = async (status) => {
+    let response;
+    if (status) {
       try {
         response = await Api('delete', `/buildings/${props.buildingId}`);
         if (response.data.success) {
           toast.success('Building deleted successfully.');
           await _load();
-          setOpen(false)
+          setOpen(false);
         }
       } catch (e) {
         console.trace(e);
       }
-     }
-   if(!status){
-    setOpen(false)
-   }
-    
-  }
+    }
+    if (!status) {
+      setOpen(false);
+    }
+  };
 
   return (
     <div style={{ color: color }} className="parent_container_header">
-      <ConfirmationDialog setOpen={setOpen} Open={Open} onClose={onClose}/>
+      <ConfirmationDialog
+        checkboxtext="Effacer tous les billets et autres détails contre ce bâtiment"
+        headertext="Voulez-vous vraiment supprimer ce bâtiment ?"
+        setOpen={setOpen}
+        Open={Open}
+        onClose={onClose}
+      />
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">

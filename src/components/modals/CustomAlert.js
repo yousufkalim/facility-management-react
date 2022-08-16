@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '@mui/material';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
-
+import Cross from '../../assets/Cross.svg';
 const CustomAlert = ({ text, onClose }) => {
   const [open, setOpen] = useState(true);
   return (

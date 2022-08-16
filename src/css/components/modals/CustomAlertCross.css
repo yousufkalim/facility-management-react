@@ -1,0 +1,54 @@
+.img_container {
+  display: flex;
+  justify-content: end;
+  width: 93%;
+}
+.img_container > img {
+  width: 10px;
+  height: 10px;
+  margin-top: 4%;
+}
+.circle_container_cross {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#outer_circle_cross {
+  background: #8c8c8c;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  position: relative;
+}
+#inner_circle_cross {
+  position: absolute;
+  background: #f4f4f4;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  top: 206%;
+  left: 206%;
+  margin: -150px 0px 0px -150px;
+}
+
+.done_icon_cross {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 69%;
+  left: 16%;
+  color: #2f696d;
+}
+.alert_box_text_cross {
+  margin-top: 2%;
+  width: 90%;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+}

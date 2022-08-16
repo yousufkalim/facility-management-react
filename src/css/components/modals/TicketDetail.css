@@ -9,3 +9,18 @@
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(209 203 198) 2px 2px 2px;
 }
+
+.dot_chat {
+  height: 10pt;
+  width: 10pt;
+  border-radius: 50%;
+  background-color: #2f696d;
+  right: 53%;
+  position: absolute;
+}
+
+@media only screen and (max-width: 1300px) {
+  .dot_chat {
+    right: 52.6%;
+  }
+}

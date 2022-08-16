@@ -53,13 +53,14 @@ function forgotPassword2(data) {
 // forgotPassword1
 
 function addTicket(data) {
+  console.log(data);
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
     () => Validators.selectValidator('Category', data['category']),
     // () => Validators.nullValidator("Title", data["title"]),
     // () => Validators.selectValidator("Priority", data["priority"]),
-    // () => Validators.selectValidator("Assignee", data["assignee"]),
+    () => Validators.selectValidator('Assignee', data['assignee']),
   ];
 
   const validated = formValidator(valFuncArr);
@@ -68,11 +69,10 @@ function addTicket(data) {
 }
 
 function addUser(data) {
-  console.log(data, 'data');
   const valFuncArr = [
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
-    () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
+    // () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
     () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
     () => Validators.nullValidator('Entreprise', data['enterprise']),
     () => Validators.nullValidator('bâtiment', data['building']),

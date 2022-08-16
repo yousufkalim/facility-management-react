@@ -7,6 +7,7 @@ import TicketTextSVG from '../../assets/TicketText.svg';
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
 import TicketComment from '../../assets/Comment.svg';
 import ProfileSVG from '../../assets/DummyUser.jpeg';
+import FooterSVG from '../../assets/Cornerimage.svg';
 
 import TicketDetailModal from '../../components/modals/TicketDetail';
 import Loader from '../../components/Loader';
@@ -434,193 +435,229 @@ function AllTickets({ show }) {
           <Loader />
         </div>
       ) : (
-        <div
-          className="row ticket_container"
-          style={{
-            display: show ? 'flex' : 'none',
-            width: store?.isSideBar ? '97%' : '100%',
-          }}
-        >
-          {/* DragDrop Global Context */}
-          <DragDropContext onDragEnd={onDragEnd}>
-            {/* Nouveaux Billets */}
-            <div
-              className="ds_sl_container"
-              style={{
-                // width: "25vw",
-                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
-              }}
-            >
+        <>
+          <div
+            className="row ticket_container"
+            style={{
+              display: show ? 'flex' : 'none',
+              width: store?.isSideBar ? '97%' : '100%',
+            }}
+          >
+            {/* DragDrop Global Context */}
+
+            <DragDropContext onDragEnd={onDragEnd}>
+              {/* Nouveaux Billets */}
               <div
-                className="column ds_ml_container scroll"
+                className="ds_sl_container"
                 style={{
-                  padding: '2% 4%',
-                  minHeight: '100vh',
+                  // width: "25vw",
+                  margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
                 }}
               >
-                <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
-                <Droppable droppableId="0">
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
-                      {store.allTickets.recentTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
-                          {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                              <TicketListTile {..._} />
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    </div>
-                  )}
-                </Droppable>
-              </div>
-            </div>
-            {/* En attente */}
-            <div
-              className="ds_sl_container"
-              style={{
-                padding: '3% 1%',
-                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
-              }}
-            >
-              <div
-                className="column ds_sl_header_container"
-                style={{
-                  backgroundColor: '#5bd89c',
-                }}
-              >
-                <p
-                  className="ds_sl_header_text"
+                <div
+                  className="column ds_ml_container scroll"
                   style={{
-                    padding: '4% 0',
+                    padding: '2% 4%',
+                    minHeight: '100vh',
                   }}
                 >
-                  {`En attente ${store.allTickets.pendingTickets.length}`}
-                </p>
+                  <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
+                  <Droppable droppableId="0">
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
+                        {store.allTickets.recentTickets.map((_) => (
+                          <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
+                            {(provided) => (
+                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                <TicketListTile {..._} />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                      </div>
+                    )}
+                  </Droppable>
+                </div>
+              </div>
+              {/* En attente */}
+              <div
+                className="ds_sl_container"
+                style={{
+                  padding: '3% 1%',
+                  margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
+                }}
+              >
+                <div
+                  className="column ds_sl_header_container"
+                  style={{
+                    backgroundColor: '#5bd89c',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <p
+                    className="ds_sl_header_text"
+                    style={{
+                      padding: '4% 0',
+                    }}
+                  >
+                    {`En attente `}
+                  </p>
+                  <p
+                    className="ds_sl_header_text"
+                    style={{
+                      padding: '4% 0',
+                      marginLeft: '10%',
+                    }}
+                  >
+                    {store.allTickets.pendingTickets.length}
+                  </p>
+                </div>
+
+                <div
+                  className="column ds_ml_container"
+                  style={{
+                    width: '100%',
+                    padding: '8% 4%',
+                  }}
+                >
+                  <Droppable droppableId="1">
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
+                        {store.allTickets.pendingTickets.map((_) => (
+                          <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
+                            {(provided) => (
+                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                <TicketListTile {..._} />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                      </div>
+                    )}
+                  </Droppable>
+                </div>
               </div>
 
+              {/* En intervention */}
               <div
-                className="column ds_ml_container"
+                className="ds_sl_container"
                 style={{
-                  width: '100%',
-                  padding: '8% 4%',
+                  padding: '3% 1%',
+                  margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
                 }}
               >
-                <Droppable droppableId="1">
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
-                      {store.allTickets.pendingTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
-                          {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                              <TicketListTile {..._} />
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    </div>
-                  )}
-                </Droppable>
-              </div>
-            </div>
-
-            {/* En intervention */}
-            <div
-              className="ds_sl_container"
-              style={{
-                padding: '3% 1%',
-                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
-              }}
-            >
-              <div
-                className="column ds_sl_header_container"
-                style={{
-                  backgroundColor: '#FF8C39',
-                }}
-              >
-                <p
-                  className="ds_sl_header_text"
+                <div
+                  className="column ds_sl_header_container"
                   style={{
-                    padding: '4% 0',
+                    backgroundColor: '#FF8C39',
+                    display: 'flex',
+                    flexDirection: 'row',
                   }}
                 >
-                  {`En intervention ${store.allTickets.inProgressTickets.length}`}
-                </p>
-              </div>
-              <div
-                className="column ds_ml_container"
-                style={{
-                  width: '100%',
-                  padding: '8% 4%',
-                }}
-              >
-                <Droppable droppableId="2">
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
-                      {store.allTickets.inProgressTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
-                          {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                              <TicketListTile {..._} />
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    </div>
-                  )}
-                </Droppable>
-              </div>
-            </div>
-            {/* Terminé */}
-            <div
-              className="ds_sl_container"
-              style={{
-                padding: '3% 1%',
-                margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
-              }}
-            >
-              <div
-                className="column ds_sl_header_container"
-                style={{
-                  backgroundColor: '#436062',
-                }}
-              >
-                <p
-                  className="ds_sl_header_text"
+                  <p
+                    className="ds_sl_header_text"
+                    style={{
+                      padding: '4% 0',
+                    }}
+                  >
+                    {`En intervention`}
+                  </p>
+                  <p
+                    className="ds_sl_header_text"
+                    style={{
+                      padding: '4% 0',
+                      marginLeft: '5%',
+                    }}
+                  >
+                    {store.allTickets.inProgressTickets.length}
+                  </p>
+                </div>
+                <div
+                  className="column ds_ml_container"
                   style={{
-                    padding: '4% 0',
+                    width: '100%',
+                    padding: '8% 4%',
                   }}
                 >
-                  {`Terminé ${store.allTickets.completedTickets.length}`}
-                </p>
+                  <Droppable droppableId="2">
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
+                        {store.allTickets.inProgressTickets.map((_) => (
+                          <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
+                            {(provided) => (
+                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                <TicketListTile {..._} />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                      </div>
+                    )}
+                  </Droppable>
+                </div>
               </div>
+              {/* Terminé */}
               <div
-                className="column ds_ml_container"
+                className="ds_sl_container"
                 style={{
-                  width: '100%',
-                  padding: '8% 4%',
+                  padding: '3% 1%',
+                  margin: store?.isSideBar && width < 667 ? '0% 5%' : '',
                 }}
               >
-                <Droppable droppableId="3">
-                  {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
-                      {store.allTickets.completedTickets.map((_) => (
-                        <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
-                          {(provided) => (
-                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                              <TicketListTile {..._} />
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    </div>
-                  )}
-                </Droppable>
+                <div
+                  className="column ds_sl_header_container"
+                  style={{
+                    backgroundColor: '#436062',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <p
+                    className="ds_sl_header_text"
+                    style={{
+                      padding: '4% 0',
+                    }}
+                  >
+                    {`Terminé`}
+                  </p>
+                  <p
+                    className="ds_sl_header_text"
+                    style={{
+                      padding: '4% 0',
+                      marginLeft: '8%',
+                    }}
+                  >
+                    {store.allTickets.completedTickets.length}
+                  </p>
+                </div>
+                <div
+                  className="column ds_ml_container"
+                  style={{
+                    width: '100%',
+                    padding: '8% 4%',
+                  }}
+                >
+                  <Droppable droppableId="3">
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box">
+                        {store.allTickets.completedTickets.map((_) => (
+                          <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
+                            {(provided) => (
+                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                <TicketListTile {..._} />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                      </div>
+                    )}
+                  </Droppable>
+                </div>
               </div>
-            </div>
-          </DragDropContext>
-        </div>
+            </DragDropContext>
+          </div>
+        </>
       )}
     </>
   );
@@ -654,7 +691,7 @@ function TicketListTile(props) {
               borderRadius: '20px',
               backgroundColor: '#D8ECFF',
               marginRight: '2%',
-              padding: '2%',
+              padding: '2% 4%',
             }}
           >
             <p

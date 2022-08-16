@@ -1,10 +1,10 @@
-import React,{useState} from "react";
-import { Modal } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import { toast } from "react-toastify";
+import React, { useState } from 'react';
+import { Modal } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import { toast } from 'react-toastify';
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-const ConfirmationDialog = ({ Open, onClose }) => {
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const ConfirmationDialog = ({ Open, onClose, headertext, checkboxtext }) => {
   const [checkBoxStatus, setCheckBoxStatus] = useState(true);
 
   const CloseModal = (status) => {
@@ -15,15 +15,15 @@ const ConfirmationDialog = ({ Open, onClose }) => {
       <Modal open={Open}>
         <div
           style={{
-            height: "40vh",
-            width: "40vw",
+            height: '40vh',
+            width: '40vw',
 
-            borderRadius: "50px",
+            borderRadius: '50px',
           }}
           className="modal_container"
         >
           <div className="circle_container">
-            <p className="d-flex confirmation_header_text">Voulez-vous vraiment supprimer ce bâtiment ?</p>
+            <p className="d-flex confirmation_header_text">{headertext}</p>
             <div>
               <div className="d-flex checkbox_text_container">
                 <Checkbox
@@ -31,20 +31,20 @@ const ConfirmationDialog = ({ Open, onClose }) => {
                   {...label}
                   defaultChecked
                   sx={{
-                    color: "#FF8C39",
-                    "&.Mui-checked": {
-                      color: "#FF8C39",
+                    color: '#FF5D39',
+                    '&.Mui-checked': {
+                      color: '#FF5D39',
                     },
                   }}
                 />
-                <p>Effacer tous les billets et autres détails contre ce bâtiment</p>
+                <p>{checkboxtext}</p>
               </div>
               <div className="d-flex jcc btn_container">
                 <button
-                  onClick={()=>
+                  onClick={() =>
                     checkBoxStatus
                       ? CloseModal(true)
-                      : toast.error("Veuillez effacer tous les billets et autres détails contre ce bâtiment")
+                      : toast.error('Veuillez Effacer tous les billets et autres détails contre ce bâtiment')
                   }
                 >
                   Effacer

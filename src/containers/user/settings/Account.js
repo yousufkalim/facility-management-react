@@ -25,7 +25,7 @@ import Api from '../../../api';
 import { toast } from 'react-toastify';
 import { getUser } from '../../../utils/Auth';
 
-const switches = [
+const switchesAdmin = [
   {
     image: TicketIcon,
     text: 'Nouveau ticket',
@@ -37,6 +37,18 @@ const switches = [
   {
     image: AsignTicket,
     text: 'Assignation à un ticket',
+  },
+];
+const switchesUser = [
+  {
+    image: TicketTracking,
+    text: 'Suivi de ticket',
+    name: 'TicketTracking',
+  },
+  {
+    image: AsignTicket,
+    text: 'Assignation à un ticket',
+    name: 'AssignmentTicket',
   },
 ];
 
@@ -88,13 +100,14 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
   })
 );
 
-const Account = () => {
+const Account = ({ userInfo }) => {
   const store = Store();
   const updateStore = UpdateStore();
   const user = getUser();
   const [width] = useWindowSize();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [checked, setchecked] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [state, setState] = useState({
     first_name: '',
@@ -127,14 +140,18 @@ const Account = () => {
       phone: _profile.phoneNo,
       company_name: _profile.companyName,
       passwordChangedStatus: _profile?.passwordChangedStatus,
+      trackingTicket: _profile?.trackingTicket,
+      assignmentToTicket: _profile?.assignmentToTicket,
+      newTicket: _profile?.newTicket,
     });
     setIsLoading(false);
   };
-
+  console.log(user, 'user');
   const getProfile = async () => {
     let response;
     try {
       response = await Api('get', `/Users/userprofile/${user.id}`);
+      console.log(response, 'response');
       const _profile = response.data.data;
       return _profile;
     } catch (e) {
@@ -169,7 +186,7 @@ const Account = () => {
     try {
       setIsProcessing(true);
 
-      const body = {
+      const bodyadmin = {
         userId: user.id,
         firstName: state.first_name,
         lastName: state.last_name,
@@ -177,9 +194,27 @@ const Account = () => {
         email: state.email,
         companyName: state.company_name,
         password: state?.password,
+        trackingTicket: state?.trackingTicket,
+        assignmentToTicket: state?.assignmentToTicket,
+        newTicket: state?.newTicket,
       };
-
-      response = await Api('put', '/Users/update_admin', body);
+      const bodyuser = {
+        userId: user.id,
+        firstName: state.first_name,
+        lastName: state.last_name,
+        phoneNo: state.phone,
+        email: state.email,
+        companyName: state.company_name,
+        password: state?.password,
+        trackingTicket: state?.trackingTicket,
+        assignmentToTicket: state?.assignmentToTicket,
+      };
+      if (user?.roleSerial == '1') {
+        response = await Api('put', '/Users/update_admin', bodyadmin);
+      }
+      if (user?.roleSerial == '2') {
+        response = await Api('put', '/Users/update_user_profile', bodyuser);
+      }
 
       if (response?.data?.success) {
         toast.success('Profile updated successfully.');
@@ -190,7 +225,7 @@ const Account = () => {
 
     setIsProcessing(false);
   };
-
+  console.log(state, 'state');
   return (
     <>
       {isLoading ? (
@@ -208,7 +243,7 @@ const Account = () => {
         >
           <div
             style={{
-              width: width < 992 ? '100%' : '82%',
+              width: width < 992 || userInfo?.roleSerial == 2 ? '100%' : '82%',
             }}
             className="footer_image_container"
           >
@@ -216,7 +251,7 @@ const Account = () => {
             <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
               <div
                 style={{
-                  width: width < 575 ? '100%' : '90%',
+                  width: width < 575 || userInfo?.roleSerial == 2 ? '95%' : '90%',
                 }}
                 className="user_profile_info"
               >
@@ -378,24 +413,110 @@ const Account = () => {
                     <div className="tickets-status_container">
                       <p> Rôle</p>
                       <p className="responsable-span" style={{}}>
-                        Admin
+                        {userInfo?.roleSerial == 1 ? 'Admin' : 'User'}
                       </p>
                       <p>Alertes par mail</p>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {switches.map((val) => (
+                      {userInfo?.roleSerial == 1 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
                           <>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={val?.image} />
-                                <span className="tickets_icon_btn_span">{val?.text}</span>
+                                <img className="tickets_icon_btn" src={TicketIcon} />
+                                <span className="tickets_icon_btn_span">Nouveau ticket</span>
                               </div>
                               <div>
-                                <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.newTicket}
+                                      onChange={(e) => _setState('newTicket', e.target.checked)}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="tickets_icon_btn_container">
+                              <div style={{ width: '50%' }}>
+                                <img className="tickets_icon_btn" src={TicketTracking} />
+                                <span className="tickets_icon_btn_span">TicketTracking</span>
+                              </div>
+                              <div>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.trackingTicket}
+                                      onChange={(e) => _setState('trackingTicket', e.target.checked)}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="tickets_icon_btn_container">
+                              <div style={{ width: '50%' }}>
+                                <img className="tickets_icon_btn" src={AsignTicket} />
+                                <span className="tickets_icon_btn_span">AssignmentTicket</span>
+                              </div>
+                              <div>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.assignmentToTicket}
+                                      onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
                               </div>
                             </div>
                           </>
-                        ))}
-                      </div>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      {userInfo?.roleSerial == 2 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <>
+                            <div className="tickets_icon_btn_container">
+                              <div style={{ width: '50%' }}>
+                                <img className="tickets_icon_btn" src={TicketTracking} />
+                                <span className="tickets_icon_btn_span">TicketTracking</span>
+                              </div>
+                              <div>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.trackingTicket}
+                                      onChange={(e) => _setState('trackingTicket', e.target.checked)}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="tickets_icon_btn_container">
+                              <div style={{ width: '50%' }}>
+                                <img className="tickets_icon_btn" src={AsignTicket} />
+                                <span className="tickets_icon_btn_span">AssignmentTicket</span>
+                              </div>
+                              <div>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.assignmentToTicket}
+                                      onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                          </>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>

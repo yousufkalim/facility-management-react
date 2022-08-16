@@ -6,4 +6,7 @@
   box-shadow: 4px 6px 10px #d1cbc6;
   cursor: pointer;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

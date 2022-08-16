@@ -105,6 +105,20 @@ const buildingLevels = [
   'Level J',
   'Level K',
   'Level L',
+  'Level M',
+  'Level N',
+  'Level O',
+  'Level P',
+  'Level Q',
+  'Level R',
+  'Level S',
+  'Level T',
+  'Level U',
+  'Level V',
+  'Level W',
+  'Level X',
+  'Level Y',
+  'Level Z',
 ];
 
 const acceptedEmailDomains = ['accor.com'];
