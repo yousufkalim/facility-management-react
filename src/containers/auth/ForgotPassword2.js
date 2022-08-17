@@ -54,7 +54,7 @@ function ForgotPassword2Screen() {
       return;
     }
 
-    const isValidated = FormValidations.forgotPassword2(state); // TODO: Test again.
+    const isValidated = FormValidations.forgotPassword2(state);
 
     if (!isValidated) {
       return;
@@ -103,7 +103,7 @@ function ForgotPassword2Screen() {
     <>
       {renderAlert ? (
         <>
-          <CustomAlert text="Password Set Successfully!" />
+          <CustomAlert text={t('Password Set Successfully!')} />
         </>
       ) : (
         <></>
@@ -134,7 +134,7 @@ function ForgotPassword2Screen() {
               Management
             </span>
             <p className="welcome_note_fm_login">
-              Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !
+              {t('Welcome to Facility Management, please enter your login credentials to get started!')}
             </p>
           </div>
           <div className="login_screen_row2">
@@ -152,7 +152,7 @@ function ForgotPassword2Screen() {
                   paddingBottom: '2%',
                 }}
               >
-                Mot de passe oublié
+                {t('Forgot your password')}
               </p>
               <p
                 style={{
@@ -161,7 +161,7 @@ function ForgotPassword2Screen() {
                   paddingBottom: '7%',
                 }}
               >
-                Enter your new password
+                {t('Enter your new password')}
               </p>
               <CustomInput
                 enableEyes={true}
@@ -229,7 +229,7 @@ function ForgotPassword2Screen() {
                   color: '#FFFFFF',
                 }}
               >
-                {t("Vous n'avez pas de compte ?")}
+                {t('You do not have an account?')}
               </p>
               <p
                 style={{
@@ -237,7 +237,7 @@ function ForgotPassword2Screen() {
                   color: '#FF8C39',
                 }}
               >
-                {t(`S'inscrire maintenant`)}
+                {t('Register now')}
               </p>
             </div>
           </div>

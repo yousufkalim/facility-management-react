@@ -10,6 +10,7 @@ i18n
       en: {
         translations: {
           //----------------------------------------------------------Auth-------------------------------------------------------
+          // Login
           'Welcome to Facility Management, please enter your login credentials to get started!':
             'Welcome to Facility Management, please enter your login credentials to get started!',
           'Enter your': 'Enter your',
@@ -20,6 +21,7 @@ i18n
           'You do not have an account?': 'You do not have an account?',
           'Register now': 'Register now',
 
+          // Registration
           'Welcome to Facility Management, please fill out this form for a fresh start!':
             'Welcome to Facility Management, please fill out this form for a fresh start!',
           'Company Name': 'Company Name',
@@ -31,6 +33,7 @@ i18n
           'Already have an account ?': 'Already have an account ?',
           'Log in now': 'Log in now',
 
+          // ForgotPassword1
           'Welcome to Facility Management, please enter your login credentials to get started!':
             'Welcome to Facility Management, please enter your login credentials to get started!',
           'Forgot your password': 'Forgot your password',
@@ -38,16 +41,39 @@ i18n
             "Enter your email and we'll send you your verification code",
           'Send an email': 'Send an email',
 
+          // ForgotPassword2
+          'Password Set Successfully!': 'Password Set Successfully!',
+          'Enter your new password': 'Enter your new password',
+          'Reset Password': 'Reset Password',
+
           //----------------------------------------------------------User-------------------------------------------------------
+          // Sidebar
           Dashboard: 'Dashboard',
           Statistics: 'Statistics',
           Users: 'Users',
           Settings: 'Settings',
+
+          // Dashboard
+          'New Tickets': 'New Tickets',
+          Pending: 'Pending',
+          'In action': 'In action',
+          Ended: 'Ended',
+          'Add a ticket': 'Add a ticket',
+          'To safeguard': 'To safeguard',
+          'Add a new ticket': 'Add a new ticket',
+          Building: 'Building',
+          Venue: 'Venue',
+          'Location details': 'Location details',
+          Category: 'Category',
+          Details: 'Details',
+          Attachment: 'Attachment',
+          Assigned: 'Assigned',
         },
       },
       fr: {
         translations: {
           //----------------------------------------------------------Auth-------------------------------------------------------
+          // Login
           'Welcome to Facility Management, please enter your login credentials to get started!':
             'Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !',
           'Enter your': 'Entrez votre',
@@ -58,6 +84,7 @@ i18n
           'You do not have an account?': "Vous n'avez pas de compte ?",
           'Register now': "S'inscrire maintenant",
 
+          // Registration
           'Welcome to Facility Management, please fill out this form for a fresh start!':
             'Bienvenue à Facility Management, veuillez remplir ce formulaire pour un nouveau départ !',
           'Company Name': "Nom de l'entreprise",
@@ -69,6 +96,7 @@ i18n
           'Already have an account ?': 'Vous avez déjà un compte ?',
           'Log in now': 'Connecte-toi maintenant',
 
+          // ForgotPassword1
           'Welcome to Facility Management, please enter your login credentials to get started!':
             'Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !',
           'Forgot your password': 'Mot de passe oublié',
@@ -76,11 +104,33 @@ i18n
             'Entrez votre email et nous vous enverrons votre code de vérification',
           'Send an email': 'Envoyer un e-mail',
 
+          // ForgotPassword2
+          'Password Set Successfully!': 'Mot de passe défini avec succès !',
+          'Enter your new password': 'Entrez votre nouveau mot de passe',
+          'Reset Password': 'réinitialiser le mot de passe',
+
           //----------------------------------------------------------User-------------------------------------------------------
+          // Sidebar
           Dashboard: 'Tableau de bord',
           Statistics: 'Statistiques',
           Users: 'Utilisateurs',
           Settings: 'Réglages',
+
+          // Dashboard
+          'New Tickets': 'Nouveaux Billets',
+          Pending: 'En attente',
+          'In action': 'En intervention',
+          Ended: 'Terminé',
+          'Add a ticket': 'Ajouter un ticket',
+          'To safeguard': 'Sauvegarder',
+          'Add a new ticket': 'Ajouter un nouveau ticket',
+          Building: 'Bâtiment',
+          Venue: 'Lieu',
+          'Location details': 'Détails du lieu',
+          Category: 'Catégorie',
+          Details: 'Détails',
+          Attachment: 'Pièce jointe',
+          Assigned: 'Assignés',
         },
       },
     },
