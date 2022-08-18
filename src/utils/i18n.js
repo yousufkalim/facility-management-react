@@ -34,8 +34,6 @@ i18n
           'Log in now': 'Log in now',
 
           // ForgotPassword1
-          'Welcome to Facility Management, please enter your login credentials to get started!':
-            'Welcome to Facility Management, please enter your login credentials to get started!',
           'Forgot your password': 'Forgot your password',
           "Enter your email and we'll send you your verification code":
             "Enter your email and we'll send you your verification code",
