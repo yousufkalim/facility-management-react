@@ -75,9 +75,8 @@ let svgArrBottom = [
     unselected: SBDashboardSettingsUnSelected,
   },
 ];
-/////array for user
+
 let svgArrBottomUser = [];
-///////
 
 const handleNavigation = (navigate, index) => {
   switch (index) {
@@ -97,7 +96,7 @@ const handleNavigation = (navigate, index) => {
       break;
   }
 };
-/////////
+
 const handleNavigationUser = (navigate, index) => {
   switch (index) {
     case 0:
@@ -117,7 +116,8 @@ function SideBar({ color, sticky = true, divStyle }) {
   const updateStore = UpdateStore();
 
   const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
-  const userInfo = getUser();
+  const user = getUser();
+
   return (
     <animated.div
       className="sidebar_container"
@@ -128,7 +128,7 @@ function SideBar({ color, sticky = true, divStyle }) {
         ...animationProps,
       }}
     >
-      {userInfo?.roleSerial == 1 ? (
+      {user.roleSerial == 1 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrTop.map((_, __) => (
@@ -149,7 +149,7 @@ function SideBar({ color, sticky = true, divStyle }) {
         <></>
       )}
 
-      {userInfo?.roleSerial == 2 ? (
+      {user.roleSerial == 2 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrTopUser.map((_, __) => (
@@ -170,7 +170,7 @@ function SideBar({ color, sticky = true, divStyle }) {
         <></>
       )}
 
-      {userInfo?.roleSerial == 1 ? (
+      {user.roleSerial == 1 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrBottom.map((_, __) => (
@@ -190,7 +190,7 @@ function SideBar({ color, sticky = true, divStyle }) {
       ) : (
         <></>
       )}
-      {userInfo?.roleSerial == 2 ? (
+      {user.roleSerial == 2 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrBottomUser.map((_, __) => (

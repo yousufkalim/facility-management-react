@@ -98,7 +98,7 @@ function TicketDetailModal(props) {
       taskTicketId: props.taskTicketId,
       parentId: null,
       employeeName: `${user.firstName} ${user.lastName}`,
-      employeePic: `${user.profilePicture}`,
+      employeePic: user.profilePicture,
       messageText: text,
       attachFile: attachment,
       commentDateTime: utcNow,
@@ -121,7 +121,7 @@ function TicketDetailModal(props) {
       tickets = [...store.allTickets.completedTickets];
     }
 
-    ticket.comments.push(body);
+    ticket.comments.splice(0, 0, body);
     const index = tickets.map((_) => _.taskTicketId).indexOf(ticket.taskTicketId);
     tickets[index] = ticket;
 

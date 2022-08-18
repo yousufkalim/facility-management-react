@@ -107,7 +107,9 @@ function ForgotPassword1Screen() {
           >
             Management
           </span>
-          <p className="welcome_note_fm_login">Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !</p>
+          <p className="welcome_note_fm_login">
+            {t('Welcome to Facility Management, please enter your login credentials to get started!')}
+          </p>
         </div>
         <div className="login_screen_row2">
           <div
@@ -124,7 +126,7 @@ function ForgotPassword1Screen() {
                 paddingBottom: '2%',
               }}
             >
-             Mot de passe oublié
+              {t('Forgot your password')}
             </p>
             <p
               style={{
@@ -133,7 +135,7 @@ function ForgotPassword1Screen() {
                 paddingBottom: '7%',
               }}
             >
-         Entrez votre e-mail et nous vous envoyons votre code de vérification
+              {t("Enter your email and we'll send you your verification code")}
             </p>
             <CustomInput
               enableYoursStyle={{
@@ -153,7 +155,7 @@ function ForgotPassword1Screen() {
               onChange={(e) => _setState('email', e.target.value)}
             />
             <CustomButton
-              text={'Envoyer un e-mail'}
+              text={t('Send an email')}
               type="submit"
               style={{
                 marginTop: '5%',
@@ -182,7 +184,7 @@ function ForgotPassword1Screen() {
                 color: '#FFFFFF',
               }}
             >
-              {t("Vous n'avez pas de compte ?")}
+              {t('You do not have an account?')}
             </p>
             <p
               style={{
@@ -190,7 +192,7 @@ function ForgotPassword1Screen() {
                 color: '#FF8C39',
               }}
             >
-              {t(`S'inscrire maintenant`)}
+              {t(`Register now`)}
             </p>
           </div>
         </div>

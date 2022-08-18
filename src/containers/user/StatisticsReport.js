@@ -1,7 +1,15 @@
 import React, { createRef, useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import * as html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import createMarkup from './template';
@@ -180,6 +188,8 @@ function StatisticsReportScreen() {
           return true;
         }
       },
+      width: window.screen.width >= 1600 ? '1900' : '1400',
+      height: window.screen.width >= 1600 ? '2000' : '1600',
     });
 
     const pdf = new jsPDF({
@@ -202,9 +212,30 @@ function StatisticsReportScreen() {
     const categoriesCanvas = categoriesRef.current.canvas;
     const weeksCanvas = weeksRef.current.canvas;
 
-    pdf.addImage(buildingsCanvas, 'PNG', 100, 40, 100, 30);
-    pdf.addImage(categoriesCanvas, 'PNG', 100, 80, 100, 30);
-    pdf.addImage(weeksCanvas, 'PNG', 50, 125, 100, 30);
+    pdf.addImage(
+      buildingsCanvas,
+      'PNG',
+      window.screen.width >= 1600 ? 87 : 97,
+      window.screen.width >= 1600 ? 28 : 40,
+      100,
+      30
+    );
+    pdf.addImage(
+      categoriesCanvas,
+      'PNG',
+      window.screen.width >= 1600 ? 85 : 97,
+      window.screen.width >= 1600 ? 60 : 80,
+      100,
+      30
+    );
+    pdf.addImage(
+      weeksCanvas,
+      'PNG',
+      window.screen.width >= 1600 ? 40 : 50,
+      window.screen.width >= 1600 ? 92 : 125,
+      100,
+      30
+    );
 
     domElement.classList.remove('displayClass');
 
