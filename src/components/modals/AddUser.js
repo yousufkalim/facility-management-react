@@ -61,6 +61,12 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
     inputRoot: {
       '& .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input': {
         padding: '10px',
+        border: 'none',
+      },
+      chip: {
+        '$ .css-igs3ac': {
+          border: 'none',
+        },
       },
     },
   }));
@@ -122,7 +128,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
   const _load = async () => {
     const _buildings = await getBuildings();
-
+    console.log(_buildings, '_buildings');
     if (!existingUser) {
       if (_buildings?.length > 0) {
         _setState('building', _buildings[0].value);
@@ -268,7 +274,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
               </div>
               <img
                 style={{
-                  marginTop: '10%',
+                  marginTop: '12.5%',
                 }}
                 className="input_image"
                 src={
@@ -281,14 +287,14 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
               />
               <div className="form_heading_box">
                 <div className="form_heading_text">
-                  <span style={{ color: '#2F696D', fontWeight: '600' }}> Ajouter un nouvel utilisateur</span>
+                  <span style={{ color: '#2F696D', fontWeight: '600', padding: '3% 0%' }}> Ajouter un nouvel utilisateur</span>
                   <span style={{ color: '#8C8C8C' }}>IL sera invité par mail.</span>
                 </div>
                 <div
                   className="horizental_seperator"
-                  style={{
-                    margin: width < 850 ? 'auto' : 'unset',
-                  }}
+                  // style={{
+                  //   margin: width < 850 ? 'auto' : 'unset',
+                  // }}
                 />
                 <div
                   className="Modal_form_screen_row2_row1"
@@ -413,13 +419,14 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     marginBottom: '3%',
                   }}
                 >
-                  <div className="select_input_container">
+                  <div style={{ width: '100%' }} className="select_input_container">
                     <label>Entreprise</label>
                     <CustomInput
                       inputValue={state.enterprise}
                       inputStyle={{
                         border: ' 2px solid #8C8C8C',
                         borderRadius: '20px',
+                        width: '100%',
                       }}
                       enableYoursStyle={{
                         display: 'none',
@@ -448,7 +455,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       <option value={_.value}>{_.text}</option>
                     ))}
                   </select> */}
-                  <FormControl sx={{ mt: 2, width: 500 }}>
+                  <FormControl sx={{ mt: 2, width: 460 }}>
                     {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
                     <Select
                       sx={{
@@ -467,6 +474,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                             display: 'flex',
                             flexWrap: 'wrap',
                             gap: 0.2,
+                            border: 'none',
                           }}
                         >
                           {selected.map((value) => (
@@ -475,10 +483,9 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                               label={value}
                               avatar={
                                 <Avatar
+                                  className={classes.chip}
                                   sx={{
                                     padding: ' 4% 4%',
-                                    width: '15px',
-                                    height: '15px',
                                   }}
                                   alt="batiments"
                                   src={SBSettingsBuildingIconUnSelected}
