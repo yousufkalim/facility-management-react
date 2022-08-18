@@ -64,8 +64,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         border: 'none',
       },
       chip: {
-        '$ .css-igs3ac': {
-          border: 'none',
+        '$ .MuiButtonBase-root-MuiMenuItem-root.Mui-selected': {
+          backgroundColor: 'red',
         },
       },
     },
@@ -323,6 +323,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     inputStyle={{
                       border: ' 2px solid #8C8C8C',
                       borderRadius: '20px',
+                      fontWeight: '600',
                     }}
                     labelStyle={{
                       marginBottom: '8px',
@@ -349,6 +350,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     inputStyle={{
                       border: ' 2px solid #8C8C8C',
                       borderRadius: '20px',
+                      fontWeight: '600',
                     }}
                     labelStyle={{
                       marginBottom: '8px',
@@ -362,6 +364,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   inputStyle={{
                     border: ' 2px solid #8C8C8C',
                     borderRadius: '20px',
+                    fontWeight: '600',
                   }}
                   enableYoursStyle={{
                     fontWeight: '400',
@@ -401,6 +404,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                   inputStyle={{
                     border: ' 2px solid #8C8C8C',
                     borderRadius: '20px',
+                    fontWeight: '600',
                   }}
                   labelStyle={{
                     marginBottom: '8px',
@@ -427,6 +431,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                         border: ' 2px solid #8C8C8C',
                         borderRadius: '20px',
                         width: '100%',
+                        fontWeight: '600',
                       }}
                       enableYoursStyle={{
                         display: 'none',
@@ -455,7 +460,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       <option value={_.value}>{_.text}</option>
                     ))}
                   </select> */}
-                  <FormControl sx={{ mt: 2, width: 460 }}>
+                  <FormControl sx={{ mt: 2, width: 482 }}>
                     {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
                     <Select
                       sx={{
@@ -498,7 +503,12 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       MenuProps={MenuProps}
                     >
                       {store.addUser.buildings.map((name) => (
-                        <MenuItem key={name?.value} value={name?.text} style={getStyles(name, personName, theme)}>
+                        <MenuItem
+                          className={classes.chip}
+                          key={name?.value}
+                          value={name?.text}
+                          style={getStyles(name, personName, theme)}
+                        >
                           {name?.text}
                         </MenuItem>
                       ))}
