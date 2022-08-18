@@ -541,7 +541,8 @@ function CommentListTile(props) {
         />
         <p style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600' }}>{`${props.employeeName} a ajouté un commentaire`}</p>
       </div>
-      <div className="row ajc w100 pl-line">
+      {/* <div className="row ajc w100 pl-line"> */}
+      <div style={{ justifyContent: 'end' }} className="row  w100">
         <div
           style={{
             height: '100px',
@@ -551,7 +552,7 @@ function CommentListTile(props) {
             backgroundColor: '#D5D5D5',
           }}
         />
-        <div className="column w100">
+        <div style={{ width: '54%' }} className="column">
           <div
             className="column w100"
             style={{
