@@ -59,7 +59,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    console.log(_buildings, '_buildings');
     let _buildingLevels = [];
     if (_buildings.length > 0) {
       _buildingLevels = await getBuildingLevels(_buildings[0]);
@@ -261,7 +260,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Bâtiment *
                 </p>
-                {console.log(store.addTicket.buildings, 'store.addTicket.buildings')}
                 <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
@@ -491,7 +489,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     Assignés
                   </p>
                   <div style={{ flexWrap: 'wrap' }} className="row">
-                    {console.log(store.addTicket.assignees, 'store.addTicket.assignees')}
                     {store.addTicket.assignees.map((_) => (
                       <SelectableTag
                         {..._}

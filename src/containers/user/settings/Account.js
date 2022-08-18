@@ -146,12 +146,10 @@ const Account = ({ userInfo }) => {
     });
     setIsLoading(false);
   };
-  console.log(user, 'user');
   const getProfile = async () => {
     let response;
     try {
       response = await Api('get', `/Users/userprofile/${user.id}`);
-      console.log(response, 'response');
       const _profile = response.data.data;
       return _profile;
     } catch (e) {
@@ -236,7 +234,6 @@ const Account = ({ userInfo }) => {
 
     setIsProcessing(false);
   };
-  console.log(state, 'state');
   return (
     <>
       {isLoading ? (

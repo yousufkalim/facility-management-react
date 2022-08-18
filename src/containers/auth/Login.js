@@ -68,7 +68,6 @@ function LoginScreen() {
           id: response.data.userId,
           roleSerial: response.data.roleSerial,
         };
-        console.log(response, 'response');
         await handleLogin(token, user);
         navToDashboard();
       }

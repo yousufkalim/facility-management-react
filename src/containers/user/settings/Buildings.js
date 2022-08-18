@@ -140,7 +140,6 @@ function BuildingListTile(props) {
       setOpen(false);
     }
   };
-  console.log(color, 'color');
   return (
     <div style={{ color: color }} className="parent_container_header">
       <ConfirmationDialog

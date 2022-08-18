@@ -4,7 +4,6 @@ import SBSettingsBuildingIconUnSelected from '../assets/SBSettingsBuildingIconUn
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
 function SelectableTag({ text, color, icon, isSelected, onClick, divStyle, imgStyle, pStyle, disabled, profilePicture, image }) {
-  console.log(color, 'kl');
   return (
     <div
       className="row ajc"
@@ -48,8 +47,6 @@ function SelectableTag({ text, color, icon, isSelected, onClick, divStyle, imgSt
       ) : (
         <></>
       )}
-      {/* {console.log(typeof hexToCSSFilter(color).filter, 'color>>>>>')} */}
-
       <p
         style={{
           fontSize: '12px',

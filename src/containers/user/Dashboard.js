@@ -145,7 +145,6 @@ function DashboardScreen() {
       console.trace(e);
     }
   };
-  console.log(height, 'height');
   return (
     <>
       {customAlert ? (

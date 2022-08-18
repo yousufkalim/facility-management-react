@@ -16,14 +16,12 @@ class Validators {
     return null;
   }
   static passwordnullValidator(name, value) {
-    console.log(name, value);
     if (!value) {
       return `${name} ne peut pas être vide`; // can't be empty
     }
     return null;
   }
   static nullValidator(name, value) {
-    console.log(name, value);
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty
     }
@@ -87,20 +85,16 @@ class Validators {
       return `Votre entreprise n’a pas accès à cette plateforme`;
     }
 
-    console.log(domain, 'domain');
-
     return null;
   }
 
   static passwordValidatorsamevalues(nameone, nametwo, valueone, valuetwo) {
-    console.log(nameone, nametwo, valueone, valuetwo);
     if (valueone != valuetwo) {
       return 'Password and Confirm Password pas le même';
     }
     return null;
   }
   static passwordValidator(name, value) {
-    console.log(name, value);
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty
     }

@@ -150,7 +150,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
   };
 
   const handleChange = (event) => {
-    console.log(event, 'event');
     const {
       target: { value },
     } = event;

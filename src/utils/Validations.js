@@ -56,7 +56,6 @@ function forgotPassword2(data) {
 // forgotPassword1
 
 function addTicketadmin(data) {
-  console.log(data);
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
@@ -71,7 +70,6 @@ function addTicketadmin(data) {
   return validated;
 }
 function addTicketuser(data) {
-  console.log(data);
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),

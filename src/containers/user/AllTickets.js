@@ -72,7 +72,6 @@ function AllTickets({ show, height }) {
     try {
       response = await Api('get', `/tickets/tickets_list/0/${user.id}`);
       const _tickets = response.data.data;
-      console.log(_tickets, '_tickets');
       return _tickets;
     } catch (e) {
       console.trace(e);
@@ -423,7 +422,6 @@ function AllTickets({ show, height }) {
       console.trace(e);
     }
   };
-  console.log(height);
   return (
     <>
       {store.allTickets.isLoading ? (
