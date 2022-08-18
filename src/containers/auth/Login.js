@@ -177,7 +177,7 @@ function LoginScreen() {
               text={t('Login')}
               type="submit"
               style={{
-                marginTop: '5%',
+                marginTop: '3%',
                 fontSize: '18px',
                 padding: '2% 6%',
                 borderRadius: '18px',

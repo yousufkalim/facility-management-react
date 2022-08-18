@@ -6,8 +6,10 @@ import User2AvatarSVG from '../assets/User2Avatar.png';
 
 const kRegExpEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const kRegExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+//const kRegExpPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const kRegExpPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 const kRegExpPhone = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+const kRegExpPhonefrance = /^0{1}[\d]{9}$/;
 const kRegExpUserName = /^[a-zA-Z0-9_\.]+$/;
 
 const tags = [
@@ -127,6 +129,7 @@ export {
   kRegExpEmail,
   kRegExpPassword,
   kRegExpPhone,
+  kRegExpPhonefrance,
   kRegExpUserName,
   tags,
   tickets,

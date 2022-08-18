@@ -41,6 +41,8 @@ const ConfirmationDialog = ({ Open, onClose, headertext, checkboxtext }) => {
               </div>
               <div className="d-flex jcc btn_container">
                 <button
+                  style={{ background: '#ff5d39', border: 'none', color: '#ffffff' }}
+                  className="pointer"
                   onClick={() =>
                     checkBoxStatus
                       ? CloseModal(true)
@@ -49,7 +51,9 @@ const ConfirmationDialog = ({ Open, onClose, headertext, checkboxtext }) => {
                 >
                   Effacer
                 </button>
-                <button onClick={() => CloseModal(false)}>Annuler</button>
+                <button className="pointer" onClick={() => CloseModal(false)}>
+                  Annuler
+                </button>
               </div>
             </div>
           </div>

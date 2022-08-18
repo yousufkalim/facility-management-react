@@ -23,7 +23,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import moment from 'moment';
 
-function AllTickets({ show }) {
+function AllTickets({ show, height }) {
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -72,6 +72,7 @@ function AllTickets({ show }) {
     try {
       response = await Api('get', `/tickets/tickets_list/0/${user.id}`);
       const _tickets = response.data.data;
+      console.log(_tickets, '_tickets');
       return _tickets;
     } catch (e) {
       console.trace(e);
@@ -422,7 +423,7 @@ function AllTickets({ show }) {
       console.trace(e);
     }
   };
-
+  console.log(height);
   return (
     <>
       {store.allTickets.isLoading ? (
@@ -441,6 +442,7 @@ function AllTickets({ show }) {
             style={{
               display: show ? 'flex' : 'none',
               width: store?.isSideBar ? '97%' : '100%',
+              backgroundSize: height > 700 ? '53%' : '45%',
             }}
           >
             {/* DragDrop Global Context */}

@@ -54,17 +54,15 @@ function ForgotPassword2Screen() {
       return;
     }
 
-    // const isValidated = FormValidations.forgotPassword2(state);
+    const isValidated = FormValidations.forgotPassword2(state);
 
-    // if (!isValidated) {
-    //   return;
-    // }
-
-    if (state.password != state.password_re) {
-      toast.error('Password and Confirm Password pas le même');
+    if (!isValidated) {
       return;
     }
-
+    // if (state.password != state.password_re) {
+    //   toast.error('Password and Confirm Password pas le même');
+    //   return;
+    // }
     let response;
 
     try {

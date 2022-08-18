@@ -59,6 +59,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const _load = async () => {
     const _buildings = await getBuildings();
+    console.log(_buildings, '_buildings');
     let _buildingLevels = [];
     if (_buildings.length > 0) {
       _buildingLevels = await getBuildingLevels(_buildings[0]);
@@ -260,6 +261,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Bâtiment *
                 </p>
+                {console.log(store.addTicket.buildings, 'store.addTicket.buildings')}
                 <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
@@ -270,8 +272,9 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         selectBuilding(_);
                         setShowMore(3);
                       }}
+                      icon={true}
                       pStyle={{
-                        padding: '10pt 14pt',
+                        padding: '10pt 6pt',
                         fontWeight: '600',
                       }}
                     />
@@ -296,7 +299,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         isSelected={state.building_level == _.value}
                         onClick={() => _setState('building_level', _.value)}
                         pStyle={{
-                          padding: '10pt 14pt',
+                          padding: '10pt 6pt',
                           fontWeight: '600',
                         }}
                       />
@@ -372,7 +375,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       isSelected={state.category == _.value}
                       onClick={() => _setState('category', _.value)}
                       pStyle={{
-                        padding: '10pt 14pt',
+                        padding: '10pt 6pt',
                         fontWeight: '600',
                       }}
                     />
@@ -454,7 +457,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     }}
                   >
                     <label>
-                      <input type="file" hidden id="filePicker" name="file" onChange={handleFileSelect} />
+                      <input type="file" accept="*" hidden id="filePicker" name="file" onChange={handleFileSelect} />
                       <div className="row ajc">
                         <img
                           src={AttachmentSVG}
@@ -476,33 +479,36 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               </div>
               {/* Section 3 */}
               <div className="column" style={{ marginBottom: '2%' }}></div>
-              <div className="column" style={{ marginBottom: '2%' }}>
-                <p
-                  style={{
-                    fontSize: '13px',
-                    color: '#B7B7B7',
-                    paddingBottom: '10pt',
-                  }}
-                >
-                  Assignés
-                </p>
-                <div style={{ flexWrap: 'wrap' }} className="row">
-                  {store.addTicket.assignees.map((_) => (
-                    <SelectableTag
-                      {..._}
-                      text={`${_.firstName} ${_.lastName}`}
-                      isSelected={state.assignee == _.userId}
-                      onClick={() => _setState('assignee', _.userId)}
-                      divStyle={{
-                        marginRight: '10pt',
-                      }}
-                      pStyle={{
-                        padding: '10pt 14pt',
-                        fontWeight: '600',
-                      }}
-                    />
-                  ))}
-                  {/* <div
+              {user?.roleSerial == 1 ? (
+                <div className="column" style={{ marginBottom: '2%' }}>
+                  <p
+                    style={{
+                      fontSize: '13px',
+                      color: '#B7B7B7',
+                      paddingBottom: '10pt',
+                    }}
+                  >
+                    Assignés
+                  </p>
+                  <div style={{ flexWrap: 'wrap' }} className="row">
+                    {console.log(store.addTicket.assignees, 'store.addTicket.assignees')}
+                    {store.addTicket.assignees.map((_) => (
+                      <SelectableTag
+                        {..._}
+                        image={_.profilePicture}
+                        text={`${_.firstName} ${_.lastName}`}
+                        isSelected={state.assignee == _.userId}
+                        onClick={() => _setState('assignee', _.userId)}
+                        divStyle={{
+                          marginRight: '10pt',
+                        }}
+                        pStyle={{
+                          padding: '10pt 6pt',
+                          fontWeight: '600',
+                        }}
+                      />
+                    ))}
+                    {/* <div
                       style={{
                         whiteSpace: 'nowrap',
                         cursor: 'pointer',
@@ -515,8 +521,11 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     >
                       Show more
                     </div> */}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

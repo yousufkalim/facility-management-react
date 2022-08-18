@@ -17,9 +17,9 @@ function registration(data) {
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
     () => Validators.emailValidator('Adresse e-mail', data['email']),
-    () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
-    () => Validators.lengthValidator('Password', data['password'], 8),
-    () => Validators.nullValidator('Confirm Password', data['confirm_password']),
+    () => Validators.phoneNoValidatorfrance('Numéro de téléphone', data['phone']),
+    () => Validators.passwordValidator('Password', data['password']),
+    () => Validators.passwordValidator('Confirm Password', data['confirm_password']),
     () => Validators.matchPasswordConfirmPassword('Password', data['password'], 'Confirm Password', data['confirm_password']),
     () => Validators.minlengthValidator(`Nom de l'entreprise`, data['name_of_company']),
     () => Validators.minlengthValidator('Prénom', data['first_name']),
@@ -41,6 +41,9 @@ function forgotPassword1(data) {
 
 function forgotPassword2(data) {
   const valFuncArr = [
+    () => Validators.nullValidator('Password', data['password']),
+    () => Validators.nullValidator('Confirm Password', data['password_re']),
+    () => Validators.matchPasswordConfirmPassword('Password', data['password'], 'Confirm Password', data['password_re']),
     () => Validators.passwordValidator('Password', data['password']),
     () => Validators.passwordValidator('Confirm Password', data['password_re']),
   ];
@@ -52,7 +55,7 @@ function forgotPassword2(data) {
 
 // forgotPassword1
 
-function addTicket(data) {
+function addTicketadmin(data) {
   console.log(data);
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
@@ -67,13 +70,28 @@ function addTicket(data) {
 
   return validated;
 }
+function addTicketuser(data) {
+  console.log(data);
+  const valFuncArr = [
+    () => Validators.selectValidator('bâtiment', data['building']),
+    () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
+    () => Validators.selectValidator('Category', data['category']),
+    // () => Validators.nullValidator("Title", data["title"]),
+    // () => Validators.selectValidator("Priority", data["priority"]),
+    //() => Validators.selectValidator('Assignee', data['assignee']),
+  ];
+
+  const validated = formValidator(valFuncArr);
+
+  return validated;
+}
 
 function addUser(data) {
   const valFuncArr = [
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
     // () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
-    () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
+    () => Validators.phoneNoValidatorfrance('Numéro de téléphone', data['phone']),
     () => Validators.nullValidator('Entreprise', data['enterprise']),
     () => Validators.nullValidator('bâtiment', data['building']),
   ];
@@ -111,4 +129,14 @@ function updateAdmin(data) {
   return validated;
 }
 
-export { login, registration, forgotPassword1, forgotPassword2, addTicket, addUser, addBuilding, updateAdmin };
+export {
+  login,
+  registration,
+  forgotPassword1,
+  forgotPassword2,
+  addTicketadmin,
+  addTicketuser,
+  addUser,
+  addBuilding,
+  updateAdmin,
+};

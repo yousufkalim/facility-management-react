@@ -23,7 +23,7 @@ const CustomAlertCross = ({ text, onClose, setRenderAddTicket, renderAddTicket, 
           }}
           className="modal_container"
         >
-          <div className="img_container">
+          <div className="img_container pointer">
             <img
               onClick={() => {
                 setOpen(false);

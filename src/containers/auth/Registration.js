@@ -46,12 +46,17 @@ function RegistrationScreen() {
     if (isProcessing) {
       return;
     }
+
     const isValidated = FormValidations.registration(state);
 
     if (!isValidated) {
       return;
     }
 
+    // if (state.password != state.confirm_password) {
+    //   toast.error('Password and Confirm Password pas le même');
+    //   return;
+    // }
     let response;
 
     try {
@@ -136,7 +141,7 @@ function RegistrationScreen() {
               inputName="Name of Company"
               inputPlaceholder={t('Company Name')}
               divStyle={{
-                marginBottom: '6%',
+                marginBottom: '3%',
               }}
               enableYoursStyle={{
                 color: '#436062',
@@ -152,7 +157,7 @@ function RegistrationScreen() {
             <div
               className="registration_screen_row2_row1"
               style={{
-                marginBottom: '6%',
+                marginBottom: '3%',
               }}
             >
               <CustomInput
@@ -161,7 +166,7 @@ function RegistrationScreen() {
                 inputName="First Name"
                 inputPlaceholder={t('First name')}
                 divStyle={{
-                  width: '45%',
+                  width: '49%',
                 }}
                 enableYoursStyle={{
                   color: '#436062',
@@ -180,7 +185,7 @@ function RegistrationScreen() {
                 inputName="Last Name"
                 inputPlaceholder={t('Last name')}
                 divStyle={{
-                  width: '45%',
+                  width: '49%',
                 }}
                 enableYoursStyle={{
                   color: '#436062',
@@ -197,7 +202,7 @@ function RegistrationScreen() {
             <div
               className="registration_screen_row2_row1"
               style={{
-                marginBottom: '6%',
+                marginBottom: '3%',
               }}
             >
               <CustomInput
@@ -206,7 +211,7 @@ function RegistrationScreen() {
                 inputName="Adresse e-mail"
                 inputPlaceholder="E-mail address"
                 divStyle={{
-                  width: '45%',
+                  width: '49%',
                 }}
                 enableYoursStyle={{
                   color: '#436062',
@@ -226,7 +231,7 @@ function RegistrationScreen() {
                 inputPlaceholder={t('Phone number')}
                 maxLength={13}
                 divStyle={{
-                  width: '45%',
+                  width: '49%',
                 }}
                 enableYoursStyle={{
                   color: '#436062',
@@ -243,7 +248,7 @@ function RegistrationScreen() {
             <div
               className="registration_screen_row2_row1"
               style={{
-                marginBottom: '6%',
+                marginBottom: '3%',
               }}
             >
               <CustomInput
@@ -253,7 +258,7 @@ function RegistrationScreen() {
                 inputPlaceholder={t('Password')}
                 enableEyes={true}
                 divStyle={{
-                  width: '45%',
+                  width: '49%',
                 }}
                 enableYoursStyle={{
                   color: '#436062',
@@ -272,7 +277,7 @@ function RegistrationScreen() {
                 inputPlaceholder={t('Confirm password')}
                 enableEyes={true}
                 divStyle={{
-                  width: '45%',
+                  width: '49%',
                 }}
                 enableYoursStyle={{
                   color: '#436062',
@@ -285,7 +290,7 @@ function RegistrationScreen() {
                 onChange={(e) => _setState('confirm_password', e.target.value)}
               />
             </div>
-            <CustomButton text={t(`S'inscrire`)} onClick={handleSubmit} />
+            <CustomButton style={{ marginTop: '4%' }} text={t(`S'inscrire`)} onClick={handleSubmit} />
           </div>
           <div
             style={{
@@ -303,7 +308,7 @@ function RegistrationScreen() {
               style={{
                 fontSize: '15px',
                 color: '#ffffff',
-                paddingBottom: '2%',
+                padding: '5% 0%',
               }}
             >
               {t('Vous avez déjà un compte ?')}

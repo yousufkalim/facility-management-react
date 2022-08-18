@@ -197,9 +197,11 @@ const Account = ({ userInfo }) => {
         trackingTicket: state?.trackingTicket,
         assignmentToTicket: state?.assignmentToTicket,
         newTicket: state?.newTicket,
+        allowedBuildings: [],
       };
+
       const bodyuser = {
-        userId: user.id,
+        employeeId: user.id,
         firstName: state.first_name,
         lastName: state.last_name,
         phoneNo: state.phone,
@@ -208,7 +210,9 @@ const Account = ({ userInfo }) => {
         password: state?.password,
         trackingTicket: state?.trackingTicket,
         assignmentToTicket: state?.assignmentToTicket,
+        allowedBuildings: [],
       };
+
       if (user?.roleSerial == '1') {
         response = await Api('put', '/Users/update_admin', bodyadmin);
       }
@@ -218,6 +222,13 @@ const Account = ({ userInfo }) => {
 
       if (response?.data?.success) {
         toast.success('Profile updated successfully.');
+        setState((pre) => {
+          return {
+            ...pre,
+            password: '',
+          };
+        });
+        _load();
       }
     } catch (e) {
       console.trace(e);
@@ -373,6 +384,7 @@ const Account = ({ userInfo }) => {
                             padding: edit ? '2.5% 8%' : '2.5% 0%',
                             fontWeight: '600',
                           }}
+                          value={state?.password}
                           placeholder={state?.passwordChangedStatus ? state?.passwordChangedStatus : ''}
                           onChange={(e) => _setState('password', e.target.value)}
                         />

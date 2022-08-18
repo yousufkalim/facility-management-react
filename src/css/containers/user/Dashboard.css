@@ -22,7 +22,7 @@
   border-radius: 10px;
 }
 .ds_ml_container::-webkit-scrollbar-thumb {
-  background: rgb(47, 105, 109);
+  background: #8c8c8c;
   border-radius: 10px;
   background-clip: padding-box;
 }
@@ -89,12 +89,13 @@
 }
 .ticket_container {
   overflow: hidden;
-  position: relative;
   background-color: #f4f4f4;
   position: fixed;
   background-image: url('../../../assets/Cornerimage.svg');
   background-repeat: no-repeat;
-  background-position: 98% 10%;
+  /* background-position: 98% 10%; */
+  background-position: top right;
+  background-size: 46%;
 }
 
 .addticketbgimage {

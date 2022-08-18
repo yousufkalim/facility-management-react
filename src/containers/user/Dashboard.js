@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import AllTicketsScreen from './AllTickets';
@@ -16,11 +16,23 @@ import { getUser } from '../../utils/Auth';
 
 import { Store, UpdateStore } from '../../StoreContext';
 
+function useWindowSize() {
+  const [size, setSize] = useState([window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerHeight]);
+    };
+    window.addEventListener('resize', handleResize);
+  }, []);
+  return size;
+}
+
 function DashboardScreen() {
   const { t } = useTranslation();
   const store = Store();
   const updateStore = UpdateStore();
   const user = getUser();
+  const [height] = useWindowSize();
 
   const [renderAddTicket, setRenderAddTicket] = useState(false);
   const [customAlert, setCustomAlert] = useState(false);
@@ -67,11 +79,17 @@ function DashboardScreen() {
     if (isProcessing) {
       return;
     }
-
-    const isValidated = FormValidations.addTicket(state);
-
-    if (!isValidated) {
-      return;
+    if (user?.roleSerial == 1) {
+      const isValidated = FormValidations.addTicketadmin(state);
+      if (!isValidated) {
+        return;
+      }
+    }
+    if (user?.roleSerial == 2) {
+      const isValidated = FormValidations.addTicketuser(state);
+      if (!isValidated) {
+        return;
+      }
     }
 
     let response;
@@ -80,8 +98,8 @@ function DashboardScreen() {
       setIsProcessing(true);
 
       const body = new FormData();
-
-      body.append('CompanyAdminId', user.id);
+      body.append('UserId', user.id); ///////need to be removed in future backend fixing is on
+      // body.append('CompanyAdminId', user.id);
       body.append('BuildingId', state.building);
       body.append('PlaceId', state.building_level);
       body.append('LocationDetails', state.location_details);
@@ -89,6 +107,9 @@ function DashboardScreen() {
       body.append('Details', state.details);
       if (state.assignee) {
         body.append('EmployeeId', state.assignee);
+      }
+      if (user?.roleSerial == 2) {
+        body.append('EmployeeId', user.id);
       }
       body.append('TicketFile', attachment);
 
@@ -124,6 +145,7 @@ function DashboardScreen() {
       console.trace(e);
     }
   };
+  console.log(height, 'height');
   return (
     <>
       {customAlert ? (
@@ -143,7 +165,7 @@ function DashboardScreen() {
         }}
       >
         {/* Needs to have UXL conatiner */}
-        <AllTicketsScreen show={!renderAddTicket} />
+        <AllTicketsScreen height={height} show={!renderAddTicket} />
         <AddTicketScreen
           show={renderAddTicket}
           handleClose={handleRenderAddTicket}

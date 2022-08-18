@@ -470,7 +470,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                             gap: 0.2,
                           }}
                         >
-                          {console.log(selected, 'selected')}
                           {selected.map((value) => (
                             <Chip
                               // key={value}
@@ -479,8 +478,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                                 <Avatar
                                   sx={{
                                     padding: ' 4% 4%',
-                                    width: '10px',
-                                    height: '10px',
+                                    width: '15px',
+                                    height: '15px',
                                   }}
                                   alt="batiments"
                                   src={SBSettingsBuildingIconUnSelected}

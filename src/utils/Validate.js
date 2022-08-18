@@ -1,5 +1,12 @@
 import { toast } from 'react-toastify';
-import { kRegExpEmail, kRegExpPassword, kRegExpPhone, kRegExpUserName, acceptedEmailDomains } from './Constants';
+import {
+  kRegExpEmail,
+  kRegExpPassword,
+  kRegExpPhone,
+  kRegExpPhonefrance,
+  kRegExpUserName,
+  acceptedEmailDomains,
+} from './Constants';
 
 function isEmpty(str) {
   return !str || str.length === 0;
@@ -8,8 +15,15 @@ class Validators {
   static noValidator() {
     return null;
   }
-
+  static passwordnullValidator(name, value) {
+    console.log(name, value);
+    if (!value) {
+      return `${name} ne peut pas être vide`; // can't be empty
+    }
+    return null;
+  }
   static nullValidator(name, value) {
+    console.log(name, value);
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty
     }
@@ -78,7 +92,15 @@ class Validators {
     return null;
   }
 
+  static passwordValidatorsamevalues(nameone, nametwo, valueone, valuetwo) {
+    console.log(nameone, nametwo, valueone, valuetwo);
+    if (valueone != valuetwo) {
+      return 'Password and Confirm Password pas le même';
+    }
+    return null;
+  }
   static passwordValidator(name, value) {
+    console.log(name, value);
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty
     }
@@ -92,6 +114,19 @@ class Validators {
     return null;
   }
 
+  static phoneNoValidatorfrance(name, value) {
+    if (isEmpty(value)) {
+      return `${name} ne peut pas être vide`; // can't be empty
+    }
+
+    const regexMatch = value.match(kRegExpPhonefrance);
+
+    if (!regexMatch) {
+      return `${name} contenir 10 chiffres et aucun caractère, doit commencer par 0`; // is invalid
+    }
+
+    return null;
+  }
   static phoneNoValidator(name, value) {
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty

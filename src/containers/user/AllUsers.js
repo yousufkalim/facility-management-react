@@ -258,7 +258,7 @@ const AllUsers = () => {
               paddingLeft: store?.isSideBar && width < 667 ? '10%' : '',
             }}
           >
-            <div className="column ds_ml_container_all_users">
+            <div className="column ds_ml_container_all_users scroll">
               <div className="search-msg-cont">
                 <input className="search-msg-input" placeholder="Search by name" onChange={(e) => handleQuery(e.target.value)} />
                 <img className="srch-icon" src={SearchSVG} />
@@ -398,6 +398,7 @@ const AllUsers = () => {
                                 text={_.name}
                                 color={_.color}
                                 disabled={true}
+                                icon={true}
                                 isSelected={building == _.value}
                                 onClick={() => setBuilding(_.value)}
                                 pStyle={{

@@ -10,6 +10,7 @@ import ConfirmationDialog from '../../../components/modals/ConfirmationDialog';
 import Api from '../../../api';
 import { getUser } from '../../../utils/Auth';
 import { hexToRGBA } from '../../../utils/Helpers';
+import { hexToCSSFilter } from 'hex-to-css-filter';
 
 import { Store, UpdateStore } from '../../../StoreContext';
 
@@ -79,9 +80,7 @@ function BuildingListTile(props) {
   const [Open, setOpen] = useState(false);
   const store = Store();
   const updateStore = UpdateStore();
-
   const color = props.color ?? '#000000';
-
   const handleEdit = () => {
     updateStore({
       settings: {
@@ -141,7 +140,7 @@ function BuildingListTile(props) {
       setOpen(false);
     }
   };
-
+  console.log(color, 'color');
   return (
     <div style={{ color: color }} className="parent_container_header">
       <ConfirmationDialog
@@ -154,7 +153,10 @@ function BuildingListTile(props) {
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">
-            <img style={{ width: '15px', marginRight: '6%' }} src={SBSettingsBuildingIconUnSelected} />
+            <img
+              style={{ width: '15px', marginRight: '6%', filter: hexToCSSFilter(color).filter.replace(';', '') }}
+              src={SBSettingsBuildingIconUnSelected}
+            />
             <span className="white_space">{props.name}</span>
           </div>
           <div className="levels_container">
