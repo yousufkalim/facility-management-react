@@ -137,7 +137,7 @@ function DashboardScreen() {
         <> </>
       )}
       <UXL
-        appBarText="Dashboard"
+        appBarText={t('Dashboard')}
         innerMostDivStyle={{
           height: '100%',
         }}
@@ -154,7 +154,7 @@ function DashboardScreen() {
           setAttachment={setAttachment}
         />
         <CustomButton
-          text={`${!renderAddTicket ? 'Ajouter un ticket' : 'Sauvegarder'}`}
+          text={`${!renderAddTicket ? `${t('Add a ticket')}` : `${t('To safeguard')}`}`}
           addicon={!renderAddTicket ? true : false}
           checkicon={renderAddTicket ? true : false}
           onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}

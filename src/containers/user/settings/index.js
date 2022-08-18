@@ -26,6 +26,8 @@ import useWindowSize from '../../../utils/WindowSize';
 import { getUser } from '../../../utils/Auth';
 import Modal from '@mui/material/Modal';
 
+import { useTranslation } from 'react-i18next';
+
 const svgArrSideBar = [
   {
     selected: AccountIconSelected,
@@ -45,6 +47,7 @@ const svgArrSideBar = [
 ];
 
 const Settings = () => {
+  const { t } = useTranslation();
   const [activeSideBar, setActiveSideBar] = useState(0);
   const store = Store();
   const updateStore = UpdateStore();
@@ -106,7 +109,7 @@ const Settings = () => {
 
   return (
     <>
-      <UXL appBarText="Réglages">
+      <UXL appBarText={t('Settings')}>
         <img className="footer_image" src={FooterSVG} />
         <div
           className="row uxl_children_container"

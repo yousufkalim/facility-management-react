@@ -24,6 +24,7 @@ import ReactHtmlParser from 'react-html-parser';
 import moment from 'moment';
 
 function AllTickets({ show }) {
+  const { t } = useTranslation();
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -329,6 +330,7 @@ function AllTickets({ show }) {
     } else {
       throw 'Tsar Bomba 3 💣';
     }
+
     if (destinationDroppableId == '0') {
       destinationTempArr = [...store.allTickets.recentTickets];
     } else if (destinationDroppableId == '1') {
@@ -343,7 +345,7 @@ function AllTickets({ show }) {
 
     ticket = {
       ...ticket,
-      flagStatus: destinationTempArr[0].flagStatus,
+      flagStatus: 4 - destinationDroppableId,
       orderNumber: destinationTempArr.length + 1,
     };
 
@@ -385,6 +387,10 @@ function AllTickets({ show }) {
   };
 
   const onDragEnd = async (_) => {
+    if (user.roleSerial == 2) {
+      // Do nothing.
+      return;
+    }
     const sourceTicket = _findDraggedTicket(_.source);
     const destinationTicket = _findDraggedTicket(_.destination);
     // Handle reoder
@@ -446,7 +452,7 @@ function AllTickets({ show }) {
             {/* DragDrop Global Context */}
 
             <DragDropContext onDragEnd={onDragEnd}>
-              {/* Nouveaux Billets */}
+              {/* New Tickets */}
               <div
                 className="ds_sl_container"
                 style={{
@@ -461,7 +467,7 @@ function AllTickets({ show }) {
                     minHeight: '100vh',
                   }}
                 >
-                  <p className="ds_ml_container_heading">{`Nouveaux Billets ${store.allTickets.recentTickets.length}`}</p>
+                  <p className="ds_ml_container_heading">{`${t('New Tickets')} ${store.allTickets.recentTickets.length}`}</p>
                   <Droppable droppableId="0">
                     {(provided) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
@@ -479,7 +485,7 @@ function AllTickets({ show }) {
                   </Droppable>
                 </div>
               </div>
-              {/* En attente */}
+              {/* Pending */}
               <div
                 className="ds_sl_container"
                 style={{
@@ -501,7 +507,7 @@ function AllTickets({ show }) {
                       padding: '4% 0',
                     }}
                   >
-                    {`En attente `}
+                    {`${t('Pending')}`}
                   </p>
                   <p
                     className="ds_sl_header_text"
@@ -539,7 +545,7 @@ function AllTickets({ show }) {
                 </div>
               </div>
 
-              {/* En intervention */}
+              {/* In action */}
               <div
                 className="ds_sl_container"
                 style={{
@@ -561,7 +567,7 @@ function AllTickets({ show }) {
                       padding: '4% 0',
                     }}
                   >
-                    {`En intervention`}
+                    {`${t('In action')}`}
                   </p>
                   <p
                     className="ds_sl_header_text"
@@ -597,7 +603,7 @@ function AllTickets({ show }) {
                   </Droppable>
                 </div>
               </div>
-              {/* Terminé */}
+              {/* Ended */}
               <div
                 className="ds_sl_container"
                 style={{
@@ -619,7 +625,7 @@ function AllTickets({ show }) {
                       padding: '4% 0',
                     }}
                   >
-                    {`Terminé`}
+                    {`${t('Ended')}`}
                   </p>
                   <p
                     className="ds_sl_header_text"

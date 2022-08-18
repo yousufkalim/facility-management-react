@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import InputEyeSVG from '../assets/InputEye.svg';
 import InputEyeClosedSVG from '../assets/InputEyeClosed.svg';
+
 import { useTranslation } from 'react-i18next';
 
 function CustomInput({
@@ -23,10 +24,13 @@ function CustomInput({
   ptext,
 }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const { t } = useTranslation();
+
   const handlePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+
   return (
     <div
       className="custom_input_container"

@@ -8,6 +8,7 @@ import useWindowSize from '../../utils/WindowSize';
 
 function SplashScreen() {
   const [width] = useWindowSize();
+
   return (
     <div
       className="container"

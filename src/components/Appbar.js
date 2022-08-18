@@ -1,46 +1,48 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { styled } from "@mui/material/styles";
-import AppBarHamburgerSVG from "../assets/AppBarHamburger.svg";
-import AppLogoSVG from "../assets/AppLogo.svg";
-import SearchSVG from "../assets/AppBarSearch.svg";
-import DummyUserSVG from "../assets/DummyUser.jpeg";
-import SignOutIcon from "../assets/SignOut.svg";
+import { styled } from '@mui/material/styles';
+import AppBarHamburgerSVG from '../assets/AppBarHamburger.svg';
+import AppLogoSVG from '../assets/AppLogo.svg';
+import SearchSVG from '../assets/AppBarSearch.svg';
+import DummyUserSVG from '../assets/DummyUser.jpeg';
+import SignOutIcon from '../assets/SignOut.svg';
 
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import GTranslateIcon from '@mui/icons-material/GTranslate';
 
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-import { Store, UpdateStore } from "../StoreContext";
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { handleLogout } from "../utils/Auth";
+import { Store, UpdateStore } from '../StoreContext';
+
+import { handleLogout } from '../utils/Auth';
 
 const StyledMenu = styled((MenuProps) => (
   <Menu
     elevation={0}
     anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
+      vertical: 'bottom',
+      horizontal: 'right',
     }}
     transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
+      vertical: 'top',
+      horizontal: 'right',
     }}
     {...MenuProps}
   />
 ))(({ theme }) => ({
-  "& .MuiPaper-root": {
+  '& .MuiPaper-root': {
     borderRadius: 12,
     marginTop: theme.spacing(3),
-    padding: "2% 2% 1% 2%",
+    padding: '2% 2% 1% 2%',
     minWidth: 230,
-    color: theme.palette.mode === "light" ? "rgb(55, 65, 81)" : theme.palette.grey[300],
-    boxShadow: "0px 4px 20px rgba(160, 160, 160, 0.33)",
+    color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+    boxShadow: '0px 4px 20px rgba(160, 160, 160, 0.33)',
 
-    "& .MuiMenuItem-root": {
-      "& .MuiSvgIcon-root": {
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
         color: theme.palette.text.secondary,
         marginRight: theme.spacing(1.5),
       },
@@ -49,7 +51,9 @@ const StyledMenu = styled((MenuProps) => (
 }));
 
 function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   const navigate = useNavigate();
 
   const store = Store();
@@ -64,7 +68,7 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
     setAnchorElProfile(null);
   };
   //
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const hamburgerCallback = () => {
     updateStore({
@@ -72,12 +76,16 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
     });
   };
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <div
       className="appbar_container"
       style={{
-        backgroundColor: color ?? "#F4F4F4",
-        position: sticky ? "fixed" : "inherit",
+        backgroundColor: color ?? '#F4F4F4',
+        position: sticky ? 'fixed' : 'inherit',
         ...divStyle,
       }}
     >
@@ -87,9 +95,9 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
             src={AppBarHamburgerSVG}
             className="appbar_row1_img"
             style={{
-              maxWidth: "3vh",
-              width: "3vh",
-              marginRight: "6vh",
+              maxWidth: '3vh',
+              width: '3vh',
+              marginRight: '6vh',
             }}
           />
           <img src={AppLogoSVG} className="appbar_row1_img" />
@@ -98,9 +106,9 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
           {text ? (
             <p
               style={{
-                fontSize: "18px",
-                fontWeight: "600",
-                color: "#44787B",
+                fontSize: '18px',
+                fontWeight: '600',
+                color: '#44787B',
               }}
             >
               {text}
@@ -114,9 +122,9 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
           <img
             className="appbar_row3_user_img ip_container"
             style={{
-              width: "7vh",
-              height: "7vh",
-              marginLeft: "3%",
+              width: '7vh',
+              height: '7vh',
+              marginLeft: '3%',
             }}
             src={DummyUserSVG}
             onClick={handleClickProfile}
@@ -124,14 +132,18 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
           <StyledMenu
             id="demo-customized-menu"
             MenuListProps={{
-              "aria-labelledby": "demo-customized-button",
+              'aria-labelledby': 'demo-customized-button',
             }}
             anchorEl={anchorElProfile}
             open={openProfile}
             onClose={handleCloseProfile}
           >
+            <MenuItem className="menu-item support-padding" onClick={() => changeLanguage(`${language == 'en' ? 'fr' : 'en'}`)}>
+              <GTranslateIcon sx={{ width: '20px' }} />
+              {language == 'fr' ? 'French' : 'English'}
+            </MenuItem>
             <MenuItem className="menu-item sign-out-padding" onClick={() => handleLogout(navigate, updateStore)}>
-              <img style={{ width: "16px" }} src={SignOutIcon} /> <p> {t("Sign out")} </p>
+              <img style={{ width: '16px' }} src={SignOutIcon} /> <p> {t('Sign out')} </p>
             </MenuItem>
           </StyledMenu>
         </div>
@@ -146,14 +158,14 @@ function SearchInput({ setSearchQuery, callback }) {
     <div>
       <div
         style={{
-          position: "relative",
-          height: "100%",
-          width: "100%",
+          position: 'relative',
+          height: '100%',
+          width: '100%',
         }}
       >
         <input
           type="text"
-          placeholder={t("Search")}
+          placeholder={t('Search')}
           className="appbar_row3_input"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
