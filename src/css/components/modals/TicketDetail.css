@@ -15,12 +15,14 @@
   width: 10pt;
   border-radius: 50%;
   background-color: #2f696d;
-  right: 53%;
+  right: 55%;
   position: absolute;
 }
-
+.pl-line {
+  padding-left: 42%;
+}
 @media only screen and (max-width: 1300px) {
   .dot_chat {
-    right: 52.6%;
+    right: 54.6%;
   }
 }

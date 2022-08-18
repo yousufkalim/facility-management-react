@@ -1,10 +1,10 @@
-.displayClass{
+.displayClass {
   display: block !important;
 }
-.blurClass{
+.blurClass {
   opacity: 0.8;
 }
-.blurClass2{
+.blurClass2 {
   display: none;
 }
 .container {
@@ -28,7 +28,7 @@
   overflow-x: auto !important;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
 }
 .row {
@@ -44,7 +44,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
-.w50{
+.w50 {
   width: 50%;
 }
 .w100 {
@@ -72,7 +72,7 @@
   align-items: center !important;
   justify-content: center !important;
 }
-.space-between{
+.space-between {
   justify-content: space-between;
 }
 .visible {
@@ -86,8 +86,8 @@
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
-.horizental_seperator{
-  border-bottom: 1px solid #F4F4F4;
+.horizental_seperator {
+  border-bottom: 1px solid #f4f4f4;
   width: 40%;
   margin-left: 5%;
 }
@@ -104,7 +104,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -127,7 +127,7 @@ input[type="number"] {
 
 /* Primary Variables */
 :root {
-  --primary: "#CC8E9C";
+  --primary: '#CC8E9C';
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -135,15 +135,17 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
-input::placeholder{
-  color: #8C8C8C;
+input::placeholder {
+  color: #8c8c8c;
   font-weight: 100;
-font-size: 12px;
-line-height: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.pointer {
+  cursor: pointer;
 }
 
-
--webkit-scrollbar-thumb{
-  background-color: #3675b7;
-  border-radius:  10px 
+-webkit-scrollbar-thumb {
+  background-color: #8c8c8c;
+  border-radius: 10px;
 }

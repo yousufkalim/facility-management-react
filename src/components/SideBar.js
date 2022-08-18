@@ -17,7 +17,8 @@ import SBEventsUnselectedSVG from '../assets/SBEventsUnselected.svg';
 
 import SBDashboardNotifcationUnSelected from '../assets/SBDashboardNotifcationUnSelected.svg';
 import SBDashboardInfoUnselected from '../assets/SBDashboardInfoUnselected.svg';
-import SBDashboardSettingsUnSelected from '../assets/SBDashboardSettingsUnSelected.svg';
+import SBDashboardSettingsUnSelected from '../assets/settingsunselected.svg';
+import SBDashboardSettingsSelected from '../assets/settingsselected.svg';
 
 import { getUser } from '../utils/Auth';
 
@@ -70,7 +71,7 @@ let svgArrBottom = [
   //   unselected: SBDashboardInfoUnselected,
   // },
   {
-    selected: SBDashboardSettingsUnSelected,
+    selected: SBDashboardSettingsSelected,
     unselected: SBDashboardSettingsUnSelected,
   },
 ];

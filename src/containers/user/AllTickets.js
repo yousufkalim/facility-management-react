@@ -23,8 +23,10 @@ import ReactHtmlParser from 'react-html-parser';
 
 import moment from 'moment';
 
-function AllTickets({ show }) {
+function AllTickets({ show, height }) {
+
   const { t } = useTranslation();
+
   const store = Store();
   const updateStore = UpdateStore();
 
@@ -428,7 +430,6 @@ function AllTickets({ show }) {
       console.trace(e);
     }
   };
-
   return (
     <>
       {store.allTickets.isLoading ? (
@@ -447,6 +448,7 @@ function AllTickets({ show }) {
             style={{
               display: show ? 'flex' : 'none',
               width: store?.isSideBar ? '97%' : '100%',
+              backgroundSize: height > 700 ? '53%' : '45%',
             }}
           >
             {/* DragDrop Global Context */}

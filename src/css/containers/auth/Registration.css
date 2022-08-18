@@ -42,14 +42,13 @@
   align-items: flex-start;
   justify-content: center; */
   background-color: #fff;
-  width: 70%;
+  width: 60%;
   height: auto;
   margin-right: 20%;
-  padding: 5%;
+  padding: 4%;
   border-radius: 5%;
   box-shadow: 2px 2px 10px #d1cbc6;
   margin-bottom: 2%;
-  overflow: scroll;
 }
 .reg_screen_row1 p {
   color: rgb(67, 96, 98);
@@ -80,7 +79,7 @@
     align-items: flex-start;
     justify-content: center;
     background-color: #fff;
-    width: 70%;
+    width: 56%;
     height: auto;
     margin-right: 20%;
     padding: 5%;
@@ -89,7 +88,17 @@
     margin-bottom: 39px;
   }
 }
-
+@media only screen and (max-width: 1300px) {
+  .reg_screen_row2_container {
+    width: 74%;
+  }
+  .reg_screen_row1 {
+    margin-top: 5%;
+  }
+  .reg_screen_row2 {
+    margin-top: 5%;
+  }
+}
 @media only screen and (max-width: 992px) {
   .reg_screen_top {
     flex-direction: column;

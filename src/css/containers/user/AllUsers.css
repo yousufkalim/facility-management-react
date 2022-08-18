@@ -4,8 +4,22 @@
   width: 350px;
   min-height: 100vh;
   max-height: 100vh;
+  padding-bottom: 4%;
   overflow-y: scroll;
   background-color: #ffffff;
+}
+.ds_ml_container_all_users::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+  max-height: 2px;
+}
+.ds_ml_container_all_users::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.ds_ml_container_all_users::-webkit-scrollbar-thumb {
+  background: #8c8c8c;
+  border-radius: 10px;
+  background-clip: padding-box;
 }
 
 .tab_container {

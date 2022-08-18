@@ -13,6 +13,7 @@ import AttachmentCrossSVG from '../../assets/AttachmentCross.svg';
 import AttachmentDownloadSVG from '../../assets/AttachmentDownload.svg';
 import CommentSendSVG from '../../assets/CommentSend.svg';
 import CommentUserSVG from '../../assets/CommentUser.png';
+import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
 
 import ReactHtmlParser from 'react-html-parser';
 
@@ -173,7 +174,6 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
-
   return (
     <animated.div
       style={{
@@ -257,17 +257,17 @@ function TicketDetailModal(props) {
             marginBottom: '5%',
           }}
         >
-          <div className="row">
+          <div style={{ backgroundColor: '#D8ECFF', padding: '9% 20%', borderRadius: '20px' }} className="row">
+            <img style={{ width: '10px', height: '10px', marginRight: '5%' }} src={SBSettingsBuildingIconUnSelected} />
             <p
               style={{
                 fontSize: '12px',
                 whiteSpace: 'nowrap',
-                borderRadius: '20px',
-                backgroundColor: '#D8ECFF',
+
                 marginRight: '4%',
-                padding: '10% 35%',
+
                 fontWeight: '600',
-                color: '#494949',
+                color: '#00109E',
               }}
             >
               {props.building}
@@ -297,6 +297,7 @@ function TicketDetailModal(props) {
                   padding: '10% 35%',
                   fontWeight: '600',
                   color: '#494949',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {props?.employeeName ? props?.employeeName : 'NA'}
@@ -540,17 +541,13 @@ function CommentListTile(props) {
         />
         <p style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600' }}>{`${props.employeeName} a ajouté un commentaire`}</p>
       </div>
-      <div
-        className="row ajc w100"
-        style={{
-          paddingLeft: '46%',
-        }}
-      >
+      <div className="row ajc w100 pl-line">
         <div
           style={{
             height: '100px',
             width: '1px',
-            marginRight: '10pt',
+            marginRight: '10px',
+            marginLeft: '12px',
             backgroundColor: '#D5D5D5',
           }}
         />
