@@ -447,3 +447,14 @@
     width: 350px;
   }
 }
+
+/* local */
+.css-1pqm26d-MuiAvatar-img {
+  height: 15px !important;
+  width: 15px !important;
+}
+/* build */
+.css-1hy9t21 {
+  height: 15px !important;
+  width: 15px !important;
+}

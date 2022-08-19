@@ -95,7 +95,8 @@
   background-repeat: no-repeat;
   /* background-position: 98% 10%; */
   background-position: top right;
-  background-size: 46%;
+  background-size: 870px;
+  background-size: calc(94vh - 34px);
 }
 
 .addticketbgimage {

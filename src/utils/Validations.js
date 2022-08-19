@@ -116,6 +116,7 @@ function updateAdmin(data) {
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
     () => Validators.emailValidator('Adresse e-mail', data['email']),
+    () => Validators.passwordValidator('Password', data['password']),
     () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
     () => Validators.minlengthValidator(`Nom de l'entreprise`, data['company_name']),
     () => Validators.minlengthValidator('Prénom', data['first_name']),

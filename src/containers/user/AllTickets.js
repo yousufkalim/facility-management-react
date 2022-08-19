@@ -430,6 +430,7 @@ function AllTickets({ show, height }) {
       console.trace(e);
     }
   };
+  console.log(height, 'height');
   return (
     <>
       {store.allTickets.isLoading ? (
@@ -448,7 +449,7 @@ function AllTickets({ show, height }) {
             style={{
               display: show ? 'flex' : 'none',
               width: store?.isSideBar ? '97%' : '100%',
-              backgroundSize: height > 700 ? '53%' : '45%',
+              // backgroundSize: height > 700 ? '53%' : '45%',
             }}
           >
             {/* DragDrop Global Context */}

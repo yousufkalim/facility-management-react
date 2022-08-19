@@ -133,6 +133,7 @@ const Account = ({ userInfo }) => {
 
   const _load = async () => {
     const _profile = await getProfile();
+    console.log(_profile, '_profile');
     setState({
       first_name: _profile.firstName,
       last_name: _profile.lastName,
