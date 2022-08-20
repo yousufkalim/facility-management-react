@@ -521,7 +521,7 @@ function CommentListTile(props) {
         marginBottom: '5pt',
       }}
     >
-      <div className="row ajc w100">
+      <div style={{ paddingRight: '2%' }} className="row ajc w100">
         <div className="column">
           <p style={{ fontSize: '12px', color: '#8C8C8C', marginBottom: '5%' }}>
             {moment.utc(props.commentDateTime).local().format('dddd D,MMM YYYY').length < 35
