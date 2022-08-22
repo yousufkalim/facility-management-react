@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import AllTicketsScreen from './AllTickets';
 import AddTicketScreen from './AddTicket';
+import EditTicketScreen from './EditTicket';
 import CustomAlertCross from '../../components/modals/CustomAlertCross';
 
 import UXL from '../../components/UXL';
@@ -33,8 +34,9 @@ function DashboardScreen() {
   const updateStore = UpdateStore();
   const user = getUser();
   const [height] = useWindowSize();
-
+  const [SelectedTileDataToEdit, setSelectedTileDataToEdit] = useState(); ////////get selected ticket data to edit
   const [renderAddTicket, setRenderAddTicket] = useState(false);
+  const [renderEditTicket, setRenderEditTicket] = useState(false);
   const [customAlert, setCustomAlert] = useState(false);
   const handleRenderAddTicket = () => {
     if (
@@ -73,6 +75,7 @@ function DashboardScreen() {
   });
   const [attachment, setAttachment] = useState(null);
 
+  // handle submit for adding ticket
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -135,6 +138,68 @@ function DashboardScreen() {
     setIsProcessing(false);
   };
 
+  // handle submit for edit ticket
+  const handleSubmitEditTicket = async (event) => {
+    event.preventDefault();
+
+    if (isProcessing) {
+      return;
+    }
+    if (user?.roleSerial == 1) {
+      const isValidated = FormValidations.addTicketadmin(state);
+      if (!isValidated) {
+        return;
+      }
+    }
+    if (user?.roleSerial == 2) {
+      const isValidated = FormValidations.addTicketuser(state);
+      if (!isValidated) {
+        return;
+      }
+    }
+
+    let response;
+
+    try {
+      setIsProcessing(true);
+      const body = new FormData();
+      body.append('taskTicketId', SelectedTileDataToEdit?.taskTicketId);
+      body.append('UserId', user.id); ///////need to be removed in future backend fixing is on
+      // body.append('CompanyAdminId', user.id);
+      body.append('BuildingId', state.building);
+      body.append('PlaceId', state.building_level);
+      body.append('LocationDetails', state.location_details);
+      body.append('CategoryId', state.category);
+      body.append('Details', state.details);
+      if (state.assignee) {
+        body.append('EmployeeId', state.assignee);
+      }
+      if (user?.roleSerial == 2) {
+        body.append('EmployeeId', user.id);
+      }
+      body.append('TicketFile', attachment);
+
+      response = await Api('post', '/tickets/update_ticket', body);
+
+      if (response?.data?.success) {
+        toast.success('Ticket updated successfully.');
+        const _recentTickets = await getRecentTickets();
+        updateStore({
+          allTickets: {
+            ...store.allTickets,
+            recentTickets: _recentTickets,
+          },
+        });
+        setState({});
+        setAttachment('');
+        handleRenderEditTicketScreen();
+      }
+    } catch (e) {
+      console.trace(e);
+    }
+
+    setIsProcessing(false);
+  };
   const getRecentTickets = async () => {
     let response;
     try {
@@ -144,6 +209,11 @@ function DashboardScreen() {
     } catch (e) {
       console.trace(e);
     }
+  };
+  //////function to render edit ticket screen
+  const handleRenderEditTicketScreen = (props) => {
+    setSelectedTileDataToEdit(props);
+    setRenderEditTicket(!renderEditTicket);
   };
   return (
     <>
@@ -164,7 +234,7 @@ function DashboardScreen() {
         }}
       >
         {/* Needs to have UXL conatiner */}
-        <AllTicketsScreen height={height} show={!renderAddTicket} />
+        <AllTicketsScreen height={height} show={!renderAddTicket} handleRenderEditTicketScreen={handleRenderEditTicketScreen} />
         <AddTicketScreen
           show={renderAddTicket}
           handleClose={handleRenderAddTicket}
@@ -174,17 +244,53 @@ function DashboardScreen() {
           setCustomAlert={setCustomAlert}
           setAttachment={setAttachment}
         />
-        <CustomButton
-          text={`${!renderAddTicket ? `${t('Add a ticket')}` : `${t('To safeguard')}`}`}
-          addicon={!renderAddTicket ? true : false}
-          checkicon={renderAddTicket ? true : false}
-          onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
-          style={{
-            position: 'absolute',
-            right: '20pt',
-            bottom: '20pt',
-          }}
+        <EditTicketScreen
+          show={renderEditTicket}
+          handleClose={handleRenderEditTicketScreen}
+          SelectedTileDataToEdit={SelectedTileDataToEdit}
+          state={state}
+          setState={setState}
+          attachment={attachment}
+          setCustomAlert={setCustomAlert}
+          setAttachment={setAttachment}
         />
+        {/* button for add ticket */}
+        {!SelectedTileDataToEdit ? (
+          <>
+            <CustomButton
+              text={`${
+                !renderAddTicket && !renderEditTicket
+                  ? `${t('Add a ticket')}`
+                  : renderEditTicket
+                  ? `${t('Edit a ticket')}`
+                  : `${t('To safeguard')}`
+              }`}
+              addicon={!renderAddTicket ? true : false}
+              checkicon={renderAddTicket ? true : false}
+              onClick={!renderAddTicket ? handleRenderAddTicket : (e) => handleSubmit(e)}
+              style={{
+                position: 'absolute',
+                right: '20pt',
+                bottom: '20pt',
+              }}
+            />
+          </>
+        ) : null}
+
+        {/* button for edit ticket */}
+        {SelectedTileDataToEdit ? (
+          <>
+            <CustomButton
+              text={`${t('Edit a ticket')}`}
+              onClick={(e) => handleSubmitEditTicket(e)}
+              style={{
+                position: 'absolute',
+                right: '20pt',
+                bottom: '20pt',
+              }}
+            />
+          </>
+        ) : null}
       </UXL>
     </>
   );

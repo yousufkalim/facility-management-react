@@ -12,7 +12,6 @@ import Api from '../../api';
 import { getUser } from '../../utils/Auth';
 
 import { Store, UpdateStore } from '../../StoreContext';
-import { maxHeight } from '@mui/system';
 
 function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment, setCustomAlert }) {
   const user = getUser();
@@ -82,6 +81,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     let response;
     try {
       response = await Api('get', `/buildings/dropdown`);
+      console.log(response, 'response');
       const _buildings = response.data.data;
       return _buildings;
     } catch (e) {
@@ -356,7 +356,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 </div>
               </div>
               {/* Section 2 */}
-              <div className="column" style={{ marginBottom: '2%' }}>
+              <div className="column w100" style={{ marginBottom: '2%' }}>
                 <p
                   style={{
                     fontSize: '13px',
@@ -366,7 +366,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                 >
                   Catégorie *
                 </p>
-                <div style={{ flexWrap: 'wrap' }} className="row">
+                <div style={{ flexWrap: 'wrap' }} className="row w100">
                   {store.addTicket.categories.map((_) => (
                     <SelectableTag
                       text={_.text}

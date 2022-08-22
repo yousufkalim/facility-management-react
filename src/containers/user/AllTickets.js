@@ -23,8 +23,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import moment from 'moment';
 
-function AllTickets({ show, height }) {
-
+function AllTickets({ show, height, handleRenderEditTicketScreen }) {
   const { t } = useTranslation();
 
   const store = Store();
@@ -75,6 +74,7 @@ function AllTickets({ show, height }) {
     try {
       response = await Api('get', `/tickets/tickets_list/0/${user.id}`);
       const _tickets = response.data.data;
+      console.log(response, 'all');
       return _tickets;
     } catch (e) {
       console.trace(e);
@@ -430,7 +430,6 @@ function AllTickets({ show, height }) {
       console.trace(e);
     }
   };
-  console.log(height, 'height');
   return (
     <>
       {store.allTickets.isLoading ? (
@@ -478,7 +477,7 @@ function AllTickets({ show, height }) {
                           <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                             {(provided) => (
                               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <TicketListTile {..._} />
+                                <TicketListTile {..._} handleRenderEditTicketScreen={handleRenderEditTicketScreen} />
                               </div>
                             )}
                           </Draggable>
@@ -537,7 +536,7 @@ function AllTickets({ show, height }) {
                           <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                             {(provided) => (
                               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <TicketListTile {..._} />
+                                <TicketListTile {..._} handleRenderEditTicketScreen={handleRenderEditTicketScreen} />
                               </div>
                             )}
                           </Draggable>
@@ -596,7 +595,7 @@ function AllTickets({ show, height }) {
                           <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                             {(provided) => (
                               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <TicketListTile {..._} />
+                                <TicketListTile {..._} handleRenderEditTicketScreen={handleRenderEditTicketScreen} />
                               </div>
                             )}
                           </Draggable>
@@ -654,7 +653,7 @@ function AllTickets({ show, height }) {
                           <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                             {(provided) => (
                               <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <TicketListTile {..._} />
+                                <TicketListTile {..._} handleRenderEditTicketScreen={handleRenderEditTicketScreen} />
                               </div>
                             )}
                           </Draggable>
