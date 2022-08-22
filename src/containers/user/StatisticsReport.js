@@ -236,7 +236,7 @@ function StatisticsReportScreen() {
       100,
       30
     );
-
+    // displayClass
     domElement.classList.remove('displayClass');
 
     pdf.save('Doc.pdf');
