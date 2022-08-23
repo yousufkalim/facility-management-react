@@ -400,10 +400,10 @@ const AllUsers = () => {
                               <SelectableTag
                                 {..._}
                                 text={_.name}
-                                color={_.color}
+                                categorieslevelscolor={_.color}
                                 disabled={true}
                                 icon={true}
-                                isSelected={building == _.value}
+                                isSelected={true}
                                 onClick={() => setBuilding(_.value)}
                                 pStyle={{
                                   padding: '6pt',

@@ -13,6 +13,7 @@ import AsignTicket from '../../../assets/AsignTicket.svg';
 import EditProfileIcon from '../../../assets/Edit.svg';
 import NewRoundTicket from '../../../assets/NewRoundTicket.svg';
 import RoundTrackingTicket from '../../../assets/RoundTrackingTicket.svg';
+import ProfileInputSVG from '../../../assets/ProfileInput.svg';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -109,6 +110,7 @@ const Account = ({ userInfo }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [attachment, setAttachment] = useState(null);
+  const [existingimage, setexistingimage] = useState(); ////state for existing Profile Picture
   const [checked, setchecked] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [state, setState] = useState({
@@ -146,6 +148,7 @@ const Account = ({ userInfo }) => {
       trackingTicket: _profile?.trackingTicket,
       assignmentToTicket: _profile?.assignmentToTicket,
       newTicket: _profile?.newTicket,
+      profilePicture: _profile?.profilePicture,
     });
     setIsLoading(false);
   };
@@ -224,9 +227,21 @@ const Account = ({ userInfo }) => {
 
       if (user?.roleSerial == '1') {
         response = await Api('put', '/Users/update_admin', bodyadmin);
+        const formData = new FormData();
+        formData.append('EmployeeId', user.id);
+        formData.append('ProfileImage', attachment);
+        if (attachment) {
+          await Api('post', '/Users/updateprofile_pic', formData);
+        }
       }
       if (user?.roleSerial == '2') {
         response = await Api('put', '/Users/update_user_profile', bodyuser);
+        const formData = new FormData();
+        formData.append('EmployeeId', user.id);
+        formData.append('ProfileImage', attachment);
+        if (attachment) {
+          await Api('post', '/Users/updateprofile_pic', formData);
+        }
       }
 
       if (response?.data?.success) {
@@ -304,14 +319,13 @@ const Account = ({ userInfo }) => {
                     <img
                       style={{ marginTop: '10%' }}
                       className="input_image"
-                      src={attachment ? URL.createObjectURL(attachment) : DummyUserSVG}
-                      // src={
-                      //   attachment
-                      //     ? URL.createObjectURL(attachment)
-                      //     : existingUser?.profilePicture
-                      //     ? existingUser.profilePicture
-                      //     : ProfileInputSVG
-                      // }
+                      src={
+                        attachment
+                          ? URL.createObjectURL(attachment)
+                          : state?.profilePicture
+                          ? state.profilePicture
+                          : ProfileInputSVG
+                      }
                     />
                   </div>
 

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import EditSVG from '../../assets/Edit.svg';
-import EditIconSelectedSVG from '../../assets/EditIconSelected.svg';
-
+import { hexToRGBA } from '../../utils/Helpers';
 import { useSpring, animated } from 'react-spring';
 
 import Tag from '../Tag';
@@ -19,6 +18,8 @@ import CommentUserSVG from '../../assets/CommentUser.png';
 import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
 
 import ReactHtmlParser from 'react-html-parser';
+
+import { hexToCSSFilter } from 'hex-to-css-filter';
 
 import * as FormValidations from '../../utils/Validations';
 import Api from '../../api';
@@ -293,8 +294,16 @@ function TicketDetailModal(props) {
             marginBottom: '5%',
           }}
         >
-          <div style={{ backgroundColor: '#D8ECFF', padding: '9% 20%', borderRadius: '20px' }} className="row">
-            <img style={{ width: '10px', height: '10px', marginRight: '5%' }} src={SBSettingsBuildingIconUnSelected} />
+          <div style={{ backgroundColor: hexToRGBA(props?.colorCode), padding: '9% 20%', borderRadius: '20px' }} className="row">
+            <img
+              style={{
+                width: '10px',
+                height: '10px',
+                marginRight: '5%',
+                filter: hexToCSSFilter(props?.colorCode).filter.replace(';', ''),
+              }}
+              src={SBSettingsBuildingIconUnSelected}
+            />
             <p
               style={{
                 fontSize: '12px',
@@ -303,7 +312,7 @@ function TicketDetailModal(props) {
                 marginRight: '4%',
 
                 fontWeight: '600',
-                color: '#00109E',
+                color: props?.colorCode,
               }}
             >
               {props.building}
@@ -323,8 +332,8 @@ function TicketDetailModal(props) {
                 style={{
                   fontSize: '13px',
                   fontWeight: '600',
-                  color: '#494949',
-                  backgroundColor: '#D8ECFF',
+                  color: props?.colorCode,
+                  backgroundColor: hexToRGBA(props?.colorCode),
                   padding: '12% 23%',
                   borderRadius: '20px',
                   whiteSpace: 'nowrap',
@@ -341,12 +350,12 @@ function TicketDetailModal(props) {
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: '20px',
-                  backgroundColor: '#F4F4F4',
+                  backgroundColor: hexToRGBA(props?.colorCode),
                   marginRight: '4%',
                   padding: '7% 20%',
                   fontWeight: '600',
                   fontSize: '12px',
-                  color: '#494949',
+                  color: props?.colorCode,
                   whiteSpace: 'nowrap',
                 }}
               >
