@@ -94,6 +94,15 @@ class Validators {
     }
     return null;
   }
+  static passwordValidatoradmin(name, value) {
+    const regexMatch = value.match(kRegExpPassword);
+
+    if (!regexMatch) {
+      return `${name} doit comporter 8 caractères et inclure des majuscules, des minuscules, des caractères spéciaux et des chiffres`; // must be 8 characters and include uppercase, lowercase, special character and number
+    }
+
+    return null;
+  }
   static passwordValidator(name, value) {
     if (isEmpty(value)) {
       return `${name} ne peut pas être vide`; // can't be empty
@@ -136,8 +145,8 @@ class Validators {
   }
 
   static minlengthValidator(name, value) {
-    if (value?.length < 4) {
-      return `${name} la longueur doit être d'au moins 4`;
+    if (value?.length < 2) {
+      return `${name} la longueur doit être d'au moins 2`;
     }
   }
 

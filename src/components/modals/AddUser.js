@@ -190,10 +190,10 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       return;
     }
 
-    if (!attachment && !existingUser) {
-      toast.error('La pièce jointe doit être sélectionnée.');
-      return;
-    }
+    // if (!attachment && !existingUser) {
+    //   toast.error('La pièce jointe doit être sélectionnée.');
+    //   return;
+    // }
 
     let response;
 
@@ -221,26 +221,26 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       }
 
       if (response?.data?.success) {
-        if (attachment) {
-          let userID;
-          if (existingUser) {
-            userID = existingUser.userId;
-          } else {
-            userID = response.data.id;
-          }
-
-          const formData = new FormData();
-
-          formData.append('EmployeeId', userID);
-          formData.append('ProfileImage', attachment);
-
-          await Api('post', '/Users/updateprofile_pic', formData);
-          setIsAlert(true);
-          setTimeout(() => {
-            setIsAlert(false);
-            handleClose();
-          }, 3000);
+        let userID;
+        if (existingUser) {
+          userID = existingUser.userId;
+        } else {
+          userID = response.data.id;
         }
+
+        const formData = new FormData();
+
+        formData.append('EmployeeId', userID);
+        formData.append('ProfileImage', attachment);
+        if (attachment) {
+          await Api('post', '/Users/updateprofile_pic', formData);
+        }
+        setIsAlert(true);
+        setTimeout(() => {
+          setIsAlert(false);
+          handleClose();
+        }, 3000);
+
         if (existingUser) {
           setIsAlert(true);
           setTimeout(() => {

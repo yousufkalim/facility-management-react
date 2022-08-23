@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
+import EditSVG from '../../assets/Edit.svg';
+import EditIconSelectedSVG from '../../assets/EditIconSelected.svg';
+
 import { useSpring, animated } from 'react-spring';
 
 import Tag from '../Tag';
@@ -174,6 +177,8 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
+  console.log(store?.allTickets);
+  console.log(props, 'props');
   return (
     <animated.div
       style={{
@@ -232,7 +237,38 @@ function TicketDetailModal(props) {
             </p>
           </div>
         </div>
-        <img src={ModalCrossSVG} style={{ height: '30px', width: '30px', cursor: 'pointer' }} onClick={props.handleClose} />
+
+        <div style={{ display: 'flex', width: '27%', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              background: '#ffffff',
+              color: '#000000',
+              padding: '5% 15%',
+              borderRadius: '15px',
+            }}
+            className="row edit_icon_text_container"
+            onClick={() => {
+              props.handleClose();
+              props?.handleRenderEditTicketScreen({ ...props });
+            }}
+          >
+            <div
+              style={{
+                background: '#F4F4F4',
+                width: '32px',
+              }}
+              className="edit_icon_container d-flex aic jcc"
+            >
+              <img src={EditSVG} />
+            </div>
+            <p style={{ fontSize: '12px', marginLeft: '16%' }}>{'Éditer'}</p>
+          </div>
+          <img
+            src={ModalCrossSVG}
+            style={{ height: '23px', width: '23px', cursor: 'pointer', marginTop: '5%' }}
+            onClick={props.handleClose}
+          />
+        </div>
       </div>
       <div
         className="column w100"
@@ -283,23 +319,41 @@ function TicketDetailModal(props) {
           >
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Lieu</p>
-              <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
-                {props?.details === 'undefined' || !props?.details ? 'NA' : props?.details}
+              <p
+                style={{
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#494949',
+                  backgroundColor: '#D8ECFF',
+                  padding: '12% 23%',
+                  borderRadius: '20px',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {props?.placeName === 'undefined' || !props?.placeName ? 'NA' : props?.placeName}
               </p>
             </div>
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Assignés</p>
               <div
                 style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   borderRadius: '20px',
                   backgroundColor: '#F4F4F4',
                   marginRight: '4%',
-                  padding: '10% 35%',
+                  padding: '7% 20%',
                   fontWeight: '600',
+                  fontSize: '12px',
                   color: '#494949',
                   whiteSpace: 'nowrap',
                 }}
               >
+                <img
+                  style={{ width: '20px', height: '20px', borderRadius: '20px', marginRight: '7%' }}
+                  src={props?.categoryImage}
+                />
                 {props?.employeeName ? props?.employeeName : 'NA'}
               </div>
             </div>
@@ -335,8 +389,7 @@ function TicketDetailModal(props) {
             lineHeight: '20px',
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ligula nunc, suscipit id vestibulum vel, gravida
-          tincidunt diam. Cras non lacus finibus, auctor elit ut.
+          {props?.details}
         </p>
         <div
           className="w100"

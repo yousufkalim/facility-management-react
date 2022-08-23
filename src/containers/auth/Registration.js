@@ -270,12 +270,11 @@ function RegistrationScreen() {
             </div>
 
             <CustomButton style={{ marginTop: '4%' }} text={t(`S'inscrire`)} onClick={handleSubmit} />
-
           </div>
           <div
             style={{
               marginBottom: '2%',
-              marginRight: '20%',
+              marginRight: '11%',
               cursor: 'pointer',
               padding: width < 667 ? '3%' : '',
               display: 'flex',

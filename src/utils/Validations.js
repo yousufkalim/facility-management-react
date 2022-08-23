@@ -88,6 +88,8 @@ function addUser(data) {
   const valFuncArr = [
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
+    () => Validators.minlengthValidator('Prénom', data['first_name']),
+    () => Validators.minlengthValidator('Nom de famille', data['last_name']),
     // () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
     () => Validators.phoneNoValidatorfrance('Numéro de téléphone', data['phone']),
     () => Validators.nullValidator('Entreprise', data['enterprise']),
@@ -112,11 +114,12 @@ function addBuilding(data) {
 }
 
 function updateAdmin(data) {
+  console.log(data, 'data');
   const valFuncArr = [
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
     () => Validators.emailValidator('Adresse e-mail', data['email']),
-    () => Validators.passwordValidator('Password', data['password']),
+    () => (data?.password ? Validators.passwordValidator('Password', data['password']) : null),
     () => Validators.phoneLengthValidator('Numéro de téléphone', data['phone']),
     () => Validators.minlengthValidator(`Nom de l'entreprise`, data['company_name']),
     () => Validators.minlengthValidator('Prénom', data['first_name']),
