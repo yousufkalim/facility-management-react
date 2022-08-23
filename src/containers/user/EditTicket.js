@@ -280,7 +280,7 @@ const EditScreen = ({
               </div>
             </div>
             <div className="column wh100">
-              <div className="column" style={{ marginBottom: '2%' }}>
+              <div className="column" style={{ marginBottom: '2%', width: '100%', height: 'auto' }}>
                 <p
                   style={{
                     fontSize: '13px',

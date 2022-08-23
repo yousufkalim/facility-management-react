@@ -17,7 +17,6 @@ function SelectableTag({
   image,
   categorieslevelscolor,
 }) {
-  console.log(color, 'color');
   return (
     <div
       className="row ajc"
@@ -25,7 +24,7 @@ function SelectableTag({
         cursor: 'pointer',
         marginRight: '5pt',
         padding: '0% 2%',
-        borderRadius: '20px',
+        borderRadius: '15px',
         // backgroundColor: isSelected ? '#D8ECFF' : color ? hexToRGBA(color) : '#F4F4F4',
         backgroundColor: isSelected ? hexToRGBA(categorieslevelscolor ? categorieslevelscolor : '#ffffff') : '#F4F4F4',
         pointerEvents: disabled ? 'none' : 'auto',
@@ -53,9 +52,9 @@ function SelectableTag({
       {image ? (
         <img
           style={{
-            height: '14px',
-            width: '14px',
-            margin: '0 5pt',
+            height: '18px',
+            width: '18px',
+            margin: '0 2pt',
             borderRadius: '50%',
             ...imgStyle,
           }}
