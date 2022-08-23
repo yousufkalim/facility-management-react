@@ -19,6 +19,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const updateStore = UpdateStore();
 
   const [fillLevel, setFillLevel] = useState(0);
+  const [categorieslevelscolor, setcategorieslevelscolor] = useState(); ////setting color in state for background of levels categories
   const [showMore, setShowMore] = useState(3);
 
   const _setState = (key, value) => {
@@ -261,6 +262,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   Bâtiment *
                 </p>
                 <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
+                  {console.log(store.addTicket.buildings, 'store.addTicket.buildingLevels')}
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
@@ -269,7 +271,9 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       onClick={() => {
                         selectBuilding(_);
                         setShowMore(3);
+                        setcategorieslevelscolor(_?.color);
                       }}
+                      categorieslevelscolor={categorieslevelscolor}
                       icon={true}
                       pStyle={{
                         padding: '10pt 6pt',
@@ -300,6 +304,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                           padding: '10pt 6pt',
                           fontWeight: '600',
                         }}
+                        categorieslevelscolor={categorieslevelscolor}
                       />
                     ))}
                     {store?.addTicket?.buildingLevels?.length > 3 ? (
@@ -376,6 +381,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         padding: '10pt 6pt',
                         fontWeight: '600',
                       }}
+                      categorieslevelscolor={categorieslevelscolor}
                     />
                   ))}
                 </div>
@@ -503,6 +509,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                           padding: '10pt 6pt',
                           fontWeight: '600',
                         }}
+                        categorieslevelscolor={categorieslevelscolor}
                       />
                     ))}
                     {/* <div

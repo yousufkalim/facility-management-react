@@ -97,8 +97,6 @@ i18n
           'Log in now': 'Connecte-toi maintenant',
 
           // ForgotPassword1
-          'Welcome to Facility Management, please enter your login credentials to get started!':
-            'Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !',
           'Forgot your password': 'Mot de passe oublié',
           "Enter your email and we'll send you your verification code":
             'Entrez votre email et nous vous enverrons votre code de vérification',

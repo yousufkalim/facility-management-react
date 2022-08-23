@@ -115,13 +115,11 @@ function CategoryListTile(props) {
 
     try {
       setIsProcessing(true);
+      let formdata = new FormData();
+      formdata.append('Name', text.current);
+      formdata.append('categoryId', parseInt(props.value));
 
-      const body = {
-        categoryId: parseInt(props.value),
-        name: text.current,
-      };
-
-      response = await Api('put', '/category', body);
+      response = await Api('put', '/category', formdata);
 
       if (response?.data?.success) {
         const cp = [...store.settings.allCategories.categories];
@@ -140,6 +138,7 @@ function CategoryListTile(props) {
           },
         });
         setToEdit(false);
+        toast.success('Category updated successfully.');
       }
     } catch (e) {
       console.trace(e);
@@ -282,14 +281,14 @@ function AddCategory(props) {
     try {
       setIsProcessing(true);
 
-      const body = {
-        name: text.current,
-      };
+      let formdata = new FormData();
+      formdata.append('Name', text.current);
 
-      response = await Api('post', '/category', body);
+      response = await Api('post', '/category', formdata);
 
       if (response?.data?.success) {
         await _load();
+        toast.success('Category added successfully.');
       }
     } catch (e) {
       console.trace(e);

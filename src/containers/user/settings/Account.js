@@ -10,6 +10,7 @@ import FooterSVG from '../../../assets/Cornerimage.svg';
 import TicketIcon from '../../../assets/TicketIcon.svg';
 import TicketTracking from '../../../assets/TicketTracking.svg';
 import AsignTicket from '../../../assets/AsignTicket.svg';
+import EditProfileIcon from '../../../assets/Edit.svg';
 import NewRoundTicket from '../../../assets/NewRoundTicket.svg';
 import RoundTrackingTicket from '../../../assets/RoundTrackingTicket.svg';
 
@@ -107,6 +108,7 @@ const Account = ({ userInfo }) => {
   const [width] = useWindowSize();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [attachment, setAttachment] = useState(null);
   const [checked, setchecked] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [state, setState] = useState({
@@ -166,7 +168,15 @@ const Account = ({ userInfo }) => {
       setEdit(false);
     }
   };
-
+  ////////onchange function for profile picture
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.includes('image')) {
+      toast.error('Only image can be selected');
+      return;
+    }
+    setAttachment(file);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -266,8 +276,45 @@ const Account = ({ userInfo }) => {
               >
                 <div className="form_container form_container_account">
                   <div className="input_image_container">
-                    <img className="input_image_account" src={DummyUserSVG} />
+                    <label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        id="filePickersettings"
+                        name="file"
+                        onChange={handleFileSelect}
+                      />
+                      <img
+                        style={{
+                          position: 'absolute',
+                          cursor: 'pointer',
+                          top: '119px',
+                          right: '0%',
+                          border: '2px solid #f4f4f4',
+                          borderRadius: '50%',
+                          background: '#f4f4f4',
+                          width: '29px',
+                          padding: '6px',
+                        }}
+                        src={EditProfileIcon}
+                      />
+                    </label>
+
+                    <img
+                      style={{ marginTop: '10%' }}
+                      className="input_image"
+                      src={attachment ? URL.createObjectURL(attachment) : DummyUserSVG}
+                      // src={
+                      //   attachment
+                      //     ? URL.createObjectURL(attachment)
+                      //     : existingUser?.profilePicture
+                      //     ? existingUser.profilePicture
+                      //     : ProfileInputSVG
+                      // }
+                    />
                   </div>
+
                   <div style={{ marginTop: '3%' }} className="input_container">
                     <div
                       className="input_row"
