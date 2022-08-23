@@ -7,11 +7,13 @@ import TicketTextSVG from '../../assets/TicketText.svg';
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
 import TicketComment from '../../assets/Comment.svg';
 import ProfileSVG from '../../assets/DummyUser.jpeg';
-import FooterSVG from '../../assets/Cornerimage.svg';
+import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
+import { hexToCSSFilter } from 'hex-to-css-filter';
 
 import TicketDetailModal from '../../components/modals/TicketDetail';
 import Loader from '../../components/Loader';
 
+import { hexToRGBA } from '../../utils/Helpers';
 import { getUser } from '../../utils/Auth';
 import Api from '../../api';
 
@@ -473,6 +475,7 @@ function AllTickets({ show, height, handleRenderEditTicketScreen }) {
                   <Droppable droppableId="0">
                     {(provided) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
+                        {console.log(store.allTickets.recentTickets, 'store.allTickets.recentTickets')}
                         {store.allTickets.recentTickets.map((_) => (
                           <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                             {(provided) => (
@@ -681,7 +684,7 @@ function TicketListTile(props) {
       setIsTicketDetailModal(true);
     }
   };
-
+  console.log(props, 'jkprops');
   return (
     <>
       <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>
@@ -697,15 +700,25 @@ function TicketListTile(props) {
             className="row"
             style={{
               borderRadius: '20px',
-              backgroundColor: '#D8ECFF',
+              backgroundColor: hexToRGBA(props?.colorCode),
               marginRight: '2%',
-              padding: '2% 4%',
+              padding: '2% 6%',
             }}
           >
+            <img
+              style={{
+                width: '10px',
+                height: '10px',
+                marginRight: '5%',
+                filter: hexToCSSFilter(props?.colorCode).filter.replace(';', ''),
+              }}
+              src={SBSettingsBuildingIconUnSelected}
+            />
             <p
               style={{
                 fontSize: '12px',
                 whiteSpace: 'nowrap',
+                color: hexToRGBA(props?.colorCode),
               }}
             >
               {props.building}
