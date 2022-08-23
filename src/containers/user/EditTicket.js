@@ -31,6 +31,7 @@ const EditScreen = ({
 
   const [fillLevel, setFillLevel] = useState(0);
   const [showMore, setShowMore] = useState(3);
+  const [categorieslevelscolor, setcategorieslevelscolor] = useState(); ////setting color in state for background of levels categories
 
   const _setState = (key, value) => {
     const obj = {};
@@ -76,6 +77,7 @@ const EditScreen = ({
         location_details: SelectedTileDataToEdit?.locationDetails,
       };
     });
+    setcategorieslevelscolor(SelectedTileDataToEdit?.colorCode);
   }, [SelectedTileDataToEdit]); ///////setting Pre filled data in different fields buildings, categories, levels, details field
 
   useEffect(() => {
@@ -161,9 +163,9 @@ const EditScreen = ({
       building_level: _buildingLevels[0].value,
     });
   };
-  console.log(state.building, 'state.building');
+
   console.log(SelectedTileDataToEdit, 'SelectedTileDataToEdit?.building');
-  console.log(store.addTicket.assignees, 'console.log(');
+
   return (
     <>
       {store.addTicket.isLoading ? (
@@ -297,12 +299,14 @@ const EditScreen = ({
                       onClick={() => {
                         selectBuilding(_);
                         setShowMore(3);
+                        setcategorieslevelscolor(_?.color);
                       }}
                       icon={true}
                       pStyle={{
                         padding: '10pt 6pt',
                         fontWeight: '600',
                       }}
+                      categorieslevelscolor={categorieslevelscolor}
                     />
                   ))}
                 </div>
@@ -318,6 +322,7 @@ const EditScreen = ({
                   >
                     Lieu
                   </p>
+                  {console.log(store.addTicket.buildingLevels, 'store.addTicket.buildingLevels')}
                   <div style={{ flexWrap: 'wrap', width: '406pt' }} className="row aic">
                     {store.addTicket.buildingLevels.slice(0, showMore).map((_) => (
                       <SelectableTag
@@ -328,6 +333,7 @@ const EditScreen = ({
                           padding: '10pt 6pt',
                           fontWeight: '600',
                         }}
+                        categorieslevelscolor={categorieslevelscolor}
                       />
                     ))}
                     {store?.addTicket?.buildingLevels?.length > 3 ? (
@@ -404,6 +410,7 @@ const EditScreen = ({
                         padding: '10pt 6pt',
                         fontWeight: '600',
                       }}
+                      categorieslevelscolor={categorieslevelscolor}
                     />
                   ))}
                 </div>
@@ -542,6 +549,7 @@ const EditScreen = ({
                           padding: '10pt 6pt',
                           fontWeight: '600',
                         }}
+                        categorieslevelscolor={categorieslevelscolor}
                       />
                     ))}
                     {/* <div
