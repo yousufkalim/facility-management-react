@@ -361,7 +361,7 @@ function TicketDetailModal(props) {
               >
                 <img
                   style={{ width: '20px', height: '20px', borderRadius: '20px', marginRight: '7%' }}
-                  src={props?.categoryImage}
+                  src={props?.documentFile}
                 />
                 {props?.employeeName ? props?.employeeName : 'NA'}
               </div>

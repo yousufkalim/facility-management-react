@@ -115,7 +115,7 @@ function DashboardScreen() {
         body.append('EmployeeId', user.id);
       }
       body.append('TicketFile', attachment);
-
+      console.log(attachment);
       response = await Api('post', '/tickets/save_ticket', body);
 
       if (response?.data?.success) {
@@ -180,7 +180,12 @@ function DashboardScreen() {
       body.append('TicketFile', attachment);
 
       response = await Api('post', '/tickets/update_ticket', body);
-
+      const formData = new FormData();
+      formData.append('EmployeeId', user.id);
+      formData.append('ProfileImage', attachment);
+      if (attachment) {
+        await Api('post', '/Users/updateprofile_pic', formData);
+      }
       if (response?.data?.success) {
         toast.success('Ticket updated successfully.');
         const _recentTickets = await getRecentTickets();
