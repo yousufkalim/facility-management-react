@@ -27,7 +27,8 @@ const AddBuilding = ({ cb, handleClose }) => {
   const [title, setTitle] = useState('');
   const [color, setColor] = useState(buildingColors[0]);
   const [levels, setLevels] = useState([]);
-
+  const [showMoreColors, setShowMoreBuildingColors] = useState(6); ////show more functionality for building colors
+  const [showMoreBuildingLevels, setshowMoreBuildingLevels] = useState(12);
   useEffect(() => {
     if (existingBuilding) {
       const _color = existingBuilding.color[0] == '#' ? existingBuilding.color : `${existingBuilding.color}`;
@@ -147,7 +148,9 @@ const AddBuilding = ({ cb, handleClose }) => {
       <div style={{ padding: '1% 4%' }} className="allusers_modal">
         <div className="modal_parent_container">
           <div style={{ width: '100%' }} className="form_heading_text edit_building_header">
-            <span style={{ color: '#2F696D', fontWeight: '600' }}>{`${existingBuilding ? 'Modifier' : 'Add'}`} le bâtiment</span>
+            <span style={{ color: '#2F696D', fontWeight: '600' }}>
+              {`${existingBuilding ? 'Modifier' : 'Ajouter'}`} le bâtiment
+            </span>
             <span style={{ color: '#8C8C8C' }}>Cela s'affichera lorsque vous ajouterez de nouveaux tickets ou utilisateurs</span>
             <div className="horizental_seperator" />
             <CustomInput
@@ -177,8 +180,8 @@ const AddBuilding = ({ cb, handleClose }) => {
             />
             <div className="colors_btn_container">
               <span className="colors_heading"> Couleur du bâtiment</span>
-              <div className="colors_container d-flex space-between aic">
-                {buildingColors.map((_) => (
+              <div style={{ flexWrap: 'wrap' }} className="colors_container d-flex aic">
+                {buildingColors.slice(0, showMoreColors).map((_) => (
                   <div
                     style={{
                       border: color == _ ? '5px solid #2F696D' : 'none',
@@ -192,7 +195,13 @@ const AddBuilding = ({ cb, handleClose }) => {
                     {' '}
                   </div>
                 ))}
-                <div>
+                <div
+                  onClick={() => {
+                    if (buildingColors.length > 6) {
+                      setShowMoreBuildingColors(buildingColors?.length);
+                    }
+                  }}
+                >
                   <span
                     style={{
                       color: '#8C8C8C',
@@ -208,7 +217,7 @@ const AddBuilding = ({ cb, handleClose }) => {
               </div>
               <span className="colors_heading"> Lieu</span>
               <div className="levels_box_container">
-                {buildingLevels.map((_) => (
+                {buildingLevels.slice(0, showMoreBuildingLevels).map((_) => (
                   <span
                     className="levels"
                     style={{
@@ -222,7 +231,14 @@ const AddBuilding = ({ cb, handleClose }) => {
                     {_}{' '}
                   </span>
                 ))}
-                <div className="d-flex aic">
+                <div
+                  onClick={() => {
+                    if (buildingLevels.length > 6) {
+                      setshowMoreBuildingLevels(buildingLevels?.length);
+                    }
+                  }}
+                  className="d-flex aic"
+                >
                   {' '}
                   <span onClick={() => console.log('clicked')} className="load_more_btn">
                     {' '}

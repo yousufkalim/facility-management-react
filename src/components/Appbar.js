@@ -138,10 +138,10 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
             open={openProfile}
             onClose={handleCloseProfile}
           >
-            <MenuItem className="menu-item support-padding" onClick={() => changeLanguage(`${language == 'en' ? 'fr' : 'en'}`)}>
+            {/* <MenuItem className="menu-item support-padding" onClick={() => changeLanguage(`${language == 'en' ? 'fr' : 'en'}`)}>
               <GTranslateIcon sx={{ width: '20px' }} />
               {language == 'fr' ? 'French' : 'English'}
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem className="menu-item sign-out-padding" onClick={() => handleLogout(navigate, updateStore)}>
               <img style={{ width: '16px' }} src={SignOutIcon} /> <p> {t('Sign out')} </p>
             </MenuItem>

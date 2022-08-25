@@ -38,7 +38,18 @@ function DashboardScreen() {
   const [renderAddTicket, setRenderAddTicket] = useState(false);
   const [renderEditTicket, setRenderEditTicket] = useState(false);
   const [customAlert, setCustomAlert] = useState(false);
+  console.log(user?.allowedBuildings.length, 'user?.allowedBuildings.length');
   const handleRenderAddTicket = () => {
+    // if (
+    //   store.addTicket.buildings.length > 0 ||
+    //   user?.roleSerial == 1 ||
+    //   (store.addTicket.buildings.length > 0 && user?.roleSerial == 2)
+    // ) {
+    //   setRenderAddTicket(!renderAddTicket);
+    // }
+    // if (store.addTicket.buildings.length == 0 && user?.roleSerial == 2) {
+    //   setCustomAlert(true);
+    // }
     if (
       store.addTicket.buildings.length > 0 ||
       user?.roleSerial == 1 ||

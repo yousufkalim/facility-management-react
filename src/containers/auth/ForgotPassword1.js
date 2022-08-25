@@ -95,6 +95,7 @@ function ForgotPassword1Screen() {
           <p
             style={{
               fontSize: width < 667 ? '27px' : '36px',
+              fontSize: width < 667 ? '27px' : '36px',
             }}
           >
             Facility

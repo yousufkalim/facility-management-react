@@ -373,6 +373,7 @@ function TicketDetailModal(props) {
               width: '30%',
             }}
           >
+            {console.log(props?.locationDetails== 'undefined','props?.locationDetails')}
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
               <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
@@ -398,7 +399,7 @@ function TicketDetailModal(props) {
             lineHeight: '20px',
           }}
         >
-          {props?.details}
+          {props?.details == 'undefined' || !props?.details ? 'NA' : props?.details}
         </p>
         <div
           className="w100"

@@ -2,7 +2,8 @@
   margin-bottom: 2%;
 }
 .colors_container {
-  width: 82%;
+  width: 92%;
+  margin-top: 2%;
 }
 .colors_container > * {
   padding-right: 1%;
@@ -18,12 +19,15 @@
   font-size: 16px;
   line-height: 24px;
   color: #8c8c8c;
+  padding: 2% 0%;
 }
 .colored_circle {
   width: 50px;
   font-weight: 400;
   height: 50px;
   border-radius: 50%;
+  margin-right: 2%;
+  margin-bottom: 2%;
 }
 .levels_box_container {
   width: 90%;
