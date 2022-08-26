@@ -484,7 +484,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
               {/* Section 3 */}
               <div className="column" style={{ marginBottom: '2%' }}></div>
               {user?.roleSerial == 1 ? (
-                <div className="column" style={{ marginBottom: '2%' }}>
+                <div className="column" style={{ marginBottom: '2%', width: '100%' }}>
                   <p
                     style={{
                       fontSize: '13px',
@@ -494,7 +494,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   >
                     Assignés
                   </p>
-                  <div style={{ flexWrap: 'wrap' }} className="row">
+                  <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
                     {store.addTicket.assignees.map((_) => (
                       <SelectableTag
                         {..._}

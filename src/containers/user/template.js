@@ -306,7 +306,7 @@ export default function createMarkup(data) {
                             <div class="ticket_count">
                                 <h1 class="ticket_num"
                                     style="font-size: 3rem; background-color: #fff; padding: 20px; width: 100px;text-align: center;">
-                                    ${data?.tilesData?.inProgress}
+                                    ${data?.tilesData?.completed}
                                 </h1>
                             </div>
                             <div class="ticket_heading">
@@ -329,7 +329,7 @@ export default function createMarkup(data) {
                             <div class="ticket_count">
                                 <h1 class="ticket_num"
                                     style="font-size: 3.5rem; background-color: #fff; padding: 20px; width: 100px;text-align: center;">
-                                    ${data?.tilesData?.completed}
+                                    ${data?.tilesData?.inProgress}
                                 </h1>
                             </div>
                             <div class="ticket_heading">
@@ -373,9 +373,7 @@ export default function createMarkup(data) {
                                     <span class="timent_span">
                                     ${index + 1}
                                     </span>
-                                    <span class="timent_span2" style="color: #7E807F; font-size: 13px">${
-                                      val.buildingName
-                                    }</span>
+                                    <span class="timent_span2" style="color: #7E807F; font-size: 13px">${val.buildingName}</span>
                                     <span style="font-size: 12px">${val.ticketCount} tickets</span>
                                     </li>
                                 `
@@ -400,13 +398,9 @@ export default function createMarkup(data) {
                                     (val, index) =>
                                       `
                                         <li class="timent_li" style="list-style: none; white-space: nowrap; color: #9C9E9D;">
-                                        <span class="timent_span" style="color: #7E807F; font-size: 13px">${
-                                          index + 1
-                                        }</span>
+                                        <span class="timent_span" style="color: #7E807F; font-size: 13px">${index + 1}</span>
                                         <span class="timent_span2">${val?.categoryName}</span>
-                                        <span style="font-size: 12px">${
-                                          val.ticketsNumbers
-                                        } tickets</span>
+                                        <span style="font-size: 12px">${val.ticketsNumbers} tickets</span>
                                         </li>
                                     `
                                   )
@@ -431,9 +425,7 @@ export default function createMarkup(data) {
                             (val, index) =>
                               `
                             <li class="timent_li" style="list-style: none; white-space: nowrap; color: #9C9E9D;">
-                            <span class="timent_span" style="color: #7E807F; font-size: 13px">${
-                              index + 1
-                            }</span>
+                            <span class="timent_span" style="color: #7E807F; font-size: 13px">${index + 1}</span>
                             <span class="timent_span2">${val?.weekName}</span>
                             <span style="font-size: 12px">${val.ticketsNumbers} tickets</span>
                             </li>

@@ -93,7 +93,7 @@ function addUser(data) {
     // () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
     () => Validators.phoneNoValidatorfrance('Numéro de téléphone', data['phone']),
     () => Validators.nullValidator('Entreprise', data['enterprise']),
-    () => Validators.nullValidator('bâtiment', data['building']),
+    //() => Validators.nullValidator('bâtiment', data['building']),
   ];
 
   const validated = formValidator(valFuncArr);
