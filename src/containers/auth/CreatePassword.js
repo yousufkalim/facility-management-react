@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 import useWindowSize from '../../utils/WindowSize';
 
 const CreatePassword = () => {
-        const { t } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -40,57 +40,56 @@ const CreatePassword = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const token = searchParams.get('id');
 
-  
   const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        if (isProcessing) {
-          return;
-        }
-    
-        const isValidated = FormValidations.forgotPassword2(state);
-    
-        if (!isValidated) {
-          return;
-        }
-    
-       
-        let response;
-    
-        try {
-          setIsProcessing(true);
-    
-          const body = {
-            userId: token,
-            password: state.password,
-            confirmPassword: state.password_re,
-          };
-    
-          response = await Api('put', '/Users/update_user_profile/ChangePassword', body);
-          if (response?.data?.success) {
-            setRenderAlert(true);
-            setTimeout(() => {
-              setRenderAlert(false);
-              navToLogin();
-            }, 2000);
-          }
-        } catch (e) {
-          console.trace(e);
-        }
-    
-        setIsProcessing(false);
+    event.preventDefault();
+
+    if (isProcessing) {
+      return;
+    }
+
+    const isValidated = FormValidations.forgotPassword2(state);
+
+    if (!isValidated) {
+      return;
+    }
+
+    let response;
+
+    try {
+      setIsProcessing(true);
+
+      const body = {
+        userId: token,
+        password: state.password,
+        confirmPassword: state.password_re,
       };
-    
-      const navToRegistration = () => {
-        navigate('/registration');
-      };
-    
-      const navToLogin = () => {
-        navigate('/login');
-      };
+
+      response = await Api('put', '/Users/update_user_profile/ChangePassword', body);
+      if (response?.data?.success) {
+        setRenderAlert(true);
+        setTimeout(() => {
+          setRenderAlert(false);
+          navToLogin();
+        }, 2000);
+      }
+    } catch (e) {
+      console.trace(e);
+    }
+
+    setIsProcessing(false);
+  };
+
+  const navToRegistration = () => {
+    navigate('/registration');
+  };
+
+  const navToLogin = () => {
+    navigate('/login');
+  };
+  console.log(token);
   return (
     <>
-     {renderAlert ? (
+      {renderAlert ? (
         <>
           <CustomAlert text={t('Password Set Successfully!')} />
         </>
@@ -236,7 +235,7 @@ const CreatePassword = () => {
         </Backdrop>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CreatePassword
+export default CreatePassword;

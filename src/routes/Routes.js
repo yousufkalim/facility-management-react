@@ -4,7 +4,7 @@ import LoginScreen from '../containers/auth/Login';
 import RegistrationScreen from '../containers/auth/Registration';
 import ForgotPassword1Screen from '../containers/auth/ForgotPassword1';
 import ForgotPassword2Screen from '../containers/auth/ForgotPassword2';
-import CreatePassword from '../containers/auth/CreatePassword'
+import CreatePassword from '../containers/auth/CreatePassword';
 
 // User Screens
 import DashboardScreen from '../containers/user/Dashboard';
@@ -64,14 +64,12 @@ const AuthRoutes = [
     element: ForgotPassword2Screen,
   },
 
-{
+  {
     path: '/create_password',
     name: 'CreatePassword',
     icon: <LoginIcon />,
     element: CreatePassword,
   },
-
-  
 ];
 
 // Routes for User

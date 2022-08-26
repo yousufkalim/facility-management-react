@@ -109,7 +109,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       });
     }
   }, []);
-  let arr = [];
+  console.log(existingUser, 'existingUser');
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;

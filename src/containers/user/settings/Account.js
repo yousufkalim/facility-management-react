@@ -143,7 +143,7 @@ const Account = ({ userInfo }) => {
       last_name: _profile.lastName,
       email: _profile.email,
       phone: _profile.phoneNo,
-      company_name: _profile.companyName,
+      enterprise: _profile.enterprise,
       passwordChangedStatus: _profile?.passwordChangedStatus,
       trackingTicket: _profile?.trackingTicket,
       assignmentToTicket: _profile?.assignmentToTicket,
@@ -204,7 +204,7 @@ const Account = ({ userInfo }) => {
         lastName: state.last_name,
         phoneNo: state.phone,
         email: state.email,
-        companyName: state.company_name,
+        enterprise: state.enterprise,
         password: state?.password,
         trackingTicket: state?.trackingTicket,
         assignmentToTicket: state?.assignmentToTicket,
@@ -218,7 +218,7 @@ const Account = ({ userInfo }) => {
         lastName: state.last_name,
         phoneNo: state.phone,
         email: state.email,
-        companyName: state.company_name,
+        enterprise: state.enterprise,
         password: state?.password,
         trackingTicket: state?.trackingTicket,
         assignmentToTicket: state?.assignmentToTicket,
@@ -429,8 +429,8 @@ const Account = ({ userInfo }) => {
                             fontWeight: '600',
                           }}
                           placeholder="entreprise"
-                          value={state.company_name}
-                          onChange={(e) => _setState('company_name', e.target.value)}
+                          value={state.enterprise}
+                          onChange={(e) => _setState('enterprise', e.target.value)}
                         />
                       </div>
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>

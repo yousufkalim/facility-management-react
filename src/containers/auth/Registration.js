@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Backdrop from '@mui/material/Backdrop';
 
@@ -17,6 +17,16 @@ import { toast } from 'react-toastify';
 
 import useWindowSize from '../../utils/WindowSize';
 
+function useWindowSizeHeight() {
+  const [size, setSize] = useState([window.innerHeight]);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize([window.innerHeight]);
+    };
+    window.addEventListener('resize', handleResize);
+  }, []);
+  return size;
+}
 function RegistrationScreen() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -40,6 +50,7 @@ function RegistrationScreen() {
     });
   };
   const [width] = useWindowSize();
+  const [height] = useWindowSizeHeight();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -86,12 +97,12 @@ function RegistrationScreen() {
   const navToLogin = () => {
     navigate('/login');
   };
-
+  console.log(height, 'height');
   return (
     <div className="container">
       <img style={{ height: '100%', width: '100%', position: 'absolute' }} src={LoginBackgroundSVG} />
       <div className="reg_screen_top">
-        <div style={{ zIndex: '9' }} className="reg_screen_row1">
+        <div style={{ zIndex: '9', marginTop: height < 730 ? '5%' : '10%' }} className="reg_screen_row1">
           <p
             style={{
               fontSize: '34px',
@@ -111,7 +122,7 @@ function RegistrationScreen() {
           </span>
           <p className="welcome_note_fm">{t('Welcome to Facility Management, please fill out this form for a fresh start!')}</p>
         </div>
-        <div className="reg_screen_row2" style={{ zIndex: '9' }}>
+        <div className="reg_screen_row2" style={{ zIndex: '9', marginTop: height < 730 ? '5%' : '10%' }}>
           <div className="reg_screen_row2_container">
             <CustomInput
               labelText={t('Company Name')}

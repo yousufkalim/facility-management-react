@@ -361,7 +361,7 @@ function TicketDetailModal(props) {
               >
                 <img
                   style={{ width: '20px', height: '20px', borderRadius: '20px', marginRight: '7%' }}
-                  src={props?.documentFile}
+                  src={props?.employeePic}
                 />
                 {props?.employeeName ? props?.employeeName : 'NA'}
               </div>
@@ -373,7 +373,7 @@ function TicketDetailModal(props) {
               width: '30%',
             }}
           >
-            {console.log(props?.locationDetails== 'undefined','props?.locationDetails')}
+            {console.log(props?.locationDetails == 'undefined', 'props?.locationDetails')}
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
               <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>
