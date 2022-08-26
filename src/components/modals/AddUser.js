@@ -28,6 +28,9 @@ import EditProfileIcon from '../../assets/Edit.svg';
 
 import useWindowSize from '../../utils/WindowSize';
 
+import { hexToCSSFilter } from 'hex-to-css-filter';
+import { hexToRGBA } from '../../utils/Helpers';
+
 import * as FormValidations from '../../utils/Validations';
 import Api from '../../api';
 import { toast } from 'react-toastify';
@@ -51,7 +54,7 @@ function getStyles(name, personName, theme) {
     fontWeight: personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
   };
 }
-
+let colorForSelectedChip = '';
 const AddUser = ({ existingUser, cb, handleClose }) => {
   const [personName, setPersonName] = React.useState([]);
   const theme = useTheme();
@@ -84,6 +87,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
   });
 
   const [attachment, setAttachment] = useState(null);
+  const [selectedOptionMultiSelect, setSelectedOptionMultiSelect] = useState([]);
   const [isAlert, setIsAlert] = useState(false);
 
   const store = Store();
@@ -94,6 +98,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       let existingdataarr = [];
       existingUser?.allowedBuildings?.map((_) => existingdataarr.push(_?.name));
       setPersonName(existingdataarr);
+      setSelectedOptionMultiSelect(existingUser?.allowedBuildings);
       setState({
         first_name: existingUser.firstName,
         last_name: existingUser.lastName,
@@ -104,7 +109,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       });
     }
   }, []);
-
+  let arr = [];
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;
@@ -258,6 +263,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
     setIsProcessing(false);
   };
+
+  console.log(selectedOptionMultiSelect, 'selected');
   return (
     <>
       <Box className="allusers_modal">
@@ -473,7 +480,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       value={personName}
                       onChange={handleChange}
                       input={<OutlinedInput className={classes.inputRoot} id="select-multiple-chip" label="Chip" />}
-                      renderValue={(selected) => (
+                      renderValue={(Selected) => (
                         <Box
                           sx={{
                             display: 'flex',
@@ -482,34 +489,49 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                             border: 'none',
                           }}
                         >
-                          {selected.map((value) => (
-                            <Chip
-                              // key={value}
-                              label={value}
-                              avatar={
-                                <Avatar
-                                  className={classes.chip}
-                                  sx={{
-                                    padding: ' 4% 4%',
-                                  }}
-                                  alt="batiments"
-                                  src={SBSettingsBuildingIconUnSelected}
-                                />
-                              }
-                            />
-                          ))}
+                          {Selected.map((_) => {
+                            colorForSelectedChip =
+                              selectedOptionMultiSelect.filter((val) => val?.text == _).map((value) => value?.color)[0] ||
+                              selectedOptionMultiSelect.filter((__) => __?.name == _).map((colorcode) => colorcode.color)[0];
+                            console.log(colorForSelectedChip, 'colorForSelectedChip');
+                            return (
+                              <Chip
+                                // key={value}
+                                sx={{
+                                  background: hexToRGBA(colorForSelectedChip),
+                                  color: colorForSelectedChip,
+                                }}
+                                label={_}
+                                avatar={
+                                  <Avatar
+                                    className={classes.chip}
+                                    sx={{
+                                      padding: '4% 4%',
+                                      filter: hexToCSSFilter(colorForSelectedChip).filter.replace(';', ''),
+                                    }}
+                                    alt="batiments"
+                                    src={SBSettingsBuildingIconUnSelected}
+                                  />
+                                }
+                              />
+                            );
+                          })}
                         </Box>
                       )}
                       MenuProps={MenuProps}
                     >
                       {store.addUser.buildings.map((name) => (
                         <MenuItem
+                          onClick={() => {
+                            setSelectedOptionMultiSelect([...selectedOptionMultiSelect, name]);
+                          }}
                           className={classes.chip}
                           key={name?.value}
                           value={name?.text}
+                          color={name?.color}
                           style={getStyles(name, personName, theme)}
                         >
-                          {name?.text}
+                          <span id={name?.color}> {name?.text} </span>
                         </MenuItem>
                       ))}
                     </Select>

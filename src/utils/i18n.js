@@ -135,7 +135,7 @@ i18n
       },
     },
 
-    lng: 'en', // default language
+    lng: 'fr', // default language
     fallbackLng: 'en',
     debug: true,
 

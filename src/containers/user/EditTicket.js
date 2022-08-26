@@ -370,7 +370,7 @@ const EditScreen = ({
                     Détails du lieu
                   </p>
                   <CustomInput
-                    inputValue={state.location_details ? state.location_details : ''}
+                    inputValue={state.location_details != 'undefined' ? state.location_details : ''}
                     onChange={(e) => _setState('location_details', e.target.value)}
                     inputPlaceholder="Donne des détails"
                     divStyle={{
@@ -453,7 +453,7 @@ const EditScreen = ({
                   </p>
                   <textarea
                     placeholder="Donnez des information supplémentaires sur votre demande"
-                    value={state.details ? state.details : ''}
+                    value={state.details != 'undefined' ? state.details : ''}
                     onChange={(e) => _setState('details', e.target.value)}
                     style={{
                       fontSize: '12px',
