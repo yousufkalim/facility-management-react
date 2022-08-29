@@ -114,7 +114,6 @@ function addBuilding(data) {
 }
 
 function updateAdmin(data) {
-  console.log(data, 'data');
   const valFuncArr = [
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),

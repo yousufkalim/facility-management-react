@@ -97,7 +97,7 @@ function RegistrationScreen() {
   const navToLogin = () => {
     navigate('/login');
   };
-  console.log(height, 'height');
+
   return (
     <div className="container">
       <img style={{ height: '100%', width: '100%', position: 'absolute' }} src={LoginBackgroundSVG} />

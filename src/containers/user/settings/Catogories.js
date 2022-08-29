@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import ContentEditable from 'react-contenteditable';
 
 import SBDeleteIcon from '../../../assets/SBDeleteIcon.svg';
@@ -19,6 +20,7 @@ import { toast } from 'react-toastify';
 
 const Catogories = () => {
   const store = Store();
+  const { t } = useTranslation();
   const updateStore = UpdateStore();
 
   const bottomRef = useRef(null);
@@ -66,7 +68,7 @@ const Catogories = () => {
             <div style={{ background: '#8C8C8C' }} className="parent_container_header">
               <div style={{ padding: '1% 1%' }} className="batments_levels_actions_conatiner category_actions_container d-flex">
                 <div className="prnt d-flex batments_levels_container">
-                  <div> Category</div>
+                  <div> {t('Category')}</div>
                 </div>
                 <div>Action</div>
               </div>

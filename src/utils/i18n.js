@@ -68,6 +68,8 @@ i18n
           Details: 'Details',
           Attachment: 'Attachment',
           Assigned: 'Assigned',
+          ////add user
+          Close: 'Close',
         },
       },
       fr: {
@@ -131,6 +133,8 @@ i18n
           Details: 'Détails',
           Attachment: 'Pièce jointe',
           Assigned: 'Assignés',
+          ////add user
+          Close: 'proche',
         },
       },
     },

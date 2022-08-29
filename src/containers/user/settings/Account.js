@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Loader from '../../../components/Loader';
 
@@ -104,7 +105,7 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
 
 const Account = ({ userInfo }) => {
   const store = Store();
-  const updateStore = UpdateStore();
+  const { t } = useTranslation();
   const user = getUser();
   const [width] = useWindowSize();
 
@@ -137,7 +138,6 @@ const Account = ({ userInfo }) => {
 
   const _load = async () => {
     const _profile = await getProfile();
-    console.log(_profile, '_profile');
     setState({
       first_name: _profile.firstName,
       last_name: _profile.lastName,
@@ -293,6 +293,7 @@ const Account = ({ userInfo }) => {
                   <div className="input_image_container">
                     <label>
                       <input
+                        disabled={!edit}
                         type="file"
                         accept="image/*"
                         hidden
@@ -434,7 +435,7 @@ const Account = ({ userInfo }) => {
                         />
                       </div>
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
-                        <label className="label_inputs">Password</label>
+                        <label className="label_inputs">{t('Password')}</label>
                         <input
                           disabled={!edit}
                           className="account_edit_inputs"
@@ -499,6 +500,7 @@ const Account = ({ userInfo }) => {
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
+                                      disabled={!edit}
                                       checked={state?.newTicket}
                                       onChange={(e) => _setState('newTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -510,12 +512,13 @@ const Account = ({ userInfo }) => {
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
                                 <img className="tickets_icon_btn" src={TicketTracking} />
-                                <span className="tickets_icon_btn_span">TicketTracking</span>
+                                <span className="tickets_icon_btn_span">Suivi de ticket</span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
+                                      disabled={!edit}
                                       checked={state?.trackingTicket}
                                       onChange={(e) => _setState('trackingTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -533,6 +536,7 @@ const Account = ({ userInfo }) => {
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
+                                      disabled={!edit}
                                       checked={state?.assignmentToTicket}
                                       onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -558,6 +562,7 @@ const Account = ({ userInfo }) => {
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
+                                      disabled={!edit}
                                       checked={state?.trackingTicket}
                                       onChange={(e) => _setState('trackingTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -569,12 +574,13 @@ const Account = ({ userInfo }) => {
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
                                 <img className="tickets_icon_btn" src={AsignTicket} />
-                                <span className="tickets_icon_btn_span">AssignmentTicket</span>
+                                <span className="tickets_icon_btn_span">Assignation à un ticket</span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
+                                      disabled={!edit}
                                       checked={state?.assignmentToTicket}
                                       onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
                                       sx={{ m: 1 }}

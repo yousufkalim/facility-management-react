@@ -86,6 +86,7 @@ const EditScreen = ({
 
   const _load = async () => {
     const _buildings = await getBuildings();
+    console.log(_buildings, '_buildings');
     let _buildingLevels = [];
     if (_buildings.length > 0) {
       _buildingLevels = await getBuildingLevels(_buildings[0]);
@@ -108,7 +109,7 @@ const EditScreen = ({
   const getBuildings = async () => {
     let response;
     try {
-      response = await Api('get', `/buildings/dropdown`);
+      response = await Api('get', `/buildings/active_building_with_levels`);
       const _buildings = response.data.data;
       return _buildings;
     } catch (e) {
@@ -119,7 +120,7 @@ const EditScreen = ({
   const getBuildingLevels = async (building) => {
     let response;
     try {
-      response = await Api('get', `/levels/dropdown/${building.value}`);
+      response = await Api('get', `/levels/dropdown/${building.buildingId}`);
       const _buildingLevels = response.data.data;
       return _buildingLevels;
     } catch (e) {
@@ -159,13 +160,10 @@ const EditScreen = ({
     });
     setState({
       ...state,
-      building: _.value,
+      building: _.buildingId,
       building_level: _buildingLevels[0].value,
     });
   };
-
-  console.log(SelectedTileDataToEdit, 'SelectedTileDataToEdit?.building');
-
   return (
     <>
       {store.addTicket.isLoading ? (
@@ -294,19 +292,19 @@ const EditScreen = ({
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
-                      text={_.text}
-                      isSelected={state.building == _.value}
+                      text={_.name}
+                      isSelected={state.building == _.buildingId}
                       onClick={() => {
                         selectBuilding(_);
                         setShowMore(3);
                         setcategorieslevelscolor(_?.color);
                       }}
+                      categorieslevelscolor={categorieslevelscolor}
                       icon={true}
                       pStyle={{
                         padding: '10pt 6pt',
                         fontWeight: '600',
                       }}
-                      categorieslevelscolor={categorieslevelscolor}
                     />
                   ))}
                 </div>
@@ -322,9 +320,8 @@ const EditScreen = ({
                   >
                     Lieu
                   </p>
-                  {console.log(store.addTicket.buildingLevels, 'store.addTicket.buildingLevels')}
                   <div style={{ flexWrap: 'wrap', width: '406pt' }} className="row aic">
-                    {store.addTicket.buildingLevels.slice(0, showMore).map((_) => (
+                    {store.addTicket?.buildingLevels?.slice(0, showMore).map((_) => (
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
@@ -524,7 +521,7 @@ const EditScreen = ({
               {/* Section 3 */}
               <div className="column" style={{ marginBottom: '2%' }}></div>
               {user?.roleSerial == 1 ? (
-                <div className="column" style={{ marginBottom: '2%' }}>
+                <div className="column" style={{ marginBottom: '2%', width: '100%' }}>
                   <p
                     style={{
                       fontSize: '13px',
@@ -534,7 +531,7 @@ const EditScreen = ({
                   >
                     Assignés
                   </p>
-                  <div style={{ flexWrap: 'wrap' }} className="row">
+                  <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
                     {store.addTicket.assignees.map((_) => (
                       <SelectableTag
                         {..._}

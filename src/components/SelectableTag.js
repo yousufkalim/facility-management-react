@@ -17,6 +17,7 @@ function SelectableTag({
   image,
   categorieslevelscolor,
 }) {
+  console.log(text, 'jgfhh');
   return (
     <div
       className="row ajc"

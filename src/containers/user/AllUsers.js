@@ -264,7 +264,11 @@ const AllUsers = () => {
           >
             <div className="column ds_ml_container_all_users scroll">
               <div className="search-msg-cont">
-                <input className="search-msg-input" placeholder="Search by name" onChange={(e) => handleQuery(e.target.value)} />
+                <input
+                  className="search-msg-input"
+                  placeholder="Rechercher par nom"
+                  onChange={(e) => handleQuery(e.target.value)}
+                />
                 <img className="srch-icon" src={SearchSVG} />
               </div>
               <div className="tab_container">
@@ -284,7 +288,7 @@ const AllUsers = () => {
               {activeTabId == 0 ? (
                 <>
                   {search(store?.allUsers?.invitedUsers)?.map((_) => (
-                    <UserCard {..._} cb={userTileCB} />
+                    <UserCard {..._} cb={userTileCB} activeTabId={activeTabId} />
                   ))}
                 </>
               ) : (
@@ -293,7 +297,7 @@ const AllUsers = () => {
               {activeTabId == 1 ? (
                 <>
                   {search(store?.allUsers?.users)?.map((_) => (
-                    <UserCard {..._} cb={userTileCB} />
+                    <UserCard {..._} cb={userTileCB} activeTabId={activeTabId} />
                   ))}
                 </>
               ) : (
@@ -301,6 +305,7 @@ const AllUsers = () => {
               )}
               <div style={{ marginTop: '30px' }} />
             </div>
+
             {!store.allUsers.user ? (
               <></>
             ) : (
