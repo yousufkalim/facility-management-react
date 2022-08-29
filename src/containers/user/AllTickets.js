@@ -76,7 +76,6 @@ function AllTickets({ show, height, handleRenderEditTicketScreen }) {
     try {
       response = await Api('get', `/tickets/tickets_list/0/${user.id}`);
       const _tickets = response.data.data;
-      console.log(response, 'all');
       return _tickets;
     } catch (e) {
       console.trace(e);
@@ -475,7 +474,6 @@ function AllTickets({ show, height, handleRenderEditTicketScreen }) {
                   <Droppable droppableId="0">
                     {(provided) => (
                       <div ref={provided.innerRef} {...provided.droppableProps} className="w100 dropable_box_one">
-                        {console.log(store.allTickets.recentTickets, 'store.allTickets.recentTickets')}
                         {store.allTickets.recentTickets.map((_) => (
                           <Draggable key={_.taskTicketId} draggableId={`${_.taskTicketId}`} index={_.orderNumber}>
                             {(provided) => (
@@ -684,7 +682,6 @@ function TicketListTile(props) {
       setIsTicketDetailModal(true);
     }
   };
-  console.log(props, 'jkprops');
   return (
     <>
       <div className="column ds_tlt_container" onClick={handleIsTicketDetailModalOpen}>

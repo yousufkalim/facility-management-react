@@ -92,7 +92,6 @@ function StatisticsScreen() {
 
   const _load = async () => {
     const _data = await getStatistics();
-    console.log(_data, '_data');
     const labels = _getLabels(_data.graphicalData);
     const gDataObj = {
       labels,
@@ -165,7 +164,6 @@ function StatisticsScreen() {
   const navToStatisticsReport = () => {
     window.open('/statistics_report', '_blank');
   };
-  console.log(store.statistics.tilesData, 'store.statistics.tilesData');
   return (
     <UXL appBarText={t('Statistics')}>
       {store.statistics.isLoading ? (
@@ -186,7 +184,6 @@ function StatisticsScreen() {
             }}
             className="row w100 header_list_container"
           >
-            {console.log(store.statistics.tilesData, 'j')}
             {headArr.map((_, __) => (
               <HeaderListTile {..._} width={width} count={Object.values(store.statistics.tilesData)[__]} />
             ))}
@@ -311,7 +308,6 @@ function StatisticsScreen() {
 }
 
 function HeaderListTile(props) {
-  console.log(props, 'props');
   return (
     <div className="row aic header_list_tile_container">
       <div className="column tickets_percentage">

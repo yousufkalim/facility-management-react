@@ -109,7 +109,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       });
     }
   }, []);
-  console.log(existingUser, 'existingUser');
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;
@@ -133,7 +132,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    console.log(_buildings, '_buildings');
     if (!existingUser) {
       if (_buildings?.length > 0) {
         _setState('building', _buildings[0].value);
@@ -263,8 +261,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
     setIsProcessing(false);
   };
-
-  console.log(selectedOptionMultiSelect, 'selected');
   return (
     <>
       <Box className="allusers_modal">
@@ -493,7 +489,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                             colorForSelectedChip =
                               selectedOptionMultiSelect.filter((val) => val?.text == _).map((value) => value?.color)[0] ||
                               selectedOptionMultiSelect.filter((__) => __?.name == _).map((colorcode) => colorcode.color)[0];
-                            console.log(colorForSelectedChip, 'colorForSelectedChip');
                             return (
                               <Chip
                                 // key={value}

@@ -178,8 +178,6 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
-  console.log(store?.allTickets);
-  console.log(props, 'props');
   return (
     <animated.div
       style={{
@@ -239,31 +237,37 @@ function TicketDetailModal(props) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', width: '27%', justifyContent: 'space-between' }}>
-          <div
-            style={{
-              background: '#ffffff',
-              color: '#000000',
-              padding: '5% 15%',
-              borderRadius: '15px',
-            }}
-            className="row edit_icon_text_container"
-            onClick={() => {
-              props.handleClose();
-              props?.handleRenderEditTicketScreen({ ...props });
-            }}
-          >
+        <div style={{ display: 'flex', width: user.roleSerial == 2 ? '5%' : '27%', justifyContent: 'space-between' }}>
+          {user.roleSerial == 1 ? (
             <div
-              style={{
-                background: '#F4F4F4',
-                width: '32px',
+              onClick={() => {
+                props.handleClose();
+                props?.handleRenderEditTicketScreen({ ...props });
               }}
-              className="edit_icon_container d-flex aic jcc"
+              style={{
+                background: '#ffffff',
+                color: '#000000',
+                padding: '5% 15%',
+                borderRadius: '15px',
+              }}
+              className="row edit_icon_text_container"
             >
-              <img src={EditSVG} />
+              <div
+                style={{
+                  background: '#F4F4F4',
+                  width: '32px',
+                }}
+                className="edit_icon_container d-flex aic jcc"
+              >
+                <img src={EditSVG} />
+              </div>
+
+              <p style={{ fontSize: '12px', marginLeft: '16%' }}>{'Éditer'}</p>
             </div>
-            <p style={{ fontSize: '12px', marginLeft: '16%' }}>{'Éditer'}</p>
-          </div>
+          ) : (
+            <></>
+          )}
+
           <img
             src={ModalCrossSVG}
             style={{ height: '23px', width: '23px', cursor: 'pointer', marginTop: '5%' }}
@@ -373,7 +377,6 @@ function TicketDetailModal(props) {
               width: '30%',
             }}
           >
-            {console.log(props?.locationDetails == 'undefined', 'props?.locationDetails')}
             <div className="column" style={{ marginBottom: '10%' }}>
               <p style={{ fontSize: '13px', color: '#B7B7B7', paddingBottom: '10pt' }}>Détails du lieu</p>
               <p style={{ fontSize: '16px', fontWeight: '600', color: '#494949' }}>

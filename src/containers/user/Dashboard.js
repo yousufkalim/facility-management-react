@@ -38,9 +38,6 @@ function DashboardScreen() {
   const [renderAddTicket, setRenderAddTicket] = useState(false);
   const [renderEditTicket, setRenderEditTicket] = useState(false);
   const [customAlert, setCustomAlert] = useState(false);
-  console.log(user?.allowedBuildings.length, 'user?.allowedBuildings.length');
-  console.log(store.addTicket.buildings.length, 'store.addTicket.buildings.length');
-  console.log(user?.roleSerial);
   const handleRenderAddTicket = () => {
     // if (
     //   store.addTicket.buildings.length > 0 ||
@@ -130,7 +127,6 @@ function DashboardScreen() {
         body.append('EmployeeId', user.id);
       }
       body.append('TicketFile', attachment);
-      console.log(attachment);
       response = await Api('post', '/tickets/save_ticket', body);
 
       if (response?.data?.success) {
@@ -196,11 +192,11 @@ function DashboardScreen() {
 
       response = await Api('post', '/tickets/update_ticket', body);
       const formData = new FormData();
-      formData.append('EmployeeId', user.id);
-      formData.append('ProfileImage', attachment);
-      if (attachment) {
-        await Api('post', '/Users/updateprofile_pic', formData);
-      }
+      // formData.append('EmployeeId', user.id);
+      // formData.append('ProfileImage', attachment);
+      // if (attachment) {
+      //   await Api('post', '/Users/updateprofile_pic', formData);
+      // }
       if (response?.data?.success) {
         toast.success('Ticket updated successfully.');
         const _recentTickets = await getRecentTickets();
@@ -235,7 +231,6 @@ function DashboardScreen() {
     setSelectedTileDataToEdit(props);
     setRenderEditTicket(!renderEditTicket);
   };
-  console.log(user, 'user');
   return (
     <>
       {customAlert ? (
