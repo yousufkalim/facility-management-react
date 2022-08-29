@@ -3,5 +3,5 @@ export function hexToRGBA(hex, opacity) {
   const r = parseInt(result[1], 16);
   const g = parseInt(result[2], 16);
   const b = parseInt(result[3], 16);
-  return `rgba(${r}, ${g}, ${b}, ${opacity ?? 0.6})`;
+  return `rgba(${r}, ${g}, ${b}, ${opacity ?? 0.4})`;
 }

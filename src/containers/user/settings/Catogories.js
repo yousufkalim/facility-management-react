@@ -87,6 +87,7 @@ const Catogories = () => {
 
 function CategoryListTile(props) {
   const store = Store();
+  const { t } = useTranslation();
   const updateStore = UpdateStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [toEdit, setToEdit] = useState(false);
@@ -140,7 +141,7 @@ function CategoryListTile(props) {
           },
         });
         setToEdit(false);
-        toast.success('Category updated successfully.');
+        toast.success(t('Category updated successfully.'));
       }
     } catch (e) {
       console.trace(e);
@@ -170,7 +171,7 @@ function CategoryListTile(props) {
       try {
         response = await Api('delete', `/category/${props.value}`);
         if (response.data.success) {
-          toast.success('Building deleted successfully.');
+          toast.success('Category deleted successfully.');
           await _load();
           setOpen(false);
         }
@@ -257,6 +258,7 @@ function CategoryListTile(props) {
 function AddCategory(props) {
   const store = Store();
   const updateStore = UpdateStore();
+  const { t } = useTranslation();
   const [isProcessing, setIsProcessing] = useState(false);
   const text = useRef('');
 
@@ -290,7 +292,7 @@ function AddCategory(props) {
 
       if (response?.data?.success) {
         await _load();
-        toast.success('Category added successfully.');
+        toast.success(t('Category added successfully.'));
       }
     } catch (e) {
       console.trace(e);

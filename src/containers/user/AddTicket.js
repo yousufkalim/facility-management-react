@@ -427,6 +427,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     placeholder="Donnez des information supplémentaires sur votre demande"
                     value={state.details ? state.details : ''}
                     onChange={(e) => _setState('details', e.target.value)}
+                    maxLength="200"
                     style={{
                       fontSize: '12px',
                       height: '100pt',

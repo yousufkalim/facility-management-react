@@ -88,8 +88,7 @@
 }
 .horizental_seperator {
   border-bottom: 1px solid #f4f4f4;
-  width: 40%;
-  margin-left: 5%;
+  width: 34%;
 }
 /* Hide scrollbars */
 ::-webkit-scrollbar {

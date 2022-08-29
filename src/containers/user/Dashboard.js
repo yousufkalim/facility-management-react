@@ -130,7 +130,7 @@ function DashboardScreen() {
       response = await Api('post', '/tickets/save_ticket', body);
 
       if (response?.data?.success) {
-        toast.success('Ticket added successfully.');
+        toast.success(t('Ticket added successfully.'));
         const _recentTickets = await getRecentTickets();
         updateStore({
           allTickets: {
@@ -198,7 +198,7 @@ function DashboardScreen() {
       //   await Api('post', '/Users/updateprofile_pic', formData);
       // }
       if (response?.data?.success) {
-        toast.success('Ticket updated successfully.');
+        toast.success(t('Ticket updated successfully.'));
         const _recentTickets = await getRecentTickets();
         updateStore({
           allTickets: {

@@ -6,6 +6,7 @@ import { hexToRGBA } from '../../utils/Helpers';
 import { useSpring, animated } from 'react-spring';
 
 import Tag from '../Tag';
+import { useTranslation } from 'react-i18next';
 
 import TicketSettingsSVG from '../../assets/TicketSettings.svg';
 import ModalCrossSVG from '../../assets/ModalCross.svg';
@@ -36,6 +37,7 @@ function TicketDetailModal(props) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [text, setText] = useState('');
   const [attachment, setAttachment] = useState(null);
+  const { t } = useTranslation();
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -178,6 +180,8 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
+
+  console.log(props, 'props');
   return (
     <animated.div
       style={{
@@ -404,6 +408,33 @@ function TicketDetailModal(props) {
         >
           {props?.details == 'undefined' || !props?.details ? 'NA' : props?.details}
         </p>
+        <p
+          style={{
+            fontSize: '12px',
+            color: '#8C8C8C',
+            padding: ' 4% 0% 2.5% 0%',
+          }}
+        >
+          {t('Attachment')}
+        </p>
+        <p
+          style={{
+            fontSize: '10px',
+            color: '#494949',
+            width: '20%',
+            fontWeight: '600',
+            backgroundColor: '#F4F4F4',
+            padding: '2% 3%',
+            borderRadius: '20px',
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img style={{ marginRight: '8%' }} src={AttachmentSVG} />
+          {props?.documentFile?.length > 15 ? props?.documentFile?.slice(0, 15) + '...' : ''}
+        </p>
         <div
           className="w100"
           style={{
@@ -539,6 +570,7 @@ function CustomStepper({ comments }) {
             color: '#8C8C8C',
             fontWeight: '600',
             left: '49%',
+            top: '2%',
           }}
         >
           L'administrateur a créé un ticket
@@ -611,7 +643,7 @@ function CommentListTile(props) {
       <div style={{ justifyContent: 'end' }} className="row  w100">
         <div
           style={{
-            height: '100px',
+            height: '100%',
             width: '1px',
             marginRight: '10px',
             marginLeft: '12px',
@@ -624,7 +656,6 @@ function CommentListTile(props) {
             style={{
               backgroundColor: '#F4F4F4',
               borderRadius: '20pt',
-              padding: '15pt',
             }}
           >
             <p
@@ -632,6 +663,9 @@ function CommentListTile(props) {
               style={{
                 fontSize: '14px',
                 color: '#2F696D',
+                overflow: 'hidden',
+                padding: '15pt',
+                lineBreak: 'anywhere',
               }}
             >
               {props.messageText}

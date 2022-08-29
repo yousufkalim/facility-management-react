@@ -129,9 +129,9 @@ const AddBuilding = ({ cb, handleClose }) => {
 
       if (response?.data?.success) {
         if (existingBuilding) {
-          toast.success('Buidling updated successfully.');
+          toast.success(t('Buidling updated successfully.'));
         } else {
-          toast.success('Building added successfully.');
+          toast.success(t('Building added successfully.'));
         }
         cb();
         handleClose();
@@ -145,7 +145,7 @@ const AddBuilding = ({ cb, handleClose }) => {
 
   return (
     <>
-      <div style={{ padding: '1% 4%' }} className="allusers_modal">
+      <div style={{ padding: '2% 4% 1% 4%' }} className="allusers_modal">
         <div className="modal_parent_container">
           <div style={{ width: '100%' }} className="form_heading_text edit_building_header">
             <span style={{ color: '#2F696D', fontWeight: '600' }}>
@@ -167,7 +167,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                 marginBottom: '0px',
               }}
               divStyle={{
-                width: '100%',
+                width: '72%',
               }}
               inputStyle={{
                 border: ' 2px solid #8C8C8C',
@@ -180,7 +180,7 @@ const AddBuilding = ({ cb, handleClose }) => {
             />
             <div className="colors_btn_container">
               <span className="colors_heading"> Couleur du bâtiment</span>
-              <div style={{ flexWrap: 'wrap' }} className="colors_container d-flex aic">
+              <div style={{ flexWrap: 'wrap', marginLeft: '3%' }} className="colors_container d-flex aic">
                 {buildingColors.slice(0, showMoreColors).map((_) => (
                   <div
                     style={{
@@ -196,6 +196,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                   </div>
                 ))}
                 <div
+                  style={{ marginLeft: '3%' }}
                   onClick={() => {
                     if (buildingColors.length > 6) {
                       setShowMoreBuildingColors(buildingColors?.length);
@@ -216,15 +217,16 @@ const AddBuilding = ({ cb, handleClose }) => {
                 </div>
               </div>
               <span className="colors_heading"> Lieu</span>
-              <div className="levels_box_container">
+              <div style={{ marginTop: '2%', marginLeft: '3%' }} className="levels_box_container">
                 {buildingLevels.slice(0, showMoreBuildingLevels).map((_) => (
                   <span
                     className="levels"
                     style={{
                       background: levels.includes(_) ? hexToRGBA(color) : '#F4F4F4',
                       color: levels.includes(_) ? color : '#8C8C8C',
-                      padding: '2% 2%',
+                      padding: '2.5% 4%',
                       cursor: 'pointer',
+                      whiteSpace: 'nowrap',
                     }}
                     onClick={() => handleLevel(_)}
                   >
@@ -232,6 +234,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                   </span>
                 ))}
                 <div
+                  style={{ marginLeft: '3%' }}
                   onClick={() => {
                     if (buildingLevels.length > 6) {
                       setshowMoreBuildingLevels(buildingLevels?.length);
@@ -250,7 +253,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  margin: '2%',
+                  marginTop: '8%',
                 }}
               >
                 <button onClick={handleClose} className="btn_all_user">

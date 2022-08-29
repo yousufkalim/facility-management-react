@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { hexToCSSFilter } from 'hex-to-css-filter';
+
 import Loader from '../../../components/Loader';
 
 import DummyUserSVG from '../../..//assets/DummyUser.jpeg';
@@ -10,7 +12,7 @@ import SearchSVG from '../../../assets/Search.svg';
 import FooterSVG from '../../../assets/Cornerimage.svg';
 import TicketIcon from '../../../assets/TicketIcon.svg';
 import TicketTracking from '../../../assets/TicketTracking.svg';
-import AsignTicket from '../../../assets/AsignTicket.svg';
+import AsignTicket from '../../../assets/AssignTicket.svg';
 import EditProfileIcon from '../../../assets/Edit.svg';
 import NewRoundTicket from '../../../assets/NewRoundTicket.svg';
 import RoundTrackingTicket from '../../../assets/RoundTrackingTicket.svg';
@@ -245,7 +247,7 @@ const Account = ({ userInfo }) => {
       }
 
       if (response?.data?.success) {
-        toast.success('Profile updated successfully.');
+        toast.success(t('Profile updated successfully.'));
         setState((pre) => {
           return {
             ...pre,
@@ -301,20 +303,24 @@ const Account = ({ userInfo }) => {
                         name="file"
                         onChange={handleFileSelect}
                       />
-                      <img
-                        style={{
-                          position: 'absolute',
-                          cursor: 'pointer',
-                          top: '119px',
-                          right: '0%',
-                          border: '2px solid #f4f4f4',
-                          borderRadius: '50%',
-                          background: '#f4f4f4',
-                          width: '29px',
-                          padding: '6px',
-                        }}
-                        src={EditProfileIcon}
-                      />
+                      {edit ? (
+                        <img
+                          style={{
+                            position: 'absolute',
+                            cursor: 'pointer',
+                            top: '119px',
+                            right: '0%',
+                            border: '2px solid #f4f4f4',
+                            borderRadius: '50%',
+                            background: '#f4f4f4',
+                            width: '29px',
+                            padding: '6px',
+                          }}
+                          src={EditProfileIcon}
+                        />
+                      ) : (
+                        <></>
+                      )}
                     </label>
 
                     <img
@@ -493,14 +499,26 @@ const Account = ({ userInfo }) => {
                           <>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={TicketIcon} />
-                                <span className="tickets_icon_btn_span">Nouveau ticket</span>
+                                <img
+                                  style={{
+                                    filter: state?.newTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={TicketIcon}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.newTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  Nouveau ticket
+                                </span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
-                                      disabled={!edit}
                                       checked={state?.newTicket}
                                       onChange={(e) => _setState('newTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -511,14 +529,26 @@ const Account = ({ userInfo }) => {
                             </div>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={TicketTracking} />
-                                <span className="tickets_icon_btn_span">Suivi de ticket</span>
+                                <img
+                                  style={{
+                                    filter: state?.trackingTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={TicketTracking}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.trackingTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  Suivi de ticket
+                                </span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
-                                      disabled={!edit}
                                       checked={state?.trackingTicket}
                                       onChange={(e) => _setState('trackingTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -529,14 +559,26 @@ const Account = ({ userInfo }) => {
                             </div>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={AsignTicket} />
-                                <span className="tickets_icon_btn_span">AssignmentTicket</span>
+                                <img
+                                  style={{
+                                    filter: state?.assignmentToTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={AsignTicket}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.assignmentToTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  AssignmentTicket
+                                </span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
-                                      disabled={!edit}
                                       checked={state?.assignmentToTicket}
                                       onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -555,14 +597,26 @@ const Account = ({ userInfo }) => {
                           <>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={TicketTracking} />
-                                <span className="tickets_icon_btn_span">TicketTracking</span>
+                                <img
+                                  style={{
+                                    filter: state?.trackingTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={TicketTracking}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.trackingTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  TicketTracking
+                                </span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
-                                      disabled={!edit}
                                       checked={state?.trackingTicket}
                                       onChange={(e) => _setState('trackingTicket', e.target.checked)}
                                       sx={{ m: 1 }}
@@ -573,14 +627,26 @@ const Account = ({ userInfo }) => {
                             </div>
                             <div className="tickets_icon_btn_container">
                               <div style={{ width: '50%' }}>
-                                <img className="tickets_icon_btn" src={AsignTicket} />
-                                <span className="tickets_icon_btn_span">Assignation à un ticket</span>
+                                <img
+                                  style={{
+                                    filter: state?.assignmentToTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={AsignTicket}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.assignmentToTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  Assignation à un ticket
+                                </span>
                               </div>
                               <div>
                                 <FormControlLabel
                                   control={
                                     <IOSSwitch
-                                      disabled={!edit}
                                       checked={state?.assignmentToTicket}
                                       onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
                                       sx={{ m: 1 }}

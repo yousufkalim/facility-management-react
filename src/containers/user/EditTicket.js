@@ -13,6 +13,7 @@ import Api from '../../api';
 import { getUser } from '../../utils/Auth';
 
 import { Store, UpdateStore } from '../../StoreContext';
+import { Block } from '@mui/icons-material';
 
 const EditScreen = ({
   show,
@@ -164,6 +165,7 @@ const EditScreen = ({
       building_level: _buildingLevels[0].value,
     });
   };
+  console.log(SelectedTileDataToEdit, 'SelectedTileDataToEdit');
   return (
     <>
       {store.addTicket.isLoading ? (
@@ -452,6 +454,7 @@ const EditScreen = ({
                     placeholder="Donnez des information supplémentaires sur votre demande"
                     value={state.details != 'undefined' ? state.details : ''}
                     onChange={(e) => _setState('details', e.target.value)}
+                    maxLength="200"
                     style={{
                       fontSize: '12px',
                       height: '100pt',
@@ -498,11 +501,15 @@ const EditScreen = ({
                             marginLeft: '3pt',
                           }}
                         />
-                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
-                          attachment?.name?.length > 15
-                            ? attachment?.name?.slice(0, 15) + '...'
-                            : attachment?.name ?? 'Ajouter pièce jointe'
-                        }`}</p>
+                        {console.log(attachment?.name, 'attachment?.name')}
+                        <a style={{ pointerEvents: attachment?.name ? 'none' : '' }} href={attachment} target="blank">
+                          <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
+                            attachment?.length > 15
+                              ? attachment?.slice(0, 15) + '...'
+                              : attachment?.name ?? 'Ajouter pièce jointe'
+                          }`}</p>
+                        </a>
+
                         <img
                           className="pointer"
                           src={redcrosssvg}
