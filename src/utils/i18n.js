@@ -145,7 +145,7 @@ i18n
           'Location details': 'Détails du lieu',
           Category: 'Catégorie',
           Details: 'Détails',
-          Attachment: 'Pièce jointe',
+          Attachment: 'Pièce jointes',
           Assigned: 'Assignés',
           'Ticket added successfully.': 'Ticket ajouté avec succès.',
           'Ticket updated successfully.': 'Ticket mis à jour avec succès.',

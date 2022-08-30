@@ -224,6 +224,7 @@ function TicketDetailModal(props) {
                 fontWeight: '600',
                 color: '#436062',
                 marginBottom: '10%',
+                whiteSpace: 'nowrap',
               }}
             >
               {ReactHtmlParser(props.categoryName)}
@@ -316,9 +317,7 @@ function TicketDetailModal(props) {
               style={{
                 fontSize: '12px',
                 whiteSpace: 'nowrap',
-
                 marginRight: '4%',
-
                 fontWeight: '600',
                 color: props?.colorCode,
               }}
@@ -358,12 +357,12 @@ function TicketDetailModal(props) {
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: '20px',
-                  backgroundColor: hexToRGBA(props?.colorCode),
+                  backgroundColor: '#F4F4F4',
                   marginRight: '4%',
-                  padding: '7% 20%',
+                  padding: '7% 25%',
                   fontWeight: '600',
                   fontSize: '12px',
-                  color: props?.colorCode,
+                  color: '#494949',
                   whiteSpace: 'nowrap',
                 }}
               >
@@ -421,10 +420,10 @@ function TicketDetailModal(props) {
           style={{
             fontSize: '10px',
             color: '#494949',
-            width: '20%',
+            width: '25%',
             fontWeight: '600',
             backgroundColor: '#F4F4F4',
-            padding: '2% 3%',
+            padding: '2% 6%',
             borderRadius: '20px',
             whiteSpace: 'nowrap',
             display: 'flex',
@@ -495,7 +494,7 @@ function TicketDetailModal(props) {
             <div
               className="column ajc appbar_row3_search_img tdm_comment_images_img"
               style={{
-                right: '2%',
+                right: '4%',
                 backgroundColor: '#2F696D',
               }}
               onClick={handleSubmit}
@@ -566,11 +565,12 @@ function CustomStepper({ comments }) {
         <p
           style={{
             position: 'absolute',
-            fontSize: '12px',
+            fontSize: '14px',
             color: '#8C8C8C',
             fontWeight: '600',
             left: '49%',
             top: '2%',
+            wordSpacing: '2px',
           }}
         >
           L'administrateur a créé un ticket
