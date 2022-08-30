@@ -68,6 +68,22 @@ i18n
           Details: 'Details',
           Attachment: 'Attachment',
           Assigned: 'Assigned',
+          'Ticket added successfully.': 'Ticket added successfully.',
+          'Ticket updated successfully.': 'Ticket updated successfully.',
+          ////add user
+          Close: 'Close',
+          ///aPP bar
+          'Sign out': 'Sign out',
+          ////account settings
+          'Profile updated successfully.': 'Profile updated successfully.',
+          ////add delete buidlings screen
+          'Buidling updated successfully.': 'Buidling updated successfully.',
+          'Building added successfully.': 'Building added successfully.',
+          'Building deleted successfully.': 'Building deleted successfully.',
+          ///add delated catogories screen
+          'Category added successfully.': 'Category added successfully.',
+          'Category updated successfully.': 'Category updated successfully.',
+          'Category deleted successfully.': 'Category deleted successfully.',
         },
       },
       fr: {
@@ -131,6 +147,22 @@ i18n
           Details: 'Détails',
           Attachment: 'Pièce jointe',
           Assigned: 'Assignés',
+          'Ticket added successfully.': 'Ticket ajouté avec succès.',
+          'Ticket updated successfully.': 'Ticket mis à jour avec succès.',
+          ////add user
+          Close: 'proche',
+          ///aPP bar
+          'Sign out': 'Déconnexion',
+          ////account settings
+          'Profile updated successfully.': 'Mise à jour du profil réussie.',
+          ////buidlings
+          'Buidling updated successfully.': 'Bâtiment mis à jour avec succès',
+          'Building added successfully.': 'Bâtiment ajouté avec succès.',
+          'Building deleted successfully.': 'Bâtiment supprimé avec succès.',
+          ////add delete category screen
+          'Category added successfully.': 'Catégorie ajoutée avec succès.',
+          'Category updated successfully.': 'Catégorie mise à jour avec succès.',
+          'Category deleted successfully.': 'Catégorie supprimée avec succès.',
         },
       },
     },

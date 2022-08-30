@@ -12,6 +12,8 @@ import { getUser } from '../../../utils/Auth';
 import { hexToRGBA } from '../../../utils/Helpers';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
+import { useTranslation } from 'react-i18next';
+
 import { Store, UpdateStore } from '../../../StoreContext';
 
 import Loader from '../../../components/Loader';
@@ -20,7 +22,6 @@ const Buildings = (props) => {
   const user = getUser();
   const store = Store();
   const updateStore = UpdateStore();
-
   useEffect(() => {
     _load();
   }, []);
@@ -79,6 +80,7 @@ const Buildings = (props) => {
 function BuildingListTile(props) {
   const [Open, setOpen] = useState(false);
   const store = Store();
+  const { t } = useTranslation();
   const updateStore = UpdateStore();
   const color = props.color ?? '#000000';
   const handleEdit = () => {
@@ -128,7 +130,7 @@ function BuildingListTile(props) {
       try {
         response = await Api('delete', `/buildings/${props.buildingId}`);
         if (response.data.success) {
-          toast.success('Building deleted successfully.');
+          toast.success(t('Building deleted successfully.'));
           await _load();
           setOpen(false);
         }

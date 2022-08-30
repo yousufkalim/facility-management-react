@@ -163,14 +163,10 @@ function LoginScreen() {
               }}
               onChange={(e) => _setState('password', e.target.value)}
             />
-            <div
-              className="forget_password_text d-flex"
-              style={{
-                cursor: 'pointer',
-              }}
-              onClick={navToForgotPassword}
-            >
-              <small>{t('Forgot your password?')}</small>
+            <div className="forget_password_text d-flex">
+              <small className="pointer" onClick={navToForgotPassword}>
+                {t('Forgot your password?')}
+              </small>
             </div>
             <CustomButton
               text={t('Login')}

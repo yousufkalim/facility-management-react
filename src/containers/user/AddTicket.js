@@ -59,6 +59,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const _load = async () => {
     const _buildings = await getBuildings();
+    console.log(_buildings, '_buildings');
     let _buildingLevels = [];
     if (_buildings.length > 0) {
       _buildingLevels = await getBuildingLevels(_buildings[0]);
@@ -81,9 +82,9 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const getBuildings = async () => {
     let response;
     try {
-      response = await Api('get', `/buildings/dropdown`);
-      console.log(response, 'response');
+      response = await Api('get', `/buildings/active_building_with_levels`);
       const _buildings = response.data.data;
+      console.log(_buildings, '_buildings');
       return _buildings;
     } catch (e) {
       console.trace(e);
@@ -93,7 +94,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const getBuildingLevels = async (building) => {
     let response;
     try {
-      response = await Api('get', `/levels/dropdown/${building.value}`);
+      response = await Api('get', `/levels/dropdown/${building.buildingId}`);
       const _buildingLevels = response.data.data;
       return _buildingLevels;
     } catch (e) {
@@ -133,7 +134,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     });
     setState({
       ...state,
-      building: _.value,
+      building: _.buildingId,
       building_level: _buildingLevels[0].value,
     });
   };
@@ -262,12 +263,12 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   Bâtiment *
                 </p>
                 <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
-                  {console.log(store.addTicket.buildings, 'store.addTicket.buildingLevels')}
+                  {console.log(store.addTicket.buildings, 'store.addTicket.buildings')}
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
-                      text={_.text}
-                      isSelected={state.building == _.value}
+                      text={_.name}
+                      isSelected={state.building == _.buildingId}
                       onClick={() => {
                         selectBuilding(_);
                         setShowMore(3);
@@ -295,7 +296,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     Lieu
                   </p>
                   <div style={{ flexWrap: 'wrap', width: '406pt' }} className="row aic">
-                    {store.addTicket.buildingLevels.slice(0, showMore).map((_) => (
+                    {store.addTicket?.buildingLevels?.slice(0, showMore).map((_) => (
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
@@ -426,6 +427,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     placeholder="Donnez des information supplémentaires sur votre demande"
                     value={state.details ? state.details : ''}
                     onChange={(e) => _setState('details', e.target.value)}
+                    maxLength="200"
                     style={{
                       fontSize: '12px',
                       height: '100pt',

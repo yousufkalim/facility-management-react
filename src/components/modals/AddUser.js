@@ -66,11 +66,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         padding: '10px',
         border: 'none',
       },
-      chip: {
-        '$ .MuiButtonBase-root-MuiMenuItem-root.Mui-selected': {
-          backgroundColor: 'red',
-        },
-      },
     },
   }));
   const classes = useStyles();
@@ -109,7 +104,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
       });
     }
   }, []);
-  console.log(existingUser, 'existingUser');
   const _setState = (key, value) => {
     const obj = {};
     obj[key] = value;
@@ -133,7 +127,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    console.log(_buildings, '_buildings');
     if (!existingUser) {
       if (_buildings?.length > 0) {
         _setState('building', _buildings[0].value);
@@ -263,8 +256,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
 
     setIsProcessing(false);
   };
-
-  console.log(selectedOptionMultiSelect, 'selected');
   return (
     <>
       <Box className="allusers_modal">
@@ -281,7 +272,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
               </div>
               <img
                 style={{
-                  marginTop: '12.5%',
+                  marginTop: '13%',
+                  border: '0px solid',
                 }}
                 className="input_image"
                 src={
@@ -294,14 +286,26 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
               />
               <div className="form_heading_box">
                 <div className="form_heading_text">
-                  <span style={{ color: '#2F696D', fontWeight: '600', padding: '3% 0%' }}> Ajouter un nouvel utilisateur</span>
+                  <span
+                    style={{
+                      color: '#2F696D',
+                      fontWeight: '600',
+                      padding: '3% 0%',
+                      lineHeight: '27px',
+                      fontSize: '19px',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {' '}
+                    Ajouter un nouvel utilisateur
+                  </span>
                   <span style={{ color: '#8C8C8C' }}>IL sera invité par mail.</span>
                 </div>
                 <div
                   className="horizental_seperator"
-                  // style={{
-                  //   margin: width < 850 ? 'auto' : 'unset',
-                  // }}
+                  style={{
+                    width: '50%',
+                  }}
                 />
                 <div
                   className="Modal_form_screen_row2_row1"
@@ -467,7 +471,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       <option value={_.value}>{_.text}</option>
                     ))}
                   </select> */}
-                  <FormControl sx={{ mt: 2, width: 482 }}>
+                  <FormControl sx={{ mt: 2, width: 464 }}>
                     {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
                     <Select
                       sx={{
@@ -493,7 +497,6 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                             colorForSelectedChip =
                               selectedOptionMultiSelect.filter((val) => val?.text == _).map((value) => value?.color)[0] ||
                               selectedOptionMultiSelect.filter((__) => __?.name == _).map((colorcode) => colorcode.color)[0];
-                            console.log(colorForSelectedChip, 'colorForSelectedChip');
                             return (
                               <Chip
                                 // key={value}

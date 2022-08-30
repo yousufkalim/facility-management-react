@@ -86,7 +86,6 @@ const CreatePassword = () => {
   const navToLogin = () => {
     navigate('/login');
   };
-  console.log(token);
   return (
     <>
       {renderAlert ? (

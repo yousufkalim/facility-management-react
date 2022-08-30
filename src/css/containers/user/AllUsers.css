@@ -178,7 +178,7 @@
 
 .edit_icon_image {
   position: absolute;
-  left: 122px;
+  left: 142px;
   top: 125px;
   border: 2px solid #f4f4f4;
   border-radius: 50%;
@@ -264,7 +264,7 @@
   background-color: #ffffff;
   box-shadow: 24;
   border-radius: 20px;
-  padding: 4%;
+  padding: 2% 4% 4% 2%;
 }
 .modal_parent_container {
   display: flex;
@@ -276,10 +276,11 @@
   margin-top: 33%;
 }
 .edit_icon_image_modal {
-  top: 142pt !important;
+  top: 146pt !important;
 }
 .form_heading_box {
   width: 70%;
+  padding-left: 4%;
 }
 .form_heading_text {
   display: flex;
@@ -457,4 +458,8 @@
 .css-1hy9t21 {
   height: 15px !important;
   width: 15px !important;
+}
+.css-igs3ac {
+  border-style: none !important;
+  border-width: 0px !important;
 }

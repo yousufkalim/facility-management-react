@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import ContentEditable from 'react-contenteditable';
 
 import SBDeleteIcon from '../../../assets/SBDeleteIcon.svg';
@@ -19,6 +20,7 @@ import { toast } from 'react-toastify';
 
 const Catogories = () => {
   const store = Store();
+  const { t } = useTranslation();
   const updateStore = UpdateStore();
 
   const bottomRef = useRef(null);
@@ -66,7 +68,7 @@ const Catogories = () => {
             <div style={{ background: '#8C8C8C' }} className="parent_container_header">
               <div style={{ padding: '1% 1%' }} className="batments_levels_actions_conatiner category_actions_container d-flex">
                 <div className="prnt d-flex batments_levels_container">
-                  <div> Category</div>
+                  <div> {t('Category')}</div>
                 </div>
                 <div>Action</div>
               </div>
@@ -85,6 +87,7 @@ const Catogories = () => {
 
 function CategoryListTile(props) {
   const store = Store();
+  const { t } = useTranslation();
   const updateStore = UpdateStore();
   const [isProcessing, setIsProcessing] = useState(false);
   const [toEdit, setToEdit] = useState(false);
@@ -138,7 +141,7 @@ function CategoryListTile(props) {
           },
         });
         setToEdit(false);
-        toast.success('Category updated successfully.');
+        toast.success(t('Category updated successfully.'));
       }
     } catch (e) {
       console.trace(e);
@@ -168,7 +171,7 @@ function CategoryListTile(props) {
       try {
         response = await Api('delete', `/category/${props.value}`);
         if (response.data.success) {
-          toast.success('Building deleted successfully.');
+          toast.success('Category deleted successfully.');
           await _load();
           setOpen(false);
         }
@@ -255,6 +258,7 @@ function CategoryListTile(props) {
 function AddCategory(props) {
   const store = Store();
   const updateStore = UpdateStore();
+  const { t } = useTranslation();
   const [isProcessing, setIsProcessing] = useState(false);
   const text = useRef('');
 
@@ -288,7 +292,7 @@ function AddCategory(props) {
 
       if (response?.data?.success) {
         await _load();
-        toast.success('Category added successfully.');
+        toast.success(t('Category added successfully.'));
       }
     } catch (e) {
       console.trace(e);
