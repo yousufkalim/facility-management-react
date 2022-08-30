@@ -220,7 +220,7 @@ function TicketDetailModal(props) {
           <div className="column">
             <p
               style={{
-                fontSize: '14px',
+                fontSize: '15px',
                 fontWeight: '600',
                 color: '#436062',
                 marginBottom: '10%',
@@ -488,7 +488,7 @@ function TicketDetailModal(props) {
                   hidden
                   onChange={(e) => handleFileSelect(e)}
                 />
-                <img src={CommentAttachmentSVG} />
+                <img style={{ width: '15px', height: '15px' }} src={CommentAttachmentSVG} />
               </label>
             </div>
             <div
@@ -499,7 +499,7 @@ function TicketDetailModal(props) {
               }}
               onClick={handleSubmit}
             >
-              <img src={CommentSendSVG} />
+              <img style={{ width: '15px', height: '15px' }} src={CommentSendSVG} />
             </div>
           </div>
           {attachment ? (
@@ -565,15 +565,15 @@ function CustomStepper({ comments }) {
         <p
           style={{
             position: 'absolute',
-            fontSize: '14px',
+            fontSize: '11px',
             color: '#8C8C8C',
-            fontWeight: '600',
+            fontWeight: '500',
             left: '49%',
             top: '2%',
             wordSpacing: '2px',
           }}
         >
-          L'administrateur a créé un ticket
+          Damien dehoul a créé le ticket Fuite d'eau lavabo
         </p>
       </div>
     </div>

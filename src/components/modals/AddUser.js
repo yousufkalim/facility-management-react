@@ -428,7 +428,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                     marginBottom: '3%',
                   }}
                 />
-                <div
+                {/* <div
                   className="Modal_form_screen_row2_row1"
                   style={{
                     marginBottom: '3%',
@@ -459,8 +459,8 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
                       onChange={(e) => _setState('enterprise', e.target.value)}
                     />
                   </div>
-                </div>
-                <div style={{ width: '100%' }} className="select_input_container">
+                </div> */}
+                <div style={{ width: '100%', marginBottom: '4%' }} className="select_input_container">
                   <label>Bâtiments accessibles</label>
                   {/* <select
                     className="all_user_select_input"
@@ -558,7 +558,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
             </div>
             {isAlert ? (
               <CustomAlert
-                text={existingUser ? 'User Updated Successfully!' : 'User Added Successfully!'}
+                text={t(existingUser ? 'User Updated Successfully!' : 'User Added Successfully!')}
                 onClose={() => {
                   setIsAlert(false);
                   handleClose();

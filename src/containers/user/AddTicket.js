@@ -17,6 +17,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   const user = getUser();
   const store = Store();
   const updateStore = UpdateStore();
+  const { t } = useTranslation();
 
   const [fillLevel, setFillLevel] = useState(0);
   const [categorieslevelscolor, setcategorieslevelscolor] = useState(); ////setting color in state for background of levels categories
@@ -451,7 +452,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       paddingBottom: '10pt',
                     }}
                   >
-                    Attachement
+                    {t('Attachment')}
                   </p>
                   <div
                     className="row ajc"

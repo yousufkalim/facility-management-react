@@ -478,7 +478,7 @@ const EditScreen = ({
                       paddingBottom: '10pt',
                     }}
                   >
-                    Attachement
+                    {t('Attachment')}
                   </p>
                   <div
                     className="row ajc"

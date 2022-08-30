@@ -22,20 +22,20 @@ import { months } from '../../utils/Constants';
 
 const headArr = [
   {
-    title: 'tickets créés',
-    description: 'depuis le début',
+    title: 'Tickets créés',
+    // description: 'Tickets créés',
     color: '#5B5B5B',
     background: StatisticsHeadBlackSVG,
   },
   {
-    title: 'tickets résolus',
-    description: 'depuis le débuts',
+    title: 'Tickets résolus',
+    // description: 'Tickets résolus',
     color: '#44787B',
     background: StatisticsHeadGreenSVG,
   },
   {
-    title: 'tickets',
-    description: 'actuellement en cours',
+    title: 'Tickets en cours',
+    // description: 'Tickets en cours',
     color: '#FF974D',
     background: StatisticsHeadYellowSVG,
   },
@@ -76,7 +76,7 @@ function StatisticsScreen() {
       y: {
         title: {
           display: true,
-          text: 'Number de tickets',
+          text: 'Nombre de tickets',
           font: {
             size: 12,
           },
@@ -204,7 +204,7 @@ function StatisticsScreen() {
             }}
             className="column jcc percentage_container"
           >
-            <p
+            {/* <p
               style={{
                 marginLeft: '3%',
                 padding: '1% 0%',
@@ -213,7 +213,7 @@ function StatisticsScreen() {
               }}
             >
               Emplacement avec la plupart des tickets
-            </p>
+            </p> */}
             <div className="column jcc w100 building_details_scrollable">
               {store.statistics.buildingTickets.map((_, __) => (
                 <div className="row aic" style={{ width: '80%', marginBottom: '1%' }}>

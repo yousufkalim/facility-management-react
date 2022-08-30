@@ -72,6 +72,8 @@ i18n
           'Ticket updated successfully.': 'Ticket updated successfully.',
           ////add user
           Close: 'Close',
+          'User Added Successfully!': 'User Added Successfully!',
+          'User Updated Successfully!': 'User Updated Successfully!',
           ///aPP bar
           'Sign out': 'Sign out',
           ////account settings
@@ -90,16 +92,19 @@ i18n
         translations: {
           //----------------------------------------------------------Auth-------------------------------------------------------
           // Login
-          'Welcome to Facility Management, please enter your login credentials to get started!':
-            'Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !',
+          // 'Welcome to Facility Management, please enter your login credentials to get started!':
+          //   'Bienvenue dans Facility Management, veuillez mettre vos identifiants de connexion pour commencer !',
+
+          'Welcome to Facility Management, please enter your login credentials to get started!': `Bienvenue dans votre Outil de Demande D’intervention.`,
           'Enter your': 'Entrez votre',
           'E-mail address': 'Adresse e-mail',
           Password: 'Mot de passe',
           'Forgot your password?': 'Mot de passe oublié?',
           Login: 'Connexion',
-          'You do not have an account?': "Vous n'avez pas de compte ?",
-          'Register now': "S'inscrire maintenant",
-
+          // 'You do not have an account?': "Vous n'avez pas de compte ?",
+          'You do not have an account?': `Tu n’as pas de compte ?`,
+          // 'Register now': "S'inscrire maintenant",
+          'Register now': 'Inscris-toi maintenant',
           // Registration
           'Welcome to Facility Management, please fill out this form for a fresh start!':
             'Bienvenue à Facility Management, veuillez remplir ce formulaire pour un nouveau départ !',
@@ -109,7 +114,8 @@ i18n
           'Phone number': 'Numéro de téléphone',
           'Confirm password': 'Confirmez le mot de passe',
           Register: "S'inscrire",
-          'Already have an account ?': 'Vous avez déjà un compte ?',
+          // 'Already have an account ?': 'Vous avez déjà un compte ?',
+          'Already have an account ?': `Tu as déjà un compte ?`,
           'Log in now': 'Connecte-toi maintenant',
 
           // ForgotPassword1
@@ -145,12 +151,14 @@ i18n
           'Location details': 'Détails du lieu',
           Category: 'Catégorie',
           Details: 'Détails',
-          Attachment: 'Pièce jointes',
+          Attachment: 'Joindre une photo',
           Assigned: 'Assignés',
           'Ticket added successfully.': 'Ticket ajouté avec succès.',
           'Ticket updated successfully.': 'Ticket mis à jour avec succès.',
           ////add user
           Close: 'proche',
+          'User Updated Successfully!': 'Utilisateur mis à jour avec succès !',
+          'User Added Successfully!': 'Utilisateur ajouté avec succès !',
           ///aPP bar
           'Sign out': 'Déconnexion',
           ////account settings

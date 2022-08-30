@@ -74,7 +74,7 @@ function RegistrationScreen() {
       setIsProcessing(true);
 
       const body = {
-        companyName: state.name_of_company,
+        //companyName: state.name_of_company,
         firstName: state.first_name,
         lastName: state.last_name,
         phoneNo: state.phone,
@@ -97,16 +97,21 @@ function RegistrationScreen() {
   const navToLogin = () => {
     navigate('/login');
   };
-
+  console.log(height, 'height');
   return (
-    <div className="container">
-      <img style={{ height: '100%', width: '100%', position: 'absolute' }} src={LoginBackgroundSVG} />
+    <div
+      style={{
+        backgroundImage: 'url(' + LoginBackgroundSVG + ')',
+        backgroundSize: 'cover',
+        backgroundPosition: 'bottom',
+      }}
+      className="container"
+    >
       <div className="reg_screen_top">
         <div style={{ zIndex: '9', marginTop: height < 730 ? '5%' : '10%' }} className="reg_screen_row1">
           <p
             style={{
-              fontSize: '34px',
-              color: '#436062',
+              fontSize: width < 667 ? '27px' : '36px',
             }}
           >
             Facility
@@ -114,7 +119,7 @@ function RegistrationScreen() {
 
           <span
             style={{
-              fontSize: '24px',
+              fontSize: width < 667 ? '20px' : '27px',
               color: '%494949',
             }}
           >
@@ -122,9 +127,9 @@ function RegistrationScreen() {
           </span>
           <p className="welcome_note_fm">{t('Welcome to Facility Management, please fill out this form for a fresh start!')}</p>
         </div>
-        <div className="reg_screen_row2" style={{ zIndex: '9', marginTop: height < 730 ? '5%' : '10%' }}>
+        <div className="reg_screen_row2" style={{ zIndex: '9', marginTop: height < 700 ? '1%' : height < 730 ? '5%' : '10%' }}>
           <div className="reg_screen_row2_container">
-            <CustomInput
+            {/* <CustomInput
               labelText={t('Company Name')}
               inputType="text"
               inputName="Name of Company"
@@ -142,11 +147,11 @@ function RegistrationScreen() {
               }}
               maxLength="35"
               onChange={(e) => _setState('name_of_company', e.target.value)}
-            />
+            /> */}
             <div
               className="registration_screen_row2_row1"
               style={{
-                marginBottom: '3%',
+                marginBottom: '5%',
               }}
             >
               <CustomInput
@@ -191,7 +196,7 @@ function RegistrationScreen() {
             <div
               className="registration_screen_row2_row1"
               style={{
-                marginBottom: '3%',
+                marginBottom: '5%',
               }}
             >
               <CustomInput

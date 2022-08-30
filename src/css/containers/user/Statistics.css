@@ -22,10 +22,10 @@
 .tickets_percentage {
   padding: 10% 160pt 10% 20pt;
 }
-.building_details_scrollable{
-max-height: 14vh;
-overflow-y: scroll;
-padding-top: 130px;
+.building_details_scrollable {
+  max-height: 14vh;
+  overflow-y: scroll;
+  padding-top: 20px;
 }
 /* media queries */
 @media only screen and (max-width: 992px) {
@@ -36,7 +36,7 @@ padding-top: 130px;
     width: 100%;
     margin-bottom: 2%;
   }
-  .building_details_scrollable{
+  .building_details_scrollable {
     padding-top: 94px;
   }
 }
