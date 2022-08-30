@@ -182,9 +182,10 @@ const Account = ({ userInfo }) => {
     }
     setAttachment(file);
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event, togglebtnname, value) => {
     event.preventDefault();
 
+    console.log(togglebtnname, 'togglebtnname');
     if (isProcessing) {
       return;
     }
@@ -196,7 +197,6 @@ const Account = ({ userInfo }) => {
     }
 
     let response;
-
     try {
       setIsProcessing(true);
 
@@ -208,9 +208,9 @@ const Account = ({ userInfo }) => {
         email: state.email,
         enterprise: state.enterprise,
         password: state?.password,
-        trackingTicket: state?.trackingTicket,
-        assignmentToTicket: state?.assignmentToTicket,
-        newTicket: state?.newTicket,
+        trackingTicket: togglebtnname == 'trackingTicket' ? value : state?.trackingTicket,
+        assignmentToTicket: togglebtnname == 'assignmentToTicket' ? value : state?.assignmentToTicket,
+        newTicket: togglebtnname == 'newTicket' ? value : state?.newTicket,
         allowedBuildings: [],
       };
 
@@ -222,8 +222,8 @@ const Account = ({ userInfo }) => {
         email: state.email,
         enterprise: state.enterprise,
         password: state?.password,
-        trackingTicket: state?.trackingTicket,
-        assignmentToTicket: state?.assignmentToTicket,
+        trackingTicket: togglebtnname == 'trackingTicket' ? value : state?.trackingTicket,
+        assignmentToTicket: togglebtnname == 'assignmentToTicket' ? value : state?.assignmentToTicket,
         allowedBuildings: [],
       };
 
@@ -247,7 +247,9 @@ const Account = ({ userInfo }) => {
       }
 
       if (response?.data?.success) {
-        toast.success(t('Profile updated successfully.'));
+        if (!togglebtnname) {
+          toast.success(t('Profile updated successfully.'));
+        }
         setState((pre) => {
           return {
             ...pre,
@@ -262,6 +264,7 @@ const Account = ({ userInfo }) => {
 
     setIsProcessing(false);
   };
+  console.log(state, 'state');
   return (
     <>
       {isLoading ? (
@@ -288,6 +291,8 @@ const Account = ({ userInfo }) => {
               <div
                 style={{
                   width: width < 575 || userInfo?.roleSerial == 2 ? '95%' : '90%',
+                  height: '90%',
+                  overflow: 'unset',
                 }}
                 className="user_profile_info"
               >
@@ -336,7 +341,7 @@ const Account = ({ userInfo }) => {
                     />
                   </div>
 
-                  <div style={{ marginTop: '3%' }} className="input_container">
+                  <div className="input_container">
                     <div
                       className="input_row"
                       style={{
@@ -472,7 +477,7 @@ const Account = ({ userInfo }) => {
                     <p style={{ fontSize: '12px' }}>{edit ? 'Sauvegarder' : 'Éditer'}</p>
                   </div>
                 </div>
-                <div className="horizental_seperator horizental_seperator_account"></div>
+                <div style={{ marginTop: '0%' }} className="horizental_seperator horizental_seperator_account"></div>
                 <div className="configuration_conatiner">
                   <div className="accunt_configuration_container">
                     <span>Configuration</span>
@@ -520,7 +525,10 @@ const Account = ({ userInfo }) => {
                                   control={
                                     <IOSSwitch
                                       checked={state?.newTicket}
-                                      onChange={(e) => _setState('newTicket', e.target.checked)}
+                                      onChange={(e) => {
+                                        _setState('newTicket', e.target.checked);
+                                        handleSubmit(e, 'newTicket', e.target.checked);
+                                      }}
                                       sx={{ m: 1 }}
                                     />
                                   }
@@ -550,75 +558,10 @@ const Account = ({ userInfo }) => {
                                   control={
                                     <IOSSwitch
                                       checked={state?.trackingTicket}
-                                      onChange={(e) => _setState('trackingTicket', e.target.checked)}
-                                      sx={{ m: 1 }}
-                                    />
-                                  }
-                                />
-                              </div>
-                            </div>
-                            <div className="tickets_icon_btn_container">
-                              <div style={{ width: '50%' }}>
-                                <img
-                                  style={{
-                                    filter: state?.assignmentToTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
-                                  }}
-                                  className="tickets_icon_btn"
-                                  src={AsignTicket}
-                                />
-                                <span
-                                  style={{
-                                    color: state?.assignmentToTicket ? '#2F696D' : '',
-                                  }}
-                                  className="tickets_icon_btn_span"
-                                >
-                                  AssignmentTicket
-                                </span>
-                              </div>
-                              <div>
-                                <FormControlLabel
-                                  control={
-                                    <IOSSwitch
-                                      checked={state?.assignmentToTicket}
-                                      onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
-                                      sx={{ m: 1 }}
-                                    />
-                                  }
-                                />
-                              </div>
-                            </div>
-                          </>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                      {userInfo?.roleSerial == 2 ? (
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <>
-                            <div className="tickets_icon_btn_container">
-                              <div style={{ width: '50%' }}>
-                                <img
-                                  style={{
-                                    filter: state?.trackingTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
-                                  }}
-                                  className="tickets_icon_btn"
-                                  src={TicketTracking}
-                                />
-                                <span
-                                  style={{
-                                    color: state?.trackingTicket ? '#2F696D' : '',
-                                  }}
-                                  className="tickets_icon_btn_span"
-                                >
-                                  TicketTracking
-                                </span>
-                              </div>
-                              <div>
-                                <FormControlLabel
-                                  control={
-                                    <IOSSwitch
-                                      checked={state?.trackingTicket}
-                                      onChange={(e) => _setState('trackingTicket', e.target.checked)}
+                                      onChange={(e) => {
+                                        _setState('trackingTicket', e.target.checked);
+                                        handleSubmit(e, 'trackingTicket', e.target.checked);
+                                      }}
                                       sx={{ m: 1 }}
                                     />
                                   }
@@ -648,7 +591,84 @@ const Account = ({ userInfo }) => {
                                   control={
                                     <IOSSwitch
                                       checked={state?.assignmentToTicket}
-                                      onChange={(e) => _setState('assignmentToTicket', e.target.checked)}
+                                      onChange={async (e) => {
+                                        _setState('assignmentToTicket', e.target.checked);
+                                        handleSubmit(e, 'assignmentToTicket', e.target.checked);
+                                      }}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                          </>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                      {userInfo?.roleSerial == 2 ? (
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <>
+                            <div className="tickets_icon_btn_container">
+                              <div style={{ width: '50%' }}>
+                                <img
+                                  style={{
+                                    filter: state?.trackingTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={TicketTracking}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.trackingTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  Suivi de ticket
+                                </span>
+                              </div>
+                              <div>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.trackingTicket}
+                                      onChange={(e) => {
+                                        _setState('trackingTicket', e.target.checked);
+                                        handleSubmit(e, 'trackingTicket', e.target.checked);
+                                      }}
+                                      sx={{ m: 1 }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div className="tickets_icon_btn_container">
+                              <div style={{ width: '50%' }}>
+                                <img
+                                  style={{
+                                    filter: state?.assignmentToTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                  }}
+                                  className="tickets_icon_btn"
+                                  src={AsignTicket}
+                                />
+                                <span
+                                  style={{
+                                    color: state?.assignmentToTicket ? '#2F696D' : '',
+                                  }}
+                                  className="tickets_icon_btn_span"
+                                >
+                                  Assignation à un ticket
+                                </span>
+                              </div>
+                              <div>
+                                <FormControlLabel
+                                  control={
+                                    <IOSSwitch
+                                      checked={state?.assignmentToTicket}
+                                      onChange={(e) => {
+                                        _setState('assignmentToTicket', e.target.checked);
+                                        handleSubmit(e, 'assignmentToTicket', e.target.checked);
+                                      }}
                                       sx={{ m: 1 }}
                                     />
                                   }

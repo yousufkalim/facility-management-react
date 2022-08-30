@@ -13,7 +13,7 @@ function login(data) {
 
 function registration(data) {
   const valFuncArr = [
-    () => Validators.nullValidator(`Nom de l'entreprise`, data['name_of_company']),
+    // () => Validators.nullValidator(`Nom de l'entreprise`, data['name_of_company']),
     () => Validators.nullValidator('Prénom', data['first_name']),
     () => Validators.nullValidator('Nom de famille', data['last_name']),
     () => Validators.emailValidator('Adresse e-mail', data['email']),
@@ -21,7 +21,7 @@ function registration(data) {
     () => Validators.passwordValidator('Password', data['password']),
     () => Validators.passwordValidator('Confirm Password', data['confirm_password']),
     () => Validators.matchPasswordConfirmPassword('Password', data['password'], 'Confirm Password', data['confirm_password']),
-    () => Validators.minlengthValidator(`Nom de l'entreprise`, data['name_of_company']),
+    //() => Validators.minlengthValidator(`Nom de l'entreprise`, data['name_of_company']),
     () => Validators.minlengthValidator('Prénom', data['first_name']),
     () => Validators.minlengthValidator('Nom de famille', data['last_name']),
   ];
@@ -59,8 +59,8 @@ function addTicketadmin(data) {
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
+    () => Validators.nullValidator('Détails du lieu', data['location_details']),
     () => Validators.selectValidator('Category', data['category']),
-    // () => Validators.nullValidator("Title", data["title"]),
     // () => Validators.selectValidator("Priority", data["priority"]),
     () => Validators.selectValidator('Assignee', data['assignee']),
   ];
@@ -74,6 +74,7 @@ function addTicketuser(data) {
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
     () => Validators.selectValidator('Category', data['category']),
+    () => Validators.nullValidator('Détails du lieu', data['location_details']),
     // () => Validators.nullValidator("Title", data["title"]),
     // () => Validators.selectValidator("Priority", data["priority"]),
     //() => Validators.selectValidator('Assignee', data['assignee']),
@@ -92,7 +93,7 @@ function addUser(data) {
     () => Validators.minlengthValidator('Nom de famille', data['last_name']),
     // () => Validators.domainEmailValidator('Adresse e-mail', data['email']),
     () => Validators.phoneNoValidatorfrance('Numéro de téléphone', data['phone']),
-    () => Validators.nullValidator('Entreprise', data['enterprise']),
+    //() => Validators.nullValidator('Entreprise', data['enterprise']),
     //() => Validators.nullValidator('bâtiment', data['building']),
   ];
 

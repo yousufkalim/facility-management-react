@@ -714,8 +714,9 @@ function TicketListTile(props) {
             <p
               style={{
                 fontSize: '12px',
+                fontWeight: '600',
                 whiteSpace: 'nowrap',
-                color: hexToRGBA(props?.colorCode),
+                color: props?.colorCode,
               }}
             >
               {props.building}

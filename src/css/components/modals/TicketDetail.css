@@ -3,9 +3,9 @@
   max-height: 25pt;
   width: 25pt;
   max-width: 25pt;
-  top: 10%;
+  top: 11%;
   border-radius: 50%;
-  right: 50px;
+  right: 66px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(209 203 198) 2px 2px 2px;
 }
@@ -17,6 +17,9 @@
   background-color: #2f696d;
   right: 54.5%;
   position: absolute;
+}
+.appbar_row3_input::-webkit-input-placeholder {
+  font-size: 15px;
 }
 .pl-line {
   padding-left: 42%;

@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import { getUser } from '../utils/Auth';
 import { Store, UpdateStore } from '../StoreContext';
 
 import { handleLogout } from '../utils/Auth';
@@ -61,6 +62,8 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
   //
   const [anchorElProfile, setAnchorElProfile] = React.useState(null);
   const openProfile = Boolean(anchorElProfile);
+  const user = getUser();
+  console.log(user, 'user');
   const handleClickProfile = (event) => {
     setAnchorElProfile(event.currentTarget);
   };
@@ -119,16 +122,19 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
         </div>
         <div className="appbar_row3">
           {!disableSearch ? <SearchInput setSearchQuery={setSearchQuery} /> : <></>}
-          <img
+          <span
             className="appbar_row3_user_img ip_container"
             style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: '#44787B',
               width: '7vh',
-              height: '7vh',
-              marginLeft: '3%',
+              whiteSpace: 'nowrap',
             }}
-            src={DummyUserSVG}
             onClick={handleClickProfile}
-          />
+          >
+            {user?.firstName + ' ' + user?.lastName}
+          </span>
           <StyledMenu
             id="demo-customized-menu"
             MenuListProps={{
