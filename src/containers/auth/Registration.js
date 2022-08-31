@@ -74,7 +74,7 @@ function RegistrationScreen() {
       setIsProcessing(true);
 
       const body = {
-        //companyName: state.name_of_company,
+        companyName: '',
         firstName: state.first_name,
         lastName: state.last_name,
         phoneNo: state.phone,
@@ -84,7 +84,7 @@ function RegistrationScreen() {
 
       response = await Api('post', '/register', body);
       if (response?.data?.success) {
-        toast.success('Registered Successfully.');
+        toast.success(t('Registered Successfully.'));
         navToLogin();
       }
     } catch (e) {

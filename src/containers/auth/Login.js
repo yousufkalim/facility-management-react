@@ -62,7 +62,7 @@ function LoginScreen() {
 
       response = await Api('post', '/Login', body);
       if (response?.data?.success) {
-        toast.success('Logged In');
+        toast.success(t('Logged In'));
         const token = response.data.token;
         const user = {
           id: response.data.userId,
