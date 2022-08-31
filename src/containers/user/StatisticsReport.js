@@ -1,15 +1,7 @@
 import React, { createRef, useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import * as html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import createMarkup from './template';
@@ -29,7 +21,7 @@ function StatisticsReportScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [markupHTML, setMarkupHTML] = useState('');
   const { t } = useTranslation();
-  const [width] = useWindowSize();
+  const [awidth] = useWindowSize();
   const user = getUser();
 
   const buildingsRef = createRef(null);
@@ -38,7 +30,6 @@ function StatisticsReportScreen() {
   const [categoriesData, setCategoriesData] = useState([]);
   const weeksRef = createRef(null);
   const [weeksData, setWeeksData] = useState([]);
-
   const genOptions = () => {
     return {
       responsive: true,
@@ -50,8 +41,8 @@ function StatisticsReportScreen() {
       layout: {
         padding: {
           top: 20,
-          left: width < 992 ? 10 : 100,
-          right: width < 992 ? 10 : 100,
+          left: awidth < 992 ? 10 : 100,
+          right: awidth < 992 ? 10 : 100,
           bottom: 20,
         },
       },
@@ -73,6 +64,9 @@ function StatisticsReportScreen() {
   useEffect(() => {
     _load();
   }, []);
+  useEffect(() => {
+    console.log('widthfor size ', awidth, window.screen.width);
+  }, [awidth]);
 
   useEffect(() => {
     if (buildingsRef.current && categoriesRef.current && weeksRef.current) {
@@ -177,6 +171,16 @@ function StatisticsReportScreen() {
 
     return gDataObj;
   };
+  const managewidth = () => {
+    console.log('managewidth,', window.screen.width);
+    // screen size 1920 fine
+    if (window.screen.width >= 1700) {
+      return 220;
+    } else {
+      // 1280 lt
+      return 235;
+    }
+  };
 
   const exportPdf = async () => {
     let domElement = document.getElementById('templatebody');
@@ -192,56 +196,41 @@ function StatisticsReportScreen() {
       height: window.screen.width >= 1600 ? '2000' : '1600',
     });
 
-    const pdf = new jsPDF({
-      orientation: 'p',
-      unit: 'in',
-      format: [700, 792],
-    });
+    const pdf = new jsPDF(
+      // orientation: 'p',
+      // unit: 'in',
+      // format: [700, 792],
+      'p',
+      'mm',
+      'a4'
+    );
 
     const imgProps = pdf.getImageProperties(htmlCanvas);
 
     const width = pdf.internal.pageSize.getWidth();
 
     const height = (imgProps.height * width) / imgProps.width;
-
+    console.log('window.screen.width', window.screen.width);
     if (htmlCanvas) {
-      pdf.addImage(htmlCanvas, 'PNG', 5, 10, 190, height);
+      ////firstone is left margin, secondone is marginbottom
+      // pdf.addImage(htmlCanvas, 'PNG', 2, 15, window.screen.width >= 1600 ? 235 : window.screen.width >= 1500 ? 400 : 232, height);
+      pdf.addImage(htmlCanvas, 'PNG', 2, 15, width, height);
+      pdf.addImage(htmlCanvas, 'PNG', 2, 15, managewidth(), height);
     }
 
     const buildingsCanvas = buildingsRef.current.canvas;
     const categoriesCanvas = categoriesRef.current.canvas;
     const weeksCanvas = weeksRef.current.canvas;
 
-    pdf.addImage(
-      buildingsCanvas,
-      'PNG',
-      window.screen.width >= 1600 ? 87 : 97,
-      window.screen.width >= 1600 ? 28 : 40,
-      100,
-      30
-    );
-    pdf.addImage(
-      categoriesCanvas,
-      'PNG',
-      window.screen.width >= 1600 ? 85 : 97,
-      window.screen.width >= 1600 ? 60 : 80,
-      100,
-      30
-    );
-    pdf.addImage(
-      weeksCanvas,
-      'PNG',
-      window.screen.width >= 1600 ? 40 : 50,
-      window.screen.width >= 1600 ? 92 : 125,
-      100,
-      30
-    );
+    pdf.addImage(buildingsCanvas, 'PNG', window.screen.width >= 1600 ? 97 : 105, window.screen.width >= 1600 ? 32 : 40, 100, 30);
+    pdf.addImage(categoriesCanvas, 'PNG', window.screen.width >= 1600 ? 95 : 105, window.screen.width >= 1600 ? 65 : 78, 100, 30);
+    pdf.addImage(weeksCanvas, 'PNG', window.screen.width >= 1600 ? 40 : 50, window.screen.width >= 1600 ? 98 : 125, 100, 30);
     // displayClass
     domElement.classList.remove('displayClass');
 
     pdf.save('Doc.pdf');
 
-    window.close();
+    // window.close();
   };
 
   return (

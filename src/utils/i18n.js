@@ -18,6 +18,7 @@ i18n
           Password: 'Password',
           'Forgot your password?': 'Forgot your password?',
           Login: 'Login',
+          'Logged In': 'Logged In',
           'You do not have an account?': 'You do not have an account?',
           'Register now': 'Register now',
 
@@ -32,6 +33,7 @@ i18n
           Register: 'Register',
           'Already have an account ?': 'Already have an account ?',
           'Log in now': 'Log in now',
+          'Registered Successfully.': 'Registered Successfully.',
 
           // ForgotPassword1
           'Forgot your password': 'Forgot your password',
@@ -86,6 +88,8 @@ i18n
           'Category added successfully.': 'Category added successfully.',
           'Category updated successfully.': 'Category updated successfully.',
           'Category deleted successfully.': 'Category deleted successfully.',
+          /////create
+          'Create Password': 'Create Password',
         },
       },
       fr: {
@@ -101,6 +105,7 @@ i18n
           Password: 'Mot de passe',
           'Forgot your password?': 'Mot de passe oublié?',
           Login: 'Connexion',
+          'Logged In': 'Connecté',
           // 'You do not have an account?': "Vous n'avez pas de compte ?",
           'You do not have an account?': `Tu n’as pas de compte ?`,
           // 'Register now': "S'inscrire maintenant",
@@ -114,6 +119,7 @@ i18n
           'Phone number': 'Numéro de téléphone',
           'Confirm password': 'Confirmez le mot de passe',
           Register: "S'inscrire",
+          'Registered Successfully.': 'Enregistré avec succès.',
           // 'Already have an account ?': 'Vous avez déjà un compte ?',
           'Already have an account ?': `Tu as déjà un compte ?`,
           'Log in now': 'Connecte-toi maintenant',
@@ -171,6 +177,8 @@ i18n
           'Category added successfully.': 'Catégorie ajoutée avec succès.',
           'Category updated successfully.': 'Catégorie mise à jour avec succès.',
           'Category deleted successfully.': 'Catégorie supprimée avec succès.',
+          ///Create Password
+          'Create Password': 'Créer un mot de passe',
         },
       },
     },

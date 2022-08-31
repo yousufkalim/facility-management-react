@@ -191,7 +191,7 @@ const CreatePassword = () => {
                 type="submit"
                 style={{
                   marginTop: '5%',
-                  fontSize: '20px',
+                  fontSize: '18px',
                   padding: '2% 6%',
                   borderRadius: '18px',
                 }}
