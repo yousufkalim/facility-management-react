@@ -45,7 +45,8 @@ i18n
           'Password Set Successfully!': 'Password Set Successfully!',
           'Enter your new password': 'Enter your new password',
           'Reset Password': 'Reset Password',
-
+          //create Password
+          'Create your Password': 'Create your Password',
           //----------------------------------------------------------User-------------------------------------------------------
           // Sidebar
           Dashboard: 'Dashboard',
@@ -90,6 +91,7 @@ i18n
           'Category deleted successfully.': 'Category deleted successfully.',
           /////create
           'Create Password': 'Create Password',
+          'Create your Password and login': 'Create your Password and login',
         },
       },
       fr: {
@@ -134,7 +136,9 @@ i18n
           'Password Set Successfully!': 'Mot de passe défini avec succès !',
           'Enter your new password': 'Entrez votre nouveau mot de passe',
           'Reset Password': 'réinitialiser le mot de passe',
-
+          //create Password
+          'Create your Password': 'Créez votre mot de passe',
+          'Create your Password and login': 'Créez votre mot de passe et connectez-vous',
           //----------------------------------------------------------User-------------------------------------------------------
           // Sidebar
           Dashboard: 'Tableau de bord',

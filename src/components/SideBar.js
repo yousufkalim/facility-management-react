@@ -26,18 +26,23 @@ import { Store, UpdateStore } from '../StoreContext';
 
 import { useSpring, animated } from 'react-spring';
 
+import { useLocation } from 'react-router-dom';
+
 let svgArrTop = [
   {
     selected: SBDashboardSelectedSVG,
     unselected: SBDashboardUnselectedSVG,
+    path: '/dashboard',
   },
   {
     selected: SBStatisticsSelectedSVG,
     unselected: SBStatisticsUnselectedSVG,
+    path: '/statistics',
   },
   {
     selected: SBEmployeesSelectedSVG,
     unselected: SBEmployeesUnselectedSVG,
+    path: '/allusers',
   },
   // {
   //   selected: SBSignalSelectedSVG,
@@ -53,10 +58,12 @@ let svgArrTopUser = [
   {
     selected: SBDashboardSelectedSVG,
     unselected: SBDashboardUnselectedSVG,
+    path: '/dashboard',
   },
   {
     selected: SBSettingsAccountIconUnSelected,
     unselected: AccountIconSelected,
+    path: '/settings',
   },
 ];
 ////
@@ -73,6 +80,7 @@ let svgArrBottom = [
   {
     selected: SBDashboardSettingsSelected,
     unselected: SBDashboardSettingsUnSelected,
+    path: '/settings',
   },
 ];
 
@@ -81,13 +89,13 @@ let svgArrBottomUser = [];
 const handleNavigation = (navigate, index) => {
   switch (index) {
     case 0:
-      navigate('/dashboard');
+      navigate(`/dashboard`);
       break;
     case 1:
-      navigate('/statistics');
+      navigate(`/statistics`);
       break;
     case 2:
-      navigate('/allusers');
+      navigate(`/allusers`);
       break;
     case 3:
       navigate('/settings');
@@ -111,12 +119,14 @@ const handleNavigationUser = (navigate, index) => {
 };
 function SideBar({ color, sticky = true, divStyle }) {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const store = Store();
   const updateStore = UpdateStore();
 
   const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
   const user = getUser();
+  console.log(store.sideBarSelectIndex, 'store.sideBarSelectIndex');
+  console.log(location.pathname, 'location name');
   return (
     <animated.div
       className="sidebar_container"
@@ -133,10 +143,11 @@ function SideBar({ color, sticky = true, divStyle }) {
             {svgArrTop.map((_, __) => (
               <SideBarMenuItem
                 imgObj={_}
-                isSelected={__ == store.sideBarSelectIndex}
+                //isSelected={__ == store.sideBarSelectIndex}
+                isSelected={_?.path == location.pathname}
                 cb={() => {
                   updateStore({
-                    sideBarSelectIndex: __,
+                    sideBarSelectIndex: _?.path,
                   });
                   handleNavigation(navigate, __);
                 }}
@@ -154,7 +165,8 @@ function SideBar({ color, sticky = true, divStyle }) {
             {svgArrTopUser.map((_, __) => (
               <SideBarMenuItem
                 imgObj={_}
-                isSelected={__ == store.sideBarSelectIndex}
+                //isSelected={__ == store.sideBarSelectIndex}
+                isSelected={_?.path == location.pathname}
                 cb={() => {
                   updateStore({
                     sideBarSelectIndex: __,
@@ -175,10 +187,11 @@ function SideBar({ color, sticky = true, divStyle }) {
             {svgArrBottom.map((_, __) => (
               <SideBarMenuItem
                 imgObj={_}
-                isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
+                isSelected={_?.path == location.pathname}
+                //isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
                 cb={() => {
                   updateStore({
-                    sideBarSelectIndex: __ + svgArrTop.length,
+                    sideBarSelectIndex: _?.path,
                   });
                   handleNavigation(navigate, __ + svgArrTop.length);
                 }}
@@ -195,7 +208,8 @@ function SideBar({ color, sticky = true, divStyle }) {
             {svgArrBottomUser.map((_, __) => (
               <SideBarMenuItem
                 imgObj={_}
-                isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
+                //isSelected={__ + svgArrTop.length == store.sideBarSelectIndex}
+                isSelected={_?.path == location.pathname}
                 cb={() => {
                   updateStore({
                     sideBarSelectIndex: __ + svgArrTop.length,

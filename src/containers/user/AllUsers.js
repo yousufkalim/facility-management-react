@@ -354,12 +354,12 @@ const AllUsers = () => {
                           <label>Numéro de portable</label>
                           <input value={store.allUsers.user.phoneNo} />
                         </div>
-                        <div style={{ display: 'flex', width: '65%' }} className="input_row">
+                        {/* <div style={{ display: 'flex', width: '65%' }} className="input_row">
                           <div className="label_input_container">
                             <label className="row_label">Entreprise</label>
                             <input value={store.allUsers.user.enterprise ?? ''} />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div className="configuration_conatiner">
@@ -469,6 +469,7 @@ const AllUsers = () => {
 
 function UserCard(props) {
   const store = Store();
+  console.log(store.allUsers.user.userId, 'store.allUsers.user.userId');
   return (
     <>
       <div
