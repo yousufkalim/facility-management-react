@@ -227,10 +227,8 @@ function StatisticsReportScreen() {
     pdf.addImage(weeksCanvas, 'PNG', window.screen.width >= 1600 ? 40 : 50, window.screen.width >= 1600 ? 98 : 125, 100, 30);
     // displayClass
     domElement.classList.remove('displayClass');
-
     pdf.save('Doc.pdf');
-
-    // window.close();
+    window.close();
   };
 
   return (

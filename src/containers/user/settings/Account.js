@@ -429,7 +429,7 @@ const Account = ({ userInfo }) => {
                         flexDirection: width < 575 ? 'column' : 'row',
                       }}
                     >
-                      <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
+                      {/* <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">Entreprise</label>
                         <input
                           disabled={!edit}
@@ -444,7 +444,7 @@ const Account = ({ userInfo }) => {
                           value={state.enterprise}
                           onChange={(e) => _setState('enterprise', e.target.value)}
                         />
-                      </div>
+                      </div> */}
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label className="label_inputs">{t('Password')}</label>
                         <input

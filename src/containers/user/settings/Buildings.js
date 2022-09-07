@@ -158,7 +158,7 @@ function BuildingListTile(props) {
               style={{ width: '15px', marginRight: '6%', filter: hexToCSSFilter(color).filter.replace(';', '') }}
               src={SBSettingsBuildingIconUnSelected}
             />
-            <span className="white_space">{props.name}</span>
+            <span>{props.name}</span>
           </div>
           <div className="levels_container">
             {props.levels.map((_) => (
