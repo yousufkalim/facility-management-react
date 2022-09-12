@@ -63,7 +63,6 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
   const [anchorElProfile, setAnchorElProfile] = React.useState(null);
   const openProfile = Boolean(anchorElProfile);
   const user = getUser();
-  console.log(user, 'user');
   const handleClickProfile = (event) => {
     setAnchorElProfile(event.currentTarget);
   };
@@ -128,7 +127,6 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
               fontSize: '18px',
               fontWeight: '600',
               color: '#44787B',
-              width: '7vh',
               whiteSpace: 'nowrap',
             }}
             onClick={handleClickProfile}

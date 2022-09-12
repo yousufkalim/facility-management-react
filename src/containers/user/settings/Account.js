@@ -28,7 +28,7 @@ import useWindowSize from '../../../utils/WindowSize';
 import * as FormValidations from '../../../utils/Validations';
 import Api from '../../../api';
 import { toast } from 'react-toastify';
-import { getUser } from '../../../utils/Auth';
+import { getUser, setUser } from '../../../utils/Auth';
 
 const switchesAdmin = [
   {
@@ -151,6 +151,7 @@ const Account = ({ userInfo }) => {
       assignmentToTicket: _profile?.assignmentToTicket,
       newTicket: _profile?.newTicket,
       profilePicture: _profile?.profilePicture,
+      allowedBuildings: _profile?.allowedBuildings,
     });
     setIsLoading(false);
   };
@@ -158,6 +159,7 @@ const Account = ({ userInfo }) => {
     let response;
     try {
       response = await Api('get', `/Users/userprofile/${user.id}`);
+      console.log(response, 'response');
       const _profile = response.data.data;
       return _profile;
     } catch (e) {
@@ -224,7 +226,7 @@ const Account = ({ userInfo }) => {
         password: state?.password,
         trackingTicket: togglebtnname == 'trackingTicket' ? value : state?.trackingTicket,
         assignmentToTicket: togglebtnname == 'assignmentToTicket' ? value : state?.assignmentToTicket,
-        allowedBuildings: [],
+        allowedBuildings: state?.allowedBuildings,
       };
 
       if (user?.roleSerial == '1') {
@@ -249,6 +251,13 @@ const Account = ({ userInfo }) => {
       if (response?.data?.success) {
         if (!togglebtnname) {
           toast.success(t('Profile updated successfully.'));
+          const _profile = await getProfile();
+          let obj = {
+            ..._profile,
+            id: _profile?.userId,
+            roleSerial: user?.roleSerial,
+          };
+          setUser(obj);
         }
         setState((pre) => {
           return {

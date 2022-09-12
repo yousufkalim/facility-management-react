@@ -117,6 +117,7 @@ const AllUsers = () => {
 
   const [editUser, setEditUser] = useState(null);
   const [activeTabId, setActiveTabId] = useState('');
+  const [activeUser, setactiveUser] = useState();
 
   const [addUserOpen, setAddUserOpen] = useState(false);
   const handleAddUserOpen = (toEdit) => {
@@ -155,9 +156,9 @@ const AllUsers = () => {
 
     let _user;
     if (_invitedUsers?.length > 0) {
-      _user = await getUserInfo(_invitedUsers[0].userId);
+      _user = await getUserInfo(activeUser ? activeUser : _invitedUsers[0].userId);
     } else if (_users?.length > 0) {
-      _user = await getUserInfo(_users[0].userId);
+      _user = await getUserInfo(activeUser ? activeUser : _users[0].userId);
     }
 
     if (_buildings?.length > 0) {
@@ -251,6 +252,7 @@ const AllUsers = () => {
     }
   };
   console.log(store, 'store');
+  console.log(activeUser, 'activeUser');
   return (
     <>
       <UXL appBarText={t('Users')}>
@@ -295,7 +297,13 @@ const AllUsers = () => {
               {activeTabId == 0 ? (
                 <>
                   {search(store?.allUsers?.invitedUsers)?.map((_) => (
-                    <UserCard {..._} cb={userTileCB} activeTabId={activeTabId} />
+                    <UserCard
+                      {..._}
+                      cb={userTileCB}
+                      activeTabId={activeTabId}
+                      activeUser={activeUser}
+                      setactiveUser={setactiveUser}
+                    />
                   ))}
                 </>
               ) : (
@@ -304,7 +312,13 @@ const AllUsers = () => {
               {activeTabId == 1 ? (
                 <>
                   {search(store?.allUsers?.users)?.map((_) => (
-                    <UserCard {..._} cb={userTileCB} activeTabId={activeTabId} />
+                    <UserCard
+                      {..._}
+                      cb={userTileCB}
+                      activeTabId={activeTabId}
+                      activeUser={activeUser}
+                      setactiveUser={setactiveUser}
+                    />
                   ))}
                 </>
               ) : (
@@ -484,10 +498,11 @@ function UserCard(props) {
         className="user_detail_conatiner"
         style={{
           cursor: 'pointer',
-          backgroundColor: store.allUsers.user.userId == props.userId ? '#2F696D' : '#F4F4F4',
+          backgroundColor: props?.activeUser == props.userId ? '#2F696D' : '#F4F4F4',
         }}
         onClick={() => {
           props.cb(props?.userId);
+          props?.setactiveUser(props?.userId);
           updateStore({
             allUsers: {
               ...store.allUsers,
@@ -505,7 +520,7 @@ function UserCard(props) {
             <span
               className="user_name"
               style={{
-                color: store.allUsers.user.userId == props.userId ? '#FFFFFF' : '#494949',
+                color: props?.activeUser == props.userId ? '#FFFFFF' : '#494949',
               }}
             >
               {props?.firstName?.length > 10 ? props.firstName.slice(0, 8) + '...' : props.firstName}{' '}
@@ -514,7 +529,7 @@ function UserCard(props) {
             <span
               className="user_designation"
               style={{
-                color: store.allUsers.user.userId == props.userId ? '#FFFFFF' : '#494949',
+                color: props?.activeUser == props.userId ? '#FFFFFF' : '#494949',
               }}
             >{`${props.enterprise ?? ''}`}</span>
           </div>
