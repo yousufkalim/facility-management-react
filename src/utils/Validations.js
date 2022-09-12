@@ -41,11 +41,11 @@ function forgotPassword1(data) {
 
 function forgotPassword2(data) {
   const valFuncArr = [
-    () => Validators.nullValidator('Password', data['password']),
-    () => Validators.nullValidator('Confirm Password', data['password_re']),
-    () => Validators.matchPasswordConfirmPassword('Password', data['password'], 'Confirm Password', data['password_re']),
+    // () => Validators.nullValidator('Password', data['password']),
+    // () => Validators.nullValidator('Confirm Password', data['password_re']),
     () => Validators.passwordValidator('Password', data['password']),
     () => Validators.passwordValidator('Confirm Password', data['password_re']),
+    () => Validators.matchPasswordConfirmPassword('Password', data['password'], 'Confirm Password', data['password_re']),
   ];
 
   const validated = formValidator(valFuncArr);

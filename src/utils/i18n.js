@@ -92,6 +92,10 @@ i18n
           /////create
           'Create Password': 'Create Password',
           'Create your Password and login': 'Create your Password and login',
+
+          ///add ticket
+          'Show more': 'Show more',
+          'Show less': 'Show less',
         },
       },
       fr: {
@@ -183,6 +187,9 @@ i18n
           'Category deleted successfully.': 'Catégorie supprimée avec succès.',
           ///Create Password
           'Create Password': 'Créer un mot de passe',
+          ///add ticket
+          'Show more': 'Montre plus',
+          'Show less': 'Montrer moins',
         },
       },
     },

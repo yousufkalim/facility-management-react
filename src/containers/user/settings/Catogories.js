@@ -90,16 +90,19 @@ function CategoryListTile(props) {
   const { t } = useTranslation();
   const updateStore = UpdateStore();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [categoryValue, setCategoryValue] = useState('');
   const [toEdit, setToEdit] = useState(false);
   const [Open, setOpen] = useState(false);
   const text = useRef(props.text);
 
   useEffect(() => {
     text.current = props.text;
+    setCategoryValue(props.text);
   }, [props.text]);
 
   const handleChange = (e) => {
     text.current = e.target.value;
+    setCategoryValue(e.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -230,7 +233,7 @@ function CategoryListTile(props) {
             <ContentEditable
               className="category_tile"
               style={{ background: '#F4F4F4' }}
-              html={text.current}
+              html={categoryValue.slice(0, 35)}
               key={`${props.value}`}
               disabled={!toEdit}
               onChange={toEdit ? (e) => handleChange(e) : null}
@@ -256,6 +259,7 @@ function CategoryListTile(props) {
 }
 
 function AddCategory(props) {
+  const [categoryValue, setCategoryValue] = useState('');
   const store = Store();
   const updateStore = UpdateStore();
   const { t } = useTranslation();
@@ -264,6 +268,7 @@ function AddCategory(props) {
 
   const handleChange = (e) => {
     text.current = e.target.value;
+    setCategoryValue(e.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -341,7 +346,7 @@ function AddCategory(props) {
             <ContentEditable
               className="category_tile"
               style={{ background: '#F4F4F4' }}
-              html={text.current}
+              html={categoryValue.slice(0, 35)}
               key={`${props.index}`}
               onChange={(e) => handleChange(e)}
             />

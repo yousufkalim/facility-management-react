@@ -29,9 +29,18 @@ const EditScreen = ({
   const store = Store();
   const updateStore = UpdateStore();
   const { t } = useTranslation();
-
+  const [Toggler, setToggler] = useState({
+    levels: true,
+    categories: true,
+    Assignes: true,
+  }); ////state to toggle show more, show less
+  const [showMore, setShowMore] = useState({
+    levels: 3,
+    categories: 3,
+    Assignes: 3,
+  });
+  ////default tiles show, assignes, categories, levels
   const [fillLevel, setFillLevel] = useState(0);
-  const [showMore, setShowMore] = useState(3);
   const [categorieslevelscolor, setcategorieslevelscolor] = useState(); ////setting color in state for background of levels categories
 
   const _setState = (key, value) => {
@@ -323,7 +332,7 @@ const EditScreen = ({
                     Lieu
                   </p>
                   <div style={{ flexWrap: 'wrap', width: '406pt' }} className="row aic">
-                    {store.addTicket?.buildingLevels?.slice(0, showMore).map((_) => (
+                    {store.addTicket?.buildingLevels?.slice(0, showMore?.levels).map((_) => (
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
@@ -343,15 +352,27 @@ const EditScreen = ({
                           fontSize: '13px',
                           color: '#B7B7B7',
                           textDecoration: 'underline',
-                          marginLeft: '10%',
+                          // marginLeft: '10%',
                         }}
                         onClick={() => {
                           if (store?.addTicket?.buildingLevels?.length > 3) {
-                            setShowMore(store?.addTicket?.buildingLevels?.length);
+                            setShowMore((pre) => {
+                              return {
+                                ...pre,
+                                levels: showMore?.levels > 3 ? 3 : store?.addTicket?.buildingLevels?.length,
+                              };
+                            });
+
+                            setToggler((pre) => {
+                              return {
+                                ...pre,
+                                levels: !Toggler?.levels,
+                              };
+                            });
                           }
                         }}
                       >
-                        Show more
+                        {store?.addTicket?.buildingLevels?.length > 3 ? (Toggler.levels ? t('Show more') : t('Show less')) : ''}
                       </div>
                     ) : (
                       <></>
@@ -400,7 +421,7 @@ const EditScreen = ({
                   Catégorie *
                 </p>
                 <div style={{ flexWrap: 'wrap' }} className="row w100">
-                  {store.addTicket.categories.map((_) => (
+                  {store.addTicket.categories.slice(0, showMore?.categories).map((_) => (
                     <SelectableTag
                       text={_.text}
                       isSelected={state.category == _.value}
@@ -412,6 +433,39 @@ const EditScreen = ({
                       categorieslevelscolor={categorieslevelscolor}
                     />
                   ))}
+                  {store.addTicket.categories?.length > 3 ? (
+                    <div
+                      style={{
+                        whiteSpace: 'nowrap',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        color: '#B7B7B7',
+                        textDecoration: 'underline',
+                        // marginLeft: '8%',
+                        marginTop: '1%',
+                      }}
+                      onClick={() => {
+                        if (store?.addTicket?.categories?.length > 3) {
+                          setShowMore((pre) => {
+                            return {
+                              ...pre,
+                              categories: showMore?.categories > 3 ? 3 : store?.addTicket?.categories?.length,
+                            };
+                          });
+                          setToggler((pre) => {
+                            return {
+                              ...pre,
+                              categories: !Toggler?.categories,
+                            };
+                          });
+                        }
+                      }}
+                    >
+                      {store?.addTicket?.categories?.length > 3 ? (Toggler.categories ? t('Show more') : t('Show less')) : ''}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
               <div className="column w100" style={{ marginBottom: '2%' }}>
@@ -539,7 +593,7 @@ const EditScreen = ({
                     Assignés
                   </p>
                   <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
-                    {store.addTicket.assignees.map((_) => (
+                    {store.addTicket.assignees.slice(0, showMore?.Assignes).map((_) => (
                       <SelectableTag
                         {..._}
                         image={_.profilePicture}
@@ -556,19 +610,40 @@ const EditScreen = ({
                         categorieslevelscolor={categorieslevelscolor}
                       />
                     ))}
-                    {/* <div
-                      style={{
-                        whiteSpace: 'nowrap',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        color: '#B7B7B7',
-                        textDecoration: 'underline',
-                        marginLeft: '10%',
-                      }}
-                      onClick={()=>setShowMore(store.addTicket.assignees?.length)}
-                    >
-                      Show more
-                    </div> */}
+                    {store?.addTicket?.assignees?.length > 3 ? (
+                      <div
+                        style={{
+                          whiteSpace: 'nowrap',
+                          cursor: 'pointer',
+                          fontSize: '13px',
+                          color: '#B7B7B7',
+                          textDecoration: 'underline',
+                          // marginLeft: '10%',
+                          marginTop: '1%',
+                        }}
+                        onClick={() => {
+                          if (store?.addTicket?.assignees?.length > 3) {
+                            setShowMore((pre) => {
+                              return {
+                                ...pre,
+                                Assignes: showMore?.Assignes > 3 ? 3 : store?.addTicket?.assignees?.length,
+                              };
+                            });
+
+                            setToggler((pre) => {
+                              return {
+                                ...pre,
+                                Assignes: !Toggler?.Assignes,
+                              };
+                            });
+                          }
+                        }}
+                      >
+                        {store?.addTicket?.assignees?.length > 3 ? (Toggler.Assignes ? t('Show more') : t('Show less')) : ''}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               ) : (

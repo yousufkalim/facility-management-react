@@ -138,9 +138,15 @@ const AllUsers = () => {
 
   const handleActiveTab = (activetabid) => {
     setActiveTabId(activetabid);
-    if (activetabid == 1) {
-      _load();
-    }
+    updateStore({
+      allUsers: {
+        ...store.allUsers,
+        activeTab: activetabid,
+      },
+    });
+    // if (activetabid == 1) {
+    //   _load();
+    // }
   };
   const _load = async () => {
     const _users = await getUsers();
@@ -169,10 +175,9 @@ const AllUsers = () => {
       },
     });
   };
-
-  const userTileCB = async (userID) => {
+  const userTileCB = async (userID, existingUser) => {
     // If same user was clicked then do nothing.
-    if (userID == store.allUsers.user.userId) {
+    if (userID == store.allUsers.user.userId && !existingUser) {
       return;
     }
     const _user = await getUserInfo(userID);
@@ -245,7 +250,7 @@ const AllUsers = () => {
       return filteredData;
     }
   };
-
+  console.log(store, 'store');
   return (
     <>
       <UXL appBarText={t('Users')}>
@@ -279,7 +284,9 @@ const AllUsers = () => {
                       cursor: 'pointer',
                     }}
                     id={val?.id}
-                    onClick={() => handleActiveTab(val?.id)}
+                    onClick={() => {
+                      handleActiveTab(val?.id);
+                    }}
                   >
                     {val?.text}
                   </p>
@@ -449,7 +456,7 @@ const AllUsers = () => {
               </div>
             )}
             <Modal open={addUserOpen} onClose={() => handleAddUserClose()} aria-labelledby="Add User" aria-describedby="Add User">
-              <AddUser existingUser={editUser} cb={_load} handleClose={handleAddUserClose} />
+              <AddUser existingUser={editUser} userTileCB={userTileCB} cb={_load} handleClose={handleAddUserClose} />
             </Modal>
           </div>
         )}
@@ -468,8 +475,9 @@ const AllUsers = () => {
 };
 
 function UserCard(props) {
+  const updateStore = UpdateStore();
   const store = Store();
-  console.log(store.allUsers.user.userId, 'store.allUsers.user.userId');
+  console.log(store);
   return (
     <>
       <div
@@ -478,7 +486,18 @@ function UserCard(props) {
           cursor: 'pointer',
           backgroundColor: store.allUsers.user.userId == props.userId ? '#2F696D' : '#F4F4F4',
         }}
-        onClick={() => props.cb(props.userId)}
+        onClick={() => {
+          props.cb(props?.userId);
+          updateStore({
+            allUsers: {
+              ...store.allUsers,
+              activeUser: {
+                id: props.userId,
+                tab: props.activeTabId,
+              },
+            },
+          });
+        }}
       >
         <div className="user_detail_img_detail_container">
           <img src={props.profilePicture ? props.profilePicture : ProfileSVG} />
