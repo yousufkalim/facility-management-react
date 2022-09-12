@@ -55,7 +55,7 @@ function getStyles(name, personName, theme) {
   };
 }
 let colorForSelectedChip = '';
-const AddUser = ({ existingUser, cb, handleClose }) => {
+const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
   const [personName, setPersonName] = React.useState([]);
   const theme = useTheme();
   const { t } = useTranslation();
@@ -222,6 +222,7 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
         let userID;
         if (existingUser) {
           userID = existingUser.userId;
+          userTileCB(existingUser.userId, true);
         } else {
           userID = response.data.id;
         }
@@ -247,7 +248,10 @@ const AddUser = ({ existingUser, cb, handleClose }) => {
           }, 3000);
           //toast.success(response?.data?.message);
         }
-        cb();
+        if (!existingUser) {
+          cb();
+        }
+        //cb();
       }
     } catch (e) {
       console.trace(e);
