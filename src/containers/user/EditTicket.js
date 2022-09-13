@@ -307,7 +307,11 @@ const EditScreen = ({
                       isSelected={state.building == _.buildingId}
                       onClick={() => {
                         selectBuilding(_);
-                        setShowMore(3);
+                        setShowMore({
+                          levels: 3,
+                          categories: 3,
+                          Assignes: 3,
+                        });
                         setcategorieslevelscolor(_?.color);
                       }}
                       categorieslevelscolor={categorieslevelscolor}

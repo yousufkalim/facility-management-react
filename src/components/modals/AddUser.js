@@ -248,10 +248,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
           }, 3000);
           //toast.success(response?.data?.message);
         }
-        if (!existingUser) {
-          cb();
-        }
-        //cb();
+        cb();
       }
     } catch (e) {
       console.trace(e);

@@ -12,6 +12,7 @@ import Api from '../../api';
 import { getUser } from '../../utils/Auth';
 
 import { Store, UpdateStore } from '../../StoreContext';
+import { toast } from 'react-toastify';
 
 function AddTicketScreen({ show, handleClose, state, setState, attachment, setAttachment, setCustomAlert }) {
   const user = getUser();
@@ -135,6 +136,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   };
 
   const selectBuilding = async (_) => {
+    console.log(_, '__');
     const _buildingLevels = await getBuildingLevels(_);
     updateStore({
       addTicket: {
@@ -273,7 +275,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   Bâtiment *
                 </p>
                 <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
-                  {console.log(store.addTicket.buildings, 'store.addTicket.buildings')}
                   {store.addTicket.buildings.map((_) => (
                     <SelectableTag
                       {..._}
@@ -281,7 +282,11 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       isSelected={state.building == _.buildingId}
                       onClick={() => {
                         selectBuilding(_);
-                        setShowMore(3);
+                        setShowMore({
+                          levels: 3,
+                          categories: 3,
+                          Assignes: 3,
+                        });
                         setcategorieslevelscolor(_?.color);
                       }}
                       categorieslevelscolor={categorieslevelscolor}
@@ -310,7 +315,13 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       <SelectableTag
                         text={_.text}
                         isSelected={state.building_level == _.value}
-                        onClick={() => _setState('building_level', _.value)}
+                        onClick={() => {
+                          if (state.building) {
+                            _setState('building_level', _.value);
+                          } else {
+                            toast.error(t('select building first'));
+                          }
+                        }}
                         pStyle={{
                           padding: '10pt 6pt',
                           fontWeight: '600',
@@ -398,7 +409,13 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                     <SelectableTag
                       text={_.text}
                       isSelected={state.category == _.value}
-                      onClick={() => _setState('category', _.value)}
+                      onClick={() => {
+                        if (state.building) {
+                          _setState('category', _.value);
+                        } else {
+                          toast.error(t('select building first'));
+                        }
+                      }}
                       pStyle={{
                         padding: '10pt 6pt',
                         fontWeight: '600',
@@ -557,7 +574,13 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                         image={_.profilePicture}
                         text={`${_.firstName} ${_.lastName}`}
                         isSelected={state.assignee == _.userId}
-                        onClick={() => _setState('assignee', _.userId)}
+                        onClick={() => {
+                          if (state.building) {
+                            _setState('assignee', _.userId);
+                          } else {
+                            toast.error(t('select building first'));
+                          }
+                        }}
                         divStyle={{
                           marginRight: '10pt',
                         }}

@@ -40,7 +40,7 @@ i18n
           "Enter your email and we'll send you your verification code":
             "Enter your email and we'll send you your verification code",
           'Send an email': 'Send an email',
-
+          'Email Sent.': 'Email Sent.',
           // ForgotPassword2
           'Password Set Successfully!': 'Password Set Successfully!',
           'Enter your new password': 'Enter your new password',
@@ -96,6 +96,7 @@ i18n
           ///add ticket
           'Show more': 'Show more',
           'Show less': 'Show less',
+          'select building first': 'select building first',
         },
       },
       fr: {
@@ -135,7 +136,7 @@ i18n
           "Enter your email and we'll send you your verification code":
             'Entrez votre email et nous vous enverrons votre code de vérification',
           'Send an email': 'Envoyer un e-mail',
-
+          'Email Sent.': 'Email envoyé.',
           // ForgotPassword2
           'Password Set Successfully!': 'Mot de passe défini avec succès !',
           'Enter your new password': 'Entrez votre nouveau mot de passe',
@@ -190,6 +191,7 @@ i18n
           ///add ticket
           'Show more': 'Montre plus',
           'Show less': 'Montrer moins',
+          'select building first': `sélectionner d'abord le bâtiment`,
         },
       },
     },

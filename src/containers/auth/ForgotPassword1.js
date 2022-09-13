@@ -63,7 +63,7 @@ function ForgotPassword1Screen() {
 
       response = await Api('post', '/forgetPassword', body);
       if (response?.data?.success) {
-        toast.success('Email Sent.');
+        toast.success(t('Email Sent.'));
         navToLogin();
       }
     } catch (e) {
