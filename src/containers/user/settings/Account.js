@@ -159,7 +159,6 @@ const Account = ({ userInfo }) => {
     let response;
     try {
       response = await Api('get', `/Users/userprofile/${user.id}`);
-      console.log(response, 'response');
       const _profile = response.data.data;
       return _profile;
     } catch (e) {
@@ -186,8 +185,6 @@ const Account = ({ userInfo }) => {
   };
   const handleSubmit = async (event, togglebtnname, value) => {
     event.preventDefault();
-
-    console.log(togglebtnname, 'togglebtnname');
     if (isProcessing) {
       return;
     }
@@ -273,7 +270,6 @@ const Account = ({ userInfo }) => {
 
     setIsProcessing(false);
   };
-  console.log(state, 'state');
   return (
     <>
       {isLoading ? (

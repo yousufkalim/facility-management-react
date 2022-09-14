@@ -96,7 +96,6 @@ const EditScreen = ({
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    console.log(_buildings, '_buildings');
     let _buildingLevels = [];
     if (_buildings.length > 0) {
       _buildingLevels = await getBuildingLevels(_buildings[0]);
@@ -174,7 +173,6 @@ const EditScreen = ({
       building_level: _buildingLevels[0].value,
     });
   };
-  console.log(SelectedTileDataToEdit, 'SelectedTileDataToEdit');
   return (
     <>
       {store.addTicket.isLoading ? (
@@ -559,7 +557,6 @@ const EditScreen = ({
                             marginLeft: '3pt',
                           }}
                         />
-                        {console.log(attachment?.name, 'attachment?.name')}
                         <a style={{ pointerEvents: attachment?.name ? 'none' : '' }} href={attachment} target="blank">
                           <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
                             attachment?.length > 15

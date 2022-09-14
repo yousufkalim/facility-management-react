@@ -228,7 +228,6 @@ const AddBuilding = ({ cb, handleClose }) => {
                       color: '#8C8C8C',
                       borderBottom: '0.8px solid #8C8C8C',
                     }}
-                    onClick={() => console.log('clicked')}
                     className="load_more_btn"
                   >
                     {buildingColors.length > 6 ? (Toggler.colors ? t('Show more') : t('Show less')) : ''}
@@ -274,7 +273,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                   className="d-flex aic"
                 >
                   {' '}
-                  <span onClick={() => console.log('clicked')} className="load_more_btn">
+                  <span className="load_more_btn">
                     {buildingLevels.length > 12 ? (Toggler.levels ? t('Show more') : t('Show less')) : ''}
                   </span>
                 </div>

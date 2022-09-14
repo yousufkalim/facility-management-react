@@ -251,8 +251,6 @@ const AllUsers = () => {
       return filteredData;
     }
   };
-  console.log(store, 'store');
-  console.log(activeUser, 'activeUser');
   return (
     <>
       <UXL appBarText={t('Users')}>
@@ -491,7 +489,6 @@ const AllUsers = () => {
 function UserCard(props) {
   const updateStore = UpdateStore();
   const store = Store();
-  console.log(store);
   return (
     <>
       <div
