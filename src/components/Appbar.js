@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { styled } from '@mui/material/styles';
 import AppBarHamburgerSVG from '../assets/AppBarHamburger.svg';
@@ -70,6 +70,16 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
     setAnchorElProfile(null);
   };
   //
+  useEffect(() => {
+    updateStore({
+      ...store,
+      userDetails: {
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+      },
+    });
+  }, []);
+  //
   const [searchQuery, setSearchQuery] = useState('');
 
   const hamburgerCallback = () => {
@@ -81,7 +91,7 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
-
+  console.log(store, 'store');
   return (
     <div
       className="appbar_container"
@@ -131,7 +141,7 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
             }}
             onClick={handleClickProfile}
           >
-            {user?.firstName + ' ' + user?.lastName}
+            {store?.userDetails?.firstName + ' ' + store?.userDetails?.lastName}
           </span>
           <StyledMenu
             id="demo-customized-menu"

@@ -172,7 +172,6 @@ function StatisticsReportScreen() {
     return gDataObj;
   };
   const managewidth = () => {
-    console.log('managewidth,', window.screen.width);
     // screen size 1920 fine
     if (window.screen.width >= 1700) {
       return 220;
@@ -210,7 +209,6 @@ function StatisticsReportScreen() {
     const width = pdf.internal.pageSize.getWidth();
 
     const height = (imgProps.height * width) / imgProps.width;
-    console.log('window.screen.width', window.screen.width);
     if (htmlCanvas) {
       ////firstone is left margin, secondone is marginbottom
       // pdf.addImage(htmlCanvas, 'PNG', 2, 15, window.screen.width >= 1600 ? 235 : window.screen.width >= 1500 ? 400 : 232, height);

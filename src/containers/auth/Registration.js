@@ -97,7 +97,6 @@ function RegistrationScreen() {
   const navToLogin = () => {
     navigate('/login');
   };
-  console.log(height, 'height');
   return (
     <div
       style={{

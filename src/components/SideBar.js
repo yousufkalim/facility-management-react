@@ -125,8 +125,6 @@ function SideBar({ color, sticky = true, divStyle }) {
 
   const animationProps = useSpring({ to: { opacity: 1 }, from: { opacity: 0 } });
   const user = getUser();
-  console.log(store.sideBarSelectIndex, 'store.sideBarSelectIndex');
-  console.log(location.pathname, 'location name');
   return (
     <animated.div
       className="sidebar_container"

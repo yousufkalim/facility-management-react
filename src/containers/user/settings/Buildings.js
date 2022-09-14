@@ -6,7 +6,7 @@ import SBEditIcon from '../../../assets/Edit.svg';
 import SBSettingsBuildingIconUnSelected from '../../../assets/SBSettingsBuildingIconUnSelected.svg';
 
 import ConfirmationDialog from '../../../components/modals/ConfirmationDialog';
-
+import CustomButton from '../../../components/CustomButton';
 import Api from '../../../api';
 import { getUser } from '../../../utils/Auth';
 import { hexToRGBA } from '../../../utils/Helpers';
@@ -70,6 +70,15 @@ const Buildings = (props) => {
             {store.settings.allBuildings.buildings.map((_) => (
               <BuildingListTile {..._} {...props} />
             ))}
+            <CustomButton
+              text="Ajouter un bâtiment ➕"
+              onClick={() => props?.handleAddBuildingOpen(false)}
+              style={{
+                position: 'absolute',
+                right: '20pt',
+                bottom: '20pt',
+              }}
+            />
           </div>
         </div>
       )}

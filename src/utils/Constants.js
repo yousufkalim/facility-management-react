@@ -93,7 +93,7 @@ const months = [
   'décembre',
 ];
 
-const buildingColors = ['#3445de', '#9E2600', '#F18200', '#494949', '#00A9B5', '#7B61FF', '#A8A91B', '#9B9E00'];
+const buildingColors = ['#3445de', '#9E2600', '#F18200', '#494949', '#00A9B5', '#7B61FF', '#A8A91B'];
 const buildingLevels = [
   'Level A',
   'Level B',

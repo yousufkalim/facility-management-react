@@ -165,32 +165,35 @@ const Settings = () => {
           <div style={{ width: width < 992 ? '100%' : '81%', left: '28%' }} className="footer_image_container">
             {activeSideBar == 0 ? <Account userInfo={userInfo} /> : <></>}
             {activeSideBar == 1 ? <Buildings handleAddBuildingOpen={handleAddBuildingOpen} /> : <></>}
-            {activeSideBar == 2 ? <Catogories /> : <></>}
+            {activeSideBar == 2 ? <Catogories handleAddCategory={handleAddCategory} /> : <></>}
           </div>
         </div>
-        {activeSideBar == 1 ? (
-          <CustomButton
-            text="Ajouter un bâtiment ➕"
-            onClick={() => handleAddBuildingOpen(false)}
-            style={{
-              position: 'absolute',
-              right: '20pt',
-              bottom: '20pt',
-            }}
-          />
-        ) : activeSideBar == 2 ? (
-          <CustomButton
-            text="Ajouter une nouvelle catégorie ➕"
-            onClick={() => handleAddCategory()}
-            style={{
-              position: 'absolute',
-              right: '20pt',
-              bottom: '20pt',
-            }}
-          />
-        ) : (
-          <></>
-        )}
+        {
+          // activeSideBar == 1 ? (
+          //   <CustomButton
+          //     text="Ajouter un bâtiment ➕"
+          //     onClick={() => handleAddBuildingOpen(false)}
+          //     style={{
+          //       position: 'absolute',
+          //       right: '20pt',
+          //       bottom: '20pt',
+          //     }}
+          //   />
+          // ) :
+          // activeSideBar == 2 ? (
+          //   <CustomButton
+          //     text="Ajouter une nouvelle catégorie ➕"
+          //     onClick={() => handleAddCategory()}
+          //     style={{
+          //       position: 'absolute',
+          //       right: '32pt',
+          //       bottom: '30pt',
+          //     }}
+          //   />
+          // ) : (
+          //   <></>
+          // )
+        }
         <Modal
           open={addBuildingOpen}
           onClose={() => handleAddBuildingClose()}

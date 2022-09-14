@@ -18,7 +18,7 @@ import * as FormValidations from '../../../utils/Validations';
 import Api from '../../../api';
 import { toast } from 'react-toastify';
 
-const Catogories = () => {
+const Catogories = (props) => {
   const store = Store();
   const { t } = useTranslation();
   const updateStore = UpdateStore();
@@ -76,7 +76,11 @@ const Catogories = () => {
             {store.settings.allCategories.categories.map((_) => (
               <CategoryListTile {..._} />
             ))}
+
             {store.settings.allCategories.toAdd ? <AddCategory /> : <></>}
+            <div className="add-user-btn">
+              <CustomButton text="Ajouter une nouvelle catégorie ➕" onClick={() => props?.handleAddCategory()} style={{}} />
+            </div>
             <div ref={bottomRef} />
           </div>
         </div>
@@ -240,6 +244,7 @@ function CategoryListTile(props) {
             />
           </div>
           <div style={{ width: '72%' }} />
+
           {!toEdit ? (
             <div className="d-flex edit_delete_icon_container aic">
               <div className="img_round_container" style={{ cursor: 'pointer' }} onClick={() => setToEdit(!toEdit)}>

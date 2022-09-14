@@ -15,6 +15,10 @@ import { hexToRGBA } from '../../utils/Helpers';
 import { Store, UpdateStore } from '../../StoreContext';
 
 const AddBuilding = ({ cb, handleClose }) => {
+  const [Toggler, setToggler] = useState({
+    levels: true,
+    colors: true,
+  }); ////state to toggle show more, show less
   const { t } = useTranslation();
   const user = getUser();
   const store = Store();
@@ -29,6 +33,10 @@ const AddBuilding = ({ cb, handleClose }) => {
   const [levels, setLevels] = useState([]);
   const [showMoreColors, setShowMoreBuildingColors] = useState(6); ////show more functionality for building colors
   const [showMoreBuildingLevels, setshowMoreBuildingLevels] = useState(12);
+  const [showMore, setShowMore] = useState({
+    levels: 12,
+    colors: 6,
+  });
   useEffect(() => {
     if (existingBuilding) {
       const _color = existingBuilding.color[0] == '#' ? existingBuilding.color : `${existingBuilding.color}`;
@@ -199,7 +207,19 @@ const AddBuilding = ({ cb, handleClose }) => {
                   style={{ marginLeft: '3%' }}
                   onClick={() => {
                     if (buildingColors.length > 6) {
-                      setShowMoreBuildingColors(buildingColors?.length);
+                      //setShowMoreBuildingColors(buildingColors?.length > 6 ? 6 : buildingColors?.length);
+                      setToggler((pre) => {
+                        return {
+                          ...pre,
+                          colors: !Toggler?.colors,
+                        };
+                      });
+                      setShowMore((pre) => {
+                        return {
+                          ...pre,
+                          colors: showMore?.colors > 6 ? 6 : buildingColors?.length,
+                        };
+                      });
                     }
                   }}
                 >
@@ -208,17 +228,15 @@ const AddBuilding = ({ cb, handleClose }) => {
                       color: '#8C8C8C',
                       borderBottom: '0.8px solid #8C8C8C',
                     }}
-                    onClick={() => console.log('clicked')}
                     className="load_more_btn"
                   >
-                    {' '}
-                    Voir plus
+                    {buildingColors.length > 6 ? (Toggler.colors ? t('Show more') : t('Show less')) : ''}
                   </span>{' '}
                 </div>
               </div>
               <span className="colors_heading"> Lieu</span>
               <div style={{ marginTop: '2%', marginLeft: '3%' }} className="levels_box_container">
-                {buildingLevels.slice(0, showMoreBuildingLevels).map((_) => (
+                {buildingLevels.slice(0, showMore?.levels).map((_) => (
                   <span
                     className="levels"
                     style={{
@@ -236,16 +254,27 @@ const AddBuilding = ({ cb, handleClose }) => {
                 <div
                   style={{ marginLeft: '3%' }}
                   onClick={() => {
-                    if (buildingLevels.length > 6) {
-                      setshowMoreBuildingLevels(buildingLevels?.length);
+                    if (buildingLevels.length > 12) {
+                      //setshowMoreBuildingLevels(buildingLevels?.length > 12 ? 12 : buildingLevels?.length);
+                      setShowMore((pre) => {
+                        return {
+                          ...pre,
+                          levels: showMore?.levels > 12 ? 12 : buildingLevels?.length,
+                        };
+                      });
+                      setToggler((pre) => {
+                        return {
+                          ...pre,
+                          levels: !Toggler?.levels,
+                        };
+                      });
                     }
                   }}
                   className="d-flex aic"
                 >
                   {' '}
-                  <span onClick={() => console.log('clicked')} className="load_more_btn">
-                    {' '}
-                    Voir plus
+                  <span className="load_more_btn">
+                    {buildingLevels.length > 12 ? (Toggler.levels ? t('Show more') : t('Show less')) : ''}
                   </span>
                 </div>
               </div>

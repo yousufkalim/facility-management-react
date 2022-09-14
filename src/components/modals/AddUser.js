@@ -57,6 +57,7 @@ function getStyles(name, personName, theme) {
 let colorForSelectedChip = '';
 const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
   const [personName, setPersonName] = React.useState([]);
+  const [selectFocus, setSelectFocus] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation();
   const [width] = useWindowSize();
@@ -476,7 +477,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                     {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
                     <Select
                       sx={{
-                        border: '2px solid #8C8C8C',
+                        border: selectFocus ? '2px solid #2f696d' : '2px solid #8C8C8C',
                         borderRadius: '20px',
                       }}
                       labelId="demo-multiple-chip-label"
@@ -484,6 +485,8 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                       multiple
                       value={personName}
                       onChange={handleChange}
+                      onFocus={() => setSelectFocus(true)}
+                      onBlur={() => setSelectFocus(false)}
                       input={<OutlinedInput className={classes.inputRoot} id="select-multiple-chip" label="Chip" />}
                       renderValue={(Selected) => (
                         <Box

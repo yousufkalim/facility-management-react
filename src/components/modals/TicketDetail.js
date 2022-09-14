@@ -180,8 +180,6 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
-
-  console.log(props, 'props');
   return (
     <animated.div
       style={{
@@ -322,7 +320,7 @@ function TicketDetailModal(props) {
                 color: props?.colorCode,
               }}
             >
-              {props.building}
+              {props.building.length > 15 ? props.building.slice(0, 15) + '...' : props.building}
             </p>
           </div>
         </div>
@@ -665,7 +663,7 @@ function CommentListTile(props) {
                 color: '#2F696D',
                 overflow: 'hidden',
                 padding: '15pt',
-                lineBreak: 'anywhere',
+                // lineBreak: 'anywhere',
               }}
             >
               {props.messageText}

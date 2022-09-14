@@ -53,11 +53,11 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
       _fillLevel = 1;
     }
 
-    if (state.building && state.building_level && state.category) {
+    if (state.building && state.building_level) {
       _fillLevel = 2;
     }
 
-    if (state.building && state.building_level && state.category && attachment) {
+    if (state.building && state.building_level && state.category) {
       _fillLevel = 3;
     }
 
@@ -70,7 +70,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   const _load = async () => {
     const _buildings = await getBuildings();
-    console.log(_buildings, '_buildings');
     let _buildingLevels = [];
     if (_buildings.length > 0) {
       _buildingLevels = await getBuildingLevels(_buildings[0]);
@@ -95,7 +94,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     try {
       response = await Api('get', `/buildings/active_building_with_levels`);
       const _buildings = response.data.data;
-      console.log(_buildings, '_buildings');
       return _buildings;
     } catch (e) {
       console.trace(e);
@@ -136,7 +134,6 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
   };
 
   const selectBuilding = async (_) => {
-    console.log(_, '__');
     const _buildingLevels = await getBuildingLevels(_);
     updateStore({
       addTicket: {
