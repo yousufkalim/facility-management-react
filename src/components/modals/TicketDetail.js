@@ -320,7 +320,7 @@ function TicketDetailModal(props) {
                 color: props?.colorCode,
               }}
             >
-              {props.building}
+              {props.building.length > 15 ? props.building.slice(0, 15) + '...' : props.building}
             </p>
           </div>
         </div>

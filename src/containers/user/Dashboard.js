@@ -38,7 +38,15 @@ function DashboardScreen() {
   const [renderAddTicket, setRenderAddTicket] = useState(false);
   const [renderEditTicket, setRenderEditTicket] = useState(false);
   const [customAlert, setCustomAlert] = useState(false);
-  const handleRenderAddTicket = () => {
+
+  const handleRenderAddTicket = async () => {
+    let response;
+    try {
+      response = await Api('get', `/Users/userprofile/${user?.userId}`);
+    } catch (e) {
+      console.trace(e);
+    }
+    console.log(response?.data?.data, 'dt');
     // if (
     //   store.addTicket.buildings.length > 0 ||
     //   user?.roleSerial == 1 ||
@@ -51,12 +59,12 @@ function DashboardScreen() {
     // }
     if (
       (store.addTicket.buildings.length > 0 && user?.roleSerial == 1) ||
-      (user.allowedBuildings.length > 0 && user?.roleSerial == 2)
+      ((user.allowedBuildings.length > 0 || response?.data?.data?.allowedBuildings.length > 0) && user?.roleSerial == 2)
     ) {
       setRenderAddTicket(!renderAddTicket);
     }
     if (
-      (user.allowedBuildings.length == 0 && user?.roleSerial == 2) ||
+      (user.allowedBuildings.length == 0 && response?.data?.data?.allowedBuildings.length == 0 && user?.roleSerial == 2) ||
       (store.addTicket.buildings.length == 0 && user?.roleSerial == 1)
     ) {
       setCustomAlert(true);
@@ -231,6 +239,7 @@ function DashboardScreen() {
     setSelectedTileDataToEdit(props);
     setRenderEditTicket(!renderEditTicket);
   };
+  console.log(user, 'user');
   return (
     <>
       {customAlert ? (

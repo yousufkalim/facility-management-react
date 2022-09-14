@@ -107,6 +107,7 @@ const IOSSwitch = styled((props) => <Switch focusVisibleClassName=".Mui-focusVis
 
 const Account = ({ userInfo }) => {
   const store = Store();
+  const updateStore = UpdateStore();
   const { t } = useTranslation();
   const user = getUser();
   const [width] = useWindowSize();
@@ -152,6 +153,13 @@ const Account = ({ userInfo }) => {
       newTicket: _profile?.newTicket,
       profilePicture: _profile?.profilePicture,
       allowedBuildings: _profile?.allowedBuildings,
+    });
+    updateStore({
+      ...store,
+      userDetails: {
+        firstName: _profile.firstName,
+        lastName: _profile.lastName,
+      },
     });
     setIsLoading(false);
   };

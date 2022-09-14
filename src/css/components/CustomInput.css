@@ -25,6 +25,11 @@
   border-width: 1.5px;
   border-radius: 10px;
 }
+.custom_input_input:focus {
+  outline: none !important;
+  border: 2px solid #2f696d !important;
+  color: #2f696d;
+}
 
 .custom_input_eye_img {
   position: absolute;
