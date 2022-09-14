@@ -74,7 +74,7 @@ function SelectableTag({
           ...pStyle,
         }}
       >
-        {ReactHtmlParser(text)}
+        {ReactHtmlParser(text.length > 30 ? text.slice(0, 30) + '..' : text)}
       </p>
     </div>
   );

@@ -1,11 +1,11 @@
 // Init
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { BrowserRouter } from "react-router-dom";
-import { StoreProvider } from "./StoreContext";
-import "./utils/i18n";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { BrowserRouter } from 'react-router-dom';
+import { StoreProvider } from './StoreContext';
+import './utils/i18n';
 
 // Rendering DOM
 ReactDOM.render(
@@ -14,7 +14,7 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </StoreProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

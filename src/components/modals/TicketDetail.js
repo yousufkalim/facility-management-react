@@ -665,7 +665,7 @@ function CommentListTile(props) {
                 color: '#2F696D',
                 overflow: 'hidden',
                 padding: '15pt',
-                lineBreak: 'anywhere',
+                // lineBreak: 'anywhere',
               }}
             >
               {props.messageText}

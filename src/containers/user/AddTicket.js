@@ -57,7 +57,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
       _fillLevel = 2;
     }
 
-    if (state.building && state.building_level && state.category && attachment) {
+    if (state.building && state.building_level && state.category && state?.details) {
       _fillLevel = 3;
     }
 
