@@ -553,20 +553,15 @@ const EditScreen = ({
                           style={{
                             height: '16pt',
                             width: '16pt',
-                            marginRight: '15pt',
+                            marginRight: '12pt',
                             marginLeft: '3pt',
                           }}
                         />
                         {/* <a style={{ pointerEvents: attachment?.name ? 'none' : '' }} href={attachment} target="blank"> */}
-                        <a style={{ pointerEvents: 'none' }} href={attachment} target="blank">
-                          <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
-                            attachment?.length > 15
-                              ? attachment?.slice(0, 15) + '...'
-                              : attachment?.name ?? 'Ajouter pièce jointe'
-                          }`}</p>
-                        </a>
-
-                        <img
+                        <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
+                          attachment?.length > 15 ? attachment?.slice(0, 15) + '...' : attachment?.name ?? 'Ajouter pièce jointe'
+                        }`}</p>
+                        {/* <img
                           className="pointer"
                           src={redcrosssvg}
                           style={{
@@ -575,7 +570,7 @@ const EditScreen = ({
                             marginLeft: '13pt',
                             marginRight: '2pt',
                           }}
-                        />
+                        /> */}
                       </div>
                     </label>
                   </div>

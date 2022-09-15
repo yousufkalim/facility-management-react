@@ -50,6 +50,7 @@
   padding: 1.5% 3%;
   border-radius: 20px;
   margin: 1%;
+  white-space: nowrap;
 }
 .building_name_img_container {
   width: 19%;

@@ -1,5 +1,6 @@
 import ReactHtmlParser from 'react-html-parser';
 import { hexToRGBA } from '../utils/Helpers';
+import hexToRgba from 'hex-to-rgba';
 import SBSettingsBuildingIconUnSelected from '../assets/SBSettingsBuildingIconUnSelected.svg';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
@@ -26,7 +27,7 @@ function SelectableTag({
         padding: '0% 2%',
         borderRadius: '15px',
         // backgroundColor: isSelected ? '#D8ECFF' : color ? hexToRGBA(color) : '#F4F4F4',
-        backgroundColor: isSelected ? hexToRGBA(categorieslevelscolor ? categorieslevelscolor : '#ffffff') : '#F4F4F4',
+        backgroundColor: isSelected ? hexToRgba(categorieslevelscolor ? categorieslevelscolor : '#ffffff', 0.3) : '#F4F4F4',
         pointerEvents: disabled ? 'none' : 'auto',
         marginBottom: '1%',
         ...divStyle,
