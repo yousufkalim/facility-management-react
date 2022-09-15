@@ -422,11 +422,11 @@ function TicketDetailModal(props) {
             width: '25%',
             fontWeight: '600',
             backgroundColor: '#F4F4F4',
-            padding: '2% 6%',
+            padding: props?.documentFile ? '2% 6%' : '2% 2%',
             borderRadius: '20px',
             whiteSpace: 'nowrap',
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: props?.documentFile ? 'center' : 'flex-start',
             alignItems: 'center',
           }}
         >

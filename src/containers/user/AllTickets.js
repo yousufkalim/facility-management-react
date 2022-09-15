@@ -766,10 +766,11 @@ function TicketListTile(props) {
               position: 'relative',
             }}
           >
+            {console.log(props.comments, 'props')}
             {[...props.comments].splice(0, 2).map((_, __) => (
               <img
                 className="ip_container"
-                src={_.avatar ?? ProfileSVG}
+                src={_?.employeePic ?? ProfileSVG}
                 style={{
                   height: '40px',
                   width: '40px',

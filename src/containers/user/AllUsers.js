@@ -116,8 +116,8 @@ const AllUsers = () => {
   const updateStore = UpdateStore();
 
   const [editUser, setEditUser] = useState(null);
-  const [activeTabId, setActiveTabId] = useState('');
-  const [activeUser, setactiveUser] = useState();
+  const [activeTabId, setActiveTabId] = useState(1);
+  const [activeuser, setactiveUser] = useState(store?.allUsers?.users[0]?.userId);
 
   const [addUserOpen, setAddUserOpen] = useState(false);
   const handleAddUserOpen = (toEdit) => {
@@ -136,6 +136,9 @@ const AllUsers = () => {
   useEffect(() => {
     _load();
   }, []);
+  useEffect(() => {
+    setactiveUser(store?.allUsers?.users[0]?.userId);
+  }, [store?.allUsers?.users]);
 
   const handleActiveTab = (activetabid) => {
     setActiveTabId(activetabid);
@@ -155,10 +158,12 @@ const AllUsers = () => {
     const _buildings = await getBuildings();
 
     let _user;
-    if (_invitedUsers?.length > 0) {
-      _user = await getUserInfo(activeUser ? activeUser : _invitedUsers[0].userId);
-    } else if (_users?.length > 0) {
-      _user = await getUserInfo(activeUser ? activeUser : _users[0].userId);
+    // if (_invitedUsers?.length > 0) {
+    //   _user = await getUserInfo(activeuser ? activeuser : _invitedUsers[0].userId);
+    // } else
+
+    if (_users?.length > 0) {
+      _user = await getUserInfo(activeuser ? activeuser : _users[0].userId);
     }
 
     if (_buildings?.length > 0) {
@@ -251,6 +256,7 @@ const AllUsers = () => {
       return filteredData;
     }
   };
+  console.log(store?.allUsers?.users, 'store?.allUsers?.users');
   return (
     <>
       <UXL appBarText={t('Users')}>
@@ -299,7 +305,7 @@ const AllUsers = () => {
                       {..._}
                       cb={userTileCB}
                       activeTabId={activeTabId}
-                      activeUser={activeUser}
+                      activeUser={activeuser}
                       setactiveUser={setactiveUser}
                     />
                   ))}
@@ -314,7 +320,7 @@ const AllUsers = () => {
                       {..._}
                       cb={userTileCB}
                       activeTabId={activeTabId}
-                      activeUser={activeUser}
+                      activeUser={activeuser}
                       setactiveUser={setactiveUser}
                     />
                   ))}
@@ -489,6 +495,7 @@ const AllUsers = () => {
 function UserCard(props) {
   const updateStore = UpdateStore();
   const store = Store();
+  console.log(props, 'props?.activeUser');
   return (
     <>
       <div

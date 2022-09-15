@@ -428,6 +428,7 @@ const Account = ({ userInfo }) => {
                         flexDirection: width < 575 ? 'column' : 'row',
                       }}
                     >
+                      {console.log(userInfo?.roleSerial, 'userInfo?.roleSerial')}
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label
                           style={{
@@ -438,7 +439,7 @@ const Account = ({ userInfo }) => {
                           E-mail
                         </label>
                         <input
-                          disabled={!edit}
+                          disabled={!edit || userInfo?.roleSerial == 2}
                           className="account_edit_inputs"
                           style={{
                             border: edit ? '2px solid #8C8C8C' : '',
@@ -573,6 +574,7 @@ const Account = ({ userInfo }) => {
                                 <img
                                   style={{
                                     filter: state?.newTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
+                                    paddingRight: '3%',
                                   }}
                                   className="tickets_icon_btn"
                                   src={TicketIcon}

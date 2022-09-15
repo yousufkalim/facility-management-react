@@ -59,7 +59,7 @@ function addTicketadmin(data) {
   const valFuncArr = [
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
-    //() => Validators.nullValidator('Détails du lieu', data['location_details']),
+    () => Validators.nullValidator('Détails du lieu', data['location_details']),
     () => Validators.selectValidator('Category', data['category']),
     // () => Validators.selectValidator("Priority", data["priority"]),
     () => Validators.selectValidator('Assignee', data['assignee']),
@@ -74,7 +74,7 @@ function addTicketuser(data) {
     () => Validators.selectValidator('bâtiment', data['building']),
     () => Validators.selectValidator('Niveau du bâtiment', data['building_level']),
     () => Validators.selectValidator('Category', data['category']),
-    //() => Validators.nullValidator('Détails du lieu', data['location_details']),
+    () => Validators.nullValidator('Détails du lieu', data['location_details']),
     // () => Validators.nullValidator("Title", data["title"]),
     // () => Validators.selectValidator("Priority", data["priority"]),
     //() => Validators.selectValidator('Assignee', data['assignee']),

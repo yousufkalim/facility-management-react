@@ -158,7 +158,7 @@ i18n
           Ended: 'Terminé',
           'Add a ticket': 'Ajouter un ticket',
           'Edit a ticket': 'mettre à jour',
-          'To safeguard': 'Sauvegarder',
+          'To safeguard': 'Envoyer',
           'Add a new ticket': 'Ajouter un nouveau ticket',
           'Edit a new ticket': 'modifier le ticket',
           Building: 'Bâtiment',

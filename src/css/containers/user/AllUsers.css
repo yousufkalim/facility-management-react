@@ -103,6 +103,7 @@
   font-size: 14px;
   line-height: 21px;
   color: #8c8c8c;
+  width: 80%;
 }
 .label_input_container > input {
   border: none;

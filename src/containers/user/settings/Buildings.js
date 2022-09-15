@@ -70,15 +70,15 @@ const Buildings = (props) => {
             {store.settings.allBuildings.buildings.map((_) => (
               <BuildingListTile {..._} {...props} />
             ))}
-            <CustomButton
-              text="Ajouter un bâtiment ➕"
-              onClick={() => props?.handleAddBuildingOpen(false)}
+            <div
               style={{
-                position: 'absolute',
-                right: '20pt',
-                bottom: '20pt',
+                position: 'fixed',
+                right: '5%',
+                bottom: '7%',
               }}
-            />
+            >
+              <CustomButton text="Ajouter un bâtiment ➕" onClick={() => props?.handleAddBuildingOpen(false)} />
+            </div>
           </div>
         </div>
       )}
