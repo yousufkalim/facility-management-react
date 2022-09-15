@@ -66,7 +66,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
 
   useEffect(() => {
     _load();
-  }, []);
+  }, [show]);
 
   const _load = async () => {
     const _buildings = await getBuildings();
@@ -93,6 +93,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     let response;
     try {
       response = await Api('get', `/buildings/active_building_with_levels`);
+      console.log(response, 'getbuildings');
       const _buildings = response.data.data;
       return _buildings;
     } catch (e) {
@@ -104,6 +105,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
     let response;
     try {
       response = await Api('get', `/levels/dropdown/${building.buildingId}`);
+      console.log(response, 'getBuildingLevels');
       const _buildingLevels = response.data.data;
       return _buildingLevels;
     } catch (e) {
@@ -272,7 +274,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                   Bâtiment *
                 </p>
                 <div style={{ flexWrap: 'wrap', width: '100%' }} className="row">
-                  {store.addTicket.buildings.map((_) => (
+                  {store?.addTicket?.buildings?.map((_) => (
                     <SelectableTag
                       {..._}
                       text={_.name}

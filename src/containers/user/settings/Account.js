@@ -114,6 +114,7 @@ const Account = ({ userInfo }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [attachment, setAttachment] = useState(null);
+  const [selectFocus, setSelectFocus] = useState({});
   const [existingimage, setexistingimage] = useState(); ////state for existing Profile Picture
   const [checked, setchecked] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -134,7 +135,14 @@ const Account = ({ userInfo }) => {
       ...obj,
     });
   };
-
+  const _setBlurFocus = (key, value) => {
+    setSelectFocus((pre) => {
+      return {
+        ...pre,
+        [key]: value,
+      };
+    });
+  };
   useEffect(() => {
     _load();
   }, []);
@@ -363,7 +371,14 @@ const Account = ({ userInfo }) => {
                       }}
                     >
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
-                        <label className="label_inputs">Prénom</label>
+                        <label
+                          style={{
+                            color: selectFocus?.first_name ? '#2f696d' : ' #8C8C8C',
+                          }}
+                          className="label_inputs"
+                        >
+                          Prénom
+                        </label>
                         <input
                           disabled={!edit}
                           className="account_edit_inputs"
@@ -376,10 +391,19 @@ const Account = ({ userInfo }) => {
                           placeholder="prénom"
                           value={state.first_name}
                           onChange={(e) => _setState('first_name', e.target.value)}
+                          onFocus={() => _setBlurFocus('first_name', true)}
+                          onBlur={() => _setBlurFocus('first_name', false)}
                         />
                       </div>
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
-                        <label className="label_inputs">Nom de famille</label>
+                        <label
+                          style={{
+                            color: selectFocus?.last_name ? '#2f696d' : ' #8C8C8C',
+                          }}
+                          className="label_inputs"
+                        >
+                          Nom de famille
+                        </label>
                         <input
                           disabled={!edit}
                           maxLength="25"
@@ -392,6 +416,8 @@ const Account = ({ userInfo }) => {
                           placeholder="nom de famille"
                           value={state.last_name}
                           onChange={(e) => _setState('last_name', e.target.value)}
+                          onFocus={() => _setBlurFocus('last_name', true)}
+                          onBlur={() => _setBlurFocus('last_name', false)}
                         />
                       </div>
                     </div>
@@ -403,7 +429,14 @@ const Account = ({ userInfo }) => {
                       }}
                     >
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
-                        <label className="label_inputs">E-mail</label>
+                        <label
+                          style={{
+                            color: selectFocus?.email ? '#2f696d' : ' #8C8C8C',
+                          }}
+                          className="label_inputs"
+                        >
+                          E-mail
+                        </label>
                         <input
                           disabled={!edit}
                           className="account_edit_inputs"
@@ -415,10 +448,19 @@ const Account = ({ userInfo }) => {
                           placeholder="email"
                           value={state.email}
                           onChange={(e) => _setState('email', e.target.value)}
+                          onFocus={() => _setBlurFocus('email', true)}
+                          onBlur={() => _setBlurFocus('email', false)}
                         />
                       </div>
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
-                        <label className="label_inputs">Numéro de portable</label>
+                        <label
+                          style={{
+                            color: selectFocus?.phone ? '#2f696d' : ' #8C8C8C',
+                          }}
+                          className="label_inputs"
+                        >
+                          Numéro de portable
+                        </label>
                         <input
                           disabled={!edit}
                           className="account_edit_inputs"
@@ -432,6 +474,8 @@ const Account = ({ userInfo }) => {
                           maxLength={13}
                           value={state.phone}
                           onChange={(e) => _setState('phone', e.target.value)}
+                          onFocus={() => _setBlurFocus('phone', true)}
+                          onBlur={() => _setBlurFocus('phone', false)}
                         />
                       </div>
                     </div>
@@ -459,7 +503,14 @@ const Account = ({ userInfo }) => {
                         />
                       </div> */}
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
-                        <label className="label_inputs">{t('Password')}</label>
+                        <label
+                          style={{
+                            color: selectFocus?.password ? '#2f696d' : ' #8C8C8C',
+                          }}
+                          className="label_inputs"
+                        >
+                          {t('Password')}
+                        </label>
                         <input
                           disabled={!edit}
                           className="account_edit_inputs"
@@ -471,6 +522,8 @@ const Account = ({ userInfo }) => {
                           value={state?.password}
                           placeholder={state?.passwordChangedStatus ? state?.passwordChangedStatus : ''}
                           onChange={(e) => _setState('password', e.target.value)}
+                          onFocus={() => _setBlurFocus('password', true)}
+                          onBlur={() => _setBlurFocus('password', false)}
                         />
                       </div>
                     </div>

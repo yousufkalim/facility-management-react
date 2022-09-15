@@ -15,6 +15,8 @@ function CustomInput({
   enableEyes,
   accept,
   onChange,
+  onFocus,
+  onBlur,
   disabled,
   ref,
   divStyle,
@@ -69,6 +71,8 @@ function CustomInput({
           name={inputName}
           accept={accept}
           onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
           placeholder={inputPlaceholder}
           defaultValue={inputDefaultValue}
           value={inputValue}

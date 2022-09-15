@@ -557,7 +557,8 @@ const EditScreen = ({
                             marginLeft: '3pt',
                           }}
                         />
-                        <a style={{ pointerEvents: attachment?.name ? 'none' : '' }} href={attachment} target="blank">
+                        {/* <a style={{ pointerEvents: attachment?.name ? 'none' : '' }} href={attachment} target="blank"> */}
+                        <a style={{ pointerEvents: 'none' }} href={attachment} target="blank">
                           <p style={{ fontSize: '11px', fontWeight: 'bold' }}>{`${
                             attachment?.length > 15
                               ? attachment?.slice(0, 15) + '...'
