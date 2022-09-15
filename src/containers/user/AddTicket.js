@@ -307,7 +307,7 @@ function AddTicketScreen({ show, handleClose, state, setState, attachment, setAt
                       paddingBottom: '10pt',
                     }}
                   >
-                    Lieu
+                    Localisation
                   </p>
                   <div style={{ flexWrap: 'wrap', width: '406pt' }} className="row aic">
                     {store.addTicket?.buildingLevels?.slice(0, showMore?.levels).map((_) => (

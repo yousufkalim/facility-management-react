@@ -389,6 +389,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                 </div>
                 <CustomInput
                   ptext="E-mail"
+                  disabled={existingUser ? true : false}
                   inputValue={state.email}
                   inputStyle={{
                     border: ' 2px solid #8C8C8C',

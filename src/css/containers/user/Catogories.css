@@ -4,6 +4,7 @@
 }
 .category_edit_delete_container {
   width: 70% !important;
+  align-items: center;
 }
 .category_tile {
   padding: 5.5% 15%;

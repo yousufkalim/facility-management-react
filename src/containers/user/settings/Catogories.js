@@ -78,7 +78,14 @@ const Catogories = (props) => {
             ))}
 
             {store.settings.allCategories.toAdd ? <AddCategory /> : <></>}
-            <div className="add-user-btn">
+            <div
+              style={{
+                position: 'fixed',
+                right: '3%',
+                bottom: '5%',
+              }}
+              className="add-user-btn"
+            >
               <CustomButton text="Ajouter une nouvelle catégorie ➕" onClick={() => props?.handleAddCategory()} style={{}} />
             </div>
             <div ref={bottomRef} />
@@ -232,7 +239,7 @@ function CategoryListTile(props) {
         onClose={onClose}
       />
       <div style={{ width: '94%', padding: '1.2% 0%' }} className="batments_levels_actions_conatiner d-flex">
-        <div className="d-flex category_edit_delete_container">
+        <div style={{ alignItems: 'center' }} className="d-flex category_edit_delete_container">
           <div style={{ width: '19%' }} className="d-flex">
             <ContentEditable
               className="category_tile"
@@ -272,8 +279,10 @@ function AddCategory(props) {
   const text = useRef('');
 
   const handleChange = (e) => {
+    console.log(e.target.value, 'gf');
+    let value = e.target.value.replace(/&amp;/g, '');
     text.current = e.target.value;
-    setCategoryValue(e.target.value);
+    setCategoryValue(value);
   };
 
   const handleSubmit = async (event) => {
@@ -357,7 +366,7 @@ function AddCategory(props) {
             />
           </div>
           <div style={{ width: '72%' }} />
-          <CustomButton text="Ajouter à la liste" onClick={handleSubmit} />
+          <CustomButton style={{ maxHeight: '42px' }} text="Ajouter à la liste" onClick={handleSubmit} />
         </div>
       </div>
     </div>

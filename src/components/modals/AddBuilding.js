@@ -189,7 +189,7 @@ const AddBuilding = ({ cb, handleClose }) => {
             <div className="colors_btn_container">
               <span className="colors_heading"> Couleur du bâtiment</span>
               <div style={{ flexWrap: 'wrap', marginLeft: '3%' }} className="colors_container d-flex aic">
-                {buildingColors.slice(0, showMoreColors).map((_) => (
+                {buildingColors.slice(0, showMore?.colors).map((_) => (
                   <div
                     style={{
                       border: color == _ ? '5px solid #2F696D' : 'none',
@@ -228,7 +228,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                       color: '#8C8C8C',
                       borderBottom: '0.8px solid #8C8C8C',
                     }}
-                    className="load_more_btn"
+                    className="load_more_btn pointer"
                   >
                     {buildingColors.length > 6 ? (Toggler.colors ? t('Show more') : t('Show less')) : ''}
                   </span>{' '}
@@ -273,7 +273,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                   className="d-flex aic"
                 >
                   {' '}
-                  <span className="load_more_btn">
+                  <span className="load_more_btn pointer">
                     {buildingLevels.length > 12 ? (Toggler.levels ? t('Show more') : t('Show less')) : ''}
                   </span>
                 </div>
