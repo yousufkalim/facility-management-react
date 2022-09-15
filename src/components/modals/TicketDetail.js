@@ -180,6 +180,7 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
+  console.log(props, 'props');
   return (
     <animated.div
       style={{

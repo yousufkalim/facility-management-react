@@ -57,7 +57,9 @@ function getStyles(name, personName, theme) {
 let colorForSelectedChip = '';
 const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
   const [personName, setPersonName] = React.useState([]);
-  const [selectFocus, setSelectFocus] = useState(false);
+  const [selectFocus, setSelectFocus] = useState({
+    buildings: false,
+  });
   const theme = useTheme();
   const { t } = useTranslation();
   const [width] = useWindowSize();
@@ -111,6 +113,14 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
     setState({
       ...state,
       ...obj,
+    });
+  };
+  const _setBlurFocus = (key, value) => {
+    setSelectFocus((pre) => {
+      return {
+        ...pre,
+        [key]: value,
+      };
     });
   };
   const handleFileSelect = (event) => {
@@ -329,6 +339,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                       lineHeight: '21px',
                       color: '#8C8C8C',
                       marginBottom: '0px',
+                      color: selectFocus?.first_name ? '#2f696d' : ' #8C8C8C',
                     }}
                     divStyle={{
                       width: width < 667 ? '100%' : '45%',
@@ -342,6 +353,8 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                       marginBottom: '8px',
                     }}
                     onChange={(e) => _setState('first_name', e.target.value)}
+                    onFocus={() => _setBlurFocus('first_name', true)}
+                    onBlur={() => _setBlurFocus('first_name', false)}
                   />
                   <CustomInput
                     ptext="Nom de famille"
@@ -356,6 +369,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                       lineHeight: '21px',
                       color: '#8C8C8C',
                       marginBottom: '0px',
+                      color: selectFocus?.last_name ? '#2f696d' : ' #8C8C8C',
                     }}
                     divStyle={{
                       width: width < 667 ? '100%' : '45%',
@@ -369,6 +383,8 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                       marginBottom: '8px',
                     }}
                     onChange={(e) => _setState('last_name', e.target.value)}
+                    onFocus={() => _setBlurFocus('last_name', true)}
+                    onBlur={() => _setBlurFocus('last_name', false)}
                   />
                 </div>
                 <CustomInput
@@ -385,6 +401,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                     lineHeight: '21px',
                     color: '#8C8C8C',
                     marginBottom: '0px',
+                    color: selectFocus?.email ? '#2f696d' : ' #8C8C8C',
                   }}
                   labelStyle={{
                     marginBottom: '8px',
@@ -396,6 +413,8 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                     marginBottom: '3%',
                   }}
                   onChange={(e) => _setState('email', e.target.value)}
+                  onFocus={() => _setBlurFocus('email', true)}
+                  onBlur={() => _setBlurFocus('email', false)}
                 />
                 <CustomInput
                   ptext="Numéro de portable"
@@ -413,6 +432,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                     lineHeight: '21px',
                     color: '#8C8C8C',
                     marginBottom: '0px',
+                    color: selectFocus?.phone ? '#2f696d' : ' #8C8C8C',
                   }}
                   inputStyle={{
                     border: ' 2px solid #8C8C8C',
@@ -423,6 +443,8 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                     marginBottom: '8px',
                   }}
                   onChange={(e) => _setState('phone', e.target.value.replace(/[^0-9]/g, ''))}
+                  onFocus={() => _setBlurFocus('phone', true)}
+                  onBlur={() => _setBlurFocus('phone', false)}
                 />
                 <div
                   className="Modal_form_screen_row2_row1"
@@ -463,7 +485,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                   </div>
                 </div> */}
                 <div style={{ width: '100%', marginBottom: '4%' }} className="select_input_container">
-                  <label>Bâtiments accessibles</label>
+                  <label style={{ color: selectFocus?.buildings ? '#2f696d' : '#8c8c8c' }}>Bâtiments accessibles</label>
                   {/* <select
                     className="all_user_select_input"
                     value={state.building}
@@ -477,7 +499,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                     {/* <InputLabel id="demo-multiple-chip-label">Chip</InputLabel> */}
                     <Select
                       sx={{
-                        border: selectFocus ? '2px solid #2f696d' : '2px solid #8C8C8C',
+                        border: selectFocus.buildings ? '2px solid #2f696d' : '2px solid #8C8C8C',
                         borderRadius: '20px',
                       }}
                       labelId="demo-multiple-chip-label"
@@ -485,8 +507,22 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                       multiple
                       value={personName}
                       onChange={handleChange}
-                      onFocus={() => setSelectFocus(true)}
-                      onBlur={() => setSelectFocus(false)}
+                      onFocus={() =>
+                        setSelectFocus((pre) => {
+                          return {
+                            ...pre,
+                            buildings: true,
+                          };
+                        })
+                      }
+                      onBlur={() =>
+                        setSelectFocus((pre) => {
+                          return {
+                            ...pre,
+                            buildings: false,
+                          };
+                        })
+                      }
                       input={<OutlinedInput className={classes.inputRoot} id="select-multiple-chip" label="Chip" />}
                       renderValue={(Selected) => (
                         <Box

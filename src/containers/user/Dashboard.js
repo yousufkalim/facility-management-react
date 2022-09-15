@@ -46,7 +46,6 @@ function DashboardScreen() {
     } catch (e) {
       console.trace(e);
     }
-    console.log(response?.data?.data, 'dt');
     // if (
     //   store.addTicket.buildings.length > 0 ||
     //   user?.roleSerial == 1 ||
@@ -57,6 +56,7 @@ function DashboardScreen() {
     // if (store.addTicket.buildings.length == 0 && user?.roleSerial == 2) {
     //   setCustomAlert(true);
     // }
+    ///////////////////
     if (
       (store.addTicket.buildings.length > 0 && user?.roleSerial == 1) ||
       ((user.allowedBuildings.length > 0 || response?.data?.data?.allowedBuildings.length > 0) && user?.roleSerial == 2)
