@@ -137,7 +137,7 @@ const AllUsers = () => {
     _load();
   }, []);
   useEffect(() => {
-    if (store?.allUsers.users) {
+    if (store?.allUsers.users && !editUser) {
       setactiveUser(store?.allUsers?.users[0]?.userId);
     }
   }, [store?.allUsers?.users]);
@@ -258,7 +258,6 @@ const AllUsers = () => {
       return filteredData;
     }
   };
-  console.log(store?.allUsers?.users, 'store?.allUsers?.users');
   return (
     <>
       <UXL appBarText={t('Users')}>
@@ -339,7 +338,7 @@ const AllUsers = () => {
               <div className="footer_image_container">
                 <img className="footer_image" src={FooterSVG} />
                 <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
-                  <div style={{ width: '93%' }} className="user_profile_info">
+                  <div style={{ width: '91.3%' }} className="user_profile_info">
                     <div className="form_container">
                       <div className="input_image_container">
                         <img
@@ -497,7 +496,6 @@ const AllUsers = () => {
 function UserCard(props) {
   const updateStore = UpdateStore();
   const store = Store();
-  console.log(props, 'props?.activeUser');
   return (
     <>
       <div

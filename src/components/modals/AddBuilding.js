@@ -167,7 +167,7 @@ const AddBuilding = ({ cb, handleClose }) => {
               inputType="text"
               inputName="Bâtiment"
               inputPlaceholder="Bâtiment"
-              inputValue={title}
+              inputValue={title.replace(/'.'/g, 'v')}
               enableYoursStyle={{
                 fontWeight: '400',
                 fontSize: '14px',
@@ -185,7 +185,9 @@ const AddBuilding = ({ cb, handleClose }) => {
               labelStyle={{
                 marginBottom: '8px',
               }}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
             />
             <div className="colors_btn_container">
               <span className="colors_heading"> Couleur du bâtiment</span>
@@ -242,7 +244,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                   <span
                     className="levels"
                     style={{
-                      background: levels.includes(_) ? hexToRgba(color, 0.3) : '#F4F4F4',
+                      background: levels.includes(_) ? hexToRgba(color, 0.2) : '#F4F4F4',
                       color: levels.includes(_) ? color : '#8C8C8C',
                       padding: '2.5% 4%',
                       cursor: 'pointer',

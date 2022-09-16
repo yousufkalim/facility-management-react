@@ -390,7 +390,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                 </div>
                 <CustomInput
                   ptext="E-mail"
-                  disabled={existingUser ? true : false}
+                  //disabled={existingUser ? true : false}
                   inputValue={state.email}
                   inputStyle={{
                     border: ' 2px solid #8C8C8C',
@@ -543,7 +543,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                               <Chip
                                 // key={value}
                                 sx={{
-                                  background: hexToRgba(colorForSelectedChip, 0.3),
+                                  background: hexToRgba(colorForSelectedChip, 0.2),
                                   color: colorForSelectedChip,
                                 }}
                                 label={_}

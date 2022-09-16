@@ -181,7 +181,6 @@ function TicketDetailModal(props) {
       transform: 'translateX(250px)',
     },
   });
-  console.log(props, 'props');
   return (
     <animated.div
       style={{
@@ -304,7 +303,7 @@ function TicketDetailModal(props) {
           }}
         >
           <div
-            style={{ backgroundColor: hexToRgba(props?.colorCode, 0.3), padding: '9% 20%', borderRadius: '20px' }}
+            style={{ backgroundColor: hexToRgba(props?.colorCode, 0.2), padding: '9% 20%', borderRadius: '20px' }}
             className="row"
           >
             <img
@@ -343,7 +342,7 @@ function TicketDetailModal(props) {
                   fontSize: '13px',
                   fontWeight: '600',
                   color: props?.colorCode,
-                  backgroundColor: hexToRgba(props?.colorCode, 0.3),
+                  backgroundColor: hexToRgba(props?.colorCode, 0.2),
                   padding: '12% 23%',
                   borderRadius: '20px',
                   whiteSpace: 'nowrap',

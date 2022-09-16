@@ -27,7 +27,7 @@ function SelectableTag({
         padding: '0% 2%',
         borderRadius: '15px',
         // backgroundColor: isSelected ? '#D8ECFF' : color ? hexToRGBA(color) : '#F4F4F4',
-        backgroundColor: isSelected ? hexToRgba(categorieslevelscolor ? categorieslevelscolor : '#ffffff', 0.3) : '#F4F4F4',
+        backgroundColor: isSelected ? hexToRgba(categorieslevelscolor ? categorieslevelscolor : '#ffffff', 0.2) : '#F4F4F4',
         pointerEvents: disabled ? 'none' : 'auto',
         marginBottom: '1%',
         ...divStyle,
