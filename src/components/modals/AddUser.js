@@ -9,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import DoneIcon from '@mui/icons-material/Done';
 
 import Avatar from '@mui/material/Avatar';
 
@@ -22,6 +21,7 @@ import CustomAlert from '../../components/modals/CustomAlert';
 
 import ProfileInputSVG from '../../assets/ProfileInput.svg';
 import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
+import BuildingSvgComponent from '../BuildingSvgComponent';
 
 import { useTranslation } from 'react-i18next';
 import EditProfileIcon from '../../assets/Edit.svg';
@@ -548,6 +548,14 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                                 }}
                                 label={_}
                                 avatar={
+                                  // <BuildingSvgComponent
+                                  //   style={{
+                                  //     width: '20px',
+                                  //     height: '20px',
+                                  //     padding: '4% 2%',
+                                  //   }}
+                                  //   color={colorForSelectedChip}
+                                  // />
                                   <Avatar
                                     className={classes.chip}
                                     sx={{

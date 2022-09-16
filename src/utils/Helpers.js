@@ -11,11 +11,12 @@ export function hexToRGBA(hex, opacity) {
 }
 
 export function hexToCSS(hex) {
+  console.log(hexToCSSFilter(hex), 'h');
   let filter = `
   invert(${Math.round(hexToCSSFilter(hex).values[0])}%) sepia(${Math.round(
     hexToCSSFilter(hex).values[1]
-  )}%) saturate(${Math.round(hexToCSSFilter(hex).values[2])}%) hue-rotate(231deg) brightness(${Math.round(
-    hexToCSSFilter(hex).values[4]
-  )}%) contrast(${Math.round(hexToCSSFilter(hex).values[5])}%)`;
+  )}%) saturate(${Math.round(hexToCSSFilter(hex).values[2])}%) hue-rotate(${Math.round(
+    hexToCSSFilter(hex).values[3]
+  )}deg) brightness(${Math.round(hexToCSSFilter(hex).values[4])}%) contrast(${Math.round(hexToCSSFilter(hex).values[5])}%)`;
   return filter;
 }

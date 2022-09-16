@@ -18,6 +18,7 @@ import AttachmentDownloadSVG from '../../assets/AttachmentDownload.svg';
 import CommentSendSVG from '../../assets/CommentSend.svg';
 import CommentUserSVG from '../../assets/CommentUser.png';
 import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
+import BuildingSvgComponent from '../../components/BuildingSvgComponent';
 
 import ReactHtmlParser from 'react-html-parser';
 
@@ -306,7 +307,7 @@ function TicketDetailModal(props) {
             style={{ backgroundColor: hexToRgba(props?.colorCode, 0.2), padding: '9% 20%', borderRadius: '20px' }}
             className="row"
           >
-            <img
+            {/* <img
               style={{
                 width: '10px',
                 height: '10px',
@@ -314,6 +315,13 @@ function TicketDetailModal(props) {
                 filter: hexToCSSFilter(props?.colorCode).filter.replace(';', ''),
               }}
               src={SBSettingsBuildingIconUnSelected}
+            /> */}
+            <BuildingSvgComponent
+              style={{
+                width: '16px',
+                marginRight: '5%',
+              }}
+              color={props?.colorCode}
             />
             <p
               style={{
@@ -549,6 +557,7 @@ function TicketDetailModal(props) {
 }
 
 function CustomStepper({ comments }) {
+  console.log(comments, 'comments');
   return (
     <div className="column w100 ajc">
       {comments.map((_) => (
@@ -613,7 +622,6 @@ function CommentListTile(props) {
       downloadBlob(props.attachFile); // Well then its in memory anyways.
     }
   };
-
   return (
     <div
       className="column w100"
@@ -639,7 +647,10 @@ function CommentListTile(props) {
           className="ip_container"
           style={{ height: '40pt', width: '40pt', margin: '0 10pt' }}
         />
-        <p style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600' }}>{`${props.employeeName} a ajouté un commentaire`}</p>
+        <p
+          className="no-wrap"
+          style={{ fontSize: '12px', color: '#8C8C8C', fontWeight: '600', width: '27%' }}
+        >{`${props.employeeName} a ajouté un commentaire`}</p>
       </div>
       {/* <div className="row ajc w100 pl-line"> */}
       <div style={{ justifyContent: 'end' }} className="row  w100">

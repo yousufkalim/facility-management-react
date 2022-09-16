@@ -3,6 +3,7 @@ import { hexToRGBA } from '../utils/Helpers';
 import hexToRgba from 'hex-to-rgba';
 import SBSettingsBuildingIconUnSelected from '../assets/SBSettingsBuildingIconUnSelected.svg';
 import { hexToCSSFilter } from 'hex-to-css-filter';
+import BuildingSvgComponent from './BuildingSvgComponent';
 
 function SelectableTag({
   text,
@@ -35,17 +36,26 @@ function SelectableTag({
       onClick={onClick}
     >
       {icon ? (
-        <img
+        // <img
+        //   style={{
+        //     height: '14px',
+        //     width: '14px',
+        //     margin: '0 5pt',
+        //     filter: isSelected
+        //       ? hexToCSSFilter(categorieslevelscolor ? categorieslevelscolor : '#ffffff').filter.replace(';', '')
+        //       : '',
+        //     ...imgStyle,
+        //   }}
+        //   src={SBSettingsBuildingIconUnSelected}
+        // />
+        <BuildingSvgComponent
           style={{
             height: '14px',
             width: '14px',
             margin: '0 5pt',
-            filter: isSelected
-              ? hexToCSSFilter(categorieslevelscolor ? categorieslevelscolor : '#ffffff').filter.replace(';', '')
-              : '',
             ...imgStyle,
           }}
-          src={SBSettingsBuildingIconUnSelected}
+          color={isSelected ? (categorieslevelscolor ? categorieslevelscolor : '#ffffff') : ''}
         />
       ) : (
         <></>

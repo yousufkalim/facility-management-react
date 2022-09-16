@@ -249,6 +249,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                       padding: '2.5% 4%',
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
+                      fontWeight: '600',
                     }}
                     onClick={() => handleLevel(_)}
                   >
