@@ -37,7 +37,9 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
-
+.no-wrap {
+  white-space: nowrap;
+}
 .column {
   display: flex;
   flex-direction: column;

@@ -279,7 +279,6 @@ function AddCategory(props) {
   const text = useRef('');
 
   const handleChange = (e) => {
-    console.log(e.target.value, 'gf');
     let value = e.target.value.replace(/&amp;/g, '');
     text.current = e.target.value;
     setCategoryValue(value);

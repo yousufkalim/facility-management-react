@@ -91,7 +91,6 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
-  console.log(store, 'store');
   return (
     <div
       className="appbar_container"

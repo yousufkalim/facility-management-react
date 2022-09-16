@@ -428,7 +428,6 @@ const Account = ({ userInfo }) => {
                         flexDirection: width < 575 ? 'column' : 'row',
                       }}
                     >
-                      {console.log(userInfo?.roleSerial, 'userInfo?.roleSerial')}
                       <div className={`label_input_container ${width > 575 ? 'w-48' : 'w-100'}`}>
                         <label
                           style={{
@@ -574,7 +573,7 @@ const Account = ({ userInfo }) => {
                                 <img
                                   style={{
                                     filter: state?.newTicket ? hexToCSSFilter('#2F696D').filter.replace(';', '') : '',
-                                    paddingRight: '3%',
+                                    paddingRight: '0px',
                                   }}
                                   className="tickets_icon_btn"
                                   src={TicketIcon}
@@ -582,8 +581,9 @@ const Account = ({ userInfo }) => {
                                 <span
                                   style={{
                                     color: state?.newTicket ? '#2F696D' : '',
+                                    paddingLeft: '3%',
                                   }}
-                                  className="tickets_icon_btn_span"
+                                  className="tickets_icon_btn_span no-wrap"
                                 >
                                   Nouveau ticket
                                 </span>
@@ -616,7 +616,7 @@ const Account = ({ userInfo }) => {
                                   style={{
                                     color: state?.trackingTicket ? '#2F696D' : '',
                                   }}
-                                  className="tickets_icon_btn_span"
+                                  className="tickets_icon_btn_span  no-wrap"
                                 >
                                   Suivi de ticket
                                 </span>
@@ -649,7 +649,7 @@ const Account = ({ userInfo }) => {
                                   style={{
                                     color: state?.assignmentToTicket ? '#2F696D' : '',
                                   }}
-                                  className="tickets_icon_btn_span"
+                                  className="tickets_icon_btn_span no-wrap"
                                 >
                                   Assignation à un ticket
                                 </span>
