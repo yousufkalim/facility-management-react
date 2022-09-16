@@ -319,6 +319,7 @@ function TicketDetailModal(props) {
             <BuildingSvgComponent
               style={{
                 width: '18px',
+                height: '10px',
                 marginRight: '5%',
               }}
               color={props?.colorCode}
