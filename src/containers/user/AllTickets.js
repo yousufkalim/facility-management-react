@@ -8,6 +8,7 @@ import TicketSettingsSVG from '../../assets/TicketSettings.svg';
 import TicketComment from '../../assets/Comment.svg';
 import ProfileSVG from '../../assets/DummyUser.jpeg';
 import SBSettingsBuildingIconUnSelected from '../../assets/SBSettingsBuildingIconUnSelected.svg';
+import BuildingSvgComponent from '../../components/BuildingSvgComponent';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
 import TicketDetailModal from '../../components/modals/TicketDetail';
@@ -699,12 +700,12 @@ function TicketListTile(props) {
             className="row"
             style={{
               borderRadius: '20px',
-              backgroundColor: hexToRgba(props?.colorCode, 0.2),
+              backgroundColor: hexToRgba(props?.colorCode, 0.1),
               marginRight: '2%',
               padding: '2% 6%',
             }}
           >
-            <img
+            {/* <img
               style={{
                 width: '10px',
                 height: '10px',
@@ -712,6 +713,13 @@ function TicketListTile(props) {
                 filter: hexToCSSFilter(props?.colorCode).filter.replace(';', ''),
               }}
               src={SBSettingsBuildingIconUnSelected}
+            /> */}
+            <BuildingSvgComponent
+              color={props?.colorCode}
+              style={{
+                width: '13px',
+                marginRight: '5%',
+              }}
             />
             <p
               style={{

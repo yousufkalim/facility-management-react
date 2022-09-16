@@ -7,9 +7,10 @@ import SBSettingsBuildingIconUnSelected from '../../../assets/SBSettingsBuilding
 
 import ConfirmationDialog from '../../../components/modals/ConfirmationDialog';
 import CustomButton from '../../../components/CustomButton';
+import BuildingSvgComponent from '../../../components/BuildingSvgComponent';
 import Api from '../../../api';
 import { getUser } from '../../../utils/Auth';
-import { hexToRGBA } from '../../../utils/Helpers';
+import { hexToRGBA, hexToCSS } from '../../../utils/Helpers';
 import hexToRgba from 'hex-to-rgba';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
@@ -161,18 +162,16 @@ function BuildingListTile(props) {
         Open={Open}
         onClose={onClose}
       />
+      {console.log(color, 'colorkl')}
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">
-            <img
-              style={{ width: '15px', marginRight: '6%', filter: hexToCSSFilter(color).filter.replace(';', '') }}
-              src={SBSettingsBuildingIconUnSelected}
-            />
+            <BuildingSvgComponent style={{ width: '15px', height: '15px', marginRight: '5%' }} color={color} />
             <span>{props.name}</span>
           </div>
           <div className="levels_container">
             {props.levels.map((_) => (
-              <span className="levels" style={{ background: hexToRgba(color, 0.2) }}>
+              <span className="levels" style={{ background: hexToRgba(color, 0.1) }}>
                 {_.name}{' '}
               </span>
             ))}
