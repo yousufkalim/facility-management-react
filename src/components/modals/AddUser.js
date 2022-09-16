@@ -30,6 +30,7 @@ import useWindowSize from '../../utils/WindowSize';
 
 import { hexToCSSFilter } from 'hex-to-css-filter';
 import { hexToRGBA } from '../../utils/Helpers';
+import hexToRgba from 'hex-to-rgba';
 
 import * as FormValidations from '../../utils/Validations';
 import Api from '../../api';
@@ -542,7 +543,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                               <Chip
                                 // key={value}
                                 sx={{
-                                  background: hexToRGBA(colorForSelectedChip),
+                                  background: hexToRgba(colorForSelectedChip, 0.3),
                                   color: colorForSelectedChip,
                                 }}
                                 label={_}

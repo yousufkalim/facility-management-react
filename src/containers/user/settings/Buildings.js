@@ -10,6 +10,7 @@ import CustomButton from '../../../components/CustomButton';
 import Api from '../../../api';
 import { getUser } from '../../../utils/Auth';
 import { hexToRGBA } from '../../../utils/Helpers';
+import hexToRgba from 'hex-to-rgba';
 import { hexToCSSFilter } from 'hex-to-css-filter';
 
 import { useTranslation } from 'react-i18next';
@@ -57,7 +58,7 @@ const Buildings = (props) => {
         <Loader />
       ) : (
         <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
-          <div className="user_profile_info">
+          <div style={{ width: '93%' }} className="user_profile_info">
             <div className="parent_container_header">
               <div style={{ background: '#8C8C8C' }} className="batments_levels_actions_conatiner d-flex">
                 <div className="prnt d-flex batments_levels_container">
@@ -73,7 +74,7 @@ const Buildings = (props) => {
             <div
               style={{
                 position: 'fixed',
-                right: '5%',
+                right: '2.3%',
                 bottom: '7%',
               }}
             >
@@ -171,7 +172,7 @@ function BuildingListTile(props) {
           </div>
           <div className="levels_container">
             {props.levels.map((_) => (
-              <span className="levels" style={{ background: hexToRGBA(color) }}>
+              <span className="levels" style={{ background: hexToRgba(color, 0.3) }}>
                 {_.name}{' '}
               </span>
             ))}

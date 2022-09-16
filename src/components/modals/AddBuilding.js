@@ -5,6 +5,7 @@ import CustomInput from '../CustomInput';
 import { useTranslation } from 'react-i18next';
 
 import { buildingColors, buildingLevels } from '../../utils/Constants';
+import hexToRgba from 'hex-to-rgba';
 
 import * as FormValidations from '../../utils/Validations';
 import Api from '../../api';
@@ -235,12 +236,13 @@ const AddBuilding = ({ cb, handleClose }) => {
                 </div>
               </div>
               <span className="colors_heading"> Lieu</span>
+
               <div style={{ marginTop: '2%', marginLeft: '3%' }} className="levels_box_container">
                 {buildingLevels.slice(0, showMore?.levels).map((_) => (
                   <span
                     className="levels"
                     style={{
-                      background: levels.includes(_) ? hexToRGBA(color) : '#F4F4F4',
+                      background: levels.includes(_) ? hexToRgba(color, 0.3) : '#F4F4F4',
                       color: levels.includes(_) ? color : '#8C8C8C',
                       padding: '2.5% 4%',
                       cursor: 'pointer',

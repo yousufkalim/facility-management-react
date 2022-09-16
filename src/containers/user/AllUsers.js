@@ -117,7 +117,7 @@ const AllUsers = () => {
 
   const [editUser, setEditUser] = useState(null);
   const [activeTabId, setActiveTabId] = useState(1);
-  const [activeuser, setactiveUser] = useState(store?.allUsers?.users[0]?.userId);
+  const [activeuser, setactiveUser] = useState();
 
   const [addUserOpen, setAddUserOpen] = useState(false);
   const handleAddUserOpen = (toEdit) => {
@@ -137,7 +137,9 @@ const AllUsers = () => {
     _load();
   }, []);
   useEffect(() => {
-    setactiveUser(store?.allUsers?.users[0]?.userId);
+    if (store?.allUsers.users) {
+      setactiveUser(store?.allUsers?.users[0]?.userId);
+    }
   }, [store?.allUsers?.users]);
 
   const handleActiveTab = (activetabid) => {

@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import EditSVG from '../../assets/Edit.svg';
 import { hexToRGBA } from '../../utils/Helpers';
+import hexToRgba from 'hex-to-rgba';
 import { useSpring, animated } from 'react-spring';
 
 import Tag from '../Tag';
@@ -302,7 +303,10 @@ function TicketDetailModal(props) {
             marginBottom: '5%',
           }}
         >
-          <div style={{ backgroundColor: hexToRGBA(props?.colorCode), padding: '9% 20%', borderRadius: '20px' }} className="row">
+          <div
+            style={{ backgroundColor: hexToRgba(props?.colorCode, 0.3), padding: '9% 20%', borderRadius: '20px' }}
+            className="row"
+          >
             <img
               style={{
                 width: '10px',
@@ -339,7 +343,7 @@ function TicketDetailModal(props) {
                   fontSize: '13px',
                   fontWeight: '600',
                   color: props?.colorCode,
-                  backgroundColor: hexToRGBA(props?.colorCode),
+                  backgroundColor: hexToRgba(props?.colorCode, 0.3),
                   padding: '12% 23%',
                   borderRadius: '20px',
                   whiteSpace: 'nowrap',

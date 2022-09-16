@@ -64,7 +64,7 @@ const Catogories = (props) => {
         <Loader />
       ) : (
         <div className="wh100" style={{ marginTop: '3%' }}>
-          <div className="user_profile_info">
+          <div style={{ width: '93%' }} className="user_profile_info">
             <div style={{ background: '#8C8C8C' }} className="parent_container_header">
               <div style={{ padding: '1% 1%' }} className="batments_levels_actions_conatiner category_actions_container d-flex">
                 <div className="prnt d-flex batments_levels_container">
@@ -81,7 +81,7 @@ const Catogories = (props) => {
             <div
               style={{
                 position: 'fixed',
-                right: '3%',
+                right: '1.2%',
                 bottom: '5%',
               }}
               className="add-user-btn"

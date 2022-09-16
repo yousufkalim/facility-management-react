@@ -36,7 +36,7 @@ const api = async (method = 'get', uri, body) => {
       })
       .catch((err) => {
         console.log('API Error CATCH ->', err);
-        toast.error('Something went wrong.');
+        toast.error(`Pas d'Internet`);
         reject(err);
       });
   });

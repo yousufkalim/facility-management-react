@@ -239,7 +239,6 @@ function DashboardScreen() {
     setSelectedTileDataToEdit(props);
     setRenderEditTicket(!renderEditTicket);
   };
-  console.log(user, 'user');
   return (
     <>
       {customAlert ? (
@@ -247,7 +246,11 @@ function DashboardScreen() {
           setCustomAlert={setCustomAlert}
           renderAddTicket={renderAddTicket}
           setRenderAddTicket={setRenderAddTicket}
-          text="l'utilisateur ne peut pas créer de ticket tant que l'administrateur n'a pas attribué de bâtiment à votre profil"
+          text={
+            user?.roleSerial == 1
+              ? "Administratrice ne peut pas créer de ticket tant que l'administrateur n'a pas attribué de bâtiment à votre profil"
+              : "l'utilisateur ne peut pas créer de ticket tant que l'administrateur n'a pas attribué de bâtiment à votre profil"
+          }
         />
       ) : (
         <> </>
