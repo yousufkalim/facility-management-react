@@ -171,7 +171,7 @@ function BuildingListTile(props) {
           </div>
           <div className="levels_container">
             {props.levels.map((_) => (
-              <span className="levels" style={{ background: hexToRgba(color, 0.2) }}>
+              <span className="levels" style={{ background: hexToRgba(color, 0.1) }}>
                 {_.name}{' '}
               </span>
             ))}

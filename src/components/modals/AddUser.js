@@ -543,7 +543,7 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
                               <Chip
                                 // key={value}
                                 sx={{
-                                  background: hexToRgba(colorForSelectedChip, 0.2),
+                                  background: hexToRgba(colorForSelectedChip, 0.1),
                                   color: colorForSelectedChip,
                                 }}
                                 label={_}

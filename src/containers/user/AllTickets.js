@@ -700,7 +700,7 @@ function TicketListTile(props) {
             className="row"
             style={{
               borderRadius: '20px',
-              backgroundColor: hexToRgba(props?.colorCode, 0.2),
+              backgroundColor: hexToRgba(props?.colorCode, 0.1),
               marginRight: '2%',
               padding: '2% 6%',
             }}

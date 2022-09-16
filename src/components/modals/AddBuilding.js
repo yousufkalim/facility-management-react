@@ -244,7 +244,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                   <span
                     className="levels"
                     style={{
-                      background: levels.includes(_) ? hexToRgba(color, 0.2) : '#F4F4F4',
+                      background: levels.includes(_) ? hexToRgba(color, 0.1) : '#F4F4F4',
                       color: levels.includes(_) ? color : '#8C8C8C',
                       padding: '2.5% 4%',
                       cursor: 'pointer',
