@@ -304,7 +304,13 @@ function TicketDetailModal(props) {
           }}
         >
           <div
-            style={{ backgroundColor: hexToRgba(props?.colorCode, 0.1), padding: '9% 20%', borderRadius: '20px' }}
+            style={{
+              backgroundColor: hexToRgba(props?.colorCode, 0.1),
+              padding: '10px 20px',
+              borderRadius: '20px',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
             className="row"
           >
             {/* <img
@@ -318,8 +324,8 @@ function TicketDetailModal(props) {
             /> */}
             <BuildingSvgComponent
               style={{
-                width: '18px',
-                height: '10px',
+                width: '22px',
+                height: '12px',
                 marginRight: '5%',
               }}
               color={props?.colorCode}

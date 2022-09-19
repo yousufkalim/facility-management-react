@@ -702,7 +702,10 @@ function TicketListTile(props) {
               borderRadius: '20px',
               backgroundColor: hexToRgba(props?.colorCode, 0.1),
               marginRight: '2%',
-              padding: '2% 6%',
+              padding: '0px 20px',
+              height: '26px',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             {/* <img
@@ -717,7 +720,8 @@ function TicketListTile(props) {
             <BuildingSvgComponent
               color={props?.colorCode}
               style={{
-                width: '13px',
+                width: '15px',
+                height: '10px',
                 marginRight: '5%',
               }}
             />
