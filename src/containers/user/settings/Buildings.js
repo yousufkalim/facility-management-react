@@ -55,7 +55,7 @@ const Buildings = (props) => {
 
   return (
     <>
-      {store.settings.allBuildings.isLoading ? (
+      {store?.settings?.allBuildings?.isLoading ? (
         <Loader />
       ) : (
         <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
@@ -69,7 +69,7 @@ const Buildings = (props) => {
                 <div>Action</div>
               </div>
             </div>
-            {store.settings.allBuildings.buildings.map((_) => (
+            {store?.settings?.allBuildings?.buildings?.map((_) => (
               <BuildingListTile {..._} {...props} />
             ))}
             <div
