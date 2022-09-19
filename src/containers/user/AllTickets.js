@@ -702,7 +702,7 @@ function TicketListTile(props) {
               borderRadius: '20px',
               backgroundColor: hexToRgba(props?.colorCode, 0.1),
               marginRight: '2%',
-              padding: '0px 20px',
+              padding: '0px 10px',
               height: '26px',
               justifyContent: 'center',
               alignItems: 'center',
@@ -717,14 +717,16 @@ function TicketListTile(props) {
               }}
               src={SBSettingsBuildingIconUnSelected}
             /> */}
-            <BuildingSvgComponent
-              color={props?.colorCode}
-              style={{
-                width: '15px',
-                height: '10px',
-                marginRight: '5%',
-              }}
-            />
+            <div>
+              <BuildingSvgComponent
+                color={props?.colorCode}
+                style={{
+                  width: '20px',
+                  height: '10px',
+                  marginRight: '5%',
+                }}
+              />
+            </div>
             <p
               style={{
                 fontSize: '12px',
@@ -733,7 +735,7 @@ function TicketListTile(props) {
                 color: props?.colorCode,
               }}
             >
-              {props.building.length > 35 ? props.building.slice(0, 35) + '..' : props.building}
+              {props.building.length > 25 ? props.building.slice(0, 25) + '..' : props.building}
             </p>
           </div>
         </div>

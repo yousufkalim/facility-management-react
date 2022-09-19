@@ -306,7 +306,7 @@ function TicketDetailModal(props) {
           <div
             style={{
               backgroundColor: hexToRgba(props?.colorCode, 0.1),
-              padding: '10px 20px',
+              padding: '8px 20px',
               borderRadius: '20px',
               justifyContent: 'center',
               alignItems: 'center',
@@ -322,14 +322,16 @@ function TicketDetailModal(props) {
               }}
               src={SBSettingsBuildingIconUnSelected}
             /> */}
-            <BuildingSvgComponent
-              style={{
-                width: '22px',
-                height: '12px',
-                marginRight: '5%',
-              }}
-              color={props?.colorCode}
-            />
+            <div>
+              <BuildingSvgComponent
+                style={{
+                  width: '22px',
+                  height: '12px',
+                  marginRight: '5%',
+                }}
+                color={props?.colorCode}
+              />
+            </div>
             <p
               style={{
                 fontSize: '12px',

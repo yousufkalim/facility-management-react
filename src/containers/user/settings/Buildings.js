@@ -167,7 +167,7 @@ function BuildingListTile(props) {
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">
             <BuildingSvgComponent style={{ width: '15px', height: '15px', marginRight: '5%' }} color={color} />
-            <span>{props.name}</span>
+            <span>{props.name.length > 13 ? props.name.slice(0, 13) + '...' : props.name}</span>
           </div>
           <div className="levels_container">
             {props.levels.map((_) => (
