@@ -162,11 +162,12 @@ function BuildingListTile(props) {
         Open={Open}
         onClose={onClose}
       />
-      {console.log(color, 'colorkl')}
       <div style={{ width: '94%', padding: '1.6% 0%' }} className="batments_levels_actions_conatiner d-flex">
         <div className="d-flex batments_levels_container_edit_delete">
           <div style={{ width: '19%' }} className="d-flex aic building_name_img_container">
-            <BuildingSvgComponent style={{ width: '15px', height: '15px', marginRight: '5%' }} color={color} />
+            <div style={{ marginRight: '5%' }}>
+              <BuildingSvgComponent style={{ width: '15px', height: '15px' }} color={color} />
+            </div>
             <span>{props.name.length > 13 ? props.name.slice(0, 13) + '...' : props.name}</span>
           </div>
           <div className="levels_container">

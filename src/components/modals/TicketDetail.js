@@ -306,7 +306,7 @@ function TicketDetailModal(props) {
           <div
             style={{
               backgroundColor: hexToRgba(props?.colorCode, 0.1),
-              padding: '8px 20px',
+              padding: '6px 14px',
               borderRadius: '20px',
               justifyContent: 'center',
               alignItems: 'center',
