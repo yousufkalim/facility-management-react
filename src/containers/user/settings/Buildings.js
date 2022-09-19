@@ -168,7 +168,7 @@ function BuildingListTile(props) {
             <div style={{ marginRight: '5%' }}>
               <BuildingSvgComponent style={{ width: '15px', height: '15px' }} color={color} />
             </div>
-            <span>{props.name.length > 13 ? props.name.slice(0, 13) + '...' : props.name}</span>
+            <span>{props.name.length > 20 ? props.name.slice(0, 20) + '...' : props.name}</span>
           </div>
           <div className="levels_container">
             {props.levels.map((_) => (
