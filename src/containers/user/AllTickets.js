@@ -443,7 +443,11 @@ function AllTickets({ show, height, handleRenderEditTicketScreen }) {
             display: show ? 'flex' : 'none',
           }}
         >
-          <Loader />
+          <Loader
+            divStyle={{
+              marginTop: '45vh',
+            }}
+          />
         </div>
       ) : (
         <>

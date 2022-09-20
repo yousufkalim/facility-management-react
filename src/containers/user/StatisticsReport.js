@@ -233,7 +233,11 @@ function StatisticsReportScreen() {
   return (
     <UXL appBarText="Statistiques">
       {isLoading ? (
-        <Loader />
+        <Loader
+          divStyle={{
+            marginTop: '45vh',
+          }}
+        />
       ) : (
         <div
           className={`column ajc wh100`}

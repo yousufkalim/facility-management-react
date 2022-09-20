@@ -186,7 +186,7 @@ const AddBuilding = ({ cb, handleClose }) => {
                 marginBottom: '8px',
               }}
               onChange={(e) => {
-                setTitle(e.target.value);
+                setTitle(e.target.value.replace('.', ''));
               }}
             />
             <div className="colors_btn_container">

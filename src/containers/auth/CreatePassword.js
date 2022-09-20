@@ -230,7 +230,11 @@ const CreatePassword = () => {
           </div>
         </div>
         <Backdrop open={isProcessing}>
-          <Loader />
+          <Loader
+            divStyle={{
+              marginTop: '45vh',
+            }}
+          />
         </Backdrop>
       </div>
     </>

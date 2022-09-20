@@ -182,7 +182,11 @@ const EditScreen = ({
             display: show ? 'flex' : 'none',
           }}
         >
-          <Loader />
+          <Loader
+            divStyle={{
+              marginTop: '45vh',
+            }}
+          />
         </div>
       ) : (
         <div

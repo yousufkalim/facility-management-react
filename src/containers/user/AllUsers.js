@@ -261,7 +261,11 @@ const AllUsers = () => {
     <>
       <UXL appBarText={t('Users')}>
         {store.allUsers.isLoading ? (
-          <Loader />
+          <Loader
+            divStyle={{
+              marginTop: '45vh',
+            }}
+          />
         ) : (
           <div
             className="row uxl_children_container"
@@ -645,7 +649,6 @@ const AllUsers = () => {
 function UserCard(props) {
   const updateStore = UpdateStore();
   const store = Store();
-  console.log(props, 'props');
   return (
     <>
       <div

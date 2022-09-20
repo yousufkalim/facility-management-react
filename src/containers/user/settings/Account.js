@@ -289,7 +289,11 @@ const Account = ({ userInfo }) => {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <Loader
+          divStyle={{
+            marginTop: '45vh',
+          }}
+        />
       ) : (
         <div
           className="row uxl_children_container"

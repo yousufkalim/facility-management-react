@@ -168,7 +168,11 @@ function StatisticsScreen() {
   return (
     <UXL appBarText={t('Statistics')}>
       {store.statistics.isLoading ? (
-        <Loader />
+        <Loader
+          divStyle={{
+            marginTop: '45vh',
+          }}
+        />
       ) : (
         <div
           className={`${exportpdf ? 'blurClass ' : ''} column wh100`}

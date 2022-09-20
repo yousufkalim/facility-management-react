@@ -135,7 +135,7 @@ function SideBar({ color, sticky = true, divStyle }) {
         ...animationProps,
       }}
     >
-      {user.roleSerial == 1 ? (
+      {user?.roleSerial == 1 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrTop.map((_, __) => (
@@ -157,7 +157,7 @@ function SideBar({ color, sticky = true, divStyle }) {
         <></>
       )}
 
-      {user.roleSerial == 2 ? (
+      {user?.roleSerial == 2 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrTopUser.map((_, __) => (
@@ -179,7 +179,7 @@ function SideBar({ color, sticky = true, divStyle }) {
         <></>
       )}
 
-      {user.roleSerial == 1 ? (
+      {user?.roleSerial == 1 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrBottom.map((_, __) => (
@@ -200,7 +200,7 @@ function SideBar({ color, sticky = true, divStyle }) {
       ) : (
         <></>
       )}
-      {user.roleSerial == 2 ? (
+      {user?.roleSerial == 2 ? (
         <div className="sidebar_top">
           <div className="sidebar_column1">
             {svgArrBottomUser.map((_, __) => (

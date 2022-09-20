@@ -61,7 +61,11 @@ const Catogories = (props) => {
   return (
     <>
       {store?.settings?.allCategories?.isLoading ? (
-        <Loader />
+        <Loader
+          divStyle={{
+            marginTop: '45vh',
+          }}
+        />
       ) : (
         <div className="wh100" style={{ marginTop: '3%' }}>
           <div style={{ width: '93%' }} className="user_profile_info">
