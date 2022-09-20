@@ -248,7 +248,7 @@ function DashboardScreen() {
           setRenderAddTicket={setRenderAddTicket}
           text={
             user?.roleSerial == 1
-              ? "Administratrice ne peut pas créer de ticket tant que l'administrateur n'a pas attribué de bâtiment à votre profil"
+              ? "veuillez d'abord ajouter un bâtiment"
               : "l'utilisateur ne peut pas créer de ticket tant que l'administrateur n'a pas attribué de bâtiment à votre profil"
           }
         />

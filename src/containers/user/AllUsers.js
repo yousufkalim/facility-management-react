@@ -160,11 +160,9 @@ const AllUsers = () => {
     const _buildings = await getBuildings();
 
     let _user;
-    // if (_invitedUsers?.length > 0) {
-    //   _user = await getUserInfo(activeuser ? activeuser : _invitedUsers[0].userId);
-    // } else
-
-    if (_users?.length > 0) {
+    if (_invitedUsers?.length > 0 && _users?.length == 0) {
+      _user = await getUserInfo(_invitedUsers[0].userId);
+    } else if (_users?.length > 0) {
       _user = await getUserInfo(activeuser ? activeuser : _users[0].userId);
     }
 
@@ -212,6 +210,7 @@ const AllUsers = () => {
     let response;
     try {
       response = await Api('get', `/Users/getAll/${user.id}`);
+      console.log(response, 'response');
       const _users = response.data.data;
       return _users;
     } catch (e) {
@@ -331,9 +330,157 @@ const AllUsers = () => {
               )}
               <div style={{ marginTop: '30px' }} />
             </div>
+            {!store?.allUsers?.user ? (
+              <>
+                <div className="footer_image_container">
+                  <img className="footer_image" src={FooterSVG} />
+                  <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
+                    <div style={{ width: '91.3%' }} className="user_profile_info">
+                      <div style={{ visibility: 'hidden' }} className="form_container">
+                        <div className="input_image_container">
+                          <img
+                            className="input_image"
+                            style={{ borderRadius: '50%' }}
+                            src={store?.allUsers?.user?.profilePicture ? store?.allUsers?.user?.profilePicture : ProfileSVG}
+                          />
+                        </div>
+                        <div className="input_container">
+                          <div className="input_row edit_btn_inputs_row" style={{ width: '100%' }}>
+                            <div className="label_input_container">
+                              <label className="row_label">Prénom</label>
+                              <input value={store?.allUsers?.user?.firstName} />
+                            </div>
+                            <div className="label_input_container">
+                              <label className="row_label">Nom de famille</label>
+                              <input value={store?.allUsers?.user?.lastName} />
+                            </div>
+                            <div
+                              className="row ajc"
+                              style={{
+                                height: '60%',
+                                padding: width < 992 ? '8px 5%' : '0 5%',
+                                backgroundColor: '#F4F4F4',
+                                borderRadius: '20px',
+                                cursor: 'pointer',
+                              }}
+                              onClick={() => handleAddUserOpen(true)}
+                            >
+                              <img src={EditSVG} style={{ height: '30%', paddingRight: '10%' }} />
+                              <p style={{ fontSize: '12px' }}>Éditer</p>
+                            </div>
+                          </div>
+                          <div className="label_input_container">
+                            <label>E-mail</label>
+                            <input value={store?.allUsers?.user?.email} />
+                          </div>
+                          <div className="label_input_container">
+                            <label>Numéro de portable</label>
+                            <input value={store?.allUsers?.user?.phoneNo} />
+                          </div>
+                          {/* <div style={{ display: 'flex', width: '65%' }} className="input_row">
+                          <div className="label_input_container">
+                            <label className="row_label">Entreprise</label>
+                            <input value={store.allUsers.user.enterprise ?? ''} />
+                          </div>
+                        </div> */}
+                        </div>
+                      </div>
+                      <div style={{ visibility: 'hidden' }} className="configuration_conatiner">
+                        <div>
+                          <span style={{ color: '#2F696D' }}>Configuration</span>
+                          <p>
+                            Attention, la modification d'un des champs ci-dessous peut provoquer la désassignaiton automatique de
+                            l'utilisateur sur des tickets
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                          className="tickets_container"
+                        >
+                          <div className="tickets-status_container">
+                            <p> Rôle</p>
+                            <p className="responsable-span" style={{}}>
+                              Responsable
+                            </p>
+                            <p
+                              style={{
+                                fontWeight: 'normal',
+                                fontSize: '12px',
+                              }}
+                            >
+                              Bâtiment accessibles
+                            </p>
+                            <div style={{ flexWrap: 'wrap' }} className="row">
+                              {store?.allUsers?.user?.allowedBuildings?.map((_) => (
+                                // <SelectableTag
+                                //   {..._}
+                                //   text={_.text}
+                                //   isSelected={building == _.value}
+                                //   onClick={() => setBuilding(_.value)}
+                                //   pStyle={{
+                                //     padding: '6pt',
+                                //     fontWeight: '600'
+                                //   }}
+                                // />
+                                <SelectableTag
+                                  {..._}
+                                  text={_.name}
+                                  categorieslevelscolor={_.color}
+                                  disabled={true}
+                                  icon={true}
+                                  isSelected={true}
+                                  onClick={() => setBuilding(_.value)}
+                                  pStyle={{
+                                    padding: '6pt',
+                                    fontWeight: '600',
+                                  }}
+                                />
+                              ))}
+                            </div>
+                            {/* <p
+                            style={{
+                              fontWeight: 'normal',
+                              fontSize: '12px',
+                              marginTop: '1%',
+                            }}
+                          >
+                            Alertes par mail
+                          </p>
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            {switches?.map((val) => (
+                              <>
+                                <div className="tickets_icon_btn_container">
+                                  <div style={{ width: '50%' }}>
+                                    <img className="tickets_icon_btn" src={val?.image} />
+                                    <span className="tickets_icon_btn_span">{val?.text}</span>
+                                  </div>
+                                  <div>
+                                    <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} />
+                                  </div>
+                                </div>
+                              </>
+                            ))}
+                          </div> */}
+                          </div>
+                        </div>
+                      </div>
 
-            {!store.allUsers.user ? (
-              <></>
+                      <div className="add-user-btn">
+                        <CustomButton
+                          text="Ajouter un utilisateur ➕"
+                          onClick={() => handleAddUserOpen(false)}
+                          style={{
+                            position: 'absolute',
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
             ) : (
               <div className="footer_image_container">
                 <img className="footer_image" src={FooterSVG} />
@@ -344,18 +491,18 @@ const AllUsers = () => {
                         <img
                           className="input_image"
                           style={{ borderRadius: '50%' }}
-                          src={store.allUsers.user.profilePicture ? store.allUsers.user.profilePicture : ProfileSVG}
+                          src={store?.allUsers?.user?.profilePicture ? store?.allUsers?.user?.profilePicture : ProfileSVG}
                         />
                       </div>
                       <div className="input_container">
                         <div className="input_row edit_btn_inputs_row" style={{ width: '100%' }}>
                           <div className="label_input_container">
                             <label className="row_label">Prénom</label>
-                            <input value={store.allUsers.user.firstName} />
+                            <input value={store?.allUsers?.user?.firstName} />
                           </div>
                           <div className="label_input_container">
                             <label className="row_label">Nom de famille</label>
-                            <input value={store.allUsers.user.lastName} />
+                            <input value={store?.allUsers?.user?.lastName} />
                           </div>
                           <div
                             className="row ajc"
@@ -374,11 +521,11 @@ const AllUsers = () => {
                         </div>
                         <div className="label_input_container">
                           <label>E-mail</label>
-                          <input value={store.allUsers.user.email} />
+                          <input value={store?.allUsers?.user?.email} />
                         </div>
                         <div className="label_input_container">
                           <label>Numéro de portable</label>
-                          <input value={store.allUsers.user.phoneNo} />
+                          <input value={store?.allUsers?.user?.phoneNo} />
                         </div>
                         {/* <div style={{ display: 'flex', width: '65%' }} className="input_row">
                           <div className="label_input_container">
@@ -470,6 +617,7 @@ const AllUsers = () => {
                         </div>
                       </div>
                     </div>
+
                     <div className="add-user-btn">
                       <CustomButton
                         text="Ajouter un utilisateur ➕"
@@ -483,6 +631,7 @@ const AllUsers = () => {
                 </div>
               </div>
             )}
+
             <Modal open={addUserOpen} onClose={() => handleAddUserClose()} aria-labelledby="Add User" aria-describedby="Add User">
               <AddUser existingUser={editUser} userTileCB={userTileCB} cb={_load} handleClose={handleAddUserClose} />
             </Modal>
@@ -496,6 +645,7 @@ const AllUsers = () => {
 function UserCard(props) {
   const updateStore = UpdateStore();
   const store = Store();
+  console.log(props, 'props');
   return (
     <>
       <div

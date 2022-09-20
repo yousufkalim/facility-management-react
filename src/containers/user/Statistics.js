@@ -154,6 +154,7 @@ function StatisticsScreen() {
     let response;
     try {
       response = await Api('get', `/dashboard/currentweek_casefile_details/${user.id}`);
+      console.log(response, 'response');
       const _statistics = response.data.data;
       return _statistics;
     } catch (e) {
@@ -258,7 +259,6 @@ function StatisticsScreen() {
                   marginBottom: '5px',
                 }}
               >
-                {' '}
                 <button
                   disabled
                   style={{
@@ -282,7 +282,6 @@ function StatisticsScreen() {
                   marginBottom: '5px',
                 }}
               >
-                {' '}
                 <button
                   onClick={navToStatisticsReport}
                   style={{
