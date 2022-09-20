@@ -56,7 +56,11 @@ const Buildings = (props) => {
   return (
     <>
       {store?.settings?.allBuildings?.isLoading ? (
-        <Loader />
+        <Loader
+          divStyle={{
+            marginTop: '45vh',
+          }}
+        />
       ) : (
         <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
           <div style={{ width: '93%' }} className="user_profile_info">

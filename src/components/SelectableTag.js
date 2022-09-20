@@ -48,15 +48,17 @@ function SelectableTag({
         //   }}
         //   src={SBSettingsBuildingIconUnSelected}
         // />
-        <BuildingSvgComponent
-          style={{
-            height: '14px',
-            width: '14px',
-            margin: '0 5pt',
-            ...imgStyle,
-          }}
-          color={isSelected ? (categorieslevelscolor ? categorieslevelscolor : '#ffffff') : ''}
-        />
+        <div>
+          <BuildingSvgComponent
+            style={{
+              height: '14px',
+              width: '14px',
+              margin: '0 5pt',
+              ...imgStyle,
+            }}
+            color={isSelected ? (categorieslevelscolor ? categorieslevelscolor : '#ffffff') : ''}
+          />
+        </div>
       ) : (
         <></>
       )}

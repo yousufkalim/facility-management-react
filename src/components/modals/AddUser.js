@@ -273,7 +273,11 @@ const AddUser = ({ existingUser, cb, handleClose, userTileCB }) => {
     <>
       <Box className="allusers_modal">
         {store.addUser.isLoading ? (
-          <Loader />
+          <Loader
+            divStyle={{
+              marginTop: '45vh',
+            }}
+          />
         ) : (
           <>
             <div className="modal_parent_container">
