@@ -311,7 +311,7 @@ const Account = ({ userInfo }) => {
             <div style={{ width: '100%', height: '100%', marginTop: '3%' }}>
               <div
                 style={{
-                  width: width < 575 || userInfo?.roleSerial == 2 ? '95%' : '90%',
+                  width: width < 575 || userInfo?.roleSerial == 2 ? '93%' : '90%',
                   height: '90%',
                   overflow: 'unset',
                 }}

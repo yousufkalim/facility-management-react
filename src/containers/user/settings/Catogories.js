@@ -60,7 +60,7 @@ const Catogories = (props) => {
 
   return (
     <>
-      {store.settings.allCategories.isLoading ? (
+      {store?.settings?.allCategories?.isLoading ? (
         <Loader />
       ) : (
         <div className="wh100" style={{ marginTop: '3%' }}>
@@ -73,11 +73,11 @@ const Catogories = (props) => {
                 <div>Action</div>
               </div>
             </div>
-            {store.settings.allCategories.categories.map((_) => (
+            {store?.settings?.allCategories?.categories?.map((_) => (
               <CategoryListTile {..._} />
             ))}
 
-            {store.settings.allCategories.toAdd ? <AddCategory /> : <></>}
+            {store?.settings?.allCategories?.toAdd ? <AddCategory /> : <></>}
             <div
               style={{
                 position: 'fixed',

@@ -120,6 +120,8 @@ function AppBar({ color, sticky = true, text, disableSearch = true, divStyle }) 
                 fontSize: '18px',
                 fontWeight: '600',
                 color: '#44787B',
+                position: 'absolute',
+                right: '22%',
               }}
             >
               {text}
