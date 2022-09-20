@@ -1,4 +1,5 @@
 export default function createMarkup(data) {
+  console.log(data, 'dat');
   return {
     __html: `
         <div style="height: 100%; width: 100%">

@@ -94,7 +94,7 @@ function StatisticsReportScreen() {
     setWeeksData(_weeksData);
 
     setIsLoading(false);
-
+    console.log(_data, '_data');
     exportPdf(_data);
   };
 
@@ -102,6 +102,7 @@ function StatisticsReportScreen() {
     let response;
     try {
       response = await Api('get', `/dashboard/template_casefile_details/${user.id}`);
+      console.log(response, 'response');
       return response?.data?.data;
     } catch (error) {}
   };

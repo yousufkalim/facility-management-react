@@ -735,7 +735,7 @@ function TicketListTile(props) {
                 color: props?.colorCode,
               }}
             >
-              {props.building.length > 25 ? props.building.slice(0, 25) + '..' : props.building}
+              {props.building.length > 20 ? props.building.slice(0, 20) + '..' : props.building}
             </p>
           </div>
         </div>
